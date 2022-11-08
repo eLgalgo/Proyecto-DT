@@ -55,6 +55,7 @@ public class Principal {
 						GUser gUser = new GUser(usuario.get(0), listFuncionalidades);
 						gUser.getFrame().setVisible(true);
 						login.getFrame().dispose();
+						System.out.println("Debe ser borrado este syso");
 						gUser. btnNewButton.addActionListener(new ActionListener() {
 				        	public void actionPerformed(ActionEvent e) {
 				        		List<FUNCIONALIDADES> funcsUser = usuario.get(0).getRol().getFunc();
