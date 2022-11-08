@@ -29,13 +29,13 @@ public class Principal {
 		
 		RolBeanRemote rolBean = (RolBeanRemote)
 				//Nombre de EJB Project/NombreBean!NombrePaqueteServicios.NombreDeBeanRemote del Bean inicial
-				InitialContext.doLookup("EjerEnterpriseEJB/RolBean!com.services.RolBeanRemote");
+				InitialContext.doLookup("EjEnterpriseEJB/RolBean!com.services.RolBeanRemote");
 		
 		UsuarioBeanRemote userBean = (UsuarioBeanRemote)
-				InitialContext.doLookup("EjerEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 		
 		FuncionalidadBeanRemote funcBean = (FuncionalidadBeanRemote)
-				InitialContext.doLookup("EjerEnterpriseEJB/FuncionalidadBean!com.services.FuncionalidadBeanRemote");
+				InitialContext.doLookup("EjEnterpriseEJB/FuncionalidadBean!com.services.FuncionalidadBeanRemote");
 		
 		Login login = new Login();
 		login.getFrame().setVisible(true);
