@@ -22,7 +22,7 @@ import com.services.FuncionalidadBeanRemote;
 import com.services.RolBeanRemote;
 import com.services.UsuarioBeanRemote;
 
-public class Principal {
+public class Principal{
 	
 	public static void main(String[] args) throws NamingException, ServiciosException {
 		// TODO Auto-generated method stub
