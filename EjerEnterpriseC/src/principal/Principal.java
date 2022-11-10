@@ -274,8 +274,6 @@ public class Principal {
 		rolBean.asignFunctoRol(4, 3);
 		
 		userBean.asignRoltoUser(1, 1);
-		System.out.println("Linea2");
-		System.out.println("Linea20");
 	}
 
 }
