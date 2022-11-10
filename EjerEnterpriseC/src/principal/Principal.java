@@ -275,6 +275,7 @@ public class Principal {
 		
 		userBean.asignRoltoUser(1, 1);
 		System.out.println("Linea2");
+		System.out.println("Linea20");
 	}
 
 }
