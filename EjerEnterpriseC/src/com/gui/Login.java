@@ -15,10 +15,14 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.entities.FUNCIONALIDADES;
+import com.entities.USUARIOS;
+import com.exception.ServiciosException;
 import com.services.FuncionalidadBeanRemote;
 import com.services.RolBeanRemote;
 import com.services.UsuarioBeanRemote;
@@ -27,6 +31,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class Login{
@@ -42,15 +47,17 @@ public class Login{
 
 	/**
 	 * Create the application.
+	 * @throws NamingException 
 	 */
-	public Login() {
+	public Login() throws NamingException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws NamingException 
 	 */
-	private void initialize() {
+	private void initialize() throws NamingException {
 		frmProgramaIncreible = new JFrame();
 		frmProgramaIncreible.setTitle("Programa Increible");
 		frmProgramaIncreible.setBackground(Color.WHITE);
@@ -97,7 +104,44 @@ public class Login{
 		tfContra.setBounds(58, 130, 157, 27);
 		frmProgramaIncreible.getContentPane().add(tfContra);
 		frmProgramaIncreible.setLocationRelativeTo(null);
-			
+		
+		//Logica
+		
+		RolBeanRemote rolBean = (RolBeanRemote)
+				//Nombre de EJB Project/NombreBean!NombrePaqueteServicios.NombreDeBeanRemote del Bean inicial
+				InitialContext.doLookup("EjEnterpriseEJB/RolBean!com.services.RolBeanRemote");
+		
+		UsuarioBeanRemote userBean = (UsuarioBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
+		FuncionalidadBeanRemote funcBean = (FuncionalidadBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/FuncionalidadBean!com.services.FuncionalidadBeanRemote");
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String email = tfUser.getText();
+				String clave = tfContra.getText();
+				
+				try {
+					List<USUARIOS> usuario = userBean.findUser(email, clave);
+					if(usuario.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
+					}else {
+						List<FUNCIONALIDADES> listFuncionalidades = funcBean.listAllFuncionalidad();
+						System.out.println(listFuncionalidades);
+						GUser gUser = new GUser(usuario.get(0), listFuncionalidades);
+						gUser.getFrame().setVisible(true);
+						getFrame().dispose();
+					}
+				} catch (ServiciosException e1) {
+					e1.printStackTrace();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		
 	}
 	

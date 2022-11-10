@@ -11,6 +11,11 @@ import javax.swing.border.EmptyBorder;
 
 import com.entities.FUNCIONALIDADES;
 import com.entities.ROLES;
+import com.entities.USUARIOS;
+import com.exception.ServiciosException;
+import com.services.FuncionalidadBeanRemote;
+import com.services.RolBeanRemote;
+import com.services.UsuarioBeanRemote;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -18,6 +23,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -46,7 +53,7 @@ public class GUI extends JFrame {
 	public JButton btnActualizar;
 	public JButton btnVolver;
 
-	public GUI(List<ROLES> listRoles) {
+	public GUI(USUARIOS usuario, List<FUNCIONALIDADES> listFuncs, List<ROLES> listRoles) throws NamingException {
 		setResizable(false);
 		setTitle("Administrador de Personas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -140,5 +147,100 @@ public class GUI extends JFrame {
 		btnVolver.setBounds(313, 212, 111, 38);
 		contentPane.add(btnVolver);
 		
+		//Logica
+		
+		RolBeanRemote rolBean = (RolBeanRemote)
+				//Nombre de EJB Project/NombreBean!NombrePaqueteServicios.NombreDeBeanRemote del Bean inicial
+				InitialContext.doLookup("EjEnterpriseEJB/RolBean!com.services.RolBeanRemote");
+		
+		UsuarioBeanRemote userBean = (UsuarioBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
+		FuncionalidadBeanRemote funcBean = (FuncionalidadBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/FuncionalidadBean!com.services.FuncionalidadBeanRemote");
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				USUARIOS user1 = new USUARIOS();
+				user1.setNombre(tfNombre.getText());
+				user1.setApellido(tfApellido.getText());
+				user1.setDocumento(tfDocumento.getText());
+				user1.setEmail(tfEmail.getText());
+				user1.setClave(tfClave.getText());
+				
+				try {
+					List<USUARIOS> list = userBean.findUser(tfDocumento.getText());
+					if(list.isEmpty()) {
+						userBean.addUser(user1);
+						System.out.println();
+						userBean.asignRoltoUser(rolBean.listAllRoles().get(comboBox.getSelectedIndex()).getId(),
+								userBean.findUser(tfEmail.getText(), 
+										tfClave.getText()).get(0).getId());
+						JOptionPane.showMessageDialog(null, "Usuario agregado con exito");
+					}else {
+						JOptionPane.showMessageDialog(null, "Usuario ya existente en el sistema");
+					}
+					
+				} catch (ServiciosException e1) {
+					
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int input = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar?");
+		        // 0=yes, 1=no, 2=cancel
+				if(input == 0) {
+					String documento = tfDocumento.getText();
+    				try {
+						userBean.deleteUser(documento);
+						JOptionPane.showMessageDialog(null, "Usuario eliminado con exito");
+					} catch (ServiciosException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				USUARIOS user = new USUARIOS();
+				try {
+					user = userBean.findUser(tfDocumento.getText()).get(0);
+					user.setNombre(tfNombre.getText());
+    				user.setApellido(tfApellido.getText());
+    				user.setDocumento(tfDocumento.getText());
+    				user.setEmail(tfEmail.getText());
+    				user.setClave(tfClave.getText());
+    				user.setRol(rolBean.listAllRoles().get(comboBox.getSelectedIndex()));
+    				
+				} catch (ServiciosException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
+					userBean.editUser(user);
+					JOptionPane.showMessageDialog(null, "Actualizado con exito");
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUser guser = null;
+				try {
+					guser = new GUser(usuario, listFuncs);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				guser.getFrame().setVisible(true);
+				dispose();
+			}
+		});
+		
 	}
+	
 }
