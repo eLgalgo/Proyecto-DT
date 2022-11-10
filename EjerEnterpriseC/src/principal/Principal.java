@@ -18,6 +18,7 @@ import com.exception.ServiciosException;
 import com.gui.GUI;
 import com.gui.GUser;
 import com.gui.Login;
+import com.gui.Ppal_Analista;
 import com.services.FuncionalidadBeanRemote;
 import com.services.RolBeanRemote;
 import com.services.UsuarioBeanRemote;
@@ -99,11 +100,7 @@ public class Principal{
 		rolBean.asignFunctoRol(4, 3);
 		
 		userBean.asignRoltoUser(1, 1);
-	System.out.println("patata");
-	System.out.println("Patataaaasdas");
 
-	System.out.println("Tremebundo");
-	System.out.println("Casas");
 	}
 
 }
