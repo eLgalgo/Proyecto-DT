@@ -48,7 +48,7 @@ public class Principal{
 				try {
 					List<USUARIOS> usuario = userBean.findUser(email, clave);
 					if(usuario.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
+						JOptionPane.showMessageDialog(null, "Usuario o ContraseÃ±a Incorrecta");
 					}else {
 						List<FUNCIONALIDADES> listFuncionalidades = funcBean.listAllFuncionalidad();
 						System.out.println(listFuncionalidades);
@@ -100,7 +100,7 @@ public class Principal{
 					        		});
 					        		ventanaAlta.btnEliminar.addActionListener(new ActionListener() {
 					        			public void actionPerformed(ActionEvent e) {
-					        				int input = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar?");
+					        				int input = JOptionPane.showConfirmDialog(null, "Â¿Seguro que quiere eliminar?");
 					        		        // 0=yes, 1=no, 2=cancel
 					        				if(input == 0) {
 					        					String documento = ventanaAlta.tfDocumento.getText();
@@ -167,7 +167,7 @@ public class Principal{
 									}
 								}
 								if(bandera) {
-									JOptionPane.showMessageDialog(null, "¡Tiene Acceso!");
+									JOptionPane.showMessageDialog(null, "Â¡Tiene Acceso!");
 								}else {
 									JOptionPane.showMessageDialog(null, "No tiene Acceso D:");
 								}
@@ -184,7 +184,7 @@ public class Principal{
 									}
 								}
 								if(bandera) {
-									JOptionPane.showMessageDialog(null, "¡Tiene Acceso!");
+									JOptionPane.showMessageDialog(null, "Â¡Tiene Acceso!");
 								}else {
 									JOptionPane.showMessageDialog(null, "No tiene Acceso D:");
 								}
@@ -201,7 +201,7 @@ public class Principal{
 									}
 								}
 								if(bandera) {
-									JOptionPane.showMessageDialog(null, "¡Tiene Acceso!");
+									JOptionPane.showMessageDialog(null, "Â¡Tiene Acceso!");
 								}else {
 									JOptionPane.showMessageDialog(null, "No tiene Acceso D:");
 								}
@@ -276,6 +276,8 @@ public class Principal{
 		userBean.asignRoltoUser(1, 1);
 	System.out.println("patata");
 	System.out.println("Patataaaasdas");
+
+	System.out.println("Tremebundo");
 	System.out.println("Casas");
 	}
 
