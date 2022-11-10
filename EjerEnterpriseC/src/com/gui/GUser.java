@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.CardLayout;
@@ -17,6 +19,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.entities.FUNCIONALIDADES;
 import com.entities.USUARIOS;
+import com.exception.ServiciosException;
+import com.services.FuncionalidadBeanRemote;
+import com.services.RolBeanRemote;
+import com.services.UsuarioBeanRemote;
 
 import java.awt.Color;
 
@@ -35,7 +41,7 @@ public class GUser
         System.out.println(e.getActionCommand());
     }
 
-    public GUser(USUARIOS user, List<FUNCIONALIDADES> listFuncs) {
+    public GUser(USUARIOS usuario, List<FUNCIONALIDADES> listFuncs) throws NamingException {
         frame = new JFrame();
 		frame.setBackground(Color.WHITE);
 		frame.setResizable(false);
@@ -49,7 +55,7 @@ public class GUser
         frame.setLocationRelativeTo(null);
         
         
-		List<FUNCIONALIDADES> auxListFunc = user.getRol().getFunc();
+		List<FUNCIONALIDADES> auxListFunc = usuario.getRol().getFunc();
 		
 		ArrayList<String> arrayModeloString = new ArrayList<String>();
 		for(FUNCIONALIDADES s: auxListFunc) {
@@ -142,11 +148,114 @@ public class GUser
         lblVentanaPrincipal.setFont(new Font("SimSun", Font.PLAIN, 28));
         lblVentanaPrincipal.setBounds(10, 11, 502, 30);
         frame.getContentPane().add(lblVentanaPrincipal);
-        frame.setTitle("Gesti\u00F3n de Usuario - " + user.getRol().getNombre());
+        frame.setTitle("Gesti\u00F3n de Usuario - " + usuario.getRol().getNombre());
      
         frame.setSize(538, 347);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        
+        //Logica
+        
+        RolBeanRemote rolBean = (RolBeanRemote)
+				//Nombre de EJB Project/NombreBean!NombrePaqueteServicios.NombreDeBeanRemote del Bean inicial
+				InitialContext.doLookup("EjEnterpriseEJB/RolBean!com.services.RolBeanRemote");
+		
+		UsuarioBeanRemote userBean = (UsuarioBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
+		FuncionalidadBeanRemote funcBean = (FuncionalidadBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/FuncionalidadBean!com.services.FuncionalidadBeanRemote");
+		
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		List<FUNCIONALIDADES> funcsUser = usuario.getRol().getFunc();
+				boolean bandera = false;
+				for(FUNCIONALIDADES f:funcsUser) {
+					if(f.getNombre().equals("Asignar Funcionalidad a Rol")) {
+						bandera = true;
+						break;
+					}
+				}
+				if(bandera) {
+					GUI ventanaAlta = null;
+					try {
+						ventanaAlta = new GUI(usuario, listFuncs, rolBean.listAllRoles());
+					} catch (NamingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	        		ventanaAlta.setVisible(true);
+	        		getFrame().dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "No tiene Acceso D:");
+				}
+        		
+        	}
+        });
+       btnCerrar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Login login = null;
+				try {
+					login = new Login();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		login.getFrame().setVisible(true);
+        		getFrame().dispose();
+        	}
+        });
+		btnFunc2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		List<FUNCIONALIDADES> funcsUser = usuario.getRol().getFunc();
+				boolean bandera = false;
+				for(FUNCIONALIDADES f:funcsUser) {
+					if(f.getNombre().equals("Listado de Roles")) {
+						bandera = true;
+						break;
+					}
+				}
+				if(bandera) {
+					JOptionPane.showMessageDialog(null, "¡Tiene Acceso!");
+				}else {
+					JOptionPane.showMessageDialog(null, "No tiene Acceso D:");
+				}
+        	}
+        });
+		btnFunc3.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		List<FUNCIONALIDADES> funcsUser = usuario.getRol().getFunc();
+				boolean bandera = false;
+				for(FUNCIONALIDADES f:funcsUser) {
+					if(f.getNombre().equals("Asignar Funcionalidad a Rol")) {
+						bandera = true;
+						break;
+					}
+				}
+				if(bandera) {
+					JOptionPane.showMessageDialog(null, "¡Tiene Acceso!");
+				}else {
+					JOptionPane.showMessageDialog(null, "No tiene Acceso D:");
+				}
+        	}
+        });
+		btnFunc4.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		List<FUNCIONALIDADES> funcsUser = usuario.getRol().getFunc();
+				boolean bandera = false;
+				for(FUNCIONALIDADES f:funcsUser) {
+					if(f.getNombre().equals("Crear nuevo Dios")) {
+						bandera = true;
+						break;
+					}
+				}
+				if(bandera) {
+					JOptionPane.showMessageDialog(null, "¡Tiene Acceso!");
+				}else {
+					JOptionPane.showMessageDialog(null, "No tiene Acceso D:");
+				}
+        	}
+        });
 
     }
     
