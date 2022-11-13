@@ -244,6 +244,7 @@ public class Mod_Estudiante {
 		tfEmail.setText(usuario.getMail());
 		tfUsuario.setText(usuario.getNom_usuario());
 		tfGeneracion.setText(usuario.getGeneracion());
+		tfSemestre.setValue(usuario.getSemestre());
 		
 		//Logica
 		
@@ -261,13 +262,25 @@ public class Mod_Estudiante {
 		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					usuario.setApellido(tfApellido.getText());
-					usuario.setNombre(tfNombre.getText());
-					try {
-						estudianteBean.editEstudiante((ESTUDIANTE) usuario);
-					} catch (ServiciosException e1) {
-						e1.printStackTrace();
-					}
+				
+				usuario.setApellido(tfApellido.getText());
+				usuario.setNombre(tfNombre.getText());
+				usuario.setContrasena(tfContraseña.getText());
+				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
+				usuario.setMail(tfEmail.getText());
+				usuario.setTelefono(tfTelefono.getText());
+				usuario.setNom_usuario(tfUsuario.getText());
+				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+				usuario.setGenero(Genero.valueOf(comboBoxGen.getSelectedItem().toString()));
+				usuario.setLocalidad(Localidad.valueOf(comboBoxLocal.getSelectedItem().toString()));
+				usuario.setGeneracion(tfGeneracion.getText());
+				usuario.setSemestre(Integer.parseInt(tfSemestre.getValue().toString()));
+				
+				try {
+					estudianteBean.editEstudiante((ESTUDIANTE) usuario);
+				} catch (ServiciosException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		

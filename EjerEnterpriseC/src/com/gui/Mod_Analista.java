@@ -221,6 +221,12 @@ public class Mod_Analista {
 			public void actionPerformed(ActionEvent e) {
 					usuario.setApellido(tfApellido.getText());
 					usuario.setNombre(tfNombre.getText());
+					usuario.setContrasena(tfContraseña.getText());
+					usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
+					usuario.setMail(tfEmail.getText());
+					usuario.setTelefono(tfTelefono.getText());
+					usuario.setNom_usuario(tfUsuario.getText());
+					usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 					try {
 						analistaBean.editAnalista((ANALISTA) usuario);
 					} catch (ServiciosException e1) {

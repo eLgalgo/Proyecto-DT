@@ -247,13 +247,22 @@ public class Mod_Tutor {
 		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					usuario.setApellido(tfApellido.getText());
-					usuario.setNombre(tfNombre.getText());
-					try {
-						tutorBean.editTutor((TUTOR) usuario);
-					} catch (ServiciosException e1) {
-						e1.printStackTrace();
-					}
+				usuario.setApellido(tfApellido.getText());
+				usuario.setNombre(tfNombre.getText());
+				usuario.setContrasena(tfContraseña.getText());
+				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
+				usuario.setMail(tfEmail.getText());
+				usuario.setTelefono(tfTelefono.getText());
+				usuario.setNom_usuario(tfUsuario.getText());
+				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+				usuario.setArea(tfArea.getText());
+				usuario.setTipo(tfTipo.getText());
+				
+				try {
+					tutorBean.editTutor((TUTOR) usuario);
+				} catch (ServiciosException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
