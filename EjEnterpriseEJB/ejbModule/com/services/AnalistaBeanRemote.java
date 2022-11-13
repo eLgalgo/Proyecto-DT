@@ -12,5 +12,5 @@ public interface AnalistaBeanRemote {
 	
 	public void addAnalista(ANALISTA user) throws ServiciosException;
 
-	void editUser(ANALISTA user) throws ServiciosException;
+	void editAnalista(ANALISTA user) throws ServiciosException;
 }

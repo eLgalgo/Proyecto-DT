@@ -27,7 +27,7 @@ public interface EstudianteBeanRemote {
 	
 	public void deleteUser(String doc) throws ServiciosException;
 	
-	public void editUser(USUARIO user) throws ServiciosException;
+	public void editEstudiante(ESTUDIANTE user) throws ServiciosException;
 	
 	public void asignRoltoUser(int idRol, int idUser)throws ServiciosException;
 }

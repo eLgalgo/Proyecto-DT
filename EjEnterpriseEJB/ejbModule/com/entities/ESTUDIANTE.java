@@ -6,6 +6,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.enums.Genero;
+import com.enums.Localidad;
+
 /**
  * Entity implementation class for Entity: ESTUDIANTE
  *
@@ -16,11 +19,13 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 	
 	private String generacion;
 	
-	private String localidad;
+	@Enumerated(value = EnumType.STRING)
+	private Localidad localidad;
 	
 	private LocalDate fec_nac;
 	
-	private String genero;
+	@Enumerated(value = EnumType.STRING)
+	private Genero genero;
 	
 	private int semestre;
 	
@@ -36,11 +41,11 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 		this.generacion = generacion;
 	}
 
-	public String getLocalidad() {
+	public Localidad getLocalidad() {
 		return localidad;
 	}
 
-	public void setLocalidad(String localidad) {
+	public void setLocalidad(Localidad localidad) {
 		this.localidad = localidad;
 	}
 
@@ -52,11 +57,11 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 		this.fec_nac = fec_nac;
 	}
 
-	public String getGenero() {
+	public Genero getGenero() {
 		return genero;
 	}
 
-	public void setGenero(String genero) {
+	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
 
@@ -67,6 +72,8 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 	public void setSemestre(int semestre) {
 		this.semestre = semestre;
 	}
+
+	
 
 	
 	

@@ -13,6 +13,9 @@ import javax.persistence.TypedQuery;
 
 import com.entities.ESTUDIANTE;
 import com.entities.USUARIO;
+import com.enums.Departamento;
+import com.enums.Genero;
+import com.enums.Localidad;
 import com.exception.ServiciosException;
 
 /**
@@ -75,22 +78,26 @@ public class EstudianteBean implements EstudianteBeanRemote {
 	}
 
 	@Override
-	public void editUser(USUARIO user) throws ServiciosException {
+	public void editEstudiante(ESTUDIANTE user) throws ServiciosException {
 		try{
-			System.out.println(user);
 			
-//			USUARIO user2 = em.find(USUARIO.class, user.getId());
-//			user2.setNombre(user.getNombre());
-//			user2.setApellido(user.getApellido());
-//			user2.setEmail(user.getEmail());
-//			user2.setClave(user.getClave());
-//			user2.setRol(user.getRol());
-//			
-//			System.out.println(user2);
-//			
-//
-//			em.merge(user2);
-//			em.flush();
+			ESTUDIANTE user2 = em.find(ESTUDIANTE.class, user.getId_usuario());
+			user2.setNombre(user.getNombre());
+			user2.setApellido(user.getApellido());
+			user2.setDocumento(user.getDocumento());
+			user2.setMail(user.getMail());
+			user2.setContrasena(user.getContrasena());
+			user2.setDepartamento(user.getDepartamento());
+			user2.setLocalidad(user.getLocalidad());
+			user2.setTelefono(user.getTelefono());
+			user2.setNom_usuario(user.getNom_usuario());
+			user2.setGeneracion(user.getGeneracion());
+			user2.setGenero(user.getGenero());
+			user2.setSemestre(user.getSemestre());
+			user2.setItr_s(user.getItr_s());
+			
+			em.merge(user2);
+			em.flush();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo actualizar el usario");
 		}

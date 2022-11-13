@@ -18,6 +18,9 @@ import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.entities.ANALISTA;
+import com.entities.ESTUDIANTE;
+import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -75,11 +78,11 @@ public class ListUsers{
 		frmListadoDeUsuarios.setIconImage(Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
 		frmListadoDeUsuarios.getContentPane().setBackground(Color.WHITE);
 		frmListadoDeUsuarios.setResizable(false);
-		frmListadoDeUsuarios.setBounds(100, 100, 494, 291);
+		frmListadoDeUsuarios.setBounds(100, 100, 547, 327);
 		frmListadoDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		btnNewButton = new JButton("Volver");
-		btnNewButton.setBounds(10, 216, 110, 25);
+		btnNewButton.setBounds(10, 252, 110, 25);
 		btnNewButton.setFont(new Font("SimSun", Font.BOLD, 13));
 		
 		lblNewLabel = new JLabel("");
@@ -107,17 +110,17 @@ public class ListUsers{
 	}
 	
 	private void crearTablaPersona() {
-		String[] columnas = {"ID", "Nombre", "Apellido", "Departamento","Documento", "Telefono", "Email"};
+		String[] columnas = {"ID", "Nombre", "Apellido", "Departamento","Documento", "Telefono", "Email", "Tipo"};
 		tabla = new JTable();
 		modelo = new DefaultTableModel(){
 		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
 		};
 		
 		JButton btnNewButton_2 = new JButton("Modificar");
-		btnNewButton_2.setBounds(358, 216, 110, 25);
+		btnNewButton_2.setBounds(411, 252, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 40, 458, 165);
+		desplazamiento.setBounds(10, 40, 511, 201);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -134,7 +137,7 @@ public class ListUsers{
 		lblListadoDeUsuarios = new JLabel("Listado de Usuarios");
 		lblListadoDeUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
 		lblListadoDeUsuarios.setFont(new Font("SimSun", Font.PLAIN, 18));
-		lblListadoDeUsuarios.setBounds(10, 14, 458, 15);
+		lblListadoDeUsuarios.setBounds(10, 14, 511, 15);
 		frmListadoDeUsuarios.getContentPane().add(lblListadoDeUsuarios);
 	}
 	private void agregarDatosLista(DefaultTableModel modelo, List<USUARIO> list) throws NamingException {
@@ -153,7 +156,7 @@ public class ListUsers{
        modelo.setRowCount(0);
        
        // Creamos los datos de una fila de la tabla
-       Object[] datosFila = {"", "", "", "","","","",""};
+       Object[] datosFila = {"", "", "", "","","","","", ""};
        
        // Agregamos MUCHOS mas datos
        for (USUARIO p : list) {
@@ -164,6 +167,13 @@ public class ListUsers{
            datosFila[4] = p.getDocumento();
            datosFila[5] = p.getTelefono();
            datosFila[6] = p.getMail();
+           if(p instanceof ANALISTA) {
+        	   datosFila[7] = "Analista";
+           }else if(p instanceof TUTOR) {
+        	   datosFila[7] = "Tutor";
+           }else if(p instanceof ESTUDIANTE) {
+        	   datosFila[7] = "Estudiante";
+           }
            
            modelo.addRow(datosFila);
        }
@@ -175,12 +185,26 @@ public class ListUsers{
     	    		{
     	          if (evnt.getClickCount() == 1)
     	          {
-    	          	Mod_Usuario modUserW = null;
+    	          	Mod_Estudiante modEstudW = null;
 					try {
 						USUARIO user = usuarioBean.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString())).get(0);
-						modUserW = new Mod_Usuario(user);
-						modUserW.getFrame().setLocationRelativeTo(null);
-						getFrame().dispose();
+						if(user instanceof ESTUDIANTE) {
+							modEstudW = new Mod_Estudiante((ESTUDIANTE) user);
+							modEstudW.getFrame().setVisible(true);
+							modEstudW.getFrame().setLocationRelativeTo(null);
+							getFrame().dispose();
+						}else if(user instanceof ANALISTA) {
+							Mod_Analista modAnalistW = new Mod_Analista((ANALISTA) user);
+							modAnalistW.getFrame().setVisible(true);
+							modAnalistW.getFrame().setLocationRelativeTo(null);
+							getFrame().dispose();
+						}else if(user instanceof TUTOR) {
+							Mod_Tutor modTutorW = new Mod_Tutor((TUTOR) user);
+							modTutorW.getFrame().setVisible(true);
+							modTutorW.getFrame().setLocationRelativeTo(null);
+							getFrame().dispose();
+						}
+						
 						
 					} catch (NamingException e) {
 						e.printStackTrace();
@@ -189,8 +213,6 @@ public class ListUsers{
 					} catch (ServiciosException e) {
 						e.printStackTrace();
 					}
-    	          	modUserW.getFrame().setVisible(true);
-    	          	getFrame().dispose();
     	          }
     	    		}
     	    	}

@@ -12,4 +12,6 @@ public interface TutorBeanRemote {
 
 	
 	public void addTutor(TUTOR user) throws ServiciosException;
+
+	void editTutor(TUTOR user) throws ServiciosException;
 }

@@ -5,7 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import com.entities.ANALISTA;
+import com.entities.ESTUDIANTE;
+import com.entities.ITR;
+import com.entities.TUTOR;
 import com.entities.USUARIO;
+import com.enums.Departamento;
+import com.enums.Genero;
+import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -26,11 +33,15 @@ import java.awt.Toolkit;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
+import javax.swing.SwingConstants;
 
-public class Mod_Usuario {
+public class Mod_Estudiante {
 
 	private JFrame frmModificacionDeUsuario;
 	private JTextField tfTelefono;
@@ -39,11 +50,13 @@ public class Mod_Usuario {
 	private JPasswordField tfContraseña;
 	private JTextField tfNombre;
 	private JTextField tfApellido;
+	private JTextField tfDocumento;
+	private JTextField tfGeneracion;
 
 	/**
 	 * Create the application.
 	 */
-	public Mod_Usuario(USUARIO usuario) throws NamingException{
+	public Mod_Estudiante(ESTUDIANTE usuario) throws NamingException{
 		initialize(usuario);
 	}
 
@@ -51,17 +64,17 @@ public class Mod_Usuario {
 	 * Initialize the contents of the frame.
 	 * @throws NamingException 
 	 */
-	private void initialize(USUARIO usuario) throws NamingException {
+	private void initialize(ESTUDIANTE usuario) throws NamingException {
 		frmModificacionDeUsuario = new JFrame();
-		frmModificacionDeUsuario.setTitle("Modificacion de Usuario");
+		frmModificacionDeUsuario.setTitle("Modificacion de Estudiante");
 		frmModificacionDeUsuario.setResizable(false);
 		frmModificacionDeUsuario.setIconImage(Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
 		frmModificacionDeUsuario.getContentPane().setBackground(Color.WHITE);
 		frmModificacionDeUsuario.getContentPane().setLayout(null);
 		frmModificacionDeUsuario.setLocationRelativeTo(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("MODIFICACI\u00D3N DE USUARIO");
-		lblNewLabel_2.setBounds(10, 11, 203, 34);
+		JLabel lblNewLabel_2 = new JLabel("MODIFICACI\u00D3N DE ESTUDIANTE");
+		lblNewLabel_2.setBounds(10, 11, 414, 34);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_2);
@@ -90,13 +103,15 @@ public class Mod_Usuario {
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Localidad");
 		lblNewLabel_1_2.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2.setBounds(10, 208, 64, 14);
+		lblNewLabel_1_2.setBounds(151, 155, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2);
 		
-		JComboBox comboBoxLocal = new JComboBox();
+		JComboBox<Localidad> comboBoxLocal = new javax.swing.JComboBox<>();
 		comboBoxLocal.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxLocal.setBounds(10, 228, 131, 22);
+		comboBoxLocal.setBounds(151, 175, 131, 22);
+		comboBoxLocal.setModel(new DefaultComboBoxModel(Localidad.values()));
 		frmModificacionDeUsuario.getContentPane().add(comboBoxLocal);
+		
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Departamento");
 		lblNewLabel_1_2_1.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -105,27 +120,33 @@ public class Mod_Usuario {
 		
 		JLabel lblNewLabel_1_2_1_1 = new JLabel("G\u00E9nero");
 		lblNewLabel_1_2_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1_1.setBounds(151, 154, 52, 14);
+		lblNewLabel_1_2_1_1.setBounds(10, 208, 52, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1);
 		
-		JComboBox comboBoxDep = new JComboBox();
+		JComboBox<Departamento> comboBoxDep = new javax.swing.JComboBox<>();
 		comboBoxDep.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxDep.setBounds(151, 124, 131, 22);
+		comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
 		frmModificacionDeUsuario.getContentPane().add(comboBoxDep);
 		
-		JComboBox comboBoxGen = new JComboBox();
+		JComboBox<Genero> comboBoxGen = new javax.swing.JComboBox<>();
 		comboBoxGen.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxGen.setBounds(151, 176, 62, 22);
+		comboBoxGen.setBounds(10, 230, 62, 22);
+		comboBoxGen.setModel(new DefaultComboBoxModel(Genero.values()));
 		frmModificacionDeUsuario.getContentPane().add(comboBoxGen);
 		
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1_1_1.setBounds(218, 154, 42, 14);
+		lblNewLabel_1_2_1_1_1.setBounds(77, 208, 42, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1_1);
 		
-		JComboBox comboBoxItr = new JComboBox();
+		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxItr.setBounds(218, 176, 64, 22);
+		comboBoxItr.setBounds(77, 230, 64, 22);
+		List<ITR> listItr = usuario.getItr_s();
+		for(ITR elemento : listItr) {
+		    comboBoxItr.addItem(elemento.getNombre());
+		}
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
@@ -158,11 +179,6 @@ public class Mod_Usuario {
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnCancelar.setBounds(327, 255, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\modUser.png"));
-		lblNewLabel_3.setBounds(258, 235, 46, 43);
-		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_3);
 		frmModificacionDeUsuario.setBounds(100, 100, 450, 325);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -180,13 +196,46 @@ public class Mod_Usuario {
 		tfApellido = new JTextField();
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
-		tfApellido.setBounds(293, 70, 131, 20);
+		tfApellido.setBounds(151, 69, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfApellido);
 		
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblApellido.setBounds(293, 46, 64, 14);
+		lblApellido.setBounds(151, 45, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblApellido);
+		
+		tfDocumento = new JTextField();
+		tfDocumento.setText((String) null);
+		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfDocumento.setColumns(10);
+		tfDocumento.setBounds(293, 70, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfDocumento);
+		
+		JLabel lblDocumento = new JLabel("Documento");
+		lblDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblDocumento.setBounds(293, 46, 64, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblDocumento);
+		
+		tfGeneracion = new JTextField();
+		tfGeneracion.setText((String) null);
+		tfGeneracion.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfGeneracion.setColumns(10);
+		tfGeneracion.setBounds(151, 231, 64, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfGeneracion);
+		
+		JLabel lblGen = new JLabel("Gen");
+		lblGen.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblGen.setBounds(151, 208, 64, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblGen);
+		
+		JSpinner tfSemestre = new JSpinner();
+		tfSemestre.setBounds(225, 231, 64, 21);
+		frmModificacionDeUsuario.getContentPane().add(tfSemestre);
+		
+		JLabel lblSemestre = new JLabel("Semestre");
+		lblSemestre.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblSemestre.setBounds(225, 208, 64, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblSemestre);
 		
 		tfContraseña.setText(usuario.getContrasena());
 		tfNombre.setText(usuario.getNombre());
@@ -194,6 +243,7 @@ public class Mod_Usuario {
 		tfTelefono.setText(usuario.getTelefono());
 		tfEmail.setText(usuario.getMail());
 		tfUsuario.setText(usuario.getNom_usuario());
+		tfGeneracion.setText(usuario.getGeneracion());
 		
 		//Logica
 		
@@ -211,8 +261,13 @@ public class Mod_Usuario {
 		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+					usuario.setApellido(tfApellido.getText());
+					usuario.setNombre(tfNombre.getText());
+					try {
+						estudianteBean.editEstudiante((ESTUDIANTE) usuario);
+					} catch (ServiciosException e1) {
+						e1.printStackTrace();
+					}
 			}
 		});
 		

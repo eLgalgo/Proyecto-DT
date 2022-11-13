@@ -3,8 +3,11 @@ package com.entities;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+import com.enums.Departamento;
 
 /**
  * Entity implementation class for Entity: USUARIOS
@@ -36,7 +39,11 @@ public abstract class USUARIO implements Serializable{
 	
 	private String contrasena;
 	
-	private String departamento;
+	@Enumerated(value = EnumType.STRING)
+	private Departamento departamento;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<ITR> itr_s;
 	
 	public USUARIO() {
 		super();
@@ -106,12 +113,20 @@ public abstract class USUARIO implements Serializable{
 		this.contrasena = contrasena;
 	}
 
-	public String getDepartamento() {
+	public Departamento getDepartamento() {
 		return departamento;
 	}
 
-	public void setDepartamento(String departamento) {
+	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+
+	public List<ITR> getItr_s() {
+		return itr_s;
+	}
+
+	public void setItr_s(List<ITR> itr_s) {
+		this.itr_s = itr_s;
 	}
 
 	
