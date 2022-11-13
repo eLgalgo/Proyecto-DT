@@ -4,14 +4,14 @@ import java.util.List;
 
 
 
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import com.entities.ROLES;
-import com.entities.USUARIOS;
+import com.entities.USUARIO;
 import com.exception.ServiciosException;
 
 /**
@@ -35,25 +35,25 @@ public class UsuarioBean implements UsuarioBeanRemote {
     
 
 	@Override
-	public List<USUARIOS> listAllUsers() throws ServiciosException{
-		TypedQuery<USUARIOS> query = em.createQuery("SELECT m FROM USUARIOS m",USUARIOS.class); 
+	public List<USUARIO> listAllUsers() throws ServiciosException{
+		TypedQuery<USUARIO> query = em.createQuery("SELECT m FROM USUARIO m",USUARIO.class); 
 		return query.getResultList();
 	}
 
 	@Override
-	public List<USUARIOS> findUser(String email, String clave) throws ServiciosException{
-		TypedQuery<USUARIOS> query = em.createQuery("SELECT u FROM USUARIOS u WHERE u.email = :email and u.clave= '" +clave+"'",USUARIOS.class).setParameter("email", email); 
+	public List<USUARIO> findUser(String nom_user, String clave) throws ServiciosException{
+		TypedQuery<USUARIO> query = em.createQuery("SELECT u FROM USUARIO u WHERE u.nom_usuario = :nom_usuario and u.contrasena= '" +clave+"'",USUARIO.class).setParameter("nom_usuario", nom_user); 
 		return query.getResultList();
 	}
 	
 	@Override
-	public List<USUARIOS> findUser(String doc) throws ServiciosException{
-		TypedQuery<USUARIOS> query = em.createQuery("SELECT u FROM USUARIOS u WHERE u.documento = :doc",USUARIOS.class).setParameter("doc", doc); 
+	public List<USUARIO> findUser(int doc) throws ServiciosException{
+		TypedQuery<USUARIO> query = em.createQuery("SELECT u FROM USUARIO u WHERE u.documento = :doc",USUARIO.class).setParameter("doc", doc); 
 		return query.getResultList();
 	}
 
 	@Override
-	public void addUser(USUARIOS user) throws ServiciosException {
+	public void addUser(USUARIO user) throws ServiciosException {
 		// TODO Auto-generated method stub
 		try{
 			em.persist(user);
@@ -64,9 +64,9 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	public void deleteUser(String doc) throws ServiciosException{
+	public void deleteUser(int doc) throws ServiciosException{
 		try{
-			USUARIOS a = this.findUser(doc).get(0);
+			USUARIO a = this.findUser(doc).get(0);
 			em.remove(a);
 			em.flush();
 		}catch(PersistenceException e){
@@ -75,22 +75,22 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	public void editUser(USUARIOS user) throws ServiciosException {
+	public void editUser(USUARIO user) throws ServiciosException {
 		try{
-			System.out.println(user);
-			
-			USUARIOS user2 = em.find(USUARIOS.class, user.getId());
-			user2.setNombre(user.getNombre());
-			user2.setApellido(user.getApellido());
-			user2.setEmail(user.getEmail());
-			user2.setClave(user.getClave());
-			user2.setRol(user.getRol());
-			
-			System.out.println(user2);
-			
-
-			em.merge(user2);
-			em.flush();
+//			System.out.println(user);
+//			
+//			USUARIO user2 = em.find(USUARIO.class, user.getId());
+//			user2.setNombre(user.getNombre());
+//			user2.setApellido(user.getApellido());
+//			user2.setEmail(user.getEmail());
+//			user2.setClave(user.getClave());
+//			user2.setRol(user.getRol());
+//			
+//			System.out.println(user2);
+//			
+//
+//			em.merge(user2);
+//			em.flush();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo actualizar el usario");
 		}
@@ -98,22 +98,22 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	public List<USUARIOS> obtenerTodos(String filtro) {
-		TypedQuery<USUARIOS> query = em.createQuery("SELECT d FROM USUARIOS d WHERE d.nombre LIKE :nombre",USUARIOS.class)
+	public List<USUARIO> obtenerTodos(String filtro) {
+		TypedQuery<USUARIO> query = em.createQuery("SELECT d FROM USUARIOS d WHERE d.nombre LIKE :nombre",USUARIO.class)
 				.setParameter("nombre", filtro); 
 		return query.getResultList();
 	}
 	
 	public void asignRoltoUser(int idRol, int idUser) throws ServiciosException{
 		try{
-			ROLES r = em.find(ROLES.class, idRol);
-			USUARIOS user = em.find(USUARIOS.class, idUser);
-			
-			user.setRol(r);
-
-			em.merge(user);
-			em.flush();
-			System.out.println("Se actualizo el rol del usuario");
+//			ROLES r = em.find(ROLES.class, idRol);
+//			USUARIOS user = em.find(USUARIOS.class, idUser);
+//			
+//			user.setRol(r);
+//
+//			em.merge(user);
+//			em.flush();
+//			System.out.println("Se actualizo el rol del usuario");
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo actualizar el usuario");
 		}
