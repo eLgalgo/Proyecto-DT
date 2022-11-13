@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import java.awt.event.*;
+
+import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.CardLayout;
@@ -37,47 +39,47 @@ public class Ppal_Tutor extends JFrame
         
         JButton btnNewButton = new JButton("");
         btnNewButton.setBounds(69, 59, 70, 70);
-        btnNewButton.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\icons8-event-accepted-tentatively-48 - copia.png"));
+        btnNewButton.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-event-accepted-tentatively-48 - copia.png")));
         btnNewButton.setBackground(Color.WHITE);
         
         JButton btnNewButton_1 = new JButton("");
         btnNewButton_1.setBounds(69, 210, 70, 70);
-        btnNewButton_1.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchEvent.png"));
+        btnNewButton_1.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchEvent.png")));
         btnNewButton_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_1_1 = new JButton("");
         btnNewButton_1_1.setBounds(396, 210, 70, 70);
-        btnNewButton_1_1.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchJust.png"));
+        btnNewButton_1_1.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchJust.png")));
         btnNewButton_1_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_2 = new JButton("");
         btnNewButton_2.setBounds(223, 59, 70, 70);
-        btnNewButton_2.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\icons8-event-accepted-tentatively-48 - copia - copia.png"));
+        btnNewButton_2.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-event-accepted-tentatively-48 - copia - copia.png")));
         btnNewButton_2.setBackground(Color.WHITE);
         
         JButton btnNewButton_3 = new JButton("");
         btnNewButton_3.setBounds(223, 210, 70, 70);
-        btnNewButton_3.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchReclam.png"));
+        btnNewButton_3.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_3.setBackground(Color.WHITE);
         
         JButton btnNewButton_4 = new JButton("");
         btnNewButton_4.setBounds(562, 210, 70, 70);
-        btnNewButton_4.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchConst.png"));
+        btnNewButton_4.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchConst.png")));
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
         btnNewButton_5.setBounds(396, 59, 70, 70);
-        btnNewButton_5.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\icons8-event-declined-48.png"));
+        btnNewButton_5.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-event-declined-48.png")));
         btnNewButton_5.setBackground(Color.WHITE);
         
         JButton btnNewButton_6 = new JButton("");
         btnNewButton_6.setBounds(562, 363, 70, 70);
-        btnNewButton_6.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\CloseSession.png"));
+        btnNewButton_6.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/CloseSession.png")));
         btnNewButton_6.setBackground(Color.WHITE);
         
         JButton btnNewButton_9 = new JButton("");
         btnNewButton_9.setBounds(562, 59, 70, 70);
-        btnNewButton_9.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\icons8-search-contacts-48.png"));
+        btnNewButton_9.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-search-contacts-48.png")));
         btnNewButton_9.setBackground(Color.WHITE);
         
         JLabel lblNewLabel = new JLabel("Nuevo");
@@ -284,6 +286,22 @@ public class Ppal_Tutor extends JFrame
         setSize(720, 570);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        
+        //Logica botones
+        
+        btnNewButton_6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Login login = null;
+				try {
+					login = new Login();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		login.getFrame().setVisible(true);
+        		dispose();
+        	}
+        });
     }
     public static void main(String[] args) {
         new Ppal_Tutor();

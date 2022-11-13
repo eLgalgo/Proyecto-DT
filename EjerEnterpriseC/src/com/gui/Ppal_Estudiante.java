@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import java.awt.event.*;
+
+import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.CardLayout;
@@ -41,47 +43,47 @@ public class Ppal_Estudiante extends JFrame
         
         JButton btnNewButton = new JButton("");
         btnNewButton.setBounds(118, 59, 70, 70);
-        btnNewButton.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\newConst.png"));
+        btnNewButton.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newConst.png")));
         btnNewButton.setBackground(Color.WHITE);
         
         JButton btnNewButton_1 = new JButton("");
         btnNewButton_1.setBounds(118, 177, 70, 70);
-        btnNewButton_1.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchEvent.png"));
+        btnNewButton_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchEvent.png")));
         btnNewButton_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_1_1 = new JButton("");
         btnNewButton_1_1.setBounds(463, 177, 70, 70);
-        btnNewButton_1_1.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchJust.png"));
+        btnNewButton_1_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchJust.png")));
         btnNewButton_1_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_2 = new JButton("");
         btnNewButton_2.setBounds(287, 59, 70, 70);
-        btnNewButton_2.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\newReclam.png"));
+        btnNewButton_2.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newReclam.png")));
         btnNewButton_2.setBackground(Color.WHITE);
         
         JButton btnNewButton_3 = new JButton("");
         btnNewButton_3.setBounds(654, 59, 70, 70);
-        btnNewButton_3.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchReclam.png"));
+        btnNewButton_3.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_3.setBackground(Color.WHITE);
         
         JButton btnNewButton_4 = new JButton("");
         btnNewButton_4.setBounds(118, 307, 70, 70);
-        btnNewButton_4.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\cancelEvento.png"));
+        btnNewButton_4.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/cancelEvento.png")));
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
         btnNewButton_5.setBounds(463, 59, 70, 70);
-        btnNewButton_5.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\newJust.png"));
+        btnNewButton_5.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newJust.png")));
         btnNewButton_5.setBackground(Color.WHITE);
         
         JButton btnNewButton_6 = new JButton("");
         btnNewButton_6.setBounds(654, 360, 70, 70);
-        btnNewButton_6.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\CloseSession.png"));
+        btnNewButton_6.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/CloseSession.png")));
         btnNewButton_6.setBackground(Color.WHITE);
         
         JButton btnNewButton_9 = new JButton("");
         btnNewButton_9.setBounds(287, 177, 70, 70);
-        btnNewButton_9.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\acceptEvento.png"));
+        btnNewButton_9.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/acceptEvento.png")));
         btnNewButton_9.setBackground(Color.WHITE);
         
         JLabel lblNewLabel = new JLabel("Nueva");
@@ -154,7 +156,7 @@ public class Ppal_Estudiante extends JFrame
         
         JButton btnNewButton_6_1 = new JButton("");
         btnNewButton_6_1.setBounds(654, 177, 70, 70);
-        btnNewButton_6_1.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\searchConst.png"));
+        btnNewButton_6_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchConst.png")));
         btnNewButton_6_1.setBackground(Color.WHITE);
         
         JLabel lblModificar_1_1_1_1_1_1_1_2 = new JLabel("Buscar");
@@ -294,6 +296,22 @@ public class Ppal_Estudiante extends JFrame
         setSize(838, 547);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        
+        //Logica botones
+        
+        btnNewButton_6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Login login = null;
+				try {
+					login = new Login();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		login.getFrame().setVisible(true);
+        		dispose();
+        	}
+        });
     }
     public static void main(String[] args) {
         new Ppal_Estudiante();

@@ -7,6 +7,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import java.awt.event.*;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.CardLayout;
@@ -15,6 +18,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Label;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import com.exception.ServiciosException;
+import com.services.AnalistaBeanRemote;
+import com.services.EstudianteBeanRemote;
+import com.services.TutorBeanRemote;
+import com.services.UsuarioBeanRemote;
+
 import java.awt.Color;
 
 public class Ppal_Analista extends JFrame
@@ -32,7 +42,7 @@ public class Ppal_Analista extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Ppal_Analista() {
+    public Ppal_Analista() throws NamingException {
         super("Administración Secretaría");
         getContentPane().setBackground(Color.WHITE);
         
@@ -296,8 +306,47 @@ public class Ppal_Analista extends JFrame
         setSize(838, 579);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-    }
-    public static void main(String[] args) {
-        new Ppal_Analista();
+        
+        //Logica botones
+        
+        EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+		
+		TutorBeanRemote tutorBean = (TutorBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+		
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+		
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+        
+        btnNewButton_6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Login login = null;
+				try {
+					login = new Login();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		login.getFrame().setVisible(true);
+        		dispose();
+        	}
+        });
+        
+        btnNewButton_5.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ListUsers table = new ListUsers(usuarioBean.listAllUsers());
+					table.getFrame().setVisible(true);
+					table.getFrame().setLocationRelativeTo(null);
+					dispose();
+				} catch (ServiciosException | NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
     }
 }

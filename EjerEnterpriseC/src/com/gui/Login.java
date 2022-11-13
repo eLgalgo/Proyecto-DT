@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 
 
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -20,11 +21,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import com.entities.FUNCIONALIDADES;
-import com.entities.USUARIOS;
+import com.entities.ANALISTA;
+import com.entities.ESTUDIANTE;
+import com.entities.TUTOR;
+import com.entities.USUARIO;
 import com.exception.ServiciosException;
-import com.services.FuncionalidadBeanRemote;
-import com.services.RolBeanRemote;
+import com.services.AnalistaBeanRemote;
+import com.services.EstudianteBeanRemote;
+import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
 import java.awt.Color;
@@ -47,9 +51,8 @@ public class Login{
 
 	/**
 	 * Create the application.
-	 * @throws NamingException 
 	 */
-	public Login() throws NamingException {
+	public Login()throws NamingException  {
 		initialize();
 	}
 
@@ -105,44 +108,52 @@ public class Login{
 		frmProgramaIncreible.getContentPane().add(tfContra);
 		frmProgramaIncreible.setLocationRelativeTo(null);
 		
-		//Logica
+		//Logica botones
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 		
-		RolBeanRemote rolBean = (RolBeanRemote)
-				//Nombre de EJB Project/NombreBean!NombrePaqueteServicios.NombreDeBeanRemote del Bean inicial
-				InitialContext.doLookup("EjEnterpriseEJB/RolBean!com.services.RolBeanRemote");
+		TutorBeanRemote tutorBean = (TutorBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
 		
-		UsuarioBeanRemote userBean = (UsuarioBeanRemote)
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+		
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
-		FuncionalidadBeanRemote funcBean = (FuncionalidadBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/FuncionalidadBean!com.services.FuncionalidadBeanRemote");
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String email = tfUser.getText();
+				String nom_usuario = tfUser.getText();
 				String clave = tfContra.getText();
 				
 				try {
-					List<USUARIOS> usuario = userBean.findUser(email, clave);
+					List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);
 					if(usuario.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Usuario o ContraseÃ±a Incorrecta");
+						JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
 					}else {
-						List<FUNCIONALIDADES> listFuncionalidades = funcBean.listAllFuncionalidad();
-						System.out.println(listFuncionalidades);
-						GUser gUser = new GUser(usuario.get(0), listFuncionalidades);
-						gUser.getFrame().setVisible(true);
-						getFrame().dispose();
+						if(usuario.get(0) instanceof ESTUDIANTE) {
+							Ppal_Estudiante principalStudentW = new Ppal_Estudiante();
+							principalStudentW.setVisible(true);
+							principalStudentW.setLocationRelativeTo(null);
+							getFrame().dispose();
+						}else if(usuario.get(0) instanceof TUTOR) {
+							Ppal_Analista principalTutorW = new Ppal_Analista();
+							principalTutorW.setVisible(true);
+							principalTutorW.setLocationRelativeTo(null);
+							getFrame().dispose();
+						}else if(usuario.get(0) instanceof ANALISTA) {
+							Ppal_Tutor principalAnalistW = new Ppal_Tutor();
+							principalAnalistW.setVisible(true);
+							principalAnalistW.setLocationRelativeTo(null);
+							getFrame().dispose();
+						}
 					}
-				} catch (ServiciosException e1) {
-					e1.printStackTrace();
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
+				} catch (ServiciosException | NamingException e1) {
 					e1.printStackTrace();
 				}
 				
 			}
 		});
-		
 	}
 	
 	public JFrame getFrame() {
