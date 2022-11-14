@@ -11,6 +11,7 @@ import com.entities.ITR;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
+import com.enums.Estado;
 import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
@@ -73,7 +74,7 @@ public class Mod_Analista {
 		frmModificacionDeUsuario.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("MODIFICACI\u00D3N DE ANALISTA");
-		lblNewLabel_2.setBounds(10, 11, 414, 34);
+		lblNewLabel_2.setBounds(10, 11, 273, 34);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_2);
@@ -203,6 +204,14 @@ public class Mod_Analista {
 		tfUsuario.setText(usuario.getNom_usuario());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		
+		JComboBox<Estado> comboBoxEstado = new javax.swing.JComboBox<>();
+		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
+		comboBoxEstado.setBounds(10, 240, 131, 22);
+		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
+		comboBoxDep.setSelectedIndex(usuario.getEstado().ordinal());
+		
+		System.out.println(usuario.getEstado().ordinal());
 		//Logica
 		
         EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
@@ -227,6 +236,8 @@ public class Mod_Analista {
 					usuario.setTelefono(tfTelefono.getText());
 					usuario.setNom_usuario(tfUsuario.getText());
 					usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+					usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+					
 					try {
 						analistaBean.editAnalista((ANALISTA) usuario);
 					} catch (ServiciosException e1) {

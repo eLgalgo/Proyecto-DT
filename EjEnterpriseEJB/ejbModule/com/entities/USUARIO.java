@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.enums.Departamento;
+import com.enums.Estado;
 import com.enums.Localidad;
 
 /**
@@ -43,6 +44,17 @@ public abstract class USUARIO implements Serializable{
 	@Enumerated(value = EnumType.STRING)
 	private Departamento departamento;
 	
+	@Enumerated(value = EnumType.STRING)
+	private Estado estado;
+	
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 	private String localidad;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
