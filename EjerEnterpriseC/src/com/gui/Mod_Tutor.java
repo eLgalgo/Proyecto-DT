@@ -154,7 +154,7 @@ public class Mod_Tutor {
 		btnGuardar.setBounds(327, 223, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnCancelar.setBounds(327, 255, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);

@@ -1,32 +1,19 @@
 package principal;
 
-import java.awt.event.ActionEvent;
-
-
-import java.awt.event.ActionListener;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
 import javax.naming.InitialContext;
-
-
 import javax.naming.NamingException;
-import javax.swing.JOptionPane;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.ITR;
 import com.entities.TUTOR;
-import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.gui.Login;
-import com.gui.Ppal_Analista;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.ItrBeanRemote;
@@ -62,7 +49,7 @@ public class Principal{
 //		itrBean.addItr(itr1);
 //		
 //		ITR itr2 = new ITR();
-//		itr2.setDepartamento(Departamento.ARTGIAS);
+//		itr2.setDepartamento(Departamento.ARTIGAS);
 //		itr2.setNombre("ITR_N");
 //		itrBean.addItr(itr2);
 //		
@@ -78,8 +65,8 @@ public class Principal{
 //		user1.setDocumento(53158416);
 //		user1.setMail("c");
 //		user1.setContrasena("c");
-//		user1.setDepartamento(Departamento.ARTGIAS);
-//		user1.setLocalidad(Localidad.FRAY_BENTOS);
+//		user1.setDepartamento(Departamento.ARTIGAS);
+//		user1.setLocalidad("UNA");
 //		user1.setTelefono("tele");
 //		user1.setNom_usuario("c");
 //		user1.setGeneracion("2022");
