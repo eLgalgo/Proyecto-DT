@@ -38,10 +38,10 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	public List<USUARIO> findUser(String nom_user, String clave) throws ServiciosException {
+	public List<USUARIO> findUser(String mail_insti, String clave) throws ServiciosException {
 		TypedQuery<USUARIO> query = em.createQuery(
-				"SELECT u FROM USUARIO u WHERE u.nom_usuario = :nom_usuario and u.contrasena= '" + clave + "'",
-				USUARIO.class).setParameter("nom_usuario", nom_user);
+				"SELECT u FROM USUARIO u WHERE u.mail_insti = :mail_insti and u.contrasena= '" + clave + "'",
+				USUARIO.class).setParameter("mail_insti", mail_insti);
 		return query.getResultList();
 	}
 
