@@ -110,7 +110,7 @@ public class ListUsers{
 	}
 	
 	private void crearTablaPersona() {
-		String[] columnas = {"ID", "Nombre", "Apellido", "Departamento","Documento", "Telefono", "Email", "Tipo"};
+		String[] columnas = {"ID", "Nombre", "Apellido", "Departamento","Documento", "Telefono", "Email", "Tipo", "Estado"};
 		tabla = new JTable();
 		modelo = new DefaultTableModel(){
 		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
@@ -156,7 +156,7 @@ public class ListUsers{
        modelo.setRowCount(0);
        
        // Creamos los datos de una fila de la tabla
-       Object[] datosFila = {"", "", "", "","","","","", ""};
+       Object[] datosFila = {"", "", "", "", "", "", "", "", "", ""};
        
        // Agregamos MUCHOS mas datos
        for (USUARIO p : list) {
@@ -174,6 +174,7 @@ public class ListUsers{
            }else if(p instanceof ESTUDIANTE) {
         	   datosFila[7] = "Estudiante";
            }
+           datosFila[8] = p.getEstado().name();
            
            modelo.addRow(datosFila);
        }
@@ -185,11 +186,10 @@ public class ListUsers{
     	    		{
     	          if (evnt.getClickCount() == 1)
     	          {
-    	          	Mod_Estudiante modEstudW = null;
 					try {
 						USUARIO user = usuarioBean.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString())).get(0);
 						if(user instanceof ESTUDIANTE) {
-							modEstudW = new Mod_Estudiante((ESTUDIANTE) user);
+							Mod_Estudiante modEstudW = new Mod_Estudiante((ESTUDIANTE) user);
 							modEstudW.getFrame().setVisible(true);
 							modEstudW.getFrame().setLocationRelativeTo(null);
 							getFrame().dispose();
