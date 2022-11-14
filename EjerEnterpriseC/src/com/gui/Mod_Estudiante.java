@@ -34,9 +34,14 @@ import java.awt.Toolkit;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
@@ -269,6 +274,12 @@ public class Mod_Estudiante {
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(303, 232, 121, 20);
+		Calendar today = Calendar.getInstance();
+		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+		Date todayDate = today.getTime();
+		dateChooser.setMaxSelectableDate(todayDate);
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
 		frmModificacionDeUsuario.getContentPane().add(dateChooser);
 		
 		//Logica
@@ -301,6 +312,7 @@ public class Mod_Estudiante {
 				usuario.setGeneracion(tfGeneracion.getText());
 				usuario.setSemestre(Integer.parseInt(tfSemestre.getValue().toString()));
 				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				
 				try {
 					estudianteBean.editEstudiante((ESTUDIANTE) usuario);

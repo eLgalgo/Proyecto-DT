@@ -1,5 +1,8 @@
 package principal;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -63,7 +66,7 @@ public class Principal{
 		ESTUDIANTE user1 = new ESTUDIANTE();
 		user1.setNombre("Cristofer");
 		user1.setApellido("Cabrera");
-		user1.setDocumento(53158416);
+		user1.setDocumento(1);
 		user1.setMail("c");
 		user1.setContrasena("c");
 		user1.setDepartamento(Departamento.ARTIGAS);
@@ -75,13 +78,14 @@ public class Principal{
 		user1.setSemestre(1);
 		user1.setItr_s(itrS);
 		user1.setEstado(Estado.ACTIVO);
+		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		estudianteBean.addStudent(user1);
 		
 		TUTOR tutor = new TUTOR();
 		tutor.setNombre("fasgasa");
 		tutor.setApellido("casasfas");
-		tutor.setDocumento(53123);
+		tutor.setDocumento(2);
 		tutor.setMail("m");
 		tutor.setContrasena("t");
 		tutor.setDepartamento(Departamento.DURAZNO);
@@ -91,13 +95,14 @@ public class Principal{
 		tutor.setTipo("Tipo1");
 		tutor.setItr_s(itrS);
 		tutor.setEstado(Estado.ACTIVO);
+		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		tutorBean.addTutor(tutor);
 		
 		ANALISTA analista = new ANALISTA();
 		analista.setNombre("fasgasa");
 		analista.setApellido("casasfas");
-		analista.setDocumento(2315123);
+		analista.setDocumento(3);
 		analista.setMail("m");
 		analista.setContrasena("m");
 		analista.setDepartamento(Departamento.CANELONES);
@@ -105,6 +110,7 @@ public class Principal{
 		analista.setMail_insti("m");
 		analista.setItr_s(itrS);
 		analista.setEstado(Estado.ACTIVO);
+		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		analistaBean.addAnalista(analista);
 		

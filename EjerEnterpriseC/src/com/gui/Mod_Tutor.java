@@ -37,6 +37,10 @@ import javax.naming.NamingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
@@ -234,6 +238,7 @@ public class Mod_Tutor {
 		tfArea.setText(usuario.getArea());
 		tfTipo.setText(usuario.getTipo());
 		
+		
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setBounds(10, 285, 131, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
@@ -247,6 +252,12 @@ public class Mod_Tutor {
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(293, 232, 131, 20);
+		Calendar today = Calendar.getInstance();
+		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+		Date todayDate = today.getTime();
+		dateChooser.setMaxSelectableDate(todayDate);
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
 		frmModificacionDeUsuario.getContentPane().add(dateChooser);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
@@ -282,6 +293,7 @@ public class Mod_Tutor {
 				usuario.setArea(tfArea.getText());
 				usuario.setTipo(tfTipo.getText());
 				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				
 				try {
 					tutorBean.editTutor((TUTOR) usuario);
