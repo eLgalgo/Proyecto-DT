@@ -69,7 +69,7 @@ public class Principal{
 		user1.setDepartamento(Departamento.ARTIGAS);
 		user1.setLocalidad("UNA");
 		user1.setTelefono("tele");
-		user1.setNom_usuario("c");
+		user1.setMail_insti("c");
 		user1.setGeneracion("2022");
 		user1.setGenero(Genero.MACHO);
 		user1.setSemestre(1);
@@ -86,7 +86,7 @@ public class Principal{
 		tutor.setContrasena("t");
 		tutor.setDepartamento(Departamento.DURAZNO);
 		tutor.setTelefono("tele");
-		tutor.setNom_usuario("t");
+		tutor.setMail_insti("t");
 		tutor.setArea("Area1");
 		tutor.setTipo("Tipo1");
 		tutor.setItr_s(itrS);
@@ -102,7 +102,7 @@ public class Principal{
 		analista.setContrasena("m");
 		analista.setDepartamento(Departamento.CANELONES);
 		analista.setTelefono("tele");
-		analista.setNom_usuario("m");
+		analista.setMail_insti("m");
 		analista.setItr_s(itrS);
 		analista.setEstado(Estado.ACTIVO);
 		

@@ -47,7 +47,7 @@ public class Mod_Analista {
 	private JFrame frmModificacionDeUsuario;
 	private JTextField tfTelefono;
 	private JTextField tfEmail;
-	private JTextField tfUsuario;
+	private JTextField tfMailInsti;
 	private JPasswordField tfContraseña;
 	private JTextField tfNombre;
 	private JTextField tfApellido;
@@ -127,16 +127,16 @@ public class Mod_Analista {
 		}
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
-		JLabel lblUsuario = new JLabel("Usuario");
+		JLabel lblUsuario = new JLabel("Mail Institucional");
 		lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblUsuario.setBounds(293, 101, 64, 14);
+		lblUsuario.setBounds(293, 101, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblUsuario);
 		
-		tfUsuario = new JTextField();
-		tfUsuario.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfUsuario.setColumns(10);
-		tfUsuario.setBounds(293, 125, 131, 20);
-		frmModificacionDeUsuario.getContentPane().add(tfUsuario);
+		tfMailInsti = new JTextField();
+		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfMailInsti.setColumns(10);
+		tfMailInsti.setBounds(293, 125, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfMailInsti);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		lblContrasea.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -199,9 +199,9 @@ public class Mod_Analista {
 		tfApellido.setText(usuario.getApellido());
 		tfTelefono.setText(usuario.getTelefono());
 		tfEmail.setText(usuario.getMail());
-		tfUsuario.setText(usuario.getNom_usuario());
+		tfMailInsti.setText(usuario.getMail_insti());
 		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
-		tfUsuario.setText(usuario.getNom_usuario());
+		tfMailInsti.setText(usuario.getMail_insti());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		
 		JComboBox<Estado> comboBoxEstado = new javax.swing.JComboBox<>();
@@ -238,7 +238,7 @@ public class Mod_Analista {
 					usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					usuario.setMail(tfEmail.getText());
 					usuario.setTelefono(tfTelefono.getText());
-					usuario.setNom_usuario(tfUsuario.getText());
+					usuario.setMail_insti(tfMailInsti.getText());
 					usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 					usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
 					

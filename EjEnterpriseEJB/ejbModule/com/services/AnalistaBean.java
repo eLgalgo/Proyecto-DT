@@ -47,7 +47,7 @@ public class AnalistaBean implements AnalistaBeanRemote {
 			user2.setContrasena(user.getContrasena());
 			user2.setDepartamento(user.getDepartamento());
 			user2.setTelefono(user.getTelefono());
-			user2.setNom_usuario(user.getNom_usuario());
+			user2.setMail_insti(user.getMail_insti());
 			user2.setItr_s(user.getItr_s());
 			user2.setEstado(user.getEstado());
 			

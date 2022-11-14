@@ -47,7 +47,7 @@ public class Mod_Tutor {
 	private JFrame frmModificacionDeUsuario;
 	private JTextField tfTelefono;
 	private JTextField tfEmail;
-	private JTextField tfUsuario;
+	private JTextField tfMailInsti;
 	private JPasswordField tfContraseña;
 	private JTextField tfNombre;
 	private JTextField tfApellido;
@@ -134,11 +134,11 @@ public class Mod_Tutor {
 		lblUsuario.setBounds(293, 101, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblUsuario);
 		
-		tfUsuario = new JTextField();
-		tfUsuario.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfUsuario.setColumns(10);
-		tfUsuario.setBounds(293, 125, 131, 20);
-		frmModificacionDeUsuario.getContentPane().add(tfUsuario);
+		tfMailInsti = new JTextField();
+		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfMailInsti.setColumns(10);
+		tfMailInsti.setBounds(293, 125, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfMailInsti);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		lblContrasea.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -152,12 +152,12 @@ public class Mod_Tutor {
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(327, 236, 97, 23);
+		btnGuardar.setBounds(327, 251, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(327, 270, 97, 23);
+		btnCancelar.setBounds(327, 285, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
 		frmModificacionDeUsuario.setBounds(100, 100, 450, 357);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -225,9 +225,9 @@ public class Mod_Tutor {
 		tfApellido.setText(usuario.getApellido());
 		tfTelefono.setText(usuario.getTelefono());
 		tfEmail.setText(usuario.getMail());
-		tfUsuario.setText(usuario.getNom_usuario());
+		tfMailInsti.setText(usuario.getMail_insti());
 		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
-		tfUsuario.setText(usuario.getNom_usuario());
+		tfMailInsti.setText(usuario.getMail_insti());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		tfArea.setText(usuario.getArea());
 		tfTipo.setText(usuario.getTipo());
@@ -265,7 +265,7 @@ public class Mod_Tutor {
 				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 				usuario.setMail(tfEmail.getText());
 				usuario.setTelefono(tfTelefono.getText());
-				usuario.setNom_usuario(tfUsuario.getText());
+				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setArea(tfArea.getText());
 				usuario.setTipo(tfTipo.getText());

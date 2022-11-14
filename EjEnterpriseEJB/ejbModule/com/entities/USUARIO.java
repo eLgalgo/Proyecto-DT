@@ -37,7 +37,7 @@ public abstract class USUARIO implements Serializable{
 	
 	private String mail;
 	
-	private String nom_usuario;
+	private String mail_insti;
 	
 	private String contrasena;
 	
@@ -114,13 +114,6 @@ public abstract class USUARIO implements Serializable{
 		this.mail = mail.toUpperCase();
 	}
 
-	public String getNom_usuario() {
-		return nom_usuario;
-	}
-
-	public void setNom_usuario(String nom_usuario) {
-		this.nom_usuario = nom_usuario;
-	}
 
 	public String getContrasena() {
 		return contrasena;
@@ -169,9 +162,19 @@ public abstract class USUARIO implements Serializable{
 	@Override
 	public String toString() {
 		return id_usuario + " " + documento + " " + nombre + " "
-				+ apellido + " " + telefono + " " + mail + " " + nom_usuario
+				+ apellido + " " + telefono + " " + mail + " " + mail_insti
 				+ " " + fechaNac + " " + departamento + " " + estado + " "
 				+ localidad + " " + itr_s;
+	}
+
+	public String getMail_insti() {
+		return mail_insti;
+		
+	}
+
+	public void setMail_insti(String mail_insti) {
+		this.mail_insti = mail_insti;
+		
 	}
 
 	
