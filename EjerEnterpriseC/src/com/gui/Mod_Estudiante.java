@@ -175,7 +175,7 @@ public class Mod_Estudiante {
 		btnGuardar.setBounds(327, 223, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnCancelar.setBounds(327, 255, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
@@ -245,6 +245,7 @@ public class Mod_Estudiante {
 		tfUsuario.setText(usuario.getNom_usuario());
 		tfGeneracion.setText(usuario.getGeneracion());
 		tfSemestre.setValue(usuario.getSemestre());
+		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
 		
 		//Logica
 		
@@ -272,7 +273,7 @@ public class Mod_Estudiante {
 				usuario.setNom_usuario(tfUsuario.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setGenero(Genero.valueOf(comboBoxGen.getSelectedItem().toString()));
-				usuario.setLocalidad(Localidad.valueOf(comboBoxLocal.getSelectedItem().toString()));
+				//usuario.setLocalidad(null);
 				usuario.setGeneracion(tfGeneracion.getText());
 				usuario.setSemestre(Integer.parseInt(tfSemestre.getValue().toString()));
 				
