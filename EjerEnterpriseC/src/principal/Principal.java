@@ -1,22 +1,14 @@
 package principal;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-
 import javax.naming.NamingException;
-import javax.swing.JOptionPane;
 
 import com.entities.FUNCIONALIDADES;
 import com.entities.ROLES;
 import com.entities.USUARIOS;
 import com.exception.ServiciosException;
-import com.gui.GUI;
-import com.gui.GUser;
 import com.gui.Login;
 import com.services.FuncionalidadBeanRemote;
 import com.services.RolBeanRemote;
