@@ -132,6 +132,16 @@ public abstract class USUARIO implements Serializable{
 		this.itr_s = itr_s;
 	}
 
+	public String getLocalidad() {
+		return localidad;
+		
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+		
+	}
+
 	
 	
 	
