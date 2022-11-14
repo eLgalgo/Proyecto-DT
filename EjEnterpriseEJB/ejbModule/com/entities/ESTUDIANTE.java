@@ -38,13 +38,6 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 		this.generacion = generacion;
 	}
 
-	public Localidad getLocalidad() {
-		return localidad;
-	}
-
-	public void setLocalidad(Localidad localidad) {
-		this.localidad = localidad;
-	}
 
 	public LocalDate getFec_nac() {
 		return fec_nac;
