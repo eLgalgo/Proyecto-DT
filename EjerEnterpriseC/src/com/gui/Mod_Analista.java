@@ -208,8 +208,8 @@ public class Mod_Analista {
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 240, 131, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
-		comboBoxDep.setSelectedIndex(usuario.getEstado().ordinal());
 		
 		System.out.println(usuario.getEstado().ordinal());
 		//Logica

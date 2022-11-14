@@ -246,6 +246,8 @@ public class Mod_Estudiante {
 		tfGeneracion.setText(usuario.getGeneracion());
 		tfSemestre.setValue(usuario.getSemestre());
 		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
+		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
+		comboBoxGen.setSelectedIndex(usuario.getGenero().ordinal());
 		
 		//Logica
 		
