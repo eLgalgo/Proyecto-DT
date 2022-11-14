@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -25,14 +27,6 @@ import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
-
-import org.hibernate.boot.model.source.internal.hbm.ModelBinder;
-import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
-import org.hibernate.mapping.List;
-import org.hibernate.query.criteria.internal.predicate.IsEmptyPredicate;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Baja_Usuario {
 
