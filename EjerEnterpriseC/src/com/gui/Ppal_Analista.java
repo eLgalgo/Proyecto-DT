@@ -52,6 +52,7 @@ public class Ppal_Analista extends JFrame
         btnNewButton.setBackground(Color.WHITE);
         
         JButton btnNewButton_1 = new JButton("");
+        
         btnNewButton_1.setBounds(118, 193, 70, 70);
         btnNewButton_1.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchUser.png")));
         btnNewButton_1.setBackground(Color.WHITE);
@@ -349,6 +350,20 @@ public class Ppal_Analista extends JFrame
         });
         
         btnNewButton_5.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ListUsers table = new ListUsers(usuarioBean.listAllUsers());
+					table.getFrame().setVisible(true);
+					table.getFrame().setLocationRelativeTo(null);
+					dispose();
+				} catch (ServiciosException | NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        
+        btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					ListUsers table = new ListUsers(usuarioBean.listAllUsers());

@@ -24,6 +24,7 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
+import com.enums.Estado;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -51,16 +52,20 @@ import java.awt.Dimension;
 import javax.swing.ScrollPaneConstants;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
 
 public class ListUsers {
 
@@ -72,6 +77,7 @@ public class ListUsers {
 	private JLabel lblListadoDeUsuarios;
 	private JTextField txtFiltro;
 	private TableRowSorter trs;
+	private JComboBox comboBoxEstado;
 
 	/**
 	 * Create the application.
@@ -167,7 +173,7 @@ public class ListUsers {
 					public void keyReleased (final KeyEvent e) {
 						String s = txtFiltro.getText();
 						txtFiltro.setText(s);
-						Filtro();
+						FiltroCi();
 					}
 				});
 				
@@ -183,6 +189,13 @@ public class ListUsers {
 		lblNewLabel_1.setFont(new Font("SimSun", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(151, 44, 101, 14);
 		frmListadoDeUsuarios.getContentPane().add(lblNewLabel_1);
+		
+		comboBoxEstado = new JComboBox();
+		
+		comboBoxEstado.setBounds(411, 40, 110, 22);
+		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setSelectedItem(null);
+		frmListadoDeUsuarios.getContentPane().add(comboBoxEstado);
 	}
 
 	private void agregarDatosLista(DefaultTableModel modelo, List<USUARIO> list) throws NamingException {
@@ -263,10 +276,17 @@ public class ListUsers {
 		return this.frmListadoDeUsuarios;
 	}
 
-	private void Filtro() {
+	private void FiltroCi() {
 
-		int columnaTabla = 4;
+		int columnaTabla = 4;//Documento
 		trs.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), columnaTabla));
 	}
 	
+	private void FiltroEstado() {
+
+		int columnaTabla = 5;//Estado
+		String estado = comboBoxEstado.getSelectedItem().toString();
+		System.out.println(estado);
+		trs.setRowFilter(RowFilter.regexFilter(estado, columnaTabla));
+	}
 }
