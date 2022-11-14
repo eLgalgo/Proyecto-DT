@@ -41,6 +41,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
+import com.toedter.calendar.JDateChooser;
 
 public class Mod_Analista {
 
@@ -150,14 +151,14 @@ public class Mod_Analista {
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(327, 223, 97, 23);
+		btnGuardar.setBounds(187, 267, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(327, 255, 97, 23);
+		btnCancelar.setBounds(327, 267, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		frmModificacionDeUsuario.setBounds(100, 100, 450, 325);
+		frmModificacionDeUsuario.setBounds(100, 100, 450, 340);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		tfNombre = new JTextField();
@@ -215,6 +216,15 @@ public class Mod_Analista {
 		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblEstado.setBounds(10, 215, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblEstado);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(293, 229, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(dateChooser);
+		
+		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
+		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblFechaDeNacimiento.setBounds(293, 208, 131, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
 		
 		//Logica
 		
