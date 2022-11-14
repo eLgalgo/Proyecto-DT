@@ -216,7 +216,6 @@ public class Mod_Analista {
 		lblEstado.setBounds(10, 215, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblEstado);
 		
-		System.out.println(usuario.getEstado().ordinal());
 		//Logica
 		
         EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)

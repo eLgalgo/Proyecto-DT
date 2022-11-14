@@ -11,6 +11,7 @@ import com.entities.ITR;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
+import com.enums.Estado;
 import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
@@ -151,14 +152,14 @@ public class Mod_Tutor {
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(327, 223, 97, 23);
+		btnGuardar.setBounds(327, 236, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(327, 255, 97, 23);
+		btnCancelar.setBounds(327, 270, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		frmModificacionDeUsuario.setBounds(100, 100, 450, 325);
+		frmModificacionDeUsuario.setBounds(100, 100, 450, 357);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		tfNombre = new JTextField();
@@ -231,6 +232,17 @@ public class Mod_Tutor {
 		tfArea.setText(usuario.getArea());
 		tfTipo.setText(usuario.getTipo());
 		
+		JComboBox comboBoxEstado = new JComboBox();
+		comboBoxEstado.setBounds(10, 285, 131, 22);
+		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
+		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
+		
+		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblEstado.setBounds(10, 263, 64, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblEstado);
+		
 		//Logica
 		
         EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
@@ -257,6 +269,7 @@ public class Mod_Tutor {
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setArea(tfArea.getText());
 				usuario.setTipo(tfTipo.getText());
+				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				
 				try {
 					tutorBean.editTutor((TUTOR) usuario);

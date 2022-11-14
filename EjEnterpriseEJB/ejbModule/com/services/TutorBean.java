@@ -48,6 +48,7 @@ public class TutorBean implements TutorBeanRemote {
 			user2.setItr_s(user.getItr_s());
 			user2.setArea(user.getArea());
 			user2.setTipo(user.getTipo());
+			user2.setEstado(user.getEstado());
 			
 			em.merge(user2);
 			em.flush();

@@ -168,10 +168,10 @@ public abstract class USUARIO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "USUARIO [id_usuario=" + id_usuario + ", documento=" + documento + ", nombre=" + nombre + ", apellido="
-				+ apellido + ", telefono=" + telefono + ", mail=" + mail + ", nom_usuario=" + nom_usuario
-				+ ", fechaNac=" + fechaNac + ", departamento=" + departamento + ", estado=" + estado + ", localidad="
-				+ localidad + ", itr_s=" + itr_s + "]";
+		return id_usuario + " " + documento + " " + nombre + " "
+				+ apellido + " " + telefono + " " + mail + " " + nom_usuario
+				+ " " + fechaNac + " " + departamento + " " + estado + " "
+				+ localidad + " " + itr_s;
 	}
 
 	

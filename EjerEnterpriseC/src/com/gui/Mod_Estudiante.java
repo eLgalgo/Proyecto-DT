@@ -11,6 +11,7 @@ import com.entities.ITR;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
+import com.enums.Estado;
 import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
@@ -172,14 +173,14 @@ public class Mod_Estudiante {
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(327, 223, 97, 23);
+		btnGuardar.setBounds(327, 243, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(327, 255, 97, 23);
+		btnCancelar.setBounds(327, 277, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		frmModificacionDeUsuario.setBounds(100, 100, 450, 325);
+		frmModificacionDeUsuario.setBounds(100, 100, 450, 360);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		tfNombre = new JTextField();
@@ -249,6 +250,17 @@ public class Mod_Estudiante {
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		comboBoxGen.setSelectedIndex(usuario.getGenero().ordinal());
 		
+		JComboBox comboBoxEstado = new JComboBox();
+		comboBoxEstado.setBounds(10, 288, 131, 22);
+		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
+		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
+		
+		JLabel lblNewLabel_1_2_1_1_2 = new JLabel("Estado");
+		lblNewLabel_1_2_1_1_2.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblNewLabel_1_2_1_1_2.setBounds(10, 263, 52, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1_2);
+		
 		//Logica
 		
         EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
@@ -278,6 +290,7 @@ public class Mod_Estudiante {
 				//usuario.setLocalidad(null);
 				usuario.setGeneracion(tfGeneracion.getText());
 				usuario.setSemestre(Integer.parseInt(tfSemestre.getValue().toString()));
+				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				
 				try {
 					estudianteBean.editEstudiante((ESTUDIANTE) usuario);

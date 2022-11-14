@@ -89,6 +89,7 @@ public class EstudianteBean implements EstudianteBeanRemote {
 			user2.setGenero(user.getGenero());
 			user2.setSemestre(user.getSemestre());
 			user2.setItr_s(user.getItr_s());
+			user2.setEstado(user.getEstado());
 			
 			em.merge(user2);
 			em.flush();
