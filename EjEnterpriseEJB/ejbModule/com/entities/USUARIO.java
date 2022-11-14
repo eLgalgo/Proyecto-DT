@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.enums.Departamento;
+import com.enums.Localidad;
 
 /**
  * Entity implementation class for Entity: USUARIOS
@@ -41,6 +42,8 @@ public abstract class USUARIO implements Serializable{
 	
 	@Enumerated(value = EnumType.STRING)
 	private Departamento departamento;
+	
+	private String localidad;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<ITR> itr_s;

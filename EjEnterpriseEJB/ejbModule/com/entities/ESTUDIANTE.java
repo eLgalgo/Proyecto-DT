@@ -19,9 +19,6 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 	
 	private String generacion;
 	
-	@Enumerated(value = EnumType.STRING)
-	private Localidad localidad;
-	
 	private LocalDate fec_nac;
 	
 	@Enumerated(value = EnumType.STRING)
