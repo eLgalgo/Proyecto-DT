@@ -2,9 +2,6 @@ package com.services;
 
 import java.util.List;
 
-
-
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,9 +10,6 @@ import javax.persistence.TypedQuery;
 
 import com.entities.ESTUDIANTE;
 import com.entities.USUARIO;
-import com.enums.Departamento;
-import com.enums.Genero;
-import com.enums.Localidad;
 import com.exception.ServiciosException;
 
 /**
@@ -90,11 +84,13 @@ public class EstudianteBean implements EstudianteBeanRemote {
 			user2.setDepartamento(user.getDepartamento());
 			user2.setLocalidad(user.getLocalidad());
 			user2.setTelefono(user.getTelefono());
-			user2.setNom_usuario(user.getNom_usuario());
+			user2.setMail_insti(user.getMail_insti());
 			user2.setGeneracion(user.getGeneracion());
 			user2.setGenero(user.getGenero());
 			user2.setSemestre(user.getSemestre());
 			user2.setItr_s(user.getItr_s());
+			user2.setEstado(user.getEstado());
+			user2.setFechaNac(user.getFechaNac());
 			
 			em.merge(user2);
 			em.flush();

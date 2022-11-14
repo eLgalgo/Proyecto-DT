@@ -88,7 +88,11 @@ public class Login{
 		lblNewLabel.setBounds(58, 44, 82, 14);
 		frmProgramaIncreible.getContentPane().add(lblNewLabel);
 		
-		JButton btnNewButton_1 = new JButton("Cancelar");
+		JButton btnNewButton_1 = new JButton("Registrarme");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton_1.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnNewButton_1.setBounds(84, 212, 106, 33);
 		frmProgramaIncreible.getContentPane().add(btnNewButton_1);

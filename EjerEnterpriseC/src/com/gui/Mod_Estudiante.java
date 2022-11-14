@@ -11,6 +11,7 @@ import com.entities.ITR;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
+import com.enums.Estado;
 import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
@@ -33,20 +34,26 @@ import java.awt.Toolkit;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
+import com.toedter.calendar.JDateChooser;
 
 public class Mod_Estudiante {
 
 	private JFrame frmModificacionDeUsuario;
 	private JTextField tfTelefono;
 	private JTextField tfEmail;
-	private JTextField tfUsuario;
+	private JTextField tfMailInsti;
 	private JPasswordField tfContraseña;
 	private JTextField tfNombre;
 	private JTextField tfApellido;
@@ -154,11 +161,11 @@ public class Mod_Estudiante {
 		lblUsuario.setBounds(293, 101, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblUsuario);
 		
-		tfUsuario = new JTextField();
-		tfUsuario.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfUsuario.setColumns(10);
-		tfUsuario.setBounds(293, 125, 131, 20);
-		frmModificacionDeUsuario.getContentPane().add(tfUsuario);
+		tfMailInsti = new JTextField();
+		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfMailInsti.setColumns(10);
+		tfMailInsti.setBounds(293, 125, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfMailInsti);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		lblContrasea.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -172,14 +179,14 @@ public class Mod_Estudiante {
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(327, 223, 97, 23);
+		btnGuardar.setBounds(203, 307, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(327, 255, 97, 23);
+		btnCancelar.setBounds(327, 307, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		frmModificacionDeUsuario.setBounds(100, 100, 450, 325);
+		frmModificacionDeUsuario.setBounds(100, 100, 450, 380);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		tfNombre = new JTextField();
@@ -242,12 +249,38 @@ public class Mod_Estudiante {
 		tfApellido.setText(usuario.getApellido());
 		tfTelefono.setText(usuario.getTelefono());
 		tfEmail.setText(usuario.getMail());
-		tfUsuario.setText(usuario.getNom_usuario());
+		tfMailInsti.setText(usuario.getMail_insti());
 		tfGeneracion.setText(usuario.getGeneracion());
 		tfSemestre.setValue(usuario.getSemestre());
 		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		comboBoxGen.setSelectedIndex(usuario.getGenero().ordinal());
+		
+		JComboBox comboBoxEstado = new JComboBox();
+		comboBoxEstado.setBounds(10, 288, 131, 22);
+		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
+		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
+		
+		JLabel lblNewLabel_1_2_1_1_2 = new JLabel("Estado");
+		lblNewLabel_1_2_1_1_2.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblNewLabel_1_2_1_1_2.setBounds(10, 263, 52, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1_2);
+		
+		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
+		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblFechaDeNacimiento.setBounds(302, 208, 131, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(303, 232, 121, 20);
+		Calendar today = Calendar.getInstance();
+		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+		Date todayDate = today.getTime();
+		dateChooser.setMaxSelectableDate(todayDate);
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
+		frmModificacionDeUsuario.getContentPane().add(dateChooser);
 		
 		//Logica
 		
@@ -272,12 +305,14 @@ public class Mod_Estudiante {
 				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 				usuario.setMail(tfEmail.getText());
 				usuario.setTelefono(tfTelefono.getText());
-				usuario.setNom_usuario(tfUsuario.getText());
+				usuario.setMail_insti(null);
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setGenero(Genero.valueOf(comboBoxGen.getSelectedItem().toString()));
 				//usuario.setLocalidad(null);
 				usuario.setGeneracion(tfGeneracion.getText());
 				usuario.setSemestre(Integer.parseInt(tfSemestre.getValue().toString()));
+				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				
 				try {
 					estudianteBean.editEstudiante((ESTUDIANTE) usuario);

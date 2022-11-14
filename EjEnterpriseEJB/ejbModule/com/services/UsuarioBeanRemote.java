@@ -29,4 +29,6 @@ public interface UsuarioBeanRemote {
 	public void editUser(USUARIO user) throws ServiciosException;
 	
 	public void asignRoltoUser(int idRol, int idUser)throws ServiciosException;
+	
+	public void logicDelete(int doc) throws ServiciosException;
 }
