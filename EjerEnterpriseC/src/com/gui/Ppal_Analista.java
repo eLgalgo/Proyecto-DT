@@ -62,6 +62,19 @@ public class Ppal_Analista extends JFrame
         btnNewButton_1_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_2 = new JButton("");
+        btnNewButton_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					Baja_Usuario baja = new Baja_Usuario();
+					baja.getFrame().setVisible(true);
+					baja.getFrame().setLocationRelativeTo(null);
+					dispose();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
         btnNewButton_2.setBounds(287, 59, 70, 70);
         btnNewButton_2.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/deleteUser.png")));
         btnNewButton_2.setBackground(Color.WHITE);

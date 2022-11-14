@@ -1,15 +1,11 @@
 package com.services;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import com.entities.ANALISTA;
-import com.entities.TUTOR;
-import com.entities.USUARIO;
-import com.enums.Departamento;
 import com.exception.ServiciosException;
 
 /**
@@ -61,4 +57,11 @@ public class AnalistaBean implements AnalistaBeanRemote {
 			throw new ServiciosException("No se pudo actualizar el analista");
 		}
     }
+
+	@Override
+	public void deleteUsuario(int documento) throws ServiciosException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

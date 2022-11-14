@@ -12,6 +12,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.USUARIO;
+import com.enums.Estado;
 import com.exception.ServiciosException;
 
 /**
@@ -117,6 +118,16 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo actualizar el usuario");
 		}
+	}
+
+
+
+	@Override
+	public void logicDelete(int doc) throws ServiciosException {
+		USUARIO u = this.findUser(doc).get(0);
+		u.setEstado(Estado.ELIMINADO);
+		em.merge(u);
+		em.flush();
 	}
 
 }

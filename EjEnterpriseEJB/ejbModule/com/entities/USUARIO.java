@@ -41,6 +41,8 @@ public abstract class USUARIO implements Serializable{
 	
 	private String contrasena;
 	
+	private Date fechaNac;
+	
 	@Enumerated(value = EnumType.STRING)
 	private Departamento departamento;
 	
@@ -85,7 +87,7 @@ public abstract class USUARIO implements Serializable{
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 
 	public String getApellido() {
@@ -93,7 +95,7 @@ public abstract class USUARIO implements Serializable{
 	}
 
 	public void setApellido(String apellido) {
-		this.apellido = apellido;
+		this.apellido = apellido.toUpperCase();
 	}
 
 	public String getTelefono() {
@@ -109,7 +111,7 @@ public abstract class USUARIO implements Serializable{
 	}
 
 	public void setMail(String mail) {
-		this.mail = mail;
+		this.mail = mail.toUpperCase();
 	}
 
 	public String getNom_usuario() {
@@ -152,6 +154,24 @@ public abstract class USUARIO implements Serializable{
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 		
+	}
+
+	public Date getFechaNac() {
+		return fechaNac;
+		
+	}
+
+	public void setFechaNac(Date fechaNac) {
+		this.fechaNac = fechaNac;
+		
+	}
+
+	@Override
+	public String toString() {
+		return "USUARIO [id_usuario=" + id_usuario + ", documento=" + documento + ", nombre=" + nombre + ", apellido="
+				+ apellido + ", telefono=" + telefono + ", mail=" + mail + ", nom_usuario=" + nom_usuario
+				+ ", fechaNac=" + fechaNac + ", departamento=" + departamento + ", estado=" + estado + ", localidad="
+				+ localidad + ", itr_s=" + itr_s + "]";
 	}
 
 	

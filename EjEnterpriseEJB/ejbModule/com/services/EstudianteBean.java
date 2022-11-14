@@ -2,9 +2,6 @@ package com.services;
 
 import java.util.List;
 
-
-
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,9 +10,6 @@ import javax.persistence.TypedQuery;
 
 import com.entities.ESTUDIANTE;
 import com.entities.USUARIO;
-import com.enums.Departamento;
-import com.enums.Genero;
-import com.enums.Localidad;
 import com.exception.ServiciosException;
 
 /**

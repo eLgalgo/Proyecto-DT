@@ -211,6 +211,11 @@ public class Mod_Analista {
 		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
 		
+		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblEstado.setBounds(10, 215, 64, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblEstado);
+		
 		System.out.println(usuario.getEstado().ordinal());
 		//Logica
 		

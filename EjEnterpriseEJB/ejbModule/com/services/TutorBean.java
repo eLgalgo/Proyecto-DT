@@ -1,12 +1,10 @@
 package com.services;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
-import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.exception.ServiciosException;
 
