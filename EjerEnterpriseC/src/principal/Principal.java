@@ -86,7 +86,7 @@ public class Principal{
 		tutor.setNombre("fasgasa");
 		tutor.setApellido("casasfas");
 		tutor.setDocumento(2);
-		tutor.setMail("m");
+		tutor.setMail("t");
 		tutor.setContrasena("t");
 		tutor.setDepartamento(Departamento.DURAZNO);
 		tutor.setTelefono("tele");

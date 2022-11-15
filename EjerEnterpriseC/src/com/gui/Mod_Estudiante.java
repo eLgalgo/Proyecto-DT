@@ -1,15 +1,29 @@
 package com.gui;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
-import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.ITR;
-import com.entities.TUTOR;
-import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.Estado;
 import com.enums.Genero;
@@ -19,33 +33,6 @@ import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
-
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.Color;
-import javax.swing.JFormattedTextField;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTextPane;
-import javax.swing.JPasswordField;
-import java.awt.Toolkit;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.print.attribute.standard.DateTimeAtCompleted;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 
 public class Mod_Estudiante {
@@ -278,6 +265,9 @@ public class Mod_Estudiante {
 		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
 		Date todayDate = today.getTime();
 		dateChooser.setMaxSelectableDate(todayDate);
+		
+		//Cargar en dateChoser la fecha del usuario, recibe como argumento tipo fecha DATE
+		//convierte la fecha desde LocalDate a Date
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
 		frmModificacionDeUsuario.getContentPane().add(dateChooser);
@@ -305,7 +295,7 @@ public class Mod_Estudiante {
 				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 				usuario.setMail(tfEmail.getText());
 				usuario.setTelefono(tfTelefono.getText());
-				usuario.setMail_insti(null);
+				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setGenero(Genero.valueOf(comboBoxGen.getSelectedItem().toString()));
 				//usuario.setLocalidad(null);
