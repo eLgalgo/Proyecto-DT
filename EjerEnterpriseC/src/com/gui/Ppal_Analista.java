@@ -28,6 +28,10 @@ import com.services.UsuarioBeanRemote;
 
 
 public class Ppal_Analista extends JFrame implements ActionListener {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private JMenuItem file_BajaUsr;
 	private JMenuItem file_exit;
 	private JMenuItem edit_User;
@@ -341,14 +345,9 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         
 		   btnNewButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-	        	Alta_Usuario_Analista ALTAUA=null;
-	        	try {
-					ALTAUA = new Alta_Usuario_Analista();
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	        	ALTAUA.getFrame().setVisible(true);
+	        	SeleccionarAlta ALTATAB=null;
+	        	ALTATAB = new SeleccionarAlta();
+	        	ALTATAB.getFrame().setVisible(true);
         		dispose();
 	        	} });
         btnNewButton_6.addActionListener(new ActionListener() {

@@ -20,14 +20,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.entities.ESTUDIANTE;
-import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.EITRs;
 import com.enums.Estado;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.EstudianteBean;
-import com.services.TutorBean;
 import com.toedter.calendar.JDateChooser;
 
 public class Alta_Usuario_Estudiante {
