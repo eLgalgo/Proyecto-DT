@@ -1,23 +1,31 @@
 package com.gui;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.Color;
-import javax.swing.JTextArea;
-import javax.swing.JFormattedTextField;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.UIManager;
-import javax.swing.JScrollBar;
-import javax.swing.border.BevelBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import com.entities.ANALISTA;
@@ -30,42 +38,6 @@ import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
-import java.awt.RenderingHints.Key;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.ScrollPaneConstants;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JComboBox;
 
 public class ListUsers {
 
