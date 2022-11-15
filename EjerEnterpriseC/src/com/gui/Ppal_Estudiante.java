@@ -36,10 +36,12 @@ public class Ppal_Estudiante extends JFrame
 
     public Ppal_Estudiante() {
         super("Administración Secretaría");
+        setResizable(false);
         setBackground(Color.WHITE);
         setIconImage(Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
         getContentPane().setForeground(Color.WHITE);
         getContentPane().setBackground(UIManager.getColor("InternalFrame.inactiveBorderColor"));
+        
         
         JButton btnNewButton = new JButton("");
         btnNewButton.setBounds(118, 59, 70, 70);
@@ -310,6 +312,19 @@ public class Ppal_Estudiante extends JFrame
 				}
         		login.getFrame().setVisible(true);
         		dispose();
+        	}
+        });
+        
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					Solicitud_Constancia solicitudW = new Solicitud_Constancia();
+					solicitudW.setVisible(true);
+	        		dispose();
+				} catch (NamingException e1) {
+					e1.printStackTrace();
+				}
+        		
         	}
         });
     }
