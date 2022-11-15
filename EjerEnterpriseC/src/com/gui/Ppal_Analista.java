@@ -26,12 +26,8 @@ import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
-<<<<<<< HEAD
-=======
-@SuppressWarnings("serial")
->>>>>>> main
-public class Ppal_Analista extends JFrame
-        implements ActionListener {
+
+public class Ppal_Analista extends JFrame implements ActionListener {
 	private JMenuItem file_BajaUsr;
 	private JMenuItem file_exit;
 	private JMenuItem edit_User;
