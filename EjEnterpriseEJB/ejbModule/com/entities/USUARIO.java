@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,7 +34,7 @@ public abstract class USUARIO implements Serializable {
 	@SequenceGenerator(name = "SEQ_ID_USUARIO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_USUARIO")
 	private int id_usuario;
-
+	@Column (unique = true)
 	private int documento;
 
 	private String nombre;
@@ -41,9 +42,10 @@ public abstract class USUARIO implements Serializable {
 	private String apellido;
 
 	private String telefono;
-
+	@Column (unique = true)
 	private String mail;
 
+	@Column (unique = true)
 	private String mail_insti;
 
 	private String contrasena;

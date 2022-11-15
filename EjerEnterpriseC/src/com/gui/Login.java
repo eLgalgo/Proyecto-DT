@@ -116,7 +116,7 @@ public class Login{
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nom_usuario = tfUser.getText();
+				String nom_usuario = tfUser.getText().toUpperCase();
 				String clave = tfContra.getText();
 				
 				try {
