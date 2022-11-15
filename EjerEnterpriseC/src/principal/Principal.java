@@ -15,6 +15,7 @@ import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.Estado;
 import com.enums.Genero;
+import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.gui.Login;
 import com.services.AnalistaBeanRemote;
