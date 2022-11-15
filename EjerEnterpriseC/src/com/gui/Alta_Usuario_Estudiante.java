@@ -19,18 +19,20 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.EITRs;
 import com.enums.Estado;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
+import com.services.EstudianteBean;
 import com.services.TutorBean;
 import com.toedter.calendar.JDateChooser;
 
-public class Alta_Usuario_Tutor {
+public class Alta_Usuario_Estudiante {
 
-	private JFrame frmAltaDeUsuarioT;
+	private JFrame frmAltaDeUsuarioA;
 	private JTextField tfTelefono;
 	private JTextField tfEmail;
 	private JTextField tfMailInsti;
@@ -42,7 +44,7 @@ public class Alta_Usuario_Tutor {
 	/**
 	 * Create the application.
 	 */
-	public Alta_Usuario_Tutor() throws NamingException {
+	public Alta_Usuario_Estudiante() throws NamingException {
 		initialize();
 	}
 
@@ -53,84 +55,84 @@ public class Alta_Usuario_Tutor {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() throws NamingException {
-		frmAltaDeUsuarioT = new JFrame();
-		frmAltaDeUsuarioT.setTitle("Alta de Usuario Tutor");
-		frmAltaDeUsuarioT.setResizable(false);
-		frmAltaDeUsuarioT.setIconImage(
+		frmAltaDeUsuarioA = new JFrame();
+		frmAltaDeUsuarioA.setTitle("Alta de Usuario Estudiante");
+		frmAltaDeUsuarioA.setResizable(false);
+		frmAltaDeUsuarioA.setIconImage(
 				Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
-		frmAltaDeUsuarioT.getContentPane().setBackground(Color.WHITE);
-		frmAltaDeUsuarioT.getContentPane().setLayout(null);
-		frmAltaDeUsuarioT.setLocationRelativeTo(null);
+		frmAltaDeUsuarioA.getContentPane().setBackground(Color.WHITE);
+		frmAltaDeUsuarioA.getContentPane().setLayout(null);
+		frmAltaDeUsuarioA.setLocationRelativeTo(null);
 
-		JLabel lblNewLabel_2 = new JLabel("ALTA DE TUTOR");
+		JLabel lblNewLabel_2 = new JLabel("ALTA DE ESTUDIANTE");
 		lblNewLabel_2.setBounds(10, 11, 273, 34);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
-		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_2);
+		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_1 = new JLabel("Tel\u00E9fono");
 		lblNewLabel_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1.setBounds(10, 101, 64, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_1);
+		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_1);
 
 		JLabel lblCorreo = new JLabel("Email");
 		lblCorreo.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblCorreo.setBounds(151, 101, 64, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblCorreo);
+		frmAltaDeUsuarioA.getContentPane().add(lblCorreo);
 
 		JLabel lblNewLabel_1_2_1 = new JLabel("Departamento");
 		lblNewLabel_1_2_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1.setBounds(151, 158, 91, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_1_2_1);
+		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_1_2_1);
 		
 		JLabel lblUsuario = new JLabel("Mail Institucional");
 		lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblUsuario.setBounds(293, 101, 131, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblUsuario);
+		frmAltaDeUsuarioA.getContentPane().add(lblUsuario);
 		
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1_1_1.setBounds(151, 212, 42, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_1_2_1_1_1);
+		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_1_2_1_1_1);
 
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		lblContrasea.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblContrasea.setBounds(293, 154, 70, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblContrasea);
+		frmAltaDeUsuarioA.getContentPane().add(lblContrasea);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Nombre");
 		lblNewLabel_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_1.setBounds(10, 46, 64, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_1_1);
+		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_1_1);
 
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblApellido.setBounds(151, 45, 64, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblApellido);
+		frmAltaDeUsuarioA.getContentPane().add(lblApellido);
 
 		JLabel lblDocumento = new JLabel("Documento");
 		lblDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblDocumento.setBounds(293, 46, 64, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblDocumento);
+		frmAltaDeUsuarioA.getContentPane().add(lblDocumento);
 
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblEstado.setBounds(10, 212, 64, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblEstado);
+		frmAltaDeUsuarioA.getContentPane().add(lblEstado);
 
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblFechaDeNacimiento.setBounds(293, 208, 131, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblFechaDeNacimiento);
+		frmAltaDeUsuarioA.getContentPane().add(lblFechaDeNacimiento);
 		
 		JLabel lblNewLabel_1_2_1_1 = new JLabel("Localidad");
 		lblNewLabel_1_2_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1_1.setBounds(10, 158, 91, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_1_2_1_1);
+		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_1_2_1_1);
 		
 		JLabel lblNewLabel = new JLabel("DE");
 		lblNewLabel.setBounds(127, 186, 22, 14);
-		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel);
+		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel);
 		
 		
 		
@@ -140,45 +142,45 @@ public class Alta_Usuario_Tutor {
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(10, 125, 131, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfTelefono);
+		frmAltaDeUsuarioA.getContentPane().add(tfTelefono);
 
 		tfEmail = new JTextField();
 		tfEmail.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(151, 124, 131, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfEmail);
+		frmAltaDeUsuarioA.getContentPane().add(tfEmail);
 
 
 		tfMailInsti = new JTextField();
 		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfMailInsti.setColumns(10);
 		tfMailInsti.setBounds(293, 125, 131, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfMailInsti);
+		frmAltaDeUsuarioA.getContentPane().add(tfMailInsti);
 
 		tfContraseña = new JPasswordField();
 		tfContraseña.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfContraseña.setBounds(292, 177, 132, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfContraseña);
+		frmAltaDeUsuarioA.getContentPane().add(tfContraseña);
 
 		
 		tfNombre = new JTextField();
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(10, 70, 131, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfNombre);
+		frmAltaDeUsuarioA.getContentPane().add(tfNombre);
 
 		tfApellido = new JTextField();
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(151, 69, 131, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfApellido);
+		frmAltaDeUsuarioA.getContentPane().add(tfApellido);
 
 		tfDocumento = new JTextField();
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
 		tfDocumento.setBounds(293, 70, 131, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfDocumento);
+		frmAltaDeUsuarioA.getContentPane().add(tfDocumento);
 
 
 		
@@ -190,7 +192,7 @@ public class Alta_Usuario_Tutor {
 		comboBoxDep.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxDep.setBounds(151, 182, 131, 22);
      	comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
-		frmAltaDeUsuarioT.getContentPane().add(comboBoxDep);
+		frmAltaDeUsuarioA.getContentPane().add(comboBoxDep);
 
 
 
@@ -198,20 +200,20 @@ public class Alta_Usuario_Tutor {
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 234, 131, 22);
 		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
-		frmAltaDeUsuarioT.getContentPane().add(comboBoxItr);
+		frmAltaDeUsuarioA.getContentPane().add(comboBoxItr);
 
 	
 		JComboBox<Estado> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 234, 131, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
-		frmAltaDeUsuarioT.getContentPane().add(comboBoxEstado);
+		frmAltaDeUsuarioA.getContentPane().add(comboBoxEstado);
 
 		JComboBox<Localidad> comboBoxLoc = new JComboBox<Localidad>();
 		comboBoxLoc.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxLoc.setBounds(10, 182, 107, 22);
 		comboBoxLoc.setModel(new DefaultComboBoxModel(Localidad.values()));
-		frmAltaDeUsuarioT.getContentPane().add(comboBoxLoc);
+		frmAltaDeUsuarioA.getContentPane().add(comboBoxLoc);
 
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(293, 229, 131, 20);
@@ -223,7 +225,7 @@ public class Alta_Usuario_Tutor {
 		dateChooser.setMaxSelectableDate(todayDate);
 		@SuppressWarnings("unused")
 		ZoneId defaultZoneId = ZoneId.systemDefault();
-		frmAltaDeUsuarioT.getContentPane().add(dateChooser);
+		frmAltaDeUsuarioA.getContentPane().add(dateChooser);
 
 		
 		
@@ -237,22 +239,22 @@ public class Alta_Usuario_Tutor {
 		btnGuardar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-			TutorBean tutorBean = new TutorBean();
-				TUTOR tutor=new TUTOR();
-				tutor.setApellido(tfApellido.getText());
-				tutor.setNombre(tfNombre.getText());
-				tutor.setContrasena(tfContraseña.getText());
-				tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
-				tutor.setMail(tfEmail.getText());
-				tutor.setTelefono(tfTelefono.getText());
-				tutor.setMail_insti(tfMailInsti.getText());
-				tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				tutor.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
-				tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			EstudianteBean estudianteBean = new EstudianteBean();
+				ESTUDIANTE estudiante=new ESTUDIANTE();
+				estudiante.setApellido(tfApellido.getText());
+				estudiante.setNombre(tfNombre.getText());
+				estudiante.setContrasena(tfContraseña.getText());
+				estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
+				estudiante.setMail(tfEmail.getText());
+				estudiante.setTelefono(tfTelefono.getText());
+				estudiante.setMail_insti(tfMailInsti.getText());
+				estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+				estudiante.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			
 				try {
 					
-					tutorBean.addTutor(tutor);
+					estudianteBean.addStudent(estudiante);
 				} catch (ServiciosException e1) {
 					e1.printStackTrace();
 				}
@@ -261,7 +263,7 @@ public class Alta_Usuario_Tutor {
 		});
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
 		btnGuardar.setBounds(187, 267, 97, 23);
-		frmAltaDeUsuarioT.getContentPane().add(btnGuardar);
+		frmAltaDeUsuarioA.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -280,9 +282,9 @@ public class Alta_Usuario_Tutor {
 		});
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnCancelar.setBounds(327, 267, 97, 23);
-		frmAltaDeUsuarioT.getContentPane().add(btnCancelar);
-		frmAltaDeUsuarioT.setBounds(100, 100, 450, 340);
-		frmAltaDeUsuarioT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAltaDeUsuarioA.getContentPane().add(btnCancelar);
+		frmAltaDeUsuarioA.setBounds(100, 100, 450, 340);
+		frmAltaDeUsuarioA.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	
 		
@@ -290,7 +292,7 @@ public class Alta_Usuario_Tutor {
 
 	public Window getFrame() {
 		// TODO Auto-generated method stub
-		return this.frmAltaDeUsuarioT;
+		return this.frmAltaDeUsuarioA;
 	}
 	}
 
