@@ -13,8 +13,7 @@ import javax.persistence.*;
 @Entity
 public class ANALISTA extends USUARIO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	public ANALISTA() {
 		super();
 	}
