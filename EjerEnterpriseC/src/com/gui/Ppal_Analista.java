@@ -26,6 +26,10 @@ import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
+<<<<<<< HEAD
+=======
+@SuppressWarnings("serial")
+>>>>>>> main
 public class Ppal_Analista extends JFrame
         implements ActionListener {
 	private JMenuItem file_BajaUsr;
@@ -46,6 +50,7 @@ public class Ppal_Analista extends JFrame
         getContentPane().setBackground(Color.WHITE);
         
         JButton btnNewButton = new JButton("");
+     
         btnNewButton.setBounds(118, 59, 70, 70);
         btnNewButton.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/addUser.png")));
         btnNewButton.setBackground(Color.WHITE);
@@ -234,7 +239,8 @@ public class Ppal_Analista extends JFrame
         jmb.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
         JMenu Archivo = new JMenu("Archivo");
         Archivo.setFont(new Font("SimSun", Font.PLAIN, 13));
-        JMenuItem item;
+        @SuppressWarnings("unused")
+		JMenuItem item;
         Archivo.add(file_AltaUsr = new JMenuItem("Alta de usuario"));
         file_AltaUsr.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         file_AltaUsr.addActionListener(this);
@@ -322,18 +328,33 @@ public class Ppal_Analista extends JFrame
         
         //Logica botones
         
-        EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
+        @SuppressWarnings("unused")
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 		
+		@SuppressWarnings("unused")
 		TutorBeanRemote tutorBean = (TutorBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
 		
+		@SuppressWarnings("unused")
 		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
 		
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
         
+		   btnNewButton.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        	Alta_Usuario_Analista ALTAUA=null;
+	        	try {
+					ALTAUA = new Alta_Usuario_Analista();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	        	ALTAUA.getFrame().setVisible(true);
+        		dispose();
+	        	} });
         btnNewButton_6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		Login login = null;
