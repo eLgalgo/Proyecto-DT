@@ -17,10 +17,14 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.entities.ANALISTA;
+import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.EITRs;
 import com.enums.Estado;
 import com.enums.Localidad;
+import com.exception.ServiciosException;
+import com.services.AnalistaBean;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -233,6 +237,25 @@ public class Alta_Usuario_Analista {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			AnalistaBean analistaBean = new AnalistaBean();
+				ANALISTA Analista=new ANALISTA();
+				Analista.setApellido(tfApellido.getText());
+				Analista.setNombre(tfNombre.getText());
+				Analista.setContrasena(tfContraseña.getText());
+				Analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
+				Analista.setMail(tfEmail.getText());
+				Analista.setTelefono(tfTelefono.getText());
+				Analista.setMail_insti(tfMailInsti.getText());
+				Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+				Analista.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				Analista.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			
+				try {
+					
+					analistaBean.addAnalista(Analista);
+				} catch (ServiciosException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -241,6 +264,20 @@ public class Alta_Usuario_Analista {
 		frmAltaDeUsuarioA.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Volver");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Ppal_Analista pAnalist = null;
+				try {
+					pAnalist = new Ppal_Analista();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				pAnalist.setVisible(true);
+				pAnalist.setLocationRelativeTo(null);
+				getFrame().dispose();
+			}
+		});
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnCancelar.setBounds(327, 267, 97, 23);
 		frmAltaDeUsuarioA.getContentPane().add(btnCancelar);
