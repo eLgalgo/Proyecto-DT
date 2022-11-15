@@ -208,12 +208,14 @@ public class Mod_Analista {
 
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(293, 229, 131, 20);
+		
 		Calendar today = Calendar.getInstance();
 		today.clear(Calendar.HOUR);
 		today.clear(Calendar.MINUTE);
 		today.clear(Calendar.SECOND);
 		Date todayDate = today.getTime();
 		dateChooser.setMaxSelectableDate(todayDate);
+		
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
 		frmModificacionDeUsuario.getContentPane().add(dateChooser);
