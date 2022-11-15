@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -264,6 +265,9 @@ public class Mod_Estudiante {
 		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
 		Date todayDate = today.getTime();
 		dateChooser.setMaxSelectableDate(todayDate);
+		
+		//Cargar en dateChoser la fecha del usuario, recibe como argumento tipo fecha DATE
+		//convierte la fecha desde LocalDate a Date
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
 		frmModificacionDeUsuario.getContentPane().add(dateChooser);
@@ -291,7 +295,7 @@ public class Mod_Estudiante {
 				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 				usuario.setMail(tfEmail.getText());
 				usuario.setTelefono(tfTelefono.getText());
-				usuario.setMail_insti(null);
+				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setGenero(Genero.valueOf(comboBoxGen.getSelectedItem().toString()));
 				//usuario.setLocalidad(null);

@@ -151,7 +151,7 @@ public abstract class USUARIO implements Serializable {
 	}
 
 	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
+		this.localidad = localidad.toUpperCase();
 
 	}
 
@@ -171,7 +171,7 @@ public abstract class USUARIO implements Serializable {
 	}
 
 	public void setMail_insti(String mail_insti) {
-		this.mail_insti = mail_insti;
+		this.mail_insti = mail_insti.toUpperCase();
 
 	}
 
