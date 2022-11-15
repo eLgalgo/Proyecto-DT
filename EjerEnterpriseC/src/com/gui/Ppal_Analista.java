@@ -1,23 +1,24 @@
 package com.gui;
 
-import java.awt.EventQueue;
-
-
-
-import javax.swing.JFrame;
-
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.swing.*;
-import java.awt.Font;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Label;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.UIManager;
 
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -25,8 +26,7 @@ import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
-import java.awt.Color;
-
+@SuppressWarnings("serial")
 public class Ppal_Analista extends JFrame
         implements ActionListener {
 	private JMenuItem file_BajaUsr;
@@ -47,6 +47,7 @@ public class Ppal_Analista extends JFrame
         getContentPane().setBackground(Color.WHITE);
         
         JButton btnNewButton = new JButton("");
+     
         btnNewButton.setBounds(118, 59, 70, 70);
         btnNewButton.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/addUser.png")));
         btnNewButton.setBackground(Color.WHITE);
@@ -235,7 +236,8 @@ public class Ppal_Analista extends JFrame
         jmb.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
         JMenu Archivo = new JMenu("Archivo");
         Archivo.setFont(new Font("SimSun", Font.PLAIN, 13));
-        JMenuItem item;
+        @SuppressWarnings("unused")
+		JMenuItem item;
         Archivo.add(file_AltaUsr = new JMenuItem("Alta de usuario"));
         file_AltaUsr.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         file_AltaUsr.addActionListener(this);
@@ -323,18 +325,33 @@ public class Ppal_Analista extends JFrame
         
         //Logica botones
         
-        EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
+        @SuppressWarnings("unused")
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 		
+		@SuppressWarnings("unused")
 		TutorBeanRemote tutorBean = (TutorBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
 		
+		@SuppressWarnings("unused")
 		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
 		
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
         
+		   btnNewButton.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        	Alta_Usuario_Analista ALTAUA=null;
+	        	try {
+					ALTAUA = new Alta_Usuario_Analista();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	        	ALTAUA.getFrame().setVisible(true);
+        		dispose();
+	        	} });
         btnNewButton_6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		Login login = null;
