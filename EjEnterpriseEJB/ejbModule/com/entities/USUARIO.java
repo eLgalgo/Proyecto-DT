@@ -18,7 +18,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 import com.enums.Departamento;
+import com.enums.EITRs;
 import com.enums.Estado;
+import com.enums.Localidad;
 
 /**
  * Entity implementation class for Entity: USUARIOS
@@ -34,7 +36,6 @@ public abstract class USUARIO implements Serializable {
 	@SequenceGenerator(name = "SEQ_ID_USUARIO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_USUARIO")
 	private int id_usuario;
-	
 	@Column (unique = true)
 	private int documento;
 
@@ -58,7 +59,13 @@ public abstract class USUARIO implements Serializable {
 
 	@Enumerated(value = EnumType.STRING)
 	private Estado estado;
-
+	
+	@Enumerated(value = EnumType.STRING)
+	private EITRs itr;
+	
+	@Enumerated(value = EnumType.STRING)
+	private Localidad localidad;
+	
 	public Estado getEstado() {
 		return estado;
 	}
@@ -67,10 +74,7 @@ public abstract class USUARIO implements Serializable {
 		this.estado = estado;
 	}
 
-	private String localidad;
-
-	@ManyToMany
-	private List<ITR> itr_s;
+	
 
 	public USUARIO() {
 		super();
@@ -140,22 +144,21 @@ public abstract class USUARIO implements Serializable {
 		this.departamento = departamento;
 	}
 
-	public List<ITR> getItr_s() {
-		return itr_s;
+
+	public EITRs getItr() {
+		return itr;
 	}
 
-	public void setItr_s(List<ITR> itr_s) {
-		this.itr_s = itr_s;
+	public void setItr(EITRs itr) {
+		this.itr = itr;
 	}
 
-	public String getLocalidad() {
+	public Localidad getLocalidad() {
 		return localidad;
-
 	}
 
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad.toUpperCase();
-
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
 	}
 
 	public LocalDate getFechaNac() {
@@ -175,6 +178,13 @@ public abstract class USUARIO implements Serializable {
 
 	public void setMail_insti(String mail_insti) {
 		this.mail_insti = mail_insti.toUpperCase();
+
+	}
+
+	@Override
+	public String toString() {
+		return id_usuario + " " + documento + " " + nombre + " " + apellido + " " + telefono + " " + mail + " "
+				+ mail_insti + " " + fecha_nac + " " + departamento + " " + estado + " " + localidad + " " + itr;
 	}
 
 }
