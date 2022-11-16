@@ -2,25 +2,20 @@ package principal;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Date;
-import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
-import com.entities.ITR;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.Estado;
-import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.gui.Login;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
-import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
@@ -40,29 +35,11 @@ public class Principal{
 		
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
-		ItrBeanRemote itrBean = (ItrBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
-		
+
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
 		
-		ITR itr1 = new ITR();
-		itr1.setDepartamento(Departamento.DURAZNO);
-		itr1.setNombre("ITR_CS");
-		itrBean.addItr(itr1);
-		
-		ITR itr2 = new ITR();
-		itr2.setDepartamento(Departamento.ARTIGAS);
-		itr2.setNombre("ITR_N");
-		itrBean.addItr(itr2);
-		
-		ITR itr3 = new ITR();
-		itr3.setDepartamento(Departamento.CANELONES);
-		itr3.setNombre("ITR_SO");
-		itrBean.addItr(itr3);
-		List<ITR> itrS = itrBean.listAllItr();
-		
+	
 		ESTUDIANTE user1 = new ESTUDIANTE();
 		user1.setNombre("Cristofer");
 		user1.setApellido("Cabrera");
@@ -70,13 +47,11 @@ public class Principal{
 		user1.setMail("c");
 		user1.setContrasena("c");
 		user1.setDepartamento(Departamento.ARTIGAS);
-		user1.setLocalidad("UNA");
+		user1.setLocalidad(Localidad.CAPITAL);
 		user1.setTelefono("tele");
 		user1.setMail_insti("c");
 		user1.setGeneracion("2022");
-		user1.setGenero(Genero.MACHO);
-		user1.setSemestre(1);
-		user1.setItr_s(itrS);
+		user1.setItr(null);
 		user1.setEstado(Estado.ACTIVO);
 		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
@@ -89,11 +64,12 @@ public class Principal{
 		tutor.setMail("t");
 		tutor.setContrasena("t");
 		tutor.setDepartamento(Departamento.DURAZNO);
+		tutor.setLocalidad(Localidad.CAPITAL);
 		tutor.setTelefono("tele");
 		tutor.setMail_insti("t");
 		tutor.setArea("Area1");
-		tutor.setTipo("Tipo1");
-		tutor.setItr_s(itrS);
+		tutor.setTipo(null);
+		tutor.setItr(null);
 		tutor.setEstado(Estado.ACTIVO);
 		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
@@ -106,9 +82,10 @@ public class Principal{
 		analista.setMail("m");
 		analista.setContrasena("m");
 		analista.setDepartamento(Departamento.CANELONES);
+		analista.setLocalidad(Localidad.CAPITAL);
 		analista.setTelefono("tele");
 		analista.setMail_insti("m");
-		analista.setItr_s(itrS);
+		analista.setItr(null);
 		analista.setEstado(Estado.ACTIVO);
 		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
