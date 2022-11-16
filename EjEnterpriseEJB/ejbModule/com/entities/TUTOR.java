@@ -3,6 +3,8 @@ package com.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.enums.RolTutor;
+
 /**
  * Entity implementation class for Entity: ESTUDIANTE
  *
@@ -13,7 +15,7 @@ public class TUTOR extends USUARIO implements Serializable{
 	
 	private String area;
 	
-	private String tipo;
+	private RolTutor tipo;
 	
 	
 	public TUTOR() {
@@ -31,12 +33,12 @@ public class TUTOR extends USUARIO implements Serializable{
 	}
 
 
-	public String getTipo() {
+	public RolTutor getTipo() {
 		return tipo;
 	}
 
 
-	public void setTipo(String tipo) {
+	public void setTipo(RolTutor tipo) {
 		this.tipo = tipo;
 	}
 

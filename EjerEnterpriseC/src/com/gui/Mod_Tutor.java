@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -20,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import com.entities.ITR;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.Estado;
@@ -112,10 +110,7 @@ public class Mod_Tutor {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
-		List<ITR> listItr = usuario.getItr_s();
-		for(ITR elemento : listItr) {
-		    comboBoxItr.addItem(elemento.getNombre());
-		}
+		comboBoxItr.addItem(usuario.getItr().getNombreITR());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
@@ -219,7 +214,7 @@ public class Mod_Tutor {
 		tfMailInsti.setText(usuario.getMail_insti());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		tfArea.setText(usuario.getArea());
-		tfTipo.setText(usuario.getTipo());
+		tfTipo.setText(usuario.getTipo().toString());
 		
 		
 		JComboBox comboBoxEstado = new JComboBox();
@@ -274,7 +269,7 @@ public class Mod_Tutor {
 				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setArea(tfArea.getText());
-				usuario.setTipo(tfTipo.getText());
+//				usuario.setTipo(tfTipo.getText());
 				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				

@@ -50,7 +50,7 @@ public class TutorBean implements TutorBeanRemote {
 			user2.setDepartamento(user.getDepartamento());
 			user2.setTelefono(user.getTelefono());
 			user2.setMail_insti(user.getMail_insti());
-			user2.setItr_s(user.getItr_s());
+			user2.setItr(user.getItr());
 			user2.setArea(user.getArea());
 			user2.setTipo(user.getTipo());
 			user2.setEstado(user.getEstado());

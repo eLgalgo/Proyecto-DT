@@ -2,12 +2,8 @@ package com.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
-import javax.persistence.*;
-
-import com.enums.Genero;
-import com.enums.Localidad;
+import javax.persistence.Entity;
 
 /**
  * Entity implementation class for Entity: ESTUDIANTE
@@ -21,10 +17,8 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 	
 	private LocalDate fec_nac;
 	
-	@Enumerated(value = EnumType.STRING)
-	private Genero genero;
-	
-	private int semestre;
+
+
 	
 	public ESTUDIANTE() {
 		super();
@@ -47,21 +41,9 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 		this.fec_nac = fec_nac;
 	}
 
-	public Genero getGenero() {
-		return genero;
-	}
 
-	public void setGenero(Genero genero) {
-		this.genero = genero;
-	}
 
-	public int getSemestre() {
-		return semestre;
-	}
 
-	public void setSemestre(int semestre) {
-		this.semestre = semestre;
-	}
 
 	
 
