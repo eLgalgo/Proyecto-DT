@@ -34,6 +34,7 @@ public abstract class USUARIO implements Serializable {
 	@SequenceGenerator(name = "SEQ_ID_USUARIO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_USUARIO")
 	private int id_usuario;
+	
 	@Column (unique = true)
 	private int documento;
 
@@ -68,7 +69,7 @@ public abstract class USUARIO implements Serializable {
 
 	private String localidad;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	private List<ITR> itr_s;
 
 	public USUARIO() {
@@ -174,13 +175,6 @@ public abstract class USUARIO implements Serializable {
 
 	public void setMail_insti(String mail_insti) {
 		this.mail_insti = mail_insti.toUpperCase();
-
-	}
-
-	@Override
-	public String toString() {
-		return id_usuario + " " + documento + " " + nombre + " " + apellido + " " + telefono + " " + mail + " "
-				+ mail_insti + " " + fecha_nac + " " + departamento + " " + estado + " " + localidad + " " + itr_s;
 	}
 
 }

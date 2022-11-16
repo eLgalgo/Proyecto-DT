@@ -27,15 +27,11 @@ public class SOLICITUD implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private TipoConstancia tipo;
 	
-	@OneToOne
-	private EVENTO eventoAsis;
+	private String eventoAsis;
 	
 	private String infoAdj;
 	
 	private String estado;
-	
-	@ManyToOne
-	private ANALISTA analista;
 	
 	public SOLICITUD() {
 		super();
@@ -65,14 +61,6 @@ public class SOLICITUD implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public EVENTO getEventoAsis() {
-		return eventoAsis;
-	}
-
-	public void setEventoAsis(EVENTO eventoAsis) {
-		this.eventoAsis = eventoAsis;
-	}
-
 	public String getInfoAdj() {
 		return infoAdj;
 	}
@@ -88,14 +76,6 @@ public class SOLICITUD implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
-	public ANALISTA getAnalista() {
-		return analista;
-	}
-
-	public void setAnalista(ANALISTA analista) {
-		this.analista = analista;
-	} 
 	
 	
    

@@ -1,11 +1,16 @@
 package com.services;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 
+import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
+import com.entities.USUARIO;
 import com.exception.ServiciosException;
 
 /**
@@ -57,6 +62,11 @@ public class TutorBean implements TutorBeanRemote {
 			throw new ServiciosException("No se pudo actualizar el usario");
 		}
 		
+	}
+	@Override
+	public List<TUTOR> findUser(int doc) throws ServiciosException{
+		TypedQuery<TUTOR> query = em.createQuery("SELECT u FROM TUTOR u WHERE u.documento = :doc",TUTOR.class).setParameter("doc", doc); 
+		return query.getResultList();
 	}
 
 }

@@ -2,6 +2,7 @@ package principal;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.naming.NamingException;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
+import com.entities.EVENTO;
 import com.entities.ITR;
 import com.entities.TUTOR;
 import com.enums.Departamento;
@@ -20,6 +22,7 @@ import com.exception.ServiciosException;
 import com.gui.Login;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.EventoBeanRemote;
 import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
@@ -43,6 +46,9 @@ public class Principal{
 		
 		ItrBeanRemote itrBean = (ItrBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+		
+		EventoBeanRemote eventoBean = (EventoBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
 		
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
@@ -83,7 +89,7 @@ public class Principal{
 		estudianteBean.addStudent(user1);
 		
 		TUTOR tutor = new TUTOR();
-		tutor.setNombre("fasgasa");
+		tutor.setNombre("Tutor1");
 		tutor.setApellido("casasfas");
 		tutor.setDocumento(2);
 		tutor.setMail("t");
@@ -98,6 +104,23 @@ public class Principal{
 		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		tutorBean.addTutor(tutor);
+		
+		TUTOR tutor2 = new TUTOR();
+		tutor2.setNombre("Tutor2");
+		tutor2.setApellido("casasfas");
+		tutor2.setDocumento(1251);
+		tutor2.setMail("v");
+		tutor2.setContrasena("v");
+		tutor2.setDepartamento(Departamento.DURAZNO);
+		tutor2.setTelefono("fasfas");
+		tutor2.setMail_insti("mafas");
+		tutor2.setArea("Area21");
+		tutor2.setTipo("Tipo412");
+		tutor2.setItr_s(itrS);
+		tutor2.setEstado(Estado.ACTIVO);
+		tutor2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		
+		tutorBean.addTutor(tutor2);
 		
 		ANALISTA analista = new ANALISTA();
 		analista.setNombre("fasgasa");
@@ -114,7 +137,65 @@ public class Principal{
 		
 		analistaBean.addAnalista(analista);
 		
+		//Jardcodeo un evento
 		
+		ESTUDIANTE user2 = new ESTUDIANTE();
+		user2.setNombre("Agustina");
+		user2.setApellido("Ana");
+		user2.setDocumento(5);
+		user2.setMail("s");
+		user2.setContrasena("s");
+		user2.setDepartamento(Departamento.ARTIGAS);
+		user2.setLocalidad("UNA");
+		user2.setTelefono("tele");
+		user2.setMail_insti("s");
+		user2.setGeneracion("2022");
+		user2.setGenero(Genero.HEMBRA);
+		user2.setSemestre(1);
+		user2.setItr_s(itrS);
+		user2.setEstado(Estado.ACTIVO);
+		user2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		
+		estudianteBean.addStudent(user2);
+		
+		ESTUDIANTE user3 = new ESTUDIANTE();
+		user3.setNombre("Monica");
+		user3.setApellido("Cabrera");
+		user3.setDocumento(6);
+		user3.setMail("a");
+		user3.setContrasena("a");
+		user3.setDepartamento(Departamento.ARTIGAS);
+		user3.setLocalidad("UNA");
+		user3.setTelefono("tele");
+		user3.setMail_insti("a");
+		user3.setGeneracion("2022");
+		user3.setGenero(Genero.MACHO);
+		user3.setSemestre(1);
+		user3.setItr_s(itrS);
+		user3.setEstado(Estado.ACTIVO);
+		user3.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		
+		estudianteBean.addStudent(user3);
+		
+		EVENTO ev1 = new EVENTO();
+		ev1.setTitulo("CUTI FORUM");
+		TUTOR t = tutorBean.findUser(tutor.getDocumento()).get(0);
+		ev1.setTutor(t);
+		
+		eventoBean.addEvento(ev1);
+		
+		EVENTO ev2 = new EVENTO();
+		ev2.setTitulo("Cumple de Nico");
+		TUTOR t2 = tutorBean.findUser(tutor2.getDocumento()).get(0);
+		ev2.setTutor(t2);
+		
+		eventoBean.addEvento(ev2);
+		
+		eventoBean.asignEstToEvent(1, 1);
+		eventoBean.asignEstToEvent(4, 1);
+		eventoBean.asignEstToEvent(5, 1);
+		
+		eventoBean.asignEstToEvent(1, 2);
 	}
 
 }

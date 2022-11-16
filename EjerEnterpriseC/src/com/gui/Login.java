@@ -125,7 +125,8 @@ public class Login{
 						JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
 					}else {
 						if(usuario.get(0) instanceof ESTUDIANTE) {
-							Ppal_Estudiante principalStudentW = new Ppal_Estudiante();
+							ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
+							Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
 							principalStudentW.setVisible(true);
 							principalStudentW.setLocationRelativeTo(null);
 							getFrame().dispose();

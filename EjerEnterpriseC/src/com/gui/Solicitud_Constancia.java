@@ -2,6 +2,7 @@ package com.gui;
 
 import java.awt.EventQueue;
 import java.awt.event.*;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -13,12 +14,20 @@ import java.awt.GridBagConstraints;
 import java.awt.Label;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
+import com.entities.ANALISTA;
+import com.entities.ESTUDIANTE;
+import com.entities.EVENTO;
+import com.entities.TUTOR;
+import com.entities.USUARIO;
 import com.enums.Estado;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.EventoBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
@@ -28,12 +37,14 @@ import java.awt.Component;
 public class Solicitud_Constancia extends JFrame
         implements ActionListener {
 	private JTextField textField;
+	private JTable tabla;
+	private DefaultTableModel modelo;
 
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
     }
 
-    public Solicitud_Constancia() throws NamingException {
+    public Solicitud_Constancia(ESTUDIANTE usuario) throws NamingException, ServiciosException {
         super("Administración Secretaría");
         setResizable(false);
         setBackground(Color.WHITE);
@@ -70,12 +81,6 @@ public class Solicitud_Constancia extends JFrame
         lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
         getContentPane().add(lblNewLabel_2);
         
-        JScrollPane desplazamiento = new JScrollPane((Component) null);
-        desplazamiento.setBounds(170, 85, 349, 197);
-        desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        getContentPane().add(desplazamiento);
-        
         JLabel lblSeleccioneEvento = new JLabel("Seleccione Evento");
         lblSeleccioneEvento.setBounds(170, 61, 288, 14);
         lblSeleccioneEvento.setFont(new Font("SimSun", Font.PLAIN, 17));
@@ -91,7 +96,6 @@ public class Solicitud_Constancia extends JFrame
         lblMasInfo.setBounds(10, 118, 161, 14);
         getContentPane().add(lblMasInfo);
         setTitle("Solicitar Constancia");
-
         
         //Logica botones
         
@@ -107,13 +111,102 @@ public class Solicitud_Constancia extends JFrame
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 		
+		EventoBeanRemote eventoBean = (EventoBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
+		
+        //Tabla
+        crearTablaPersona();
+		// Agregamos datos
+		agregarDatosLista(modelo, usuario);
+		
         btnCancelar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Ppal_Estudiante pEstudianteW = new Ppal_Estudiante();
+        		Ppal_Estudiante pEstudianteW = new Ppal_Estudiante(usuario);
 				pEstudianteW.setVisible(true);
 				pEstudianteW.setLocationRelativeTo(null);
         		dispose();
         	}
         });
+        
+        btnSolicitar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
     }
+    private void crearTablaPersona() {
+		String[] columnas = { "Titulo", "Fecha_Inc", "Fech_Fin", "Detalle", "Tutor" };
+		tabla = new JTable();
+		modelo = new DefaultTableModel() {
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return false;
+			}
+		};
+
+		JButton btnNewButton_2 = new JButton("Modificar");
+		btnNewButton_2.setBounds(411, 300, 110, 25);
+		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
+		JScrollPane desplazamiento = new JScrollPane(tabla);
+		desplazamiento.setBounds(169, 85, 352, 184);
+		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+		// Modelo de la tabla
+		modelo.setColumnIdentifiers(columnas);
+
+		tabla.setModel(modelo);
+		getContentPane().add(desplazamiento);
+	}
+
+	private void agregarDatosLista(DefaultTableModel modelo, ESTUDIANTE usuario) throws NamingException {
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
+		EventoBeanRemote eventoBean = (EventoBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
+		
+		// Borramos todas las filas en la tabla
+		modelo.setRowCount(0);
+
+		// Creamos los datos de una fila de la tabla
+		Object[] datosFila = { "", "", "", "", ""};
+		List<EVENTO> list = null;
+		try {
+			list = eventoBean.listarEventosEstu(usuario.getDocumento());
+		} catch (ServiciosException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		// Agregamos MUCHOS mas datos
+		for (EVENTO p : list) {
+			datosFila[0] = p.getTitulo();
+			datosFila[1] = p.getFechaFinal();
+			datosFila[2] = p.getFechaInicio();
+			datosFila[3] = p.getInformacion();
+			datosFila[4] = p.getTutor().getNombre();
+
+			modelo.addRow(datosFila);
+		}
+		tabla.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evnt) {
+				if (evnt.getClickCount() == 2) {
+					try {
+						System.out.println("Existo");
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+	}
 }

@@ -1,5 +1,7 @@
 package com.services;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 import javax.persistence.PersistenceException;
 
@@ -14,4 +16,6 @@ public interface TutorBeanRemote {
 	public void addTutor(TUTOR user) throws ServiciosException;
 
 	void editTutor(TUTOR user) throws ServiciosException;
+	
+	public List<TUTOR> findUser(int doc) throws ServiciosException;
 }
