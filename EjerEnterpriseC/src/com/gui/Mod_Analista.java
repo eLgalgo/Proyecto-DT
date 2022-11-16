@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,7 +20,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
-import com.entities.ITR;
 import com.enums.Departamento;
 import com.enums.Estado;
 import com.exception.ServiciosException;
@@ -111,10 +109,8 @@ public class Mod_Analista {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
-		List<ITR> listItr = usuario.getItr_s();
-		for (ITR elemento : listItr) {
-			comboBoxItr.addItem(elemento.getNombre());
-		}
+		comboBoxItr.addItem(usuario.getItr().getNombreITR());
+
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JLabel lblUsuario = new JLabel("Mail Institucional");

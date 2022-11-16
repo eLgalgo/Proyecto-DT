@@ -5,11 +5,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,7 +21,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import com.entities.ESTUDIANTE;
-import com.entities.ITR;
 import com.enums.Departamento;
 import com.enums.Estado;
 import com.enums.Genero;
@@ -137,10 +134,7 @@ public class Mod_Estudiante {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(77, 230, 64, 22);
-		List<ITR> listItr = usuario.getItr_s();
-		for(ITR elemento : listItr) {
-		    comboBoxItr.addItem(elemento.getNombre());
-		}
+		comboBoxItr.addItem(usuario.getItr().getNombreITR());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
