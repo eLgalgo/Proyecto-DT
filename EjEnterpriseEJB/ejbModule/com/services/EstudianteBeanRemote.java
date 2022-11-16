@@ -21,11 +21,11 @@ public interface EstudianteBeanRemote {
 	
 	public List<USUARIO> findUser(String email, String clave) throws ServiciosException;
 	
-	public List<USUARIO> findUser(String doc) throws ServiciosException;
+	public List<ESTUDIANTE> findUser(int doc) throws ServiciosException;
 	
 	public void addStudent(ESTUDIANTE user) throws ServiciosException;
 	
-	public void deleteUser(String doc) throws ServiciosException;
+	public void deleteUser(int doc) throws ServiciosException;
 	
 	public void editEstudiante(ESTUDIANTE user) throws ServiciosException;
 	

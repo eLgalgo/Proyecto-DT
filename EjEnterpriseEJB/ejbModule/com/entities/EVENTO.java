@@ -28,7 +28,8 @@ public class EVENTO implements Serializable {
 	
 	@OneToOne
 	private TUTOR tutor;
-	@OneToMany
+	
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<ESTUDIANTE> estudiantesConv;
 	
 	public EVENTO() {

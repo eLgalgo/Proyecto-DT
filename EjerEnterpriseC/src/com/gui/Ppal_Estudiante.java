@@ -20,6 +20,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
 
+import com.entities.ESTUDIANTE;
+import com.exception.ServiciosException;
+
 public class Ppal_Estudiante extends JFrame
         implements ActionListener {
 	private JMenuItem file_NvoRecl;
@@ -35,14 +38,13 @@ public class Ppal_Estudiante extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Ppal_Estudiante() {
+    public Ppal_Estudiante(ESTUDIANTE usuario) {
         super("Administración Secretaría");
         setResizable(false);
         setBackground(Color.WHITE);
         setIconImage(Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
         getContentPane().setForeground(Color.WHITE);
         getContentPane().setBackground(UIManager.getColor("InternalFrame.inactiveBorderColor"));
-        
         
         JButton btnNewButton = new JButton("");
         btnNewButton.setBounds(118, 59, 70, 70);
@@ -319,17 +321,17 @@ public class Ppal_Estudiante extends JFrame
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					Solicitud_Constancia solicitudW = new Solicitud_Constancia();
+					Solicitud_Constancia solicitudW = new Solicitud_Constancia(usuario);
 					solicitudW.setVisible(true);
 	        		dispose();
 				} catch (NamingException e1) {
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
         		
         	}
         });
-    }
-    public static void main(String[] args) {
-        new Ppal_Estudiante();
     }
 }

@@ -45,8 +45,8 @@ public class EstudianteBean implements EstudianteBeanRemote {
 	}
 	
 	@Override
-	public List<USUARIO> findUser(String doc) throws ServiciosException{
-		TypedQuery<USUARIO> query = em.createQuery("SELECT u FROM USUARIOS u WHERE u.documento = :doc",USUARIO.class).setParameter("doc", doc); 
+	public List<ESTUDIANTE> findUser(int doc) throws ServiciosException{
+		TypedQuery<ESTUDIANTE> query = em.createQuery("SELECT u FROM ESTUDIANTE u WHERE u.documento = :doc",ESTUDIANTE.class).setParameter("doc", doc); 
 		return query.getResultList();
 	}
 
@@ -61,7 +61,7 @@ public class EstudianteBean implements EstudianteBeanRemote {
 	}
 
 	@Override
-	public void deleteUser(String doc) throws ServiciosException{
+	public void deleteUser(int doc) throws ServiciosException{
 		try{
 			USUARIO a = this.findUser(doc).get(0);
 			em.remove(a);
@@ -86,9 +86,7 @@ public class EstudianteBean implements EstudianteBeanRemote {
 			user2.setTelefono(user.getTelefono());
 			user2.setMail_insti(user.getMail_insti());
 			user2.setGeneracion(user.getGeneracion());
-			user2.setGenero(user.getGenero());
-			user2.setSemestre(user.getSemestre());
-			user2.setItr_s(user.getItr_s());
+			user2.setItr(user.getItr());
 			user2.setEstado(user.getEstado());
 			user2.setFechaNac(user.getFechaNac());
 			
