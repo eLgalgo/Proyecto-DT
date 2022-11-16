@@ -11,7 +11,6 @@ import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.Estado;
-import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.gui.Login;
@@ -52,8 +51,6 @@ public class Principal{
 		user1.setTelefono("tele");
 		user1.setMail_insti("c");
 		user1.setGeneracion("2022");
-		user1.setGenero(Genero.MACHO);
-		user1.setSemestre(1);
 		user1.setItr(null);
 		user1.setEstado(Estado.ACTIVO);
 		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
@@ -71,7 +68,7 @@ public class Principal{
 		tutor.setTelefono("tele");
 		tutor.setMail_insti("t");
 		tutor.setArea("Area1");
-		tutor.setTipo("Tipo1");
+		tutor.setTipo(null);
 		tutor.setItr(null);
 		tutor.setEstado(Estado.ACTIVO);
 		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));

@@ -214,7 +214,7 @@ public class Mod_Tutor {
 		tfMailInsti.setText(usuario.getMail_insti());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		tfArea.setText(usuario.getArea());
-		tfTipo.setText(usuario.getTipo());
+		tfTipo.setText(usuario.getTipo().toString());
 		
 		
 		JComboBox comboBoxEstado = new JComboBox();
@@ -269,7 +269,7 @@ public class Mod_Tutor {
 				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setArea(tfArea.getText());
-				usuario.setTipo(tfTipo.getText());
+//				usuario.setTipo(tfTipo.getText());
 				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				

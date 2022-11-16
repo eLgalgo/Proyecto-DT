@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 import com.entities.ESTUDIANTE;
 import com.enums.Departamento;
 import com.enums.Estado;
-import com.enums.Genero;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -120,11 +119,6 @@ public class Mod_Estudiante {
 		comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
 		frmModificacionDeUsuario.getContentPane().add(comboBoxDep);
 		
-		JComboBox<Genero> comboBoxGen = new javax.swing.JComboBox<>();
-		comboBoxGen.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxGen.setBounds(10, 230, 62, 22);
-		comboBoxGen.setModel(new DefaultComboBoxModel(Genero.values()));
-		frmModificacionDeUsuario.getContentPane().add(comboBoxGen);
 		
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -232,10 +226,8 @@ public class Mod_Estudiante {
 		tfEmail.setText(usuario.getMail());
 		tfMailInsti.setText(usuario.getMail_insti());
 		tfGeneracion.setText(usuario.getGeneracion());
-		tfSemestre.setValue(usuario.getSemestre());
 		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
-		comboBoxGen.setSelectedIndex(usuario.getGenero().ordinal());
 		
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setBounds(10, 288, 131, 22);
@@ -291,10 +283,8 @@ public class Mod_Estudiante {
 				usuario.setTelefono(tfTelefono.getText());
 				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				usuario.setGenero(Genero.valueOf(comboBoxGen.getSelectedItem().toString()));
-				//usuario.setLocalidad(null);
+				usuario.setLocalidad(null);
 				usuario.setGeneracion(tfGeneracion.getText());
-				usuario.setSemestre(Integer.parseInt(tfSemestre.getValue().toString()));
 				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				

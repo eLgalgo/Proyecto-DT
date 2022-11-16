@@ -10,6 +10,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -25,7 +26,7 @@ import com.enums.EITRs;
 import com.enums.Estado;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
-import com.services.AnalistaBean;
+import com.services.AnalistaBeanRemote;
 import com.toedter.calendar.JDateChooser;
 
 public class Alta_Usuario_Analista {
@@ -53,6 +54,8 @@ public class Alta_Usuario_Analista {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() throws NamingException {
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
 		frmAltaDeUsuarioA = new JFrame();
 		frmAltaDeUsuarioA.setTitle("Alta de Usuario Analista");
 		frmAltaDeUsuarioA.setResizable(false);
@@ -237,7 +240,7 @@ public class Alta_Usuario_Analista {
 		btnGuardar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-			AnalistaBean analistaBean = new AnalistaBean();
+			
 				ANALISTA Analista=new ANALISTA();
 				Analista.setApellido(tfApellido.getText());
 				Analista.setNombre(tfNombre.getText());
@@ -248,8 +251,10 @@ public class Alta_Usuario_Analista {
 				Analista.setMail_insti(tfMailInsti.getText());
 				Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				Analista.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
-				Analista.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-			
+				Analista.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+				Analista.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
+			Analista.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		
 				try {
 					
 					analistaBean.addAnalista(Analista);

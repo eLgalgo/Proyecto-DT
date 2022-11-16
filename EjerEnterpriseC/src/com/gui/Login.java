@@ -130,14 +130,15 @@ public class Login{
 							principalStudentW.setLocationRelativeTo(null);
 							getFrame().dispose();
 						}else if(usuario.get(0) instanceof TUTOR) {
-							Ppal_Analista principalTutorW = new Ppal_Analista();
-							principalTutorW.setVisible(true);
-							principalTutorW.setLocationRelativeTo(null);
-							getFrame().dispose();
-						}else if(usuario.get(0) instanceof ANALISTA) {
 							Ppal_Tutor principalAnalistW = new Ppal_Tutor();
 							principalAnalistW.setVisible(true);
 							principalAnalistW.setLocationRelativeTo(null);
+							
+							getFrame().dispose();
+						}else if(usuario.get(0) instanceof ANALISTA) {
+							Ppal_Analista principalTutorW = new Ppal_Analista();
+							principalTutorW.setVisible(true);
+							principalTutorW.setLocationRelativeTo(null);
 							getFrame().dispose();
 						}
 					}

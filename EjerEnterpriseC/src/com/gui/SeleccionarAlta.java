@@ -74,14 +74,14 @@ public class SeleccionarAlta {
 		JButton btnNewButton_1 = new JButton("Alta Tutor");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Alta_Usuario_Analista ALTAUA=null;
+				Alta_Usuario_Tutor ALTAUT=null;
 	        	try {
-					ALTAUA = new Alta_Usuario_Analista();
+					ALTAUT = new Alta_Usuario_Tutor();
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	        	ALTAUA.getFrame().setVisible(true);
+	        	ALTAUT.getFrame().setVisible(true);
         		selectAltaType.dispose();
 			
 			}
@@ -91,14 +91,14 @@ public class SeleccionarAlta {
 		JButton btnNewButton_2 = new JButton("Alta Estudiante");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Alta_Usuario_Analista ALTAUA=null;
+				Alta_Usuario_Estudiante ALTAUE=null;
 	        	try {
-					ALTAUA = new Alta_Usuario_Analista();
+					ALTAUE = new Alta_Usuario_Estudiante();
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	        	ALTAUA.getFrame().setVisible(true);
+	        	ALTAUE.getFrame().setVisible(true);
         		selectAltaType.dispose();
 			
 			}
