@@ -89,6 +89,8 @@ public class Principal{
 		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		analistaBean.addAnalista(analista);
+		
+		System.out.println("Maria, la mejor profe <3");
 	}
 
 }
