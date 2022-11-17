@@ -137,7 +137,8 @@ public class Login{
 							
 							getFrame().dispose();
 						}else if(usuario.get(0) instanceof ANALISTA) {
-							Ppal_Analista principalTutorW = new Ppal_Analista();
+							ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
+							Ppal_Analista principalTutorW = new Ppal_Analista(usuario2);
 							principalTutorW.setVisible(true);
 							principalTutorW.setLocationRelativeTo(null);
 							getFrame().dispose();

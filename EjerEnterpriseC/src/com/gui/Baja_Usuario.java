@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
 
+import com.entities.ANALISTA;
 import com.entities.USUARIO;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -33,28 +34,12 @@ public class Baja_Usuario {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Baja_Usuario window = new Baja_Usuario();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 * 
 	 * @throws NamingException
 	 */
-	public Baja_Usuario() throws NamingException {
-		initialize();
+	public Baja_Usuario(USUARIO usuario) throws NamingException {
+		initialize(usuario);
 	}
 
 	/**
@@ -62,7 +47,7 @@ public class Baja_Usuario {
 	 * 
 	 * @throws NamingException
 	 */
-	private void initialize() throws NamingException {
+	private void initialize(USUARIO usuario) throws NamingException {
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 
@@ -153,8 +138,12 @@ public class Baja_Usuario {
 			public void actionPerformed(ActionEvent e) {
 				Ppal_Analista pAnalist = null;
 				try {
-					pAnalist = new Ppal_Analista();
+					ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(usuario.getDocumento()).get(0);
+					pAnalist = new Ppal_Analista(usuario2);
 				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
