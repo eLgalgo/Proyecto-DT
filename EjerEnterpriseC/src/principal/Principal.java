@@ -39,7 +39,6 @@ public class Principal{
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
 		
-	
 		ESTUDIANTE user1 = new ESTUDIANTE();
 		user1.setNombre("Cristofer");
 		user1.setApellido("Cabrera");
@@ -90,8 +89,6 @@ public class Principal{
 		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		analistaBean.addAnalista(analista);
-		
-		
 	}
 
 }

@@ -20,7 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.entities.ANALISTA;
 import com.entities.TUTOR;
+import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.EITRs;
 import com.enums.Estado;
@@ -28,6 +30,7 @@ import com.enums.Localidad;
 import com.enums.RolTutor;
 import com.exception.ServiciosException;
 import com.services.TutorBeanRemote;
+import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
 
 public class Alta_Usuario_Tutor {
@@ -45,8 +48,8 @@ public class Alta_Usuario_Tutor {
 	/**
 	 * Create the application.
 	 */
-	public Alta_Usuario_Tutor() throws NamingException {
-		initialize();
+	public Alta_Usuario_Tutor(USUARIO usuario) throws NamingException {
+		initialize(usuario);
 	}
 
 	/**
@@ -55,7 +58,7 @@ public class Alta_Usuario_Tutor {
 	 * @throws NamingException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void initialize() throws NamingException {
+	private void initialize(USUARIO usuario) throws NamingException {
 		TutorBeanRemote tutorBean = (TutorBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
 		
@@ -294,13 +297,20 @@ public class Alta_Usuario_Tutor {
 		btnGuardar.setBounds(225, 268, 97, 23);
 		frmAltaDeUsuarioT.getContentPane().add(btnGuardar);
 
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ppal_Analista pAnalist = null;
 				try {
-					pAnalist = new Ppal_Analista();
+					ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(usuario.getDocumento()).get(0);
+					pAnalist = new Ppal_Analista(usuario2);
 				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

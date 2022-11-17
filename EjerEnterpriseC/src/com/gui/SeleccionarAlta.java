@@ -5,42 +5,34 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.entities.ANALISTA;
+import com.entities.USUARIO;
+import com.exception.ServiciosException;
+import com.services.UsuarioBeanRemote;
 
 public class SeleccionarAlta {
 
 	private JFrame selectAltaType;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeleccionarAlta window = new SeleccionarAlta();
-					window.selectAltaType.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
+	 * @throws NamingException 
 	 */
-	public SeleccionarAlta() {
-		initialize();
+	public SeleccionarAlta(USUARIO usuario) throws NamingException {
+		initialize(usuario);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws NamingException 
 	 */
-	private void initialize() {
+	private void initialize(USUARIO usuario) throws NamingException {
 		selectAltaType = new JFrame();
 		selectAltaType.setBounds(100, 100, 450, 340);
 		selectAltaType.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,14 +46,20 @@ public class SeleccionarAlta {
 		panel.setBounds(0, 36, 434, 161);
 		selectAltaType.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(0, 3, 0, 0));
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 		
 		JButton btnNewButton = new JButton("Alta Analista");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Alta_Usuario_Analista ALTAUA=null;
 	        	try {
-					ALTAUA = new Alta_Usuario_Analista();
+	        		ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(usuario.getDocumento()).get(0);
+					ALTAUA = new Alta_Usuario_Analista(usuario2);
 				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -76,7 +74,7 @@ public class SeleccionarAlta {
 			public void actionPerformed(ActionEvent e) {
 				Alta_Usuario_Tutor ALTAUT=null;
 	        	try {
-					ALTAUT = new Alta_Usuario_Tutor();
+					ALTAUT = new Alta_Usuario_Tutor(usuario);
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -93,7 +91,7 @@ public class SeleccionarAlta {
 			public void actionPerformed(ActionEvent e) {
 				Alta_Usuario_Estudiante ALTAUE=null;
 	        	try {
-					ALTAUE = new Alta_Usuario_Estudiante();
+					ALTAUE = new Alta_Usuario_Estudiante(usuario);
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

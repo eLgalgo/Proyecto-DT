@@ -20,13 +20,16 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
+import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.EITRs;
 import com.enums.Estado;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.EstudianteBeanRemote;
+import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
 
 public class Alta_Usuario_Estudiante {
@@ -43,8 +46,8 @@ public class Alta_Usuario_Estudiante {
 	/**
 	 * Create the application.
 	 */
-	public Alta_Usuario_Estudiante() throws NamingException {
-		initialize();
+	public Alta_Usuario_Estudiante(USUARIO usuario) throws NamingException {
+		initialize(usuario);
 	}
 
 	/**
@@ -53,7 +56,7 @@ public class Alta_Usuario_Estudiante {
 	 * @throws NamingException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void initialize() throws NamingException {
+	private void initialize(USUARIO usuario) throws NamingException {
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 		
@@ -280,14 +283,20 @@ public class Alta_Usuario_Estudiante {
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
 		btnGuardar.setBounds(220, 267, 97, 23);
 		frmAltaDeUsuarioA.getContentPane().add(btnGuardar);
-
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ppal_Analista pAnalist = null;
 				try {
-					pAnalist = new Ppal_Analista();
+					ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(usuario.getDocumento()).get(0);
+					pAnalist = new Ppal_Analista(usuario2);
 				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
