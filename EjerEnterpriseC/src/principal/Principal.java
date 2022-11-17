@@ -10,8 +10,10 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.enums.Departamento;
+import com.enums.EITRs;
 import com.enums.Estado;
 import com.enums.Localidad;
+import com.enums.RolTutor;
 import com.exception.ServiciosException;
 import com.gui.Login;
 import com.services.AnalistaBeanRemote;
@@ -50,7 +52,7 @@ public class Principal{
 		user1.setTelefono("tele");
 		user1.setMail_insti("c");
 		user1.setGeneracion("2022");
-		user1.setItr(null);
+		user1.setItr(EITRs.NORTE);
 		user1.setEstado(Estado.ACTIVO);
 		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
@@ -67,8 +69,8 @@ public class Principal{
 		tutor.setTelefono("tele");
 		tutor.setMail_insti("t");
 		tutor.setArea("Area1");
-		tutor.setTipo(null);
-		tutor.setItr(null);
+		tutor.setTipo(RolTutor.Encargado);
+		tutor.setItr(EITRs.CENTROSUR);
 		tutor.setEstado(Estado.ACTIVO);
 		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
@@ -84,7 +86,7 @@ public class Principal{
 		analista.setLocalidad(Localidad.CAPITAL);
 		analista.setTelefono("tele");
 		analista.setMail_insti("m");
-		analista.setItr(null);
+		analista.setItr(EITRs.NORTE);
 		analista.setEstado(Estado.ACTIVO);
 		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		

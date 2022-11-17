@@ -95,16 +95,33 @@ public class ListUsers {
 				try {
 					ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(usuario.getDocumento()).get(0);
 					pAnalist = new Ppal_Analista(usuario2);
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
+				} catch (NamingException | ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				pAnalist.setVisible(true);
 				pAnalist.setLocationRelativeTo(null);
 				getFrame().dispose();
+				
+//				if(usuario.get(0) instanceof ESTUDIANTE) {
+//					ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
+//					Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
+//					principalStudentW.setVisible(true);
+//					principalStudentW.setLocationRelativeTo(null);
+//					getFrame().dispose();
+//				}else if(usuario.get(0) instanceof TUTOR) {
+//					TUTOR usuario2 = (TUTOR) usuarioBean.findUser(nom_usuario, clave).get(0);
+//					Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
+//					principalTutorW.setVisible(true);
+//					principalTutorW.setLocationRelativeTo(null);
+//					getFrame().dispose();
+//				}else if(usuario.get(0) instanceof ANALISTA) {
+//					ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
+//					Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
+//					principalanalistaW.setVisible(true);
+//					principalanalistaW.setLocationRelativeTo(null);
+//					getFrame().dispose();
+//				}
 			}
 		});
 	}
@@ -260,11 +277,11 @@ public class ListUsers {
 		trs.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), columnaTabla));
 	}
 	
-	private void FiltroEstado() {
-
-		int columnaTabla = 5;//Estado
-		String estado = comboBoxEstado.getSelectedItem().toString();
-		System.out.println(estado);
-		trs.setRowFilter(RowFilter.regexFilter(estado, columnaTabla));
-	}
+//	private void FiltroEstado() {
+//
+//		int columnaTabla = 5;//Estado
+//		String estado = comboBoxEstado.getSelectedItem().toString();
+//		System.out.println(estado);
+//		trs.setRowFilter(RowFilter.regexFilter(estado, columnaTabla));
+//	}
 }
