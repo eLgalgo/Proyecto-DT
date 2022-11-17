@@ -333,5 +333,21 @@ public class Ppal_Estudiante extends JFrame
         		
         	}
         });
+        
+        btnNewButton_6_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					Listar_SConstancias listSW = new Listar_SConstancias(usuario);
+					listSW.setVisible(true);
+					dispose();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
     }
 }

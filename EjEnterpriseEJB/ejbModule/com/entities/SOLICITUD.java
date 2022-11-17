@@ -1,11 +1,13 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.*;
 
 import com.enums.TipoConstancia;
+
 
 /**
  * Entity implementation class for Entity: SOLICITUD
@@ -33,10 +35,16 @@ public class SOLICITUD implements Serializable {
 	
 	private String estado;
 	
+	@OneToOne
+	private ESTUDIANTE estSol;
+	
+	@OneToOne
+	private ANALISTA analist;
+	
 	public SOLICITUD() {
 		super();
 	}
-
+	
 	public int getId_solicitud() {
 		return id_solicitud;
 	}
@@ -76,6 +84,31 @@ public class SOLICITUD implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public String getEventoAsis() {
+		return eventoAsis;
+	}
+
+	public void setEventoAsis(String eventoAsis) {
+		this.eventoAsis = eventoAsis;
+	}
+
+	public ESTUDIANTE getEstSol() {
+		return estSol;
+	}
+
+	public void setEstSol(ESTUDIANTE estSol) {
+		this.estSol = estSol;
+	}
+
+	public ANALISTA getAnalist() {
+		return analist;
+	}
+
+	public void setAnalist(ANALISTA analist) {
+		this.analist = analist;
+	}
+	
 	
 	
    

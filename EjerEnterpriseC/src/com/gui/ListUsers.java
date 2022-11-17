@@ -56,8 +56,8 @@ public class ListUsers {
 	 * 
 	 * @throws NamingException
 	 */
-	public ListUsers(List<USUARIO> list) throws NamingException {
-		initialize(list);
+	public ListUsers(List<USUARIO> list, USUARIO usuario) throws NamingException {
+		initialize(list, usuario);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class ListUsers {
 	 * 
 	 * @throws NamingException
 	 */
-	private void initialize(List<USUARIO> list) throws NamingException {
+	private void initialize(List<USUARIO> list, USUARIO usuario) throws NamingException {
 		frmListadoDeUsuarios = new JFrame();
 		frmListadoDeUsuarios.setTitle("Listado de Usuarios");
 		frmListadoDeUsuarios.setIconImage(
@@ -86,13 +86,19 @@ public class ListUsers {
 		crearTablaPersona();
 		// Agregamos datos
 		agregarDatosLista(modelo, list);
-
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ppal_Analista pAnalist = null;
 				try {
-					pAnalist = new Ppal_Analista();
+					ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(usuario.getDocumento()).get(0);
+					pAnalist = new Ppal_Analista(usuario2);
 				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

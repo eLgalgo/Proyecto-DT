@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
 
+import com.entities.ANALISTA;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -45,7 +46,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         System.out.println(e.getActionCommand());
     }
 
-    public Ppal_Analista() throws NamingException {
+    public Ppal_Analista(ANALISTA usuario) throws NamingException {
         super("Administración Secretaría");
         getContentPane().setBackground(Color.WHITE);
         
@@ -70,7 +71,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					Baja_Usuario baja = new Baja_Usuario();
+					Baja_Usuario baja = new Baja_Usuario(usuario);
 					baja.getFrame().setVisible(true);
 					baja.getFrame().setLocationRelativeTo(null);
 					dispose();
@@ -346,7 +347,12 @@ public class Ppal_Analista extends JFrame implements ActionListener {
 		   btnNewButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        	SeleccionarAlta ALTATAB=null;
-	        	ALTATAB = new SeleccionarAlta();
+	        	try {
+					ALTATAB = new SeleccionarAlta(usuario);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	        	ALTATAB.getFrame().setVisible(true);
         		dispose();
 	        	} });
@@ -367,7 +373,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					ListUsers table = new ListUsers(usuarioBean.listAllUsers());
+					ListUsers table = new ListUsers(usuarioBean.listAllUsers(), usuario);
 					table.getFrame().setVisible(true);
 					table.getFrame().setLocationRelativeTo(null);
 					dispose();
@@ -381,11 +387,28 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					ListUsers table = new ListUsers(usuarioBean.listAllUsers());
+					ListUsers table = new ListUsers(usuarioBean.listAllUsers(), usuario);
 					table.getFrame().setVisible(true);
 					table.getFrame().setLocationRelativeTo(null);
 					dispose();
 				} catch (ServiciosException | NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        
+        btnNewButton_4.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					Listar_SConstanciasAnalista constW = new Listar_SConstanciasAnalista(usuario);
+					constW.setVisible(true);
+					constW.setLocationRelativeTo(null);
+					dispose();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

@@ -285,7 +285,7 @@ public class Mod_Tutor {
 			public void actionPerformed(ActionEvent e) {
 				ListUsers list = null;
 				try {
-					list = new ListUsers(usuarioBean.listAllUsers());
+					list = new ListUsers(usuarioBean.listAllUsers(), usuario);
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

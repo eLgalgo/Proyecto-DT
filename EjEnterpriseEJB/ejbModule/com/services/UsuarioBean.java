@@ -44,6 +44,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 				USUARIO.class).setParameter("mail_insti", mail_insti);
 		return query.getResultList();
 	}
+	
 
 	@Override
 	public List<USUARIO> findUser(int doc) throws ServiciosException {
