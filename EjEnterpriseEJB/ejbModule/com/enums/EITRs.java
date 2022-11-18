@@ -9,10 +9,4 @@ private String Nombre;
 private Departamento departamento;
 private EITRs (String Nombre,Departamento departamento) {
 }
-public String getNombreITR() {
-    return this.Nombre;
-}
-public Departamento getDepITR() {
-    return this.departamento;
-}
 }

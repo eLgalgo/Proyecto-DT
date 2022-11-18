@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.enums.Departamento;
 import com.enums.EstadoUsuario;
@@ -46,15 +47,15 @@ public class Mod_Estudiante {
 	/**
 	 * Create the application.
 	 */
-	public Mod_Estudiante(ESTUDIANTE usuario) throws NamingException{
-		initialize(usuario);
+	public Mod_Estudiante(ESTUDIANTE usuario, ANALISTA analista) throws NamingException{
+		initialize(usuario, analista);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws NamingException 
 	 */
-	private void initialize(ESTUDIANTE usuario) throws NamingException {
+	private void initialize(ESTUDIANTE usuario, ANALISTA analista) throws NamingException {
 		frmModificacionDeUsuario = new JFrame();
 		frmModificacionDeUsuario.setTitle("Modificacion de Estudiante");
 		frmModificacionDeUsuario.setResizable(false);
@@ -128,7 +129,7 @@ public class Mod_Estudiante {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(77, 230, 64, 22);
-		comboBoxItr.addItem(usuario.getItr().getNombreITR());
+		comboBoxItr.addItem(usuario.getItr().name());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
@@ -300,7 +301,7 @@ public class Mod_Estudiante {
 			public void actionPerformed(ActionEvent e) {
 				ListUsers list = null;
 				try {
-					list = new ListUsers(usuarioBean.listAllUsers(), usuario);
+					list = new ListUsers(usuarioBean.listAllUsers(), analista);
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
