@@ -131,16 +131,16 @@ public class Login{
 							principalStudentW.setLocationRelativeTo(null);
 							getFrame().dispose();
 						}else if(usuario.get(0) instanceof TUTOR) {
-							Ppal_Tutor principalAnalistW = new Ppal_Tutor();
-							principalAnalistW.setVisible(true);
-							principalAnalistW.setLocationRelativeTo(null);
-							
+							TUTOR usuario2 = (TUTOR) usuarioBean.findUser(nom_usuario, clave).get(0);
+							Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
+							principalTutorW.setVisible(true);
+							principalTutorW.setLocationRelativeTo(null);
 							getFrame().dispose();
 						}else if(usuario.get(0) instanceof ANALISTA) {
 							ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
-							Ppal_Analista principalTutorW = new Ppal_Analista(usuario2);
-							principalTutorW.setVisible(true);
-							principalTutorW.setLocationRelativeTo(null);
+							Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
+							principalanalistaW.setVisible(true);
+							principalanalistaW.setLocationRelativeTo(null);
 							getFrame().dispose();
 						}
 					}else if(usuario.get(0).getEstado().name() == "SIN_CHEQUEAR"){

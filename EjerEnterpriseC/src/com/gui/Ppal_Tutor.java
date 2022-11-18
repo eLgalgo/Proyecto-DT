@@ -19,6 +19,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
 
+import com.entities.TUTOR;
+
 public class Ppal_Tutor extends JFrame
         implements ActionListener {
 	private JMenuItem file_SupEvento;
@@ -34,7 +36,7 @@ public class Ppal_Tutor extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Ppal_Tutor() {
+    public Ppal_Tutor(TUTOR usuario) {
         super("Administración Secretaría");
         getContentPane().setBackground(Color.WHITE);
         
@@ -271,14 +273,14 @@ public class Ppal_Tutor extends JFrame
         Ayuda.setFont(new Font("SimSun", Font.PLAIN, 13));
         jmb.add(Ayuda);
         
-        JCheckBoxMenuItem hlp_1 = new JCheckBoxMenuItem("Puto el que Lea");
+        JCheckBoxMenuItem hlp_1 = new JCheckBoxMenuItem("Ayuda 1");
         hlp_1.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         Ayuda.add(hlp_1);
         
-        JRadioButtonMenuItem hpl_2 = new JRadioButtonMenuItem("Comiste Gato");
+        JRadioButtonMenuItem hpl_2 = new JRadioButtonMenuItem("Ayuda 2");
         Ayuda.add(hpl_2);
         
-        JRadioButtonMenuItem hlp_Help = new JRadioButtonMenuItem("Ayuda");
+        JRadioButtonMenuItem hlp_Help = new JRadioButtonMenuItem("Ayuda 3");
         Ayuda.add(hlp_Help);
         
         JRadioButtonMenuItem hlp_About = new JRadioButtonMenuItem("Sobre secretar\u00EDa");
@@ -303,8 +305,5 @@ public class Ppal_Tutor extends JFrame
         		dispose();
         	}
         });
-    }
-    public static void main(String[] args) {
-        new Ppal_Tutor();
     }
 }
