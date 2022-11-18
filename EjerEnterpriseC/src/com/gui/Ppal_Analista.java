@@ -86,6 +86,10 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_2.setBackground(Color.WHITE);
         
         JButton btnNewButton_3 = new JButton("");
+        btnNewButton_3.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         btnNewButton_3.setBounds(287, 193, 70, 70);
         btnNewButton_3.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_3.setBackground(Color.WHITE);

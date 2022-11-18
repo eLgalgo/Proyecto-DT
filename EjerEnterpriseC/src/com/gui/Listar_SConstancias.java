@@ -2,7 +2,10 @@ package com.gui;
 
 import java.awt.EventQueue;
 import java.awt.event.*;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -66,7 +69,7 @@ public class Listar_SConstancias extends JFrame
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
-        JButton btnSolicitar = new JButton("Ver");
+        JButton btnSolicitar = new JButton("Imprimir");
         btnSolicitar.setBounds(406, 293, 113, 23);
         btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
         getContentPane().add(btnSolicitar);
@@ -114,7 +117,14 @@ public class Listar_SConstancias extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		if(tabla.getSelectedRow() != -1) {
+        		String header = "CONSTANCIA " + usuario.getNombre() +" "+ usuario.getApellido();
+        		String footer = "EMITIDO POR UTEC \nFECHA: " + LocalDate.now();
+        		utilJTablePrint(tabla, header, footer, true);
+        		}
+        		else {
+					JOptionPane.showMessageDialog(null, "Seleccione una constancia para imprimir");
+				}
         	}
         });
     }
@@ -223,4 +233,60 @@ public class Listar_SConstancias extends JFrame
 			}
 		});
 	}
+	
+	/**
+	 * Standard method to print a JTable to the printer directly..
+	 * Método estándar para imprimir un JTable por la impresora directamente.
+	 * <h3>Example (Ejemplo)</h3>
+	 * <pre>
+	 *      utilJTablePrint(jTable2, getTitle(), "Código Xules", true);
+	 * </pre>
+	 *
+	 * @param jTable <code>JTable</code> 
+	 *      the JTable we are going to extract to excel 
+	 *      El Jtable que vamos a extraer a excel.
+	 * @param header <code>String</code>
+	 *      Header to print in the document.
+	 *      Cabecera que imprimiremos en el documento.
+	 * @param footer <code>String</code>
+	 *      Footer to print in the document.
+	 *      Pie de página que imprimiremos en el documento.
+	 * @param showPrintDialog  <code>boolean</code>
+	 *      To show or not the print dialog.
+	 *      Mostramos o no el diálogo de impresión.
+	 */
+	public void utilJTablePrint(JTable jTable, String header, String footer, boolean showPrintDialog){        
+	    boolean fitWidth = true;        
+	    boolean interactive = true;
+	    // We define the print mode (Definimos el modo de impresión)
+	    JTable.PrintMode mode = fitWidth ? JTable.PrintMode.FIT_WIDTH : JTable.PrintMode.NORMAL---;
+	    try {
+	        // Print the table (Imprimo la tabla)             
+	        boolean complete = jTable.print(mode,
+	                new MessageFormat(header),
+	                new MessageFormat(footer),
+	                showPrintDialog,
+	                null,
+	                interactive);                 
+	        if (complete) {
+	            // Mostramos el mensaje de impresión existosa
+	            JOptionPane.showMessageDialog(jTable,
+	                    "Print complete (Impresión completa)",
+	                    "Print result (Resultado de la impresión)",
+	                    JOptionPane.INFORMATION_MESSAGE);
+	        } else {
+	            // Mostramos un mensaje indicando que la impresión fue cancelada                 
+	            JOptionPane.showMessageDialog(jTable,
+	                    "Print canceled (Impresión cancelada)",
+	                    "Print result (Resultado de la impresión)",
+	                    JOptionPane.WARNING_MESSAGE);
+	        }
+	    } catch (PrinterException pe) {
+	        JOptionPane.showMessageDialog(jTable, 
+	                "Fallo de impresión: " + pe.getMessage(), 
+	                "Print result (Resultado de la impresión)", 
+	                JOptionPane.ERROR_MESSAGE);
+	    }
+	}
 }
+
