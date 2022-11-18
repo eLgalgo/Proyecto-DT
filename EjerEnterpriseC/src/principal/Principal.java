@@ -23,6 +23,8 @@ import com.services.EventoBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
+import org.hibernate.type.LocalDateType;
+
 public class Principal{
 	
 	public static void main(String[] args) throws NamingException, ServiciosException {
@@ -91,7 +93,7 @@ public class Principal{
 		tutor.setTelefono("tele");
 		tutor.setMail_insti("t");
 		tutor.setArea("Area1");
-		tutor.setTipo(RolTutor.Tutor);
+		tutor.setTipo(RolTutor.TUTOR);
 		tutor.setItr(EITRs.NORTE);
 		tutor.setEstado(EstadoUsuario.ACTIVO);
 		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
@@ -110,7 +112,7 @@ public class Principal{
 		tutor2.setTelefono("1241241");
 		tutor2.setMail_insti("l");
 		tutor2.setArea("Area2");
-		tutor2.setTipo(RolTutor.Encargado);
+		tutor2.setTipo(RolTutor.ENCARGADO);
 		tutor2.setEstado(EstadoUsuario.ACTIVO);
 		tutor2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
@@ -149,6 +151,7 @@ public class Principal{
 		eventoBean.asignEstToEvent(1, 2);
 		eventoBean.asignEstToEvent(2, 2);
 		
+		System.out.println("Maria la mejor profe <3");
 	}
 
 }

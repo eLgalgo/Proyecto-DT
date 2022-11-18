@@ -3,6 +3,7 @@ package com.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ServiceConfigurationError;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import com.enums.Departamento;
 import com.enums.EITRs;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
+import com.exception.ServiciosException;
 
 /**
  * Entity implementation class for Entity: USUARIOS
@@ -36,7 +38,7 @@ public abstract class USUARIO implements Serializable {
 	@SequenceGenerator(name = "SEQ_ID_USUARIO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_USUARIO")
 	private int id_usuario;
-	@Column (unique = true)
+	@Column(unique = true)
 	private int documento;
 
 	private String nombre;
@@ -44,10 +46,10 @@ public abstract class USUARIO implements Serializable {
 	private String apellido;
 
 	private String telefono;
-	@Column (unique = true)
+	@Column(unique = true)
 	private String mail;
 
-	@Column (unique = true)
+	@Column(unique = true)
 	private String mail_insti;
 
 	private String contrasena;
@@ -59,13 +61,13 @@ public abstract class USUARIO implements Serializable {
 
 	@Enumerated(value = EnumType.STRING)
 	private EstadoUsuario estado;
-	
+
 	@Enumerated(value = EnumType.STRING)
 	private EITRs itr;
-	
+
 	@Enumerated(value = EnumType.STRING)
 	private Localidad localidad;
-	
+
 	public EstadoUsuario getEstado() {
 		return estado;
 	}
@@ -73,8 +75,6 @@ public abstract class USUARIO implements Serializable {
 	public void setEstado(EstadoUsuario estado) {
 		this.estado = estado;
 	}
-
-	
 
 	public USUARIO() {
 		super();
@@ -144,7 +144,6 @@ public abstract class USUARIO implements Serializable {
 		this.departamento = departamento;
 	}
 
-
 	public EITRs getItr() {
 		return itr;
 	}
@@ -167,7 +166,7 @@ public abstract class USUARIO implements Serializable {
 	}
 
 	public void setFechaNac(LocalDate fechaNac) {
-		
+
 		this.fecha_nac = fechaNac;
 	}
 
