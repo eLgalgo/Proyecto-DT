@@ -50,13 +50,12 @@ public class ListUsers {
 	private JTextField txtFiltro;
 	private TableRowSorter trs;
 	private JComboBox comboBoxEstado;
-
 	/**
 	 * Create the application.
 	 * 
 	 * @throws NamingException
 	 */
-	public ListUsers(List<USUARIO> list, USUARIO usuario) throws NamingException {
+	public ListUsers(List<USUARIO> list, ANALISTA usuario) throws NamingException {
 		initialize(list, usuario);
 	}
 
@@ -65,7 +64,7 @@ public class ListUsers {
 	 * 
 	 * @throws NamingException
 	 */
-	private void initialize(List<USUARIO> list, USUARIO usuario) throws NamingException {
+	private void initialize(List<USUARIO> list, ANALISTA usuario) throws NamingException {
 		frmListadoDeUsuarios = new JFrame();
 		frmListadoDeUsuarios.setTitle("Listado de Usuarios");
 		frmListadoDeUsuarios.setIconImage(
@@ -85,7 +84,7 @@ public class ListUsers {
 
 		crearTablaPersona();
 		// Agregamos datos
-		agregarDatosLista(modelo, list);
+		agregarDatosLista(modelo, list, usuario);
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 
@@ -99,14 +98,11 @@ public class ListUsers {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
 				pAnalist.setLocationRelativeTo(null);
 				getFrame().dispose();
-
 			}
 		});
 	}
-
 	private void crearTablaPersona() {
 		String[] columnas = { "ID", "Nombre", "Apellido", "Departamento", "Documento", "Telefono", "Email", "Tipo",
 				"Estado" };
@@ -174,7 +170,7 @@ public class ListUsers {
 		frmListadoDeUsuarios.getContentPane().add(comboBoxEstado);
 	}
 
-	private void agregarDatosLista(DefaultTableModel modelo, List<USUARIO> list) throws NamingException {
+	private void agregarDatosLista(DefaultTableModel modelo, List<USUARIO> list, ANALISTA usuario) throws NamingException {
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 
@@ -220,17 +216,17 @@ public class ListUsers {
 								.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
 								.get(0);
 						if (user instanceof ESTUDIANTE) {
-							Mod_Estudiante modEstudW = new Mod_Estudiante((ESTUDIANTE) user);
+							Mod_Estudiante modEstudW = new Mod_Estudiante((ESTUDIANTE) user, usuario);
 							modEstudW.getFrame().setVisible(true);
 							modEstudW.getFrame().setLocationRelativeTo(null);
 							getFrame().dispose();
 						} else if (user instanceof ANALISTA) {
-							Mod_Analista modAnalistW = new Mod_Analista((ANALISTA) user);
+							Mod_Analista modAnalistW = new Mod_Analista((ANALISTA) user, usuario);
 							modAnalistW.getFrame().setVisible(true);
 							modAnalistW.getFrame().setLocationRelativeTo(null);
 							getFrame().dispose();
 						} else if (user instanceof TUTOR) {
-							Mod_Tutor modTutorW = new Mod_Tutor((TUTOR) user);
+							Mod_Tutor modTutorW = new Mod_Tutor((TUTOR) user, usuario);
 							modTutorW.getFrame().setVisible(true);
 							modTutorW.getFrame().setLocationRelativeTo(null);
 							getFrame().dispose();
