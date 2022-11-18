@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -241,7 +242,7 @@ public class Alta_Usuario_Estudiante {
 		
 		JComboBox comboBoxIngreso = new JComboBox();
 		comboBoxIngreso.setBounds(10, 267, 107, 22);
-		for(int i=2000;i<=2023;i+=1){
+		for(int i=2012;i<=LocalDate.now().getYear();i+=1){
 		    comboBoxIngreso.addItem(i);
 		}
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxIngreso);

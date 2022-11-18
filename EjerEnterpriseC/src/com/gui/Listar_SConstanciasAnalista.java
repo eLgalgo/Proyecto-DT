@@ -39,100 +39,105 @@ import com.services.UsuarioBeanRemote;
 import java.awt.Color;
 import java.awt.Component;
 
-public class Listar_SConstanciasAnalista extends JFrame
-        implements ActionListener {
+public class Listar_SConstanciasAnalista extends JFrame implements ActionListener {
 	private JTable tabla;
 	private DefaultTableModel modelo;
 
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-    }
+	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand());
+	}
 
-    public Listar_SConstanciasAnalista(ANALISTA usuario) throws NamingException, ServiciosException {
-        super("Administración Secretaría");
-        setResizable(false);
-        setBackground(Color.WHITE);
-        getContentPane().setBackground(Color.WHITE);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(550,362);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        getContentPane().setLayout(null);
-        
-        JButton btnCancelar = new JButton("Volver");
-        btnCancelar.setBounds(10, 293, 97, 23);
-        btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-        getContentPane().add(btnCancelar);
-        
-        JButton btnSolicitar = new JButton("Emitir");
-        btnSolicitar.setBounds(406, 293, 113, 23);
-        btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
-        getContentPane().add(btnSolicitar);
-        
-        JLabel lblNewLabel_2 = new JLabel("Solicitudes");
-        lblNewLabel_2.setBounds(10, 11, 448, 34);
-        lblNewLabel_2.setForeground(Color.BLACK);
-        lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
-        getContentPane().add(lblNewLabel_2);
-        setTitle("Solicitudes de Constancia");
-        
-        //Logica botones
-        
-        EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-		
-		TutorBeanRemote tutorBean = (TutorBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
-		
-		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
-		
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
-		EventoBeanRemote eventoBean = (EventoBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
-		
+	public Listar_SConstanciasAnalista(ANALISTA usuario) throws NamingException, ServiciosException {
+		super("Administración Secretaría");
+		setResizable(false);
+		setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.WHITE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(550, 362);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		getContentPane().setLayout(null);
+
+		JButton btnCancelar = new JButton("Volver");
+		btnCancelar.setBounds(10, 293, 97, 23);
+		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
+		getContentPane().add(btnCancelar);
+
+		JButton btnSolicitar = new JButton("Emitir");
+		btnSolicitar.setBounds(406, 293, 113, 23);
+		btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
+		getContentPane().add(btnSolicitar);
+
+		JLabel lblNewLabel_2 = new JLabel("Solicitudes");
+		lblNewLabel_2.setBounds(10, 11, 448, 34);
+		lblNewLabel_2.setForeground(Color.BLACK);
+		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
+		getContentPane().add(lblNewLabel_2);
+		setTitle("Solicitudes de Constancia");
+
+		// Logica botones
+
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+
+		EventoBeanRemote eventoBean = (EventoBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
+
 		SolicitudBeanRemote solicitudBean = (SolicitudBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/SolicitudBean!com.services.SolicitudBeanRemote");
 
-        //Tabla
-        crearTablaPersona();
+		// Tabla
+		crearTablaPersona();
 		// Agregamos datos
 		agregarDatosLista(modelo);
-		
-        btnCancelar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Ppal_Analista pAnalistaW = null;
+
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Ppal_Analista pAnalistaW = null;
 				try {
 					pAnalistaW = new Ppal_Analista(usuario);
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-        		pAnalistaW.setVisible(true);
-        		pAnalistaW.setLocationRelativeTo(null);
-        		dispose();
-        	}
-        });
-        
-        btnSolicitar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
-					SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
-					if(sol.getEstado().equals("EMITIDA")) {
-						JOptionPane.showMessageDialog(null, "¡Error! constancia ya emitida");
-					}else {
-						sol.setAnalist(usuario);
-						solicitudBean.emitirSolicitud(sol);
-						try {
-							agregarDatosLista(modelo);
-						} catch (NamingException e1) {
-							e1.printStackTrace();
+				pAnalistaW.setVisible(true);
+				pAnalistaW.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
+
+		btnSolicitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (tabla.getSelectedRow() != -1) {
+						SOLICITUD sol = solicitudBean
+								.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
+								.get(0);
+						if (sol.getEstado().equals("EMITIDA")) {
+							JOptionPane.showMessageDialog(null, "¡Error! constancia ya emitida");
+						} else {
+							sol.setAnalist(usuario);
+							solicitudBean.emitirSolicitud(sol);
+							try {
+								agregarDatosLista(modelo);
+							} catch (NamingException e1) {
+								e1.printStackTrace();
+							}
+							JOptionPane.showMessageDialog(null, "Constancia emitida con exito");
 						}
-						JOptionPane.showMessageDialog(null, "Constancia emitida con exito");
 					}
-					
+					else {
+						JOptionPane.showMessageDialog(null, "Seleccione la constacia que desea emitir");
+					}
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -140,12 +145,13 @@ public class Listar_SConstanciasAnalista extends JFrame
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-        		
-        	}
-        });
-    }
-    private void crearTablaPersona() {
-		String[] columnas = { "ID","Tipo", "Fecha", "Evento", "Estudiante", "Analista", "Estado" };
+
+			}
+		});
+	}
+
+	private void crearTablaPersona() {
+		String[] columnas = { "ID", "Tipo", "Fecha", "Evento", "Estudiante", "Analista", "Estado" };
 		tabla = new JTable();
 		modelo = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -180,18 +186,18 @@ public class Listar_SConstanciasAnalista extends JFrame
 
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
+
 		EventoBeanRemote eventoBean = (EventoBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
-		
+
 		SolicitudBeanRemote solicitudBean = (SolicitudBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/SolicitudBean!com.services.SolicitudBeanRemote");
-		
+
 		// Borramos todas las filas en la tabla
 		modelo.setRowCount(0);
 
 		// Creamos los datos de una fila de la tabla
-		Object[] datosFila = { "", "", "", "", "", "", ""};
+		Object[] datosFila = { "", "", "", "", "", "", "" };
 		List<SOLICITUD> list = null;
 		try {
 			list = solicitudBean.listAll();
@@ -199,7 +205,7 @@ public class Listar_SConstanciasAnalista extends JFrame
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		// Agregamos MUCHOS mas datos
 		for (SOLICITUD p : list) {
 			datosFila[0] = p.getId_solicitud();
@@ -207,9 +213,9 @@ public class Listar_SConstanciasAnalista extends JFrame
 			datosFila[2] = p.getFecha();
 			datosFila[3] = p.getEventoAsis().getTitulo();
 			datosFila[4] = p.getEstSol().getDocumento();
-			if(p.getAnalist() == null) {
+			if (p.getAnalist() == null) {
 				datosFila[5] = "N/T";
-			}else {
+			} else {
 				datosFila[5] = p.getAnalist().getNombre();
 			}
 			datosFila[6] = p.getEstado();
