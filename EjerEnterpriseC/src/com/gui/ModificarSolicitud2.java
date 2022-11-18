@@ -76,29 +76,29 @@ public class ModificarSolicitud2 extends JFrame
         getContentPane().add(lblTipo);
         
         JComboBox comboBoxTipo = new JComboBox();
-        comboBoxTipo.setBounds(10, 85, 150, 22);
+        comboBoxTipo.setBounds(10, 79, 150, 28);
         comboBoxTipo.setModel(new DefaultComboBoxModel(TipoConstancia.values()));
         getContentPane().add(comboBoxTipo);
         
         JLabel lblNewLabel_2 = new JLabel("Modificar Solicitud");
-        lblNewLabel_2.setBounds(10, 11, 448, 34);
+        lblNewLabel_2.setBounds(10, 11, 219, 34);
         lblNewLabel_2.setForeground(Color.BLACK);
         lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
         getContentPane().add(lblNewLabel_2);
         
         JLabel lblSeleccioneEvento = new JLabel("Seleccione Evento");
-        lblSeleccioneEvento.setBounds(170, 61, 288, 14);
+        lblSeleccioneEvento.setBounds(10, 118, 288, 14);
         lblSeleccioneEvento.setFont(new Font("SimSun", Font.PLAIN, 17));
         getContentPane().add(lblSeleccioneEvento);
         
         tfMasInfo = new JTextField();
-        tfMasInfo.setBounds(10, 143, 150, 34);
+        tfMasInfo.setBounds(190, 79, 329, 28);
         getContentPane().add(tfMasInfo);
         tfMasInfo.setColumns(10);
         
         JLabel lblMasInfo = new JLabel("Mas info");
         lblMasInfo.setFont(new Font("SimSun", Font.PLAIN, 17));
-        lblMasInfo.setBounds(10, 118, 161, 14);
+        lblMasInfo.setBounds(194, 60, 161, 14);
         getContentPane().add(lblMasInfo);
         setTitle("Modificar Solicitud de Constancia");
         
@@ -181,7 +181,7 @@ public class ModificarSolicitud2 extends JFrame
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(169, 85, 352, 184);
+		desplazamiento.setBounds(10, 143, 509, 139);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
