@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.entities.ANALISTA;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.EstadoUsuario;
@@ -45,15 +46,15 @@ public class Mod_Tutor {
 	/**
 	 * Create the application.
 	 */
-	public Mod_Tutor(TUTOR usuario) throws NamingException{
-		initialize(usuario);
+	public Mod_Tutor(TUTOR usuario, ANALISTA analista) throws NamingException{
+		initialize(usuario, analista);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws NamingException 
 	 */
-	private void initialize(TUTOR usuario) throws NamingException {
+	private void initialize(TUTOR usuario, ANALISTA analista) throws NamingException {
 		frmModificacionDeUsuario = new JFrame();
 		frmModificacionDeUsuario.setTitle("Modificacion de Tutor");
 		frmModificacionDeUsuario.setResizable(false);
@@ -110,7 +111,7 @@ public class Mod_Tutor {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
-		comboBoxItr.addItem(usuario.getItr().getNombreITR());
+		comboBoxItr.addItem(usuario.getItr().name());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
@@ -214,7 +215,7 @@ public class Mod_Tutor {
 		tfMailInsti.setText(usuario.getMail_insti());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		tfArea.setText(usuario.getArea());
-		tfTipo.setText(usuario.getTipo().toString());
+		tfTipo.setText(usuario.getTipo().name());
 		
 		
 		JComboBox comboBoxEstado = new JComboBox();
@@ -285,7 +286,7 @@ public class Mod_Tutor {
 			public void actionPerformed(ActionEvent e) {
 				ListUsers list = null;
 				try {
-					list = new ListUsers(usuarioBean.listAllUsers(), usuario);
+					list = new ListUsers(usuarioBean.listAllUsers(), analista);
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

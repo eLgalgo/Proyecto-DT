@@ -43,8 +43,8 @@ public class Mod_Analista {
 	/**
 	 * Create the application.
 	 */
-	public Mod_Analista(ANALISTA usuario) throws NamingException {
-		initialize(usuario);
+	public Mod_Analista(ANALISTA usuario, ANALISTA analista) throws NamingException {
+		initialize(usuario, analista);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class Mod_Analista {
 	 * 
 	 * @throws NamingException
 	 */
-	private void initialize(ANALISTA usuario) throws NamingException {
+	private void initialize(ANALISTA usuario, ANALISTA analista) throws NamingException {
 		frmModificacionDeUsuario = new JFrame();
 		frmModificacionDeUsuario.setTitle("Modificacion de Analista");
 		frmModificacionDeUsuario.setResizable(false);
@@ -109,7 +109,7 @@ public class Mod_Analista {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
-		comboBoxItr.addItem(usuario.getItr().getNombreITR());
+		comboBoxItr.addItem(usuario.getItr().name());
 
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
@@ -260,7 +260,7 @@ public class Mod_Analista {
 			public void actionPerformed(ActionEvent e) {
 				ListUsers list = null;
 				try {
-					list = new ListUsers(usuarioBean.listAllUsers(), usuario);
+					list = new ListUsers(usuarioBean.listAllUsers(), analista);
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
