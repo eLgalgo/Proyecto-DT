@@ -143,6 +143,7 @@ public class Principal{
 //		eventoBean.asignEstToEvent(1, 2);
 //		eventoBean.asignEstToEvent(2, 2);
 		
+		System.out.println("Maria la mejor profe <3");
 	}
 
 }
