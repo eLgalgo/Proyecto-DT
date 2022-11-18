@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 
 import com.entities.TUTOR;
 import com.enums.Departamento;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -219,7 +219,7 @@ public class Mod_Tutor {
 		
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setBounds(10, 285, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
 		
@@ -270,7 +270,7 @@ public class Mod_Tutor {
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setArea(tfArea.getText());
 //				usuario.setTipo(tfTipo.getText());
-				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				
 				try {

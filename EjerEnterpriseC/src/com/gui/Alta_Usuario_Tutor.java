@@ -25,7 +25,7 @@ import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.EITRs;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
 import com.exception.ServiciosException;
@@ -226,10 +226,10 @@ public class Alta_Usuario_Tutor {
 		frmAltaDeUsuarioT.getContentPane().add(comboBoxItr);
 
 	
-		JComboBox<Estado> comboBoxEstado = new javax.swing.JComboBox<>();
+		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 216, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		frmAltaDeUsuarioT.getContentPane().add(comboBoxEstado);
 
 		JComboBox<Localidad> comboBoxLoc = new JComboBox<Localidad>();
@@ -250,7 +250,7 @@ public class Alta_Usuario_Tutor {
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		frmAltaDeUsuarioT.getContentPane().add(dateChooser);
 
-		JComboBox<Estado> comboBoxRolT = new JComboBox<Estado>();
+		JComboBox<EstadoUsuario> comboBoxRolT = new JComboBox<EstadoUsuario>();
 		comboBoxRolT.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxRolT.setBounds(10, 268, 76, 22);
 		comboBoxRolT.setModel(new DefaultComboBoxModel(RolTutor.values()));
@@ -278,7 +278,7 @@ public class Alta_Usuario_Tutor {
 				tutor.setTelefono(tfTelefono.getText());
 				tutor.setMail_insti(tfMailInsti.getText());
 				tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				tutor.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 				tutor.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
 				tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());

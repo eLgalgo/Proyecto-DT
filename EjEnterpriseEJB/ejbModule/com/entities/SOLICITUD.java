@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.enums.EstadoSolicitud;
 import com.enums.TipoConstancia;
 
 
@@ -34,7 +35,8 @@ public class SOLICITUD implements Serializable {
 	
 	private String infoAdj;
 	
-	private String estado;
+	@Enumerated(value = EnumType.STRING)
+	private EstadoSolicitud estado;
 	
 	@OneToOne
 	private ESTUDIANTE estSol;
@@ -78,11 +80,11 @@ public class SOLICITUD implements Serializable {
 		this.infoAdj = infoAdj;
 	}
 
-	public String getEstado() {
+	public EstadoSolicitud getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoSolicitud estado) {
 		this.estado = estado;
 	}
 

@@ -11,7 +11,7 @@ import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
 import com.entities.TUTOR;
 import com.enums.Departamento;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.gui.Login;
@@ -56,7 +56,7 @@ public class Principal{
 //		user1.setMail_insti("c");
 //		user1.setGeneracion("2022");
 //		user1.setItr(null);
-//		user1.setEstado(Estado.ACTIVO);
+//		user1.setEstado(EstadoUsuario.ACTIVO);
 //		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 //		
 //		estudianteBean.addStudent(user1);
@@ -73,7 +73,7 @@ public class Principal{
 //		user2.setMail_insti("q");
 //		user2.setGeneracion("2022");
 //		user2.setItr(null);
-//		user2.setEstado(Estado.ACTIVO);
+//		user2.setEstado(EstadoUsuario.ACTIVO);
 //		user2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 //		
 //		estudianteBean.addStudent(user2);
@@ -89,7 +89,7 @@ public class Principal{
 //		tutor.setTelefono("tele");
 //		tutor.setMail_insti("t");
 //		tutor.setArea("Area1");
-//		tutor.setEstado(Estado.ACTIVO);
+//		tutor.setEstado(EstadoUsuario.ACTIVO);
 //		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 //		
 //		tutorBean.addTutor(tutor);
@@ -105,7 +105,7 @@ public class Principal{
 //		tutor2.setTelefono("1241241");
 //		tutor2.setMail_insti("l");
 //		tutor2.setArea("Area2");
-//		tutor2.setEstado(Estado.ACTIVO);
+//		tutor2.setEstado(EstadoUsuario.ACTIVO);
 //		tutor2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 //		
 //		tutorBean.addTutor(tutor2);
@@ -121,7 +121,7 @@ public class Principal{
 //		analista.setTelefono("tele");
 //		analista.setMail_insti("m");
 //		analista.setItr(null);
-//		analista.setEstado(Estado.ACTIVO);
+//		analista.setEstado(EstadoUsuario.ACTIVO);
 //		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 //		
 //		analistaBean.addAnalista(analista);

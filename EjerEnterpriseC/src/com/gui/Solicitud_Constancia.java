@@ -26,7 +26,8 @@ import com.entities.SOLICITUD;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.Estado;
+import com.enums.EstadoSolicitud;
+import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -141,7 +142,7 @@ public class Solicitud_Constancia extends JFrame
         		SOLICITUD sol = new SOLICITUD();
         		sol.setTipo(TipoConstancia.valueOf(comboBoxTipo.getSelectedItem().toString()));
         		sol.setInfoAdj(textField.getText());
-        		sol.setEstado("PENDIENTE");
+        		sol.setEstado(EstadoSolicitud.PENDIENTE);
         		Date date = Date.from(Instant.now());
         		sol.setFecha(date);
         		sol.setEstSol(usuario);

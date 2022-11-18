@@ -26,7 +26,7 @@ import com.entities.SOLICITUD;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
