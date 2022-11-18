@@ -25,7 +25,7 @@ import com.entities.ESTUDIANTE;
 import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.EITRs;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.EstudianteBeanRemote;
@@ -214,10 +214,10 @@ public class Alta_Usuario_Estudiante {
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxItr);
 
 	
-		JComboBox<Estado> comboBoxEstado = new javax.swing.JComboBox<>();
+		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 216, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxEstado);
 
 		JComboBox<Localidad> comboBoxLoc = new JComboBox<Localidad>();
@@ -266,7 +266,7 @@ public class Alta_Usuario_Estudiante {
 				estudiante.setTelefono(tfTelefono.getText());
 				estudiante.setMail_insti(tfMailInsti.getText());
 				estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				estudiante.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 				estudiante.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
 				estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());

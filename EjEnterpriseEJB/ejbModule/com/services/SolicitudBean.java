@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import com.entities.EVENTO;
 import com.entities.SOLICITUD;
 import com.entities.USUARIO;
+import com.enums.EstadoSolicitud;
 import com.exception.ServiciosException;
 
 /**
@@ -42,19 +43,35 @@ public class SolicitudBean implements SolicitudBeanRemote {
 	}
 
 	@Override
-	public void editSolicitud(SOLICITUD sol) throws ServiciosException {
+	public void deleteSolicitud(SOLICITUD sol) throws ServiciosException {
+		try {
+			SOLICITUD s = this.findSol(sol.getId_solicitud()).get(0);
+			em.remove(s);
+			em.flush();
+		} catch (PersistenceException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Override
+	public void emitirSolicitud(SOLICITUD sol) throws ServiciosException {
 		// TODO Auto-generated method stub
 		SOLICITUD sol2 = em.find(SOLICITUD.class, sol.getId_solicitud());
-		sol2.setEstado("EMITIDA");
+		sol2.setEstado(EstadoSolicitud.EMITIDA);
 		sol2.setAnalist(sol.getAnalist());
 		em.merge(sol2);
 		em.flush();
 	}
-
+	
 	@Override
-	public void deleteSolicitud(int documento) throws ServiciosException {
+	public void editSolicitud(SOLICITUD sol) throws ServiciosException {
 		// TODO Auto-generated method stub
-		
+		SOLICITUD sol2 = em.find(SOLICITUD.class, sol.getId_solicitud());
+		sol2.setTipo(sol.getTipo());
+		sol2.setEventoAsis(sol.getEventoAsis());
+		sol2.setInfoAdj(sol.getInfoAdj());
+		em.merge(sol2);
+		em.flush();
 	}
 	
 	@Override

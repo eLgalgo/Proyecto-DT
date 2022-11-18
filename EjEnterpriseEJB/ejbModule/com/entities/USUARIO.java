@@ -19,7 +19,7 @@ import javax.persistence.SequenceGenerator;
 
 import com.enums.Departamento;
 import com.enums.EITRs;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 
 /**
@@ -58,7 +58,7 @@ public abstract class USUARIO implements Serializable {
 	private Departamento departamento;
 
 	@Enumerated(value = EnumType.STRING)
-	private Estado estado;
+	private EstadoUsuario estado;
 	
 	@Enumerated(value = EnumType.STRING)
 	private EITRs itr;
@@ -66,11 +66,11 @@ public abstract class USUARIO implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private Localidad localidad;
 	
-	public Estado getEstado() {
+	public EstadoUsuario getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Estado estado) {
+	public void setEstado(EstadoUsuario estado) {
 		this.estado = estado;
 	}
 

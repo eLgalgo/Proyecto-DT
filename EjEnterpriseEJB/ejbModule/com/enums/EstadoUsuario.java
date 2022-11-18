@@ -1,5 +1,5 @@
 package com.enums;
 
-public enum Estado {
+public enum EstadoUsuario {
 	ACTIVO, SIN_CHEQUEAR, ELIMINADO
 }

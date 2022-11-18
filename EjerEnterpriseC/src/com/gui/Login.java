@@ -121,9 +121,9 @@ public class Login{
 				
 				try {
 					List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);
-					if(usuario.isEmpty()) {
+					if(usuario.isEmpty() ) {
 						JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
-					}else {
+					}else if(usuario.get(0).getEstado().name() == "ACTIVO"){
 						if(usuario.get(0) instanceof ESTUDIANTE) {
 							ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
 							Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
@@ -143,6 +143,10 @@ public class Login{
 							principalanalistaW.setLocationRelativeTo(null);
 							getFrame().dispose();
 						}
+					}else if(usuario.get(0).getEstado().name() == "SIN_CHEQUEAR"){
+						JOptionPane.showMessageDialog(null, "Usuario inactivo");
+					}else{
+						JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
 					}
 				} catch (ServiciosException | NamingException e1) {
 					e1.printStackTrace();

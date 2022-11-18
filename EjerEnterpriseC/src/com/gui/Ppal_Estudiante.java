@@ -66,10 +66,10 @@ public class Ppal_Estudiante extends JFrame
         btnNewButton_2.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newReclam.png")));
         btnNewButton_2.setBackground(Color.WHITE);
         
-        JButton btnNewButton_3 = new JButton("");
-        btnNewButton_3.setBounds(654, 59, 70, 70);
-        btnNewButton_3.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchReclam.png")));
-        btnNewButton_3.setBackground(Color.WHITE);
+        JButton btnEliminarSolicitud = new JButton("");
+        btnEliminarSolicitud.setBounds(654, 59, 70, 70);
+        btnEliminarSolicitud.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchReclam.png")));
+        btnEliminarSolicitud.setBackground(Color.WHITE);
         
         JButton btnNewButton_4 = new JButton("");
         btnNewButton_4.setBounds(118, 307, 70, 70);
@@ -123,19 +123,19 @@ public class Ppal_Estudiante extends JFrame
         lblJustificacin.setBounds(118, 274, 42, 15);
         lblJustificacin.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblModificar_1_1_1 = new JLabel("Buscar");
+        JLabel lblModificar_1_1_1 = new JLabel("Eliminar");
         lblModificar_1_1_1.setBounds(654, 135, 72, 15);
         lblModificar_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblConstancia = new JLabel("Reclamos");
+        JLabel lblConstancia = new JLabel("Solicitud");
         lblConstancia.setBounds(654, 156, 78, 15);
         lblConstancia.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblModificar_1_1_1_1_1_1 = new JLabel("Buscar");
+        JLabel lblModificar_1_1_1_1_1_1 = new JLabel("Modificar");
         lblModificar_1_1_1_1_1_1.setBounds(463, 253, 72, 15);
         lblModificar_1_1_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblJustificaciones = new JLabel("Justificaciones");
+        JLabel lblJustificaciones = new JLabel("Solicitudes");
         lblJustificaciones.setBounds(463, 274, 90, 15);
         lblJustificaciones.setFont(new Font("SimSun", Font.PLAIN, 12));
         
@@ -168,7 +168,7 @@ public class Ppal_Estudiante extends JFrame
         lblModificar_1_1_1_1_1_1_1_2.setBounds(654, 253, 72, 15);
         lblModificar_1_1_1_1_1_1_1_2.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblEvento = new JLabel("Constancias");
+        JLabel lblEvento = new JLabel("Solicitudes");
         lblEvento.setBounds(654, 274, 90, 15);
         lblEvento.setFont(new Font("SimSun", Font.PLAIN, 12));
         getContentPane().setLayout(null);
@@ -182,7 +182,7 @@ public class Ppal_Estudiante extends JFrame
         getContentPane().add(lblNewLabel);
         getContentPane().add(lblConstancia_1);
         getContentPane().add(btnNewButton_1);
-        getContentPane().add(btnNewButton_3);
+        getContentPane().add(btnEliminarSolicitud);
         getContentPane().add(lblModificar_1_1_1);
         getContentPane().add(lblConstancia);
         getContentPane().add(btnNewButton_2);
@@ -317,7 +317,19 @@ public class Ppal_Estudiante extends JFrame
         		dispose();
         	}
         });
-        
+        btnEliminarSolicitud.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					EliminarSolicitud elW = new EliminarSolicitud(usuario);
+					elW.setVisible(true);
+					dispose();
+				} catch (NamingException | ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		
+        	}
+        });
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
@@ -345,6 +357,22 @@ public class Ppal_Estudiante extends JFrame
 					e1.printStackTrace();
 				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        
+        //Modificar Solicitudes
+        
+        btnNewButton_1_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ModificarSolicitud1 modW = new ModificarSolicitud1(usuario);
+					modW.setVisible(true);
+					dispose();
+				} catch (NamingException e1) {
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
 					e1.printStackTrace();
 				}
         	}

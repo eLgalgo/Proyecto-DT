@@ -32,7 +32,7 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -169,7 +169,7 @@ public class ListUsers {
 		comboBoxEstado = new JComboBox();
 
 		comboBoxEstado.setBounds(411, 40, 110, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedItem(null);
 		frmListadoDeUsuarios.getContentPane().add(comboBoxEstado);
 	}
