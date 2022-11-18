@@ -103,6 +103,8 @@ public class Listar_SConstancias extends JFrame
 		// Agregamos datos
 		agregarDatosLista(usuario, EstadoSolicitud.SIN_FILTRO);
 		
+		comboBoxEstado.setSelectedIndex(2);
+		
         btnCancelar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		Ppal_Estudiante pEstudianteW = new Ppal_Estudiante(usuario);
