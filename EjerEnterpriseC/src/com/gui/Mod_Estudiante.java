@@ -22,8 +22,7 @@ import javax.swing.JTextField;
 
 import com.entities.ESTUDIANTE;
 import com.enums.Departamento;
-import com.enums.EITRs;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -129,7 +128,7 @@ public class Mod_Estudiante {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(77, 230, 64, 22);
-		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+		comboBoxItr.addItem(usuario.getItr().getNombreITR());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
@@ -229,11 +228,10 @@ public class Mod_Estudiante {
 		tfGeneracion.setText(usuario.getGeneracion());
 		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
-		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());
 		
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setBounds(10, 288, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
 		
@@ -287,9 +285,8 @@ public class Mod_Estudiante {
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setLocalidad(null);
 				usuario.setGeneracion(tfGeneracion.getText());
-				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-				usuario.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
 				
 				try {
 					estudianteBean.editEstudiante((ESTUDIANTE) usuario);

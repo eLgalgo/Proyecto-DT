@@ -26,7 +26,7 @@ import com.entities.SOLICITUD;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -124,11 +124,10 @@ public class Listar_SConstanciasAnalista extends JFrame
 						JOptionPane.showMessageDialog(null, "¡Error! constancia ya emitida");
 					}else {
 						sol.setAnalist(usuario);
-						solicitudBean.editSolicitud(sol);
+						solicitudBean.emitirSolicitud(sol);
 						try {
 							agregarDatosLista(modelo);
 						} catch (NamingException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(null, "Constancia emitida con exito");
@@ -206,7 +205,7 @@ public class Listar_SConstanciasAnalista extends JFrame
 			datosFila[0] = p.getId_solicitud();
 			datosFila[1] = p.getTipo();
 			datosFila[2] = p.getFecha();
-			datosFila[3] = p.getInfoAdj();
+			datosFila[3] = p.getEventoAsis().getTitulo();
 			datosFila[4] = p.getEstSol().getDocumento();
 			if(p.getAnalist() == null) {
 				datosFila[5] = "N/T";

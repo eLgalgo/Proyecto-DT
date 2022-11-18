@@ -9,7 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.USUARIO;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 
 import org.hibernate.validator.internal.constraintvalidators.hv.ISBNValidator;
@@ -124,7 +124,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public void logicDelete(int doc) throws ServiciosException {
 		List<USUARIO> usuarios = this.findUser(doc);
-		usuarios.get(0).setEstado(Estado.ELIMINADO);
+		usuarios.get(0).setEstado(EstadoUsuario.ELIMINADO);
 		em.merge(usuarios.get(0));
 		em.flush();
 	}

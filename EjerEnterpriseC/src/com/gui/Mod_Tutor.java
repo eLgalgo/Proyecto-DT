@@ -21,9 +21,7 @@ import javax.swing.JTextField;
 
 import com.entities.TUTOR;
 import com.enums.Departamento;
-import com.enums.EITRs;
-import com.enums.Estado;
-import com.enums.RolTutor;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -42,6 +40,7 @@ public class Mod_Tutor {
 	private JTextField tfApellido;
 	private JTextField tfDocumento;
 	private JTextField tfArea;
+	private JTextField tfTipo;
 
 	/**
 	 * Create the application.
@@ -111,7 +110,7 @@ public class Mod_Tutor {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
-		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+		comboBoxItr.addItem(usuario.getItr().getNombreITR());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
@@ -188,14 +187,17 @@ public class Mod_Tutor {
 		tfArea.setBounds(10, 232, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfArea);
 		
-		JComboBox comboBoxTipo = new JComboBox();
-		comboBoxTipo.setBounds(151, 231, 131, 22);
-		frmModificacionDeUsuario.getContentPane().add(comboBoxTipo);
-		
 		JLabel lblArea = new JLabel("Area");
 		lblArea.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblArea.setBounds(10, 208, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblArea);
+		
+		tfTipo = new JTextField();
+		tfTipo.setText((String) null);
+		tfTipo.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfTipo.setColumns(10);
+		tfTipo.setBounds(151, 233, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfTipo);
 		
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -212,13 +214,12 @@ public class Mod_Tutor {
 		tfMailInsti.setText(usuario.getMail_insti());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
 		tfArea.setText(usuario.getArea());
-		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());
-		comboBoxTipo.setSelectedIndex(usuario.getTipo().ordinal());
+		tfTipo.setText(usuario.getTipo().toString());
 		
 		
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setBounds(10, 285, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
 		
@@ -241,8 +242,6 @@ public class Mod_Tutor {
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblFechaDeNacimiento.setBounds(293, 209, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
-		
-		
 		
 		
 		//Logica
@@ -270,10 +269,9 @@ public class Mod_Tutor {
 				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setArea(tfArea.getText());
-				usuario.setTipo(RolTutor.valueOf(comboBoxTipo.getSelectedItem().toString()));
-				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+//				usuario.setTipo(tfTipo.getText());
+				usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-				usuario.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
 				
 				try {
 					tutorBean.editTutor((TUTOR) usuario);

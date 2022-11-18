@@ -40,9 +40,8 @@ import com.services.UsuarioBeanRemote;
 import java.awt.Color;
 import java.awt.Component;
 
-public class Solicitud_Constancia extends JFrame
+public class EliminarSolicitud extends JFrame
         implements ActionListener {
-	private JTextField textField;
 	private JTable tabla;
 	private DefaultTableModel modelo;
 
@@ -50,7 +49,7 @@ public class Solicitud_Constancia extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Solicitud_Constancia(ESTUDIANTE usuario) throws NamingException, ServiciosException {
+    public EliminarSolicitud(ESTUDIANTE usuario) throws NamingException, ServiciosException {
         super("Administración Secretaría");
         setResizable(false);
         setBackground(Color.WHITE);
@@ -66,42 +65,17 @@ public class Solicitud_Constancia extends JFrame
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
-        JButton btnSolicitar = new JButton("Solicitar");
+        JButton btnSolicitar = new JButton("Eliminar");
         btnSolicitar.setBounds(406, 293, 113, 23);
         btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
         getContentPane().add(btnSolicitar);
         
-        JLabel lblTipo = new JLabel("Tipo");
-        lblTipo.setBounds(10, 60, 86, 14);
-        lblTipo.setFont(new Font("SimSun", Font.PLAIN, 17));
-        getContentPane().add(lblTipo);
-        
-        JComboBox comboBoxTipo = new JComboBox();
-        comboBoxTipo.setBounds(10, 79, 150, 28);
-        comboBoxTipo.setModel(new DefaultComboBoxModel(TipoConstancia.values()));
-        getContentPane().add(comboBoxTipo);
-        
-        JLabel lblNewLabel_2 = new JLabel("Solicitar Constancia");
-        lblNewLabel_2.setBounds(10, 11, 211, 34);
+        JLabel lblNewLabel_2 = new JLabel("Mis Solicitudes");
+        lblNewLabel_2.setBounds(10, 11, 448, 34);
         lblNewLabel_2.setForeground(Color.BLACK);
         lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
         getContentPane().add(lblNewLabel_2);
-        
-        JLabel lblSeleccioneEvento = new JLabel("Seleccione Evento");
-        lblSeleccioneEvento.setBounds(10, 118, 288, 14);
-        lblSeleccioneEvento.setFont(new Font("SimSun", Font.PLAIN, 17));
-        getContentPane().add(lblSeleccioneEvento);
-        
-        textField = new JTextField();
-        textField.setBounds(194, 79, 325, 28);
-        getContentPane().add(textField);
-        textField.setColumns(10);
-        
-        JLabel lblMasInfo = new JLabel("Mas info");
-        lblMasInfo.setFont(new Font("SimSun", Font.PLAIN, 17));
-        lblMasInfo.setBounds(194, 60, 161, 14);
-        getContentPane().add(lblMasInfo);
-        setTitle("Solicitar Constancia");
+        setTitle("Eliminar Solicitud");
         
         //Logica botones
         
@@ -139,32 +113,34 @@ public class Solicitud_Constancia extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		SOLICITUD sol = new SOLICITUD();
-        		sol.setTipo(TipoConstancia.valueOf(comboBoxTipo.getSelectedItem().toString()));
-        		sol.setInfoAdj(textField.getText());
-        		sol.setEstado(EstadoSolicitud.PENDIENTE);
-        		Date date = Date.from(Instant.now());
-        		sol.setFecha(date);
-        		sol.setEstSol(usuario);
         		try {
-					sol.setEventoAsis(eventoBean.findEvento(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0));
-				} catch (NumberFormatException | ServiciosException e2) {
+					SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
+					if(sol.getEstado().equals(EstadoSolicitud.EMITIDA)) {
+						JOptionPane.showMessageDialog(null, "Error, existen acciones en esta solicitud");
+					}else {
+						solicitudBean.deleteSolicitud(sol);
+						try {
+							agregarDatosLista(modelo, usuario);
+						} catch (NamingException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						JOptionPane.showMessageDialog(null, "Solicitud eliminada con exito");
+					}
+					
+					
+				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-        		
-        		try {
-					solicitudBean.addSolicitud(sol);
-					JOptionPane.showMessageDialog(null, "Solicitud enviada con exito");
+					e1.printStackTrace();
 				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-        		
         	}
         });
     }
     private void crearTablaPersona() {
-		String[] columnas = { "ID","Titulo", "Fecha_Inc", "Fech_Fin", "Detalle", "Tutor" };
+		String[] columnas = { "ID","Tipo", "Fecha", "Evento", "Estudiante", "Estado" };
 		tabla = new JTable();
 		modelo = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,7 +152,7 @@ public class Solicitud_Constancia extends JFrame
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 143, 509, 139);
+		desplazamiento.setBounds(10, 48, 511, 234);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -203,29 +179,43 @@ public class Solicitud_Constancia extends JFrame
 		EventoBeanRemote eventoBean = (EventoBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
 		
+		SolicitudBeanRemote solicitudBean = (SolicitudBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/SolicitudBean!com.services.SolicitudBeanRemote");
+		
 		// Borramos todas las filas en la tabla
 		modelo.setRowCount(0);
 
 		// Creamos los datos de una fila de la tabla
-		Object[] datosFila = { "","", "", "", "", ""};
-		List<EVENTO> list = null;
+		Object[] datosFila = { "", "", "", "", "", ""};
+		List<SOLICITUD> list = null;
 		try {
-			list = eventoBean.listarEventosEstu(usuario.getDocumento());
+			list = solicitudBean.listarSolicitudEstu(usuario.getDocumento());
 		} catch (ServiciosException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		// Agregamos MUCHOS mas datos
-		for (EVENTO p : list) {
-			datosFila[0] = p.getId_evento();
-			datosFila[1] = p.getTitulo();
-			datosFila[2] = p.getFechaFinal();
-			datosFila[3] = p.getFechaInicio();
-			datosFila[4] = p.getInformacion();
-			datosFila[5] = p.getTutor().getNombre();
+		for (SOLICITUD p : list) {
+			datosFila[0] = p.getId_solicitud();
+			datosFila[1] = p.getTipo();
+			datosFila[2] = p.getFecha();
+			datosFila[3] = p.getEventoAsis().getTitulo();
+			datosFila[4] = p.getEstSol().getDocumento();
+			datosFila[5] = p.getEstado();
 
 			modelo.addRow(datosFila);
 		}
+		tabla.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evnt) {
+				if (evnt.getClickCount() == 2) {
+					try {
+						System.out.println("Existo");
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 	}
 }

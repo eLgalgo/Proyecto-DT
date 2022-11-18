@@ -26,7 +26,8 @@ import com.entities.SOLICITUD;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.Estado;
+import com.enums.EstadoSolicitud;
+import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -43,6 +44,7 @@ public class Listar_SConstancias extends JFrame
         implements ActionListener {
 	private JTable tabla;
 	private DefaultTableModel modelo;
+	private JComboBox comboBoxEstado;
 
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
@@ -70,7 +72,7 @@ public class Listar_SConstancias extends JFrame
         getContentPane().add(btnSolicitar);
         
         JLabel lblNewLabel_2 = new JLabel("Mis Solicitudes");
-        lblNewLabel_2.setBounds(10, 11, 448, 34);
+        lblNewLabel_2.setBounds(10, 11, 159, 34);
         lblNewLabel_2.setForeground(Color.BLACK);
         lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
         getContentPane().add(lblNewLabel_2);
@@ -97,9 +99,9 @@ public class Listar_SConstancias extends JFrame
 				.doLookup("EjEnterpriseEJB/SolicitudBean!com.services.SolicitudBeanRemote");
 
         //Tabla
-        crearTablaPersona();
+        crearTablaPersona(usuario);
 		// Agregamos datos
-		agregarDatosLista(modelo, usuario);
+		agregarDatosLista(usuario, EstadoSolicitud.SIN_FILTRO);
 		
         btnCancelar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -116,7 +118,7 @@ public class Listar_SConstancias extends JFrame
         	}
         });
     }
-    private void crearTablaPersona() {
+    private void crearTablaPersona(ESTUDIANTE usuario) {
 		String[] columnas = { "Tipo", "Fecha", "Evento", "Estudiante", "Estado" };
 		tabla = new JTable();
 		modelo = new DefaultTableModel() {
@@ -138,9 +140,34 @@ public class Listar_SConstancias extends JFrame
 
 		tabla.setModel(modelo);
 		getContentPane().add(desplazamiento);
+		
+		comboBoxEstado = new JComboBox();
+		comboBoxEstado.setBounds(393, 18, 126, 28);
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoSolicitud.values()));
+		getContentPane().add(comboBoxEstado);
+		
+		
+		
+	    final ItemListener changeClick = new ItemListener()
+	    {
+	        public void itemStateChanged(ItemEvent e) 
+	        {
+	            if(comboBoxEstado.getSelectedItem().equals(e.getItem()))
+	            {
+	            	try {
+						agregarDatosLista(usuario, EstadoSolicitud.valueOf(comboBoxEstado.getSelectedItem().toString()));
+					} catch (NamingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	            }
+	        }
+	    };
+	    
+	    comboBoxEstado.addItemListener(changeClick);
 	}
 
-	private void agregarDatosLista(DefaultTableModel modelo, ESTUDIANTE usuario) throws NamingException {
+	private void agregarDatosLista(ESTUDIANTE usuario, EstadoSolicitud estadoSolicitud) throws NamingException {
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 
@@ -174,13 +201,15 @@ public class Listar_SConstancias extends JFrame
 		
 		// Agregamos MUCHOS mas datos
 		for (SOLICITUD p : list) {
-			datosFila[0] = p.getTipo();
-			datosFila[1] = p.getFecha();
-			datosFila[2] = p.getInfoAdj();
-			datosFila[3] = p.getEstSol().getDocumento();
-			datosFila[4] = p.getEstado();
+			if(p.getEstado().equals(estadoSolicitud) || estadoSolicitud.equals(EstadoSolicitud.SIN_FILTRO)) {
+				datosFila[0] = p.getTipo();
+				datosFila[1] = p.getFecha();
+				datosFila[2] = p.getEventoAsis().getTitulo();
+				datosFila[3] = p.getEstSol().getDocumento();
+				datosFila[4] = p.getEstado();
 
-			modelo.addRow(datosFila);
+				modelo.addRow(datosFila);
+			}
 		}
 		tabla.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evnt) {

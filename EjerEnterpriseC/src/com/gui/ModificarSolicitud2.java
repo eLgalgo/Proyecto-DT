@@ -26,7 +26,6 @@ import com.entities.SOLICITUD;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.EstadoSolicitud;
 import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
@@ -40,9 +39,9 @@ import com.services.UsuarioBeanRemote;
 import java.awt.Color;
 import java.awt.Component;
 
-public class Solicitud_Constancia extends JFrame
+public class ModificarSolicitud2 extends JFrame
         implements ActionListener {
-	private JTextField textField;
+	private JTextField tfMasInfo;
 	private JTable tabla;
 	private DefaultTableModel modelo;
 
@@ -50,7 +49,7 @@ public class Solicitud_Constancia extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Solicitud_Constancia(ESTUDIANTE usuario) throws NamingException, ServiciosException {
+    public ModificarSolicitud2(ESTUDIANTE usuario, SOLICITUD solicitud) throws NamingException, ServiciosException {
         super("Administración Secretaría");
         setResizable(false);
         setBackground(Color.WHITE);
@@ -66,7 +65,7 @@ public class Solicitud_Constancia extends JFrame
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
-        JButton btnSolicitar = new JButton("Solicitar");
+        JButton btnSolicitar = new JButton("Modificar");
         btnSolicitar.setBounds(406, 293, 113, 23);
         btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
         getContentPane().add(btnSolicitar);
@@ -81,8 +80,8 @@ public class Solicitud_Constancia extends JFrame
         comboBoxTipo.setModel(new DefaultComboBoxModel(TipoConstancia.values()));
         getContentPane().add(comboBoxTipo);
         
-        JLabel lblNewLabel_2 = new JLabel("Solicitar Constancia");
-        lblNewLabel_2.setBounds(10, 11, 211, 34);
+        JLabel lblNewLabel_2 = new JLabel("Modificar Solicitud");
+        lblNewLabel_2.setBounds(10, 11, 219, 34);
         lblNewLabel_2.setForeground(Color.BLACK);
         lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
         getContentPane().add(lblNewLabel_2);
@@ -92,17 +91,19 @@ public class Solicitud_Constancia extends JFrame
         lblSeleccioneEvento.setFont(new Font("SimSun", Font.PLAIN, 17));
         getContentPane().add(lblSeleccioneEvento);
         
-        textField = new JTextField();
-        textField.setBounds(194, 79, 325, 28);
-        getContentPane().add(textField);
-        textField.setColumns(10);
+        tfMasInfo = new JTextField();
+        tfMasInfo.setBounds(190, 79, 329, 28);
+        getContentPane().add(tfMasInfo);
+        tfMasInfo.setColumns(10);
         
         JLabel lblMasInfo = new JLabel("Mas info");
         lblMasInfo.setFont(new Font("SimSun", Font.PLAIN, 17));
         lblMasInfo.setBounds(194, 60, 161, 14);
         getContentPane().add(lblMasInfo);
-        setTitle("Solicitar Constancia");
+        setTitle("Modificar Solicitud de Constancia");
         
+        comboBoxTipo.setSelectedIndex(solicitud.getTipo().ordinal());
+        tfMasInfo.setText(solicitud.getInfoAdj());
         //Logica botones
         
         EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
@@ -130,8 +131,15 @@ public class Solicitud_Constancia extends JFrame
 		
         btnCancelar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Ppal_Estudiante pEstudianteW = new Ppal_Estudiante(usuario);
-				pEstudianteW.setVisible(true);
+        		ModificarSolicitud1 pEstudianteW = null;
+				try {
+					pEstudianteW = new ModificarSolicitud1(usuario);
+				} catch (NamingException e1) {
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					e1.printStackTrace();
+				}
+        		pEstudianteW.setVisible(true);
 				pEstudianteW.setLocationRelativeTo(null);
         		dispose();
         	}
@@ -139,23 +147,20 @@ public class Solicitud_Constancia extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		SOLICITUD sol = new SOLICITUD();
-        		sol.setTipo(TipoConstancia.valueOf(comboBoxTipo.getSelectedItem().toString()));
-        		sol.setInfoAdj(textField.getText());
-        		sol.setEstado(EstadoSolicitud.PENDIENTE);
+        		solicitud.setTipo(TipoConstancia.valueOf(comboBoxTipo.getSelectedItem().toString()));
+        		solicitud.setInfoAdj(tfMasInfo.getText());
         		Date date = Date.from(Instant.now());
-        		sol.setFecha(date);
-        		sol.setEstSol(usuario);
+        		solicitud.setFecha(date);
         		try {
-					sol.setEventoAsis(eventoBean.findEvento(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0));
+        			solicitud.setEventoAsis(eventoBean.findEvento(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0));
 				} catch (NumberFormatException | ServiciosException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
         		
         		try {
-					solicitudBean.addSolicitud(sol);
-					JOptionPane.showMessageDialog(null, "Solicitud enviada con exito");
+					solicitudBean.editSolicitud(solicitud);
+					JOptionPane.showMessageDialog(null, "Solicitud modificada con exito");
 				} catch (ServiciosException e1) {
 					e1.printStackTrace();
 				}

@@ -21,8 +21,7 @@ import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
 import com.enums.Departamento;
-import com.enums.EITRs;
-import com.enums.Estado;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -110,7 +109,8 @@ public class Mod_Analista {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
-		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+		comboBoxItr.addItem(usuario.getItr().getNombreITR());
+
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JLabel lblUsuario = new JLabel("Mail Institucional");
@@ -189,12 +189,11 @@ public class Mod_Analista {
 		tfDocumento.setText(Integer.toString(usuario.getDocumento()));
 		tfMailInsti.setText(usuario.getMail_insti());
 		comboBoxDep.setSelectedIndex(usuario.getDepartamento().ordinal());
-		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());
 
-		JComboBox<Estado> comboBoxEstado = new javax.swing.JComboBox<>();
+		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 240, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
 
@@ -246,9 +245,8 @@ public class Mod_Analista {
 				usuario.setTelefono(tfTelefono.getText());
 				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				usuario.setEstado(Estado.valueOf(comboBoxEstado.getSelectedItem().toString()));
+				usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-				usuario.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
 
 				try {
 					analistaBean.editAnalista((ANALISTA) usuario);

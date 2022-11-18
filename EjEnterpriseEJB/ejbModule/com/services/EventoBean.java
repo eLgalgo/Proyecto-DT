@@ -84,4 +84,11 @@ public class EventoBean implements EventoBeanRemote {
 			throw new ServiciosException("No se pudo actualizar el Evento");
 		}
 	}
+	
+	@Override
+	public List<EVENTO> findEvento(int id) throws ServiciosException {
+		TypedQuery<EVENTO> query = em.createQuery("SELECT u FROM EVENTO u WHERE u.id_evento = :id", EVENTO.class)
+				.setParameter("id", id);
+		return query.getResultList();
+	}
 }
