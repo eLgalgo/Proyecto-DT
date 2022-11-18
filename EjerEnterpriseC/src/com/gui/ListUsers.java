@@ -44,7 +44,7 @@ public class ListUsers {
 	private JFrame frmListadoDeUsuarios;
 	private JTable tabla;
 	private DefaultTableModel modelo;
-	private JButton btnNewButton;
+	private JButton btnVolver;
 	private JLabel lblNewLabel;
 	private JLabel lblListadoDeUsuarios;
 	private JTextField txtFiltro;
@@ -75,9 +75,9 @@ public class ListUsers {
 		frmListadoDeUsuarios.setBounds(100, 100, 547, 392);
 		frmListadoDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		btnNewButton = new JButton("Volver");
-		btnNewButton.setBounds(10, 300, 110, 25);
-		btnNewButton.setFont(new Font("SimSun", Font.BOLD, 13));
+		btnVolver = new JButton("Volver");
+		btnVolver.setBounds(10, 300, 110, 25);
+		btnVolver.setFont(new Font("SimSun", Font.BOLD, 13));
 
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(228, 17, 0, 0);
@@ -88,23 +88,21 @@ public class ListUsers {
 		agregarDatosLista(modelo, list);
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
-		btnNewButton.addActionListener(new ActionListener() {
+
+		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ppal_Analista pAnalist = null;
 				try {
 					ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(usuario.getDocumento()).get(0);
 					pAnalist = new Ppal_Analista(usuario2);
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
+				} catch (NamingException | ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				pAnalist.setVisible(true);
+
 				pAnalist.setLocationRelativeTo(null);
 				getFrame().dispose();
+
 			}
 		});
 	}
@@ -132,7 +130,7 @@ public class ListUsers {
 
 		tabla.setModel(modelo);
 		frmListadoDeUsuarios.getContentPane().setLayout(null);
-		frmListadoDeUsuarios.getContentPane().add(btnNewButton);
+		frmListadoDeUsuarios.getContentPane().add(btnVolver);
 		frmListadoDeUsuarios.getContentPane().add(lblNewLabel);
 		frmListadoDeUsuarios.getContentPane().add(btnNewButton_2);
 		frmListadoDeUsuarios.getContentPane().add(desplazamiento);
@@ -148,13 +146,13 @@ public class ListUsers {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				txtFiltro.addKeyListener(new KeyAdapter() {
-					public void keyReleased (final KeyEvent e) {
+					public void keyReleased(final KeyEvent e) {
 						String s = txtFiltro.getText();
 						txtFiltro.setText(s);
 						FiltroCi();
 					}
 				});
-				
+
 				trs = new TableRowSorter(tabla.getModel());
 				tabla.setRowSorter(trs);
 			}
@@ -167,9 +165,9 @@ public class ListUsers {
 		lblNewLabel_1.setFont(new Font("SimSun", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(151, 44, 101, 14);
 		frmListadoDeUsuarios.getContentPane().add(lblNewLabel_1);
-		
+
 		comboBoxEstado = new JComboBox();
-		
+
 		comboBoxEstado.setBounds(411, 40, 110, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(Estado.values()));
 		comboBoxEstado.setSelectedItem(null);
@@ -256,15 +254,15 @@ public class ListUsers {
 
 	private void FiltroCi() {
 
-		int columnaTabla = 4;//Documento
+		int columnaTabla = 4;// Documento
 		trs.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), columnaTabla));
 	}
-	
-	private void FiltroEstado() {
 
-		int columnaTabla = 5;//Estado
-		String estado = comboBoxEstado.getSelectedItem().toString();
-		System.out.println(estado);
-		trs.setRowFilter(RowFilter.regexFilter(estado, columnaTabla));
-	}
+//	private void FiltroEstado() {
+//
+//		int columnaTabla = 5;//Estado
+//		String estado = comboBoxEstado.getSelectedItem().toString();
+//		System.out.println(estado);
+//		trs.setRowFilter(RowFilter.regexFilter(estado, columnaTabla));
+//	}
 }
