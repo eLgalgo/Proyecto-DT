@@ -39,7 +39,7 @@ import com.services.UsuarioBeanRemote;
 import java.awt.Color;
 import java.awt.Component;
 
-public class Listar_SConstanciasAnalista extends JFrame
+public class ModificarSolicitud1 extends JFrame
         implements ActionListener {
 	private JTable tabla;
 	private DefaultTableModel modelo;
@@ -48,7 +48,7 @@ public class Listar_SConstanciasAnalista extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Listar_SConstanciasAnalista(ANALISTA usuario) throws NamingException, ServiciosException {
+    public ModificarSolicitud1(ESTUDIANTE usuario) throws NamingException, ServiciosException {
         super("Administración Secretaría");
         setResizable(false);
         setBackground(Color.WHITE);
@@ -64,17 +64,17 @@ public class Listar_SConstanciasAnalista extends JFrame
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
-        JButton btnSolicitar = new JButton("Emitir");
+        JButton btnSolicitar = new JButton("Modificar");
         btnSolicitar.setBounds(406, 293, 113, 23);
         btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
         getContentPane().add(btnSolicitar);
         
-        JLabel lblNewLabel_2 = new JLabel("Solicitudes");
+        JLabel lblNewLabel_2 = new JLabel("Mis Solicitudes");
         lblNewLabel_2.setBounds(10, 11, 448, 34);
         lblNewLabel_2.setForeground(Color.BLACK);
         lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
         getContentPane().add(lblNewLabel_2);
-        setTitle("Solicitudes de Constancia");
+        setTitle("Modificar Solicitud de Constancia");
         
         //Logica botones
         
@@ -99,19 +99,13 @@ public class Listar_SConstanciasAnalista extends JFrame
         //Tabla
         crearTablaPersona();
 		// Agregamos datos
-		agregarDatosLista(modelo);
+		agregarDatosLista(modelo, usuario);
 		
         btnCancelar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Ppal_Analista pAnalistaW = null;
-				try {
-					pAnalistaW = new Ppal_Analista(usuario);
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        		pAnalistaW.setVisible(true);
-        		pAnalistaW.setLocationRelativeTo(null);
+        		Ppal_Estudiante pEstudianteW = new Ppal_Estudiante(usuario);
+				pEstudianteW.setVisible(true);
+				pEstudianteW.setLocationRelativeTo(null);
         		dispose();
         	}
         });
@@ -119,33 +113,22 @@ public class Listar_SConstanciasAnalista extends JFrame
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
-					if(sol.getEstado().equals("EMITIDA")) {
-						JOptionPane.showMessageDialog(null, "¡Error! constancia ya emitida");
-					}else {
-						sol.setAnalist(usuario);
-						solicitudBean.emitirSolicitud(sol);
-						try {
-							agregarDatosLista(modelo);
-						} catch (NamingException e1) {
-							e1.printStackTrace();
-						}
-						JOptionPane.showMessageDialog(null, "Constancia emitida con exito");
-					}
-					
-				} catch (NumberFormatException e1) {
+        			SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
+        			ModificarSolicitud2 modW = new ModificarSolicitud2(usuario, sol);
+        			modW.setVisible(true);
+        			dispose();
+				} catch (NumberFormatException | ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (ServiciosException e1) {
+				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-        		
         	}
         });
     }
     private void crearTablaPersona() {
-		String[] columnas = { "ID","Tipo", "Fecha", "Evento", "Estudiante", "Analista", "Estado" };
+		String[] columnas = { "ID" ,"Tipo", "Fecha", "Evento", "Estudiante", "Estado" };
 		tabla = new JTable();
 		modelo = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -168,7 +151,7 @@ public class Listar_SConstanciasAnalista extends JFrame
 		getContentPane().add(desplazamiento);
 	}
 
-	private void agregarDatosLista(DefaultTableModel modelo) throws NamingException {
+	private void agregarDatosLista(DefaultTableModel modelo, ESTUDIANTE usuario) throws NamingException {
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
 
@@ -191,10 +174,10 @@ public class Listar_SConstanciasAnalista extends JFrame
 		modelo.setRowCount(0);
 
 		// Creamos los datos de una fila de la tabla
-		Object[] datosFila = { "", "", "", "", "", "", ""};
+		Object[] datosFila = { "" ,"", "", "", "", ""};
 		List<SOLICITUD> list = null;
 		try {
-			list = solicitudBean.listAll();
+			list = solicitudBean.listarSolicitudEstu(usuario.getDocumento());
 		} catch (ServiciosException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -207,12 +190,7 @@ public class Listar_SConstanciasAnalista extends JFrame
 			datosFila[2] = p.getFecha();
 			datosFila[3] = p.getEventoAsis().getTitulo();
 			datosFila[4] = p.getEstSol().getDocumento();
-			if(p.getAnalist() == null) {
-				datosFila[5] = "N/T";
-			}else {
-				datosFila[5] = p.getAnalist().getNombre();
-			}
-			datosFila[6] = p.getEstado();
+			datosFila[5] = p.getEstado();
 
 			modelo.addRow(datosFila);
 		}

@@ -176,7 +176,7 @@ public class Listar_SConstancias extends JFrame
 		for (SOLICITUD p : list) {
 			datosFila[0] = p.getTipo();
 			datosFila[1] = p.getFecha();
-			datosFila[2] = p.getInfoAdj();
+			datosFila[2] = p.getEventoAsis().getTitulo();
 			datosFila[3] = p.getEstSol().getDocumento();
 			datosFila[4] = p.getEstado();
 

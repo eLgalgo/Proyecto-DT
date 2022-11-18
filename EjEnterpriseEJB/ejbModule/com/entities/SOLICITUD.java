@@ -29,7 +29,8 @@ public class SOLICITUD implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private TipoConstancia tipo;
 	
-	private String eventoAsis;
+	@OneToOne
+	private EVENTO eventoAsis;
 	
 	private String infoAdj;
 	
@@ -85,11 +86,11 @@ public class SOLICITUD implements Serializable {
 		this.estado = estado;
 	}
 
-	public String getEventoAsis() {
+	public EVENTO getEventoAsis() {
 		return eventoAsis;
 	}
 
-	public void setEventoAsis(String eventoAsis) {
+	public void setEventoAsis(EVENTO eventoAsis) {
 		this.eventoAsis = eventoAsis;
 	}
 

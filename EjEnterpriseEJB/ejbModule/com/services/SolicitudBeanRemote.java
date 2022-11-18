@@ -12,9 +12,11 @@ public interface SolicitudBeanRemote {
 
 	public void addSolicitud(SOLICITUD sol) throws ServiciosException;
 
+	public void emitirSolicitud(SOLICITUD sol) throws ServiciosException;
+	
 	public void editSolicitud(SOLICITUD sol) throws ServiciosException;
 
-	public void deleteSolicitud(int documento) throws ServiciosException;
+	public void deleteSolicitud(SOLICITUD sol) throws ServiciosException;
 	
 	public List<SOLICITUD> listarSolicitudEstu(int doc) throws ServiciosException;
 	

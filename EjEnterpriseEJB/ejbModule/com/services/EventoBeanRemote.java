@@ -22,4 +22,6 @@ public interface EventoBeanRemote {
 	public List<EVENTO> listarAll() throws ServiciosException;
 	
 	public void asignEstToEvent(int idEst, int idEvent) throws ServiciosException;
+
+	public List<EVENTO> findEvento(int id) throws ServiciosException;
 }

@@ -145,6 +145,12 @@ public class Solicitud_Constancia extends JFrame
         		Date date = Date.from(Instant.now());
         		sol.setFecha(date);
         		sol.setEstSol(usuario);
+        		try {
+					sol.setEventoAsis(eventoBean.findEvento(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0));
+				} catch (NumberFormatException | ServiciosException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
         		
         		try {
 					solicitudBean.addSolicitud(sol);
@@ -157,7 +163,7 @@ public class Solicitud_Constancia extends JFrame
         });
     }
     private void crearTablaPersona() {
-		String[] columnas = { "Titulo", "Fecha_Inc", "Fech_Fin", "Detalle", "Tutor" };
+		String[] columnas = { "ID","Titulo", "Fecha_Inc", "Fech_Fin", "Detalle", "Tutor" };
 		tabla = new JTable();
 		modelo = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -200,7 +206,7 @@ public class Solicitud_Constancia extends JFrame
 		modelo.setRowCount(0);
 
 		// Creamos los datos de una fila de la tabla
-		Object[] datosFila = { "", "", "", "", ""};
+		Object[] datosFila = { "","", "", "", "", ""};
 		List<EVENTO> list = null;
 		try {
 			list = eventoBean.listarEventosEstu(usuario.getDocumento());
@@ -211,24 +217,14 @@ public class Solicitud_Constancia extends JFrame
 		
 		// Agregamos MUCHOS mas datos
 		for (EVENTO p : list) {
-			datosFila[0] = p.getTitulo();
-			datosFila[1] = p.getFechaFinal();
-			datosFila[2] = p.getFechaInicio();
-			datosFila[3] = p.getInformacion();
-			datosFila[4] = p.getTutor().getNombre();
+			datosFila[0] = p.getId_evento();
+			datosFila[1] = p.getTitulo();
+			datosFila[2] = p.getFechaFinal();
+			datosFila[3] = p.getFechaInicio();
+			datosFila[4] = p.getInformacion();
+			datosFila[5] = p.getTutor().getNombre();
 
 			modelo.addRow(datosFila);
 		}
-		tabla.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evnt) {
-				if (evnt.getClickCount() == 2) {
-					try {
-						System.out.println("Existo");
-					} catch (NumberFormatException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
 	}
 }
