@@ -119,14 +119,19 @@ public class Listar_SConstancias extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(tabla.getSelectedRow() != -1) {
-        		String header = "CONSTANCIA " + usuario.getNombre() +" "+ usuario.getApellido();
-        		String footer = "EMITIDO POR UTEC \nFECHA: " + LocalDate.now();
-        		utilJTablePrint(tabla, header, footer, true);
+        		if(tabla.getValueAt(tabla.getSelectedRow(), 4).toString().equals("EMITIDA")) {
+        			if(tabla.getSelectedRow() != -1) {
+                		String header = "CONSTANCIA " + usuario.getNombre() +" "+ usuario.getApellido();
+                		String footer = "EMITIDO POR UTEC \nFECHA: " + LocalDate.now();
+                		utilJTablePrint(tabla, header, footer, true);
+                		}
+                		else {
+        					JOptionPane.showMessageDialog(null, "Seleccione una constancia para imprimir");
+        				}	
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Solicitud de constancia aun no emitida");
         		}
-        		else {
-					JOptionPane.showMessageDialog(null, "Seleccione una constancia para imprimir");
-				}
+        		
         	}
         });
     }
@@ -261,7 +266,7 @@ public class Listar_SConstancias extends JFrame
 	    boolean fitWidth = true;        
 	    boolean interactive = true;
 	    // We define the print mode (Definimos el modo de impresión)
-	    JTable.PrintMode mode = fitWidth ? JTable.PrintMode.FIT_WIDTH : JTable.PrintMode.NORMAL---;
+	    JTable.PrintMode mode = fitWidth ? JTable.PrintMode.FIT_WIDTH : JTable.PrintMode.NORMAL;
 	    try {
 	        // Print the table (Imprimo la tabla)             
 	        boolean complete = jTable.print(mode,
