@@ -28,6 +28,7 @@ import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
 import org.wildfly.security.sasl.util.DisposedCallbackSaslClientFactory;
+import javax.swing.SwingConstants;
 
 public class Login {
 
@@ -54,6 +55,7 @@ public class Login {
 	 */
 	private void initialize() throws NamingException {
 		frmProgramaIncreible = new JFrame();
+		frmProgramaIncreible.setResizable(false);
 		frmProgramaIncreible.setTitle("Programa Increible");
 		frmProgramaIncreible.setBackground(Color.WHITE);
 		frmProgramaIncreible.getContentPane().setFont(new Font("SimSun", Font.PLAIN, 11));
@@ -65,32 +67,29 @@ public class Login {
 		frmProgramaIncreible.setLocationRelativeTo(null);
 
 		tfUser = new JTextField();
-		tfUser.setBounds(58, 62, 157, 27);
+		tfUser.setBounds(65, 76, 157, 27);
 		frmProgramaIncreible.getContentPane().add(tfUser);
 		tfUser.setColumns(10);
 
 		btnIngresar = new JButton("Ingresar");
 		btnIngresar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnIngresar.setBounds(84, 168, 106, 33);
+		btnIngresar.setBounds(91, 182, 106, 33);
 		frmProgramaIncreible.getContentPane().add(btnIngresar);
 
 		JLabel lblNewLabel = new JLabel("USUARIO");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("SimSun", Font.BOLD, 16));
-		lblNewLabel.setBounds(58, 44, 82, 14);
+		lblNewLabel.setBounds(65, 58, 157, 14);
 		frmProgramaIncreible.getContentPane().add(lblNewLabel);
 
 		JLabel lblContrasea = new JLabel("CONTRASE\u00D1A");
+		lblContrasea.setHorizontalAlignment(SwingConstants.CENTER);
 		lblContrasea.setFont(new Font("SimSun", Font.BOLD, 16));
-		lblContrasea.setBounds(58, 109, 106, 20);
+		lblContrasea.setBounds(65, 123, 157, 20);
 		frmProgramaIncreible.getContentPane().add(lblContrasea);
 
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\NC 100.jpg"));
-		lblNewLabel_1.setBounds(161, 11, 106, 33);
-		frmProgramaIncreible.getContentPane().add(lblNewLabel_1);
-
 		tfContra = new JPasswordField();
-		tfContra.setBounds(58, 130, 157, 27);
+		tfContra.setBounds(65, 144, 157, 27);
 		frmProgramaIncreible.getContentPane().add(tfContra);
 		
 		JButton btnRegistrar = new JButton("Registrar");
@@ -108,8 +107,14 @@ public class Login {
 			}
 		});
 		btnRegistrar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnRegistrar.setBounds(84, 214, 106, 33);
+		btnRegistrar.setBounds(91, 228, 106, 33);
 		frmProgramaIncreible.getContentPane().add(btnRegistrar);
+		
+		JLabel lblInicioDeSesion = new JLabel("Inicio de Sesion");
+		lblInicioDeSesion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInicioDeSesion.setFont(new Font("SimSun", Font.BOLD, 24));
+		lblInicioDeSesion.setBounds(10, 11, 270, 27);
+		frmProgramaIncreible.getContentPane().add(lblInicioDeSesion);
 		frmProgramaIncreible.setLocationRelativeTo(null);
 
 		// Logica botones
