@@ -240,93 +240,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         getContentPane().add(lblModificar_1_1_1_1_1_1_1_1);
         getContentPane().add(btnNewButton_6);
         setTitle("Administraci\u00F3n Secretar\u00EDa - Analista");
-        JMenuBar jmb = new JMenuBar();
-        jmb.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
-        JMenu Archivo = new JMenu("Archivo");
-        Archivo.setFont(new Font("SimSun", Font.PLAIN, 13));
-        @SuppressWarnings("unused")
-		JMenuItem item;
-        Archivo.add(file_AltaUsr = new JMenuItem("Alta de usuario"));
-        file_AltaUsr.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        file_AltaUsr.addActionListener(this);
-        Archivo.add(file_BajaUsr = new JMenuItem("Baja de usuario"));
-        file_BajaUsr.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        file_BajaUsr.addActionListener(this);
-        
-        JMenuItem item_1_1 = new JMenuItem("Alta de ITR");
-        item_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Archivo.add(item_1_1);
-        
-        JMenuItem item_1_1_1 = new JMenuItem("Baja de ITR");
-        item_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Archivo.add(item_1_1_1);
-        Archivo.addSeparator();
-        
-        JMenuItem file_LogOut = new JMenuItem("Cerrar sesi\u00F3n");
-        file_LogOut.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Archivo.add(file_LogOut);
-        Archivo.add(file_exit = new JMenuItem("Salir"));
-        file_exit.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        file_exit.addActionListener(this);
-        jmb.add(Archivo);
-        JMenu Modificacion = new JMenu("Modificaci\u00F3n");
-        Modificacion.setFont(new Font("SimSun", Font.PLAIN, 13));
-        Modificacion.add(edit_User = new JMenuItem("Modifiar usuario"));
-        edit_User.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        edit_User.addActionListener(this);
-        Icon tigerIcon = new ImageIcon("SmallTiger.gif");
-        Modificacion.add(edit_Recl = new JMenuItem("Modificar reclamo", tigerIcon));
-        edit_Recl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        edit_Recl.setHorizontalTextPosition(JMenuItem.LEFT);
-        edit_Recl.addActionListener(this);
-        Modificacion.add(edit_Just = new JMenuItem("Modificar justificaci\u00F3n", tigerIcon));
-        edit_Just.addActionListener(this);
-        jmb.add(Modificacion);
-        
-        JMenuItem edit_Const = new JMenuItem("Modificar constancia", (Icon) null);
-        Modificacion.add(edit_Const);
-        JMenu Buscar = new JMenu("Buscar");
-        Buscar.setFont(new Font("SimSun", Font.PLAIN, 13));
-        JCheckBoxMenuItem find_User = new JCheckBoxMenuItem("Buscar usuarios");
-        find_User.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        find_User.addActionListener(this);
-        Buscar.add(find_User);
-        ButtonGroup rbg = new ButtonGroup();
-        JRadioButtonMenuItem find_Recl = new JRadioButtonMenuItem("Buscar reclamos");
-        find_Recl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Buscar.add(find_Recl);
-        rbg.add(find_Recl);
-        find_Recl.addActionListener(this);
-        find_Just = new JRadioButtonMenuItem("Buscar justificaciones");
-        find_Just.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Buscar.add(find_Just);
-        rbg.add(find_Just);
-        find_Just.addActionListener(this);
-        find_Const = new JRadioButtonMenuItem("Buscar constancias");
-        find_Const.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Buscar.add(find_Const);
-        rbg.add(find_Const);
-        find_Const.addActionListener(this);
-        jmb.add(Buscar);
-        setJMenuBar(jmb);
-        
-        JMenu Ayuda = new JMenu("Ayuda");
-        Ayuda.setFont(new Font("SimSun", Font.PLAIN, 13));
-        jmb.add(Ayuda);
-        
-        JCheckBoxMenuItem hlp_1 = new JCheckBoxMenuItem("Puto el que Lea");
-        hlp_1.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Ayuda.add(hlp_1);
-        
-        JRadioButtonMenuItem hpl_2 = new JRadioButtonMenuItem("Choice 1");
-        Ayuda.add(hpl_2);
-        
-        JRadioButtonMenuItem hlp_Help = new JRadioButtonMenuItem("Ayuda");
-        Ayuda.add(hlp_Help);
-        
-        JRadioButtonMenuItem hlp_About = new JRadioButtonMenuItem("Sobre secretar\u00EDa");
-        hlp_About.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        Ayuda.add(hlp_About);
+
         setSize(838, 579);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -377,11 +291,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					ListUsers table = new ListUsers(usuarioBean.listAllUsers(), usuario);
+					ModificarUsuarios table = new ModificarUsuarios(usuario);
 					table.getFrame().setVisible(true);
 					table.getFrame().setLocationRelativeTo(null);
 					dispose();
-				} catch (ServiciosException | NamingException e1) {
+				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -391,11 +305,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					ListUsers table = new ListUsers(usuarioBean.listAllUsers(), usuario);
+					ListarUsuarios table = new ListarUsuarios(usuario);
 					table.getFrame().setVisible(true);
 					table.getFrame().setLocationRelativeTo(null);
 					dispose();
-				} catch (ServiciosException | NamingException e1) {
+				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
