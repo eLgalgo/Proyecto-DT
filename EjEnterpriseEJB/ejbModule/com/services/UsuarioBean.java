@@ -45,7 +45,6 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		return query.getResultList();
 	}
 	
-
 	@Override
 	public List<USUARIO> findUser(int doc) throws ServiciosException {
 		TypedQuery<USUARIO> query = em.createQuery("SELECT u FROM USUARIO u WHERE u.documento = :doc", USUARIO.class)

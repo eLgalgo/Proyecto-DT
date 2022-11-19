@@ -26,6 +26,7 @@ import com.entities.SOLICITUD;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
+import com.enums.EstadoSolicitud;
 import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
@@ -114,9 +115,14 @@ public class ModificarSolicitud1 extends JFrame
         	public void actionPerformed(ActionEvent e) {
         		try {
         			SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
-        			ModificarSolicitud2 modW = new ModificarSolicitud2(usuario, sol);
-        			modW.setVisible(true);
-        			dispose();
+        			if(sol.getEstado() != EstadoSolicitud.EMITIDA) {
+        				ModificarSolicitud2 modW = new ModificarSolicitud2(usuario, sol);
+            			modW.setVisible(true);
+            			dispose();
+        			}else {
+        				JOptionPane.showMessageDialog(null, "Imposible modificar una solicitud ya emitida");
+        			}
+        			
 				} catch (NumberFormatException | ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

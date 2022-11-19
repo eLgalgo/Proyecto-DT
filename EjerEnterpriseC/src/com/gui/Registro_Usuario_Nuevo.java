@@ -57,35 +57,10 @@ public class Registro_Usuario_Nuevo {
 	private JTextField tfDocumento;
 	private JTextField tfArea;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registro_Usuario_Nuevo window = new Registro_Usuario_Nuevo();
-					window.frmRegistroUsuarioNuevo.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 * @throws NamingException 
-	 */
 	public Registro_Usuario_Nuevo() throws NamingException {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 * 
-	 * @throws NamingException
-	 */
 	private void initialize() throws NamingException {
 		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
@@ -275,7 +250,6 @@ public class Registro_Usuario_Nuevo {
 					comboBoxFecIng.setEnabled(true);
 					comboBoxRol.setEnabled(false);
 					tfArea.setEnabled(false);
-
 				}
 			}
 		};
@@ -328,8 +302,8 @@ public class Registro_Usuario_Nuevo {
 					Analista.setFechaNac(
 							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 					try {
-
 						analistaBean.addAnalista(Analista);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
 						e1.printStackTrace();
 					}

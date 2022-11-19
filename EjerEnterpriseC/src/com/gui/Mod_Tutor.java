@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -276,6 +277,7 @@ public class Mod_Tutor {
 				
 				try {
 					tutorBean.editTutor((TUTOR) usuario);
+					JOptionPane.showMessageDialog(null, "Tutor modificado con exito");
 				} catch (ServiciosException e1) {
 					e1.printStackTrace();
 				}
@@ -284,13 +286,10 @@ public class Mod_Tutor {
 		
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListUsers list = null;
+				ModificarUsuarios list = null;
 				try {
-					list = new ListUsers(usuarioBean.listAllUsers(), analista);
+					list = new ModificarUsuarios(analista);
 				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

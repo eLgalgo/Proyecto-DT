@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -291,6 +292,7 @@ public class Mod_Estudiante {
 				
 				try {
 					estudianteBean.editEstudiante((ESTUDIANTE) usuario);
+					JOptionPane.showMessageDialog(null, "Estudiante modificado con exito");
 				} catch (ServiciosException e1) {
 					e1.printStackTrace();
 				}
@@ -299,13 +301,10 @@ public class Mod_Estudiante {
 		
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListUsers list = null;
+				ModificarUsuarios list = null;
 				try {
-					list = new ListUsers(usuarioBean.listAllUsers(), analista);
+					list = new ModificarUsuarios(analista);
 				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
