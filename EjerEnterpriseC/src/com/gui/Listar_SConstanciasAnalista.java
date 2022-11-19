@@ -26,6 +26,7 @@ import com.entities.SOLICITUD;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
+import com.enums.EstadoSolicitud;
 import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
@@ -122,7 +123,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 						SOLICITUD sol = solicitudBean
 								.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
 								.get(0);
-						if (sol.getEstado().equals("EMITIDA")) {
+						if (sol.getEstado() == EstadoSolicitud.EMITIDA) {
 							JOptionPane.showMessageDialog(null, "¡Error! constancia ya emitida");
 						} else {
 							sol.setAnalist(usuario);
