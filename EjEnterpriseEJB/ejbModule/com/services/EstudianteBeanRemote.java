@@ -19,6 +19,8 @@ public interface EstudianteBeanRemote {
 	
 	public List<USUARIO> obtenerTodos(String filtr);
 	
+	public List<String> listAllGen() throws ServiciosException;
+		
 	public List<USUARIO> findUser(String email, String clave) throws ServiciosException;
 	
 	public List<ESTUDIANTE> findUser(int doc) throws ServiciosException;

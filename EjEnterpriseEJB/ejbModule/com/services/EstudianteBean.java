@@ -37,6 +37,12 @@ public class EstudianteBean implements EstudianteBeanRemote {
 		TypedQuery<USUARIO> query = em.createQuery("SELECT m FROM ESTUDIANTE m",USUARIO.class); 
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<String> listAllGen() throws ServiciosException{
+		List<String> query = em.createQuery("SELECT DISTINCT m.generacion FROM ESTUDIANTE m").getResultList(); 
+		return query;
+	}
 
 	@Override
 	public List<USUARIO> findUser(String email, String clave) throws ServiciosException{

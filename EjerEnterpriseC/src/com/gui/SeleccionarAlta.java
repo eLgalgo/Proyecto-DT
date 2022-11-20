@@ -39,12 +39,13 @@ public class SeleccionarAlta {
 	 */
 	private void initialize(USUARIO usuario) throws NamingException {
 		selectAltaType = new JFrame();
+		selectAltaType.setTitle("Alta de Usuarios");
 		selectAltaType.setBounds(100, 100, 450, 340);
 		selectAltaType.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		selectAltaType.getContentPane().setLayout(null);
 		selectAltaType.setLocationRelativeTo(null);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ppal_Analista pAnalistaW =null;
@@ -68,14 +69,6 @@ public class SeleccionarAlta {
 		panel.setLayout(new GridLayout(0, 3, 0, 0));
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
-		JComboBox<TipoUser> comboBoxTipoUser = new javax.swing.JComboBox<>();
-		comboBoxTipoUser.setBounds(10, 234, 131, 22);
-		comboBoxTipoUser.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxTipoUser.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
-		comboBoxTipoUser.setSelectedItem(EstadoUsuario.SIN_CHEQUEAR);
-		comboBoxTipoUser.setEnabled(false);
-		selectAltaType.getContentPane().add(comboBoxTipoUser);
 		
 		JButton btnNewButton = new JButton("Alta Analista");
 		btnNewButton.addActionListener(new ActionListener() {

@@ -52,6 +52,7 @@ public class Ppal_Estudiante extends JFrame
         btnNewButton.setBackground(Color.WHITE);
         
         JButton btnNewButton_1 = new JButton("");
+        btnNewButton_1.setEnabled(false);
         btnNewButton_1.setBounds(118, 177, 70, 70);
         btnNewButton_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchEvent.png")));
         btnNewButton_1.setBackground(Color.WHITE);
@@ -62,6 +63,7 @@ public class Ppal_Estudiante extends JFrame
         btnNewButton_1_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_2 = new JButton("");
+        btnNewButton_2.setEnabled(false);
         btnNewButton_2.setBounds(287, 59, 70, 70);
         btnNewButton_2.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newReclam.png")));
         btnNewButton_2.setBackground(Color.WHITE);
@@ -72,11 +74,13 @@ public class Ppal_Estudiante extends JFrame
         btnEliminarSolicitud.setBackground(Color.WHITE);
         
         JButton btnNewButton_4 = new JButton("");
+        btnNewButton_4.setEnabled(false);
         btnNewButton_4.setBounds(118, 307, 70, 70);
         btnNewButton_4.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/cancelEvento.png")));
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
+        btnNewButton_5.setEnabled(false);
         btnNewButton_5.setBounds(463, 59, 70, 70);
         btnNewButton_5.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newJust.png")));
         btnNewButton_5.setBackground(Color.WHITE);
@@ -87,6 +91,7 @@ public class Ppal_Estudiante extends JFrame
         btnNewButton_6.setBackground(Color.WHITE);
         
         JButton btnNewButton_9 = new JButton("");
+        btnNewButton_9.setEnabled(false);
         btnNewButton_9.setBounds(287, 177, 70, 70);
         btnNewButton_9.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/acceptEvento.png")));
         btnNewButton_9.setBackground(Color.WHITE);
@@ -260,14 +265,12 @@ public class Ppal_Estudiante extends JFrame
         btnNewButton_6_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					Listar_SConstancias listSW = new Listar_SConstancias(usuario);
+					Listar_SConstancias listSW = new Listar_SConstancias(usuario, usuario, 0);
 					listSW.setVisible(true);
 					dispose();
 				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
         	}

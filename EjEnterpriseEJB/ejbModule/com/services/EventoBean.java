@@ -1,5 +1,6 @@
 package com.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -89,6 +90,13 @@ public class EventoBean implements EventoBeanRemote {
 	public List<EVENTO> findEvento(int id) throws ServiciosException {
 		TypedQuery<EVENTO> query = em.createQuery("SELECT u FROM EVENTO u WHERE u.id_evento = :id", EVENTO.class)
 				.setParameter("id", id);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<EVENTO> findEvento(LocalDate fechaFin) throws ServiciosException {
+		TypedQuery<EVENTO> query = em.createQuery("SELECT u FROM EVENTO u WHERE u.fechaInicio = :fec", EVENTO.class)
+				.setParameter("fec", fechaFin);
 		return query.getResultList();
 	}
 }

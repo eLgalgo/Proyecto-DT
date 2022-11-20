@@ -53,7 +53,7 @@ public class Listar_SConstancias extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Listar_SConstancias(ESTUDIANTE usuario) throws NamingException, ServiciosException {
+    public Listar_SConstancias(ESTUDIANTE usuario, USUARIO userEntrar, int ventana) throws NamingException, ServiciosException {
         super("Administración Secretaría");
         setResizable(false);
         setBackground(Color.WHITE);
@@ -110,10 +110,35 @@ public class Listar_SConstancias extends JFrame
 		
         btnCancelar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Ppal_Estudiante pEstudianteW = new Ppal_Estudiante(usuario);
-				pEstudianteW.setVisible(true);
-				pEstudianteW.setLocationRelativeTo(null);
-        		dispose();
+        		if(ventana == 1) {
+        			ANALISTA analist;
+					try {
+						analist = (ANALISTA) usuarioBean.findUser(userEntrar.getDocumento()).get(0);
+						ListarUsuarios listUsersW = new ListarUsuarios(analist);
+						listUsersW.getFrame().setVisible(true);
+						listUsersW.getFrame().setLocationRelativeTo(null);
+						dispose();
+					} catch (ServiciosException | NamingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+        		}else {
+        			if(ventana == 0) {
+        				ESTUDIANTE est;
+        				try {
+							est = (ESTUDIANTE) usuarioBean.findUser(userEntrar.getDocumento()).get(0);
+							Ppal_Estudiante pEstudianteW = new Ppal_Estudiante(est);
+	        				pEstudianteW.setVisible(true);
+	        				pEstudianteW.setLocationRelativeTo(null);
+	                		dispose();
+						} catch (ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+        				
+        			}
+        		}
+        		
         	}
         });
         

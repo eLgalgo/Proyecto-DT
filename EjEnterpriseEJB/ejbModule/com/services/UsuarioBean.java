@@ -77,20 +77,8 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public void editUser(USUARIO user) throws ServiciosException {
 		try {
-//			System.out.println(user);
-//			
-//			USUARIO user2 = em.find(USUARIO.class, user.getId());
-//			user2.setNombre(user.getNombre());
-//			user2.setApellido(user.getApellido());
-//			user2.setEmail(user.getEmail());
-//			user2.setClave(user.getClave());
-//			user2.setRol(user.getRol());
-//			
-//			System.out.println(user2);
-//			
-//
-//			em.merge(user2);
-//			em.flush();
+			em.merge(user);
+			em.flush();
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo actualizar el usario");
 		}
@@ -103,21 +91,6 @@ public class UsuarioBean implements UsuarioBeanRemote {
 				.createQuery("SELECT d FROM USUARIOS d WHERE d.nombre LIKE :nombre", USUARIO.class)
 				.setParameter("nombre", filtro);
 		return query.getResultList();
-	}
-
-	public void asignRoltoUser(int idRol, int idUser) throws ServiciosException {
-		try {
-//			ROLES r = em.find(ROLES.class, idRol);
-//			USUARIOS user = em.find(USUARIOS.class, idUser);
-//			
-//			user.setRol(r);
-//
-//			em.merge(user);
-//			em.flush();
-//			System.out.println("Se actualizo el rol del usuario");
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo actualizar el usuario");
-		}
 	}
 
 	@Override

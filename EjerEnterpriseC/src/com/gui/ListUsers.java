@@ -208,40 +208,40 @@ public class ListUsers {
 
 			modelo.addRow(datosFila);
 		}
-		tabla.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evnt) {
-				if (evnt.getClickCount() == 2) {
-					try {
-						USUARIO user = usuarioBean
-								.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
-								.get(0);
-						if (user instanceof ESTUDIANTE) {
-							Mod_Estudiante modEstudW = new Mod_Estudiante((ESTUDIANTE) user, usuario);
-							modEstudW.getFrame().setVisible(true);
-							modEstudW.getFrame().setLocationRelativeTo(null);
-							getFrame().dispose();
-						} else if (user instanceof ANALISTA) {
-							Mod_Analista modAnalistW = new Mod_Analista((ANALISTA) user, usuario);
-							modAnalistW.getFrame().setVisible(true);
-							modAnalistW.getFrame().setLocationRelativeTo(null);
-							getFrame().dispose();
-						} else if (user instanceof TUTOR) {
-							Mod_Tutor modTutorW = new Mod_Tutor((TUTOR) user, usuario);
-							modTutorW.getFrame().setVisible(true);
-							modTutorW.getFrame().setLocationRelativeTo(null);
-							getFrame().dispose();
-						}
-
-					} catch (NamingException e) {
-						e.printStackTrace();
-					} catch (NumberFormatException e) {
-						e.printStackTrace();
-					} catch (ServiciosException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
+//		tabla.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent evnt) {
+//				if (evnt.getClickCount() == 2) {
+//					try {
+//						USUARIO user = usuarioBean
+//								.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+//								.get(0);
+//						if (user instanceof ESTUDIANTE) {
+//							Mod_Estudiante modEstudW = new Mod_Estudiante((ESTUDIANTE) user, usuario);
+//							modEstudW.getFrame().setVisible(true);
+//							modEstudW.getFrame().setLocationRelativeTo(null);
+//							getFrame().dispose();
+//						} else if (user instanceof ANALISTA) {
+//							Mod_Analista modAnalistW = new Mod_Analista((ANALISTA) user, usuario);
+//							modAnalistW.getFrame().setVisible(true);
+//							modAnalistW.getFrame().setLocationRelativeTo(null);
+//							getFrame().dispose();
+//						} else if (user instanceof TUTOR) {
+//							Mod_Tutor modTutorW = new Mod_Tutor((TUTOR) user, usuario);
+//							modTutorW.getFrame().setVisible(true);
+//							modTutorW.getFrame().setLocationRelativeTo(null);
+//							getFrame().dispose();
+//						}
+//
+//					} catch (NamingException e) {
+//						e.printStackTrace();
+//					} catch (NumberFormatException e) {
+//						e.printStackTrace();
+//					} catch (ServiciosException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//		});
 	}
 
 	JFrame getFrame() {
