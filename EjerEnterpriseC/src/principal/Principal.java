@@ -83,23 +83,23 @@ public class Principal{
 //		
 //		estudianteBean.addStudent(user2);
 //		
-//		TUTOR tutor = new TUTOR();
-//		tutor.setNombre("fasgasa");
-//		tutor.setApellido("casasfas");
-//		tutor.setDocumento(2);
-//		tutor.setMail("t");
-//		tutor.setContrasena("t");
-//		tutor.setDepartamento(Departamento.DURAZNO);
-//		tutor.setLocalidad(Localidad.CAPITAL);
-//		tutor.setTelefono("tele");
-//		tutor.setMail_insti("t");
-//		tutor.setArea("Area1");
-//		tutor.setTipo(RolTutor.TUTOR);
-//		tutor.setItr(EITRs.NORTE);
-//		tutor.setEstado(EstadoUsuario.ACTIVO);
-//		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
-//		
-//		tutorBean.addTutor(tutor);
+		TUTOR tutor = new TUTOR();
+		tutor.setNombre("fasgasa");
+		tutor.setApellido("casasfas");
+		tutor.setDocumento(2);
+		tutor.setMail("t");
+		tutor.setContrasena("t");
+		tutor.setDepartamento(Departamento.DURAZNO);
+		tutor.setLocalidad(Localidad.CAPITAL);
+		tutor.setTelefono("tele");
+		tutor.setMail_insti("t");
+		tutor.setArea("Area1");
+		tutor.setTipo(RolTutor.TUTOR);
+		tutor.setItr(EITRs.NORTE);
+		tutor.setEstado(EstadoUsuario.ACTIVO);
+		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		
+		tutorBean.addTutor(tutor);
 //		
 //		TUTOR tutor2 = new TUTOR();
 //		tutor2.setNombre("Tutor2");
@@ -119,23 +119,23 @@ public class Principal{
 //		
 //		tutorBean.addTutor(tutor2);
 //		
-//		ANALISTA analista = new ANALISTA();
-//		
-//		analista.setNombre("Dios");
-//		analista.setApellido("Dios");
-//		analista.setDocumento(3);
-//		analista.setMail("m");
-//		analista.setContrasena("m");
-//		analista.setDepartamento(Departamento.CANELONES);
-//		analista.setLocalidad(Localidad.CAPITAL);
-//		analista.setTelefono("tele");
-//		analista.setItr(EITRs.NORTE);
-//		analista.setMail_insti("m");
-//		analista.setEstado(EstadoUsuario.ACTIVO);
-//		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
-//		analista.setDios(true);
-//		
-//		analistaBean.addAnalista(analista);
+		ANALISTA analista = new ANALISTA();
+		
+		analista.setNombre("Dios");
+		analista.setApellido("Dios");
+		analista.setDocumento(3);
+		analista.setMail("m");
+		analista.setContrasena("m");
+		analista.setDepartamento(Departamento.CANELONES);
+		analista.setLocalidad(Localidad.CAPITAL);
+		analista.setTelefono("tele");
+		analista.setItr(EITRs.NORTE);
+		analista.setMail_insti("m");
+		analista.setEstado(EstadoUsuario.ACTIVO);
+		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		analista.setDios(true);
+		
+		analistaBean.addAnalista(analista);
 //		
 //		EVENTO e1 = new EVENTO();
 //		e1.setTitulo("Presencial 1");

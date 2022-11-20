@@ -58,7 +58,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         
         JButton btnNewButton_1 = new JButton("");
         
-        btnNewButton_1.setBounds(118, 193, 70, 70);
+        btnNewButton_1.setBounds(465, 59, 70, 70);
         btnNewButton_1.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchUser.png")));
         btnNewButton_1.setBackground(Color.WHITE);
         
@@ -97,13 +97,13 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_3.setBackground(Color.WHITE);
         
         JButton btnNewButton_4 = new JButton("");
-        btnNewButton_4.setBounds(287, 323, 70, 70);
+        btnNewButton_4.setBounds(638, 59, 70, 70);
         btnNewButton_4.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchConst.png")));
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
         btnNewButton_5.setEnabled(false);
-        btnNewButton_5.setBounds(465, 59, 70, 70);
+        btnNewButton_5.setBounds(118, 193, 70, 70);
         btnNewButton_5.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modUser.png")));
         btnNewButton_5.setBackground(Color.WHITE);
         
@@ -126,7 +126,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         
         JButton btnNewButton_9 = new JButton("");
         btnNewButton_9.setEnabled(false);
-        btnNewButton_9.setBounds(636, 59, 70, 70);
+        btnNewButton_9.setBounds(285, 323, 70, 70);
         btnNewButton_9.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modReclam.png")));
         btnNewButton_9.setBackground(Color.WHITE);
         
@@ -139,27 +139,27 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblBajaUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar = new JLabel("Modificar");
-        lblModificar.setBounds(465, 135, 72, 15);
+        lblModificar.setBounds(118, 269, 72, 15);
         lblModificar.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblUsuario = new JLabel("Usuario");
-        lblUsuario.setBounds(465, 156, 72, 15);
+        lblUsuario.setBounds(118, 290, 72, 15);
         lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1 = new JLabel("Modificar");
-        lblModificar_1.setBounds(636, 135, 72, 15);
+        lblModificar_1.setBounds(285, 399, 72, 15);
         lblModificar_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblReclamo = new JLabel("Reclamo");
-        lblReclamo.setBounds(636, 156, 72, 15);
+        lblReclamo.setBounds(285, 420, 72, 15);
         lblReclamo.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1 = new JLabel("Buscar");
-        lblModificar_1_1.setBounds(118, 269, 72, 15);
+        lblModificar_1_1.setBounds(465, 135, 72, 15);
         lblModificar_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblJustificacin = new JLabel("Usuarios");
-        lblJustificacin.setBounds(118, 290, 48, 15);
+        lblJustificacin.setBounds(465, 156, 48, 15);
         lblJustificacin.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1 = new JLabel("Buscar");
@@ -195,11 +195,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblJustificaciones.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1_1_1 = new JLabel("Buscar");
-        lblModificar_1_1_1_1_1_1_1.setBounds(287, 399, 72, 15);
+        lblModificar_1_1_1_1_1_1_1.setBounds(638, 135, 72, 15);
         lblModificar_1_1_1_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblConstancias = new JLabel("Constancias");
-        lblConstancias.setBounds(287, 420, 90, 15);
+        lblConstancias.setBounds(638, 156, 90, 15);
         lblConstancias.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1_1_1_1 = new JLabel("Cerrar Sesi\u00F3n");
