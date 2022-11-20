@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
+import com.entities.EVENTO;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
@@ -32,12 +33,15 @@ import com.enums.EstadoSolicitud;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
+import com.enums.TipoConstancia;
 import com.enums.TipoUser;
 import com.exception.ServiciosException;
 import com.services.AnalistaBean;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.EventoBeanRemote;
 import com.services.TutorBeanRemote;
+import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import java.awt.event.ItemListener;
@@ -64,12 +68,18 @@ public class Registro_Usuario_Nuevo {
 	private void initialize() throws NamingException {
 		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+		
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 
 		TutorBeanRemote tutorBean = (TutorBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
 		
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+		
+		EventoBeanRemote eventoBean = (EventoBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
 		
 		frmRegistroUsuarioNuevo = new JFrame();
 		frmRegistroUsuarioNuevo.getContentPane().setBackground(Color.WHITE);
@@ -346,10 +356,43 @@ public class Registro_Usuario_Nuevo {
 					estudiante.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
 					estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 					estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
+					
 					try {
 						
 						estudianteBean.addStudent(estudiante);
 					} catch (ServiciosException e1) {
+						e1.printStackTrace();
+					}
+					ESTUDIANTE eActivo = null;
+					try {
+						eActivo = estudianteBean.findUser(estudiante.getDocumento()).get(0);
+					} catch (ServiciosException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					EVENTO evActivo = new EVENTO();
+					evActivo.setFechaInicio(LocalDate.now());
+					try {
+						evActivo.setTutor((TUTOR) usuarioBean.findUser(2).get(0));
+					} catch (ServiciosException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					evActivo.setTipo(TipoConstancia.ESTUDIANTE_ACTIVO);
+					evActivo.setTitulo("Estudiante activo");
+					
+					try {
+						eventoBean.addEvento(evActivo);
+					} catch (ServiciosException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					try {
+						EVENTO eActivo2 = eventoBean.findEvento(evActivo.getFechaInicio()).get(0);
+						eventoBean.asignEstToEvent(eActivo.getId_usuario(), eActivo2.getId_evento());
+					} catch (ServiciosException e1) {
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}

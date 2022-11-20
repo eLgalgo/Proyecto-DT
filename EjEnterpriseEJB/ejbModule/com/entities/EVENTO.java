@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.enums.TipoConstancia;
+
 /**
  * Entity implementation class for Entity: Evento
  *
@@ -25,6 +27,9 @@ public class EVENTO implements Serializable {
 	private LocalDate fechaInicio;
 	private LocalDate fechaFinal;
 	private String informacion;
+	
+	@Enumerated(value = EnumType.STRING)
+	private TipoConstancia tipo;
 	
 	@OneToOne
 	private TUTOR tutor;
@@ -90,6 +95,14 @@ public class EVENTO implements Serializable {
 
 	public void setEstudiantesConv(List<ESTUDIANTE> estudiantesConv) {
 		this.estudiantesConv = estudiantesConv;
+	}
+
+	public TipoConstancia getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoConstancia tipo) {
+		this.tipo = tipo;
 	} 
 	
    

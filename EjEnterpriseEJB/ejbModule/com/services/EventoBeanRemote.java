@@ -1,5 +1,6 @@
 package com.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -20,6 +21,8 @@ public interface EventoBeanRemote {
 	public List<EVENTO> listarEventosEstu(int es) throws ServiciosException;
 	
 	public List<EVENTO> listarAll() throws ServiciosException;
+	
+	public List<EVENTO> findEvento(LocalDate fechaFin) throws ServiciosException;
 	
 	public void asignEstToEvent(int idEst, int idEvent) throws ServiciosException;
 

@@ -41,36 +41,43 @@ public class Ppal_Tutor extends JFrame
         getContentPane().setBackground(Color.WHITE);
         
         JButton btnNewButton = new JButton("");
+        btnNewButton.setEnabled(false);
         btnNewButton.setBounds(69, 59, 70, 70);
         btnNewButton.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-event-accepted-tentatively-48 - copia.png")));
         btnNewButton.setBackground(Color.WHITE);
         
         JButton btnNewButton_1 = new JButton("");
+        btnNewButton_1.setEnabled(false);
         btnNewButton_1.setBounds(69, 210, 70, 70);
         btnNewButton_1.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchEvent.png")));
         btnNewButton_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_1_1 = new JButton("");
+        btnNewButton_1_1.setEnabled(false);
         btnNewButton_1_1.setBounds(396, 210, 70, 70);
         btnNewButton_1_1.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchJust.png")));
         btnNewButton_1_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_2 = new JButton("");
+        btnNewButton_2.setEnabled(false);
         btnNewButton_2.setBounds(223, 59, 70, 70);
         btnNewButton_2.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-event-accepted-tentatively-48 - copia - copia.png")));
         btnNewButton_2.setBackground(Color.WHITE);
         
         JButton btnNewButton_3 = new JButton("");
+        btnNewButton_3.setEnabled(false);
         btnNewButton_3.setBounds(223, 210, 70, 70);
         btnNewButton_3.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_3.setBackground(Color.WHITE);
         
         JButton btnNewButton_4 = new JButton("");
+        btnNewButton_4.setEnabled(false);
         btnNewButton_4.setBounds(562, 210, 70, 70);
         btnNewButton_4.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchConst.png")));
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
+        btnNewButton_5.setEnabled(false);
         btnNewButton_5.setBounds(396, 59, 70, 70);
         btnNewButton_5.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-event-declined-48.png")));
         btnNewButton_5.setBackground(Color.WHITE);
@@ -81,6 +88,7 @@ public class Ppal_Tutor extends JFrame
         btnNewButton_6.setBackground(Color.WHITE);
         
         JButton btnNewButton_9 = new JButton("");
+        btnNewButton_9.setEnabled(false);
         btnNewButton_9.setBounds(562, 59, 70, 70);
         btnNewButton_9.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-search-contacts-48.png")));
         btnNewButton_9.setBackground(Color.WHITE);

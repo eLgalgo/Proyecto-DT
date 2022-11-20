@@ -15,6 +15,7 @@ import com.enums.EITRs;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
+import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.gui.Login;
 import com.services.AnalistaBeanRemote;
@@ -119,8 +120,9 @@ public class Principal{
 //		tutorBean.addTutor(tutor2);
 //		
 //		ANALISTA analista = new ANALISTA();
-//		analista.setNombre("fasgasa");
-//		analista.setApellido("casasfas");
+//		
+//		analista.setNombre("Dios");
+//		analista.setApellido("Dios");
 //		analista.setDocumento(3);
 //		analista.setMail("m");
 //		analista.setContrasena("m");
@@ -131,16 +133,19 @@ public class Principal{
 //		analista.setMail_insti("m");
 //		analista.setEstado(EstadoUsuario.ACTIVO);
 //		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+//		analista.setDios(true);
 //		
 //		analistaBean.addAnalista(analista);
 //		
 //		EVENTO e1 = new EVENTO();
 //		e1.setTitulo("Presencial 1");
+//		e1.setTipo(TipoConstancia.PRESENCIAL);
 //		e1.setInformacion("Ultima presencial S5");
 //		e1.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
 //		
 //		EVENTO e2 = new EVENTO();
 //		e2.setTitulo("Examen PDT 2022");
+//		e2.setTipo(TipoConstancia.EXAMEN);
 //		e2.setInformacion("Instancia Febrero");
 //		e2.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
 //		
@@ -150,8 +155,6 @@ public class Principal{
 //		eventoBean.asignEstToEvent(1, 1);
 //		eventoBean.asignEstToEvent(1, 2);
 //		eventoBean.asignEstToEvent(2, 2);
-		
-		System.out.println("Maria la mejor profe <3");
 	}
 
 }

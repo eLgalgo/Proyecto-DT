@@ -164,7 +164,7 @@ public class Solicitud_Constancia extends JFrame
         });
     }
     private void crearTablaPersona() {
-		String[] columnas = { "ID","Titulo", "Fecha_Inc", "Fech_Fin", "Detalle", "Tutor" };
+		String[] columnas = { "ID","Tipo", "Titulo", "Fecha_Inc", "Fech_Fin", "Detalle", "Tutor" };
 		tabla = new JTable();
 		modelo = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -207,7 +207,7 @@ public class Solicitud_Constancia extends JFrame
 		modelo.setRowCount(0);
 
 		// Creamos los datos de una fila de la tabla
-		Object[] datosFila = { "","", "", "", "", ""};
+		Object[] datosFila = { "","","", "", "", "", ""};
 		List<EVENTO> list = null;
 		try {
 			list = eventoBean.listarEventosEstu(usuario.getDocumento());
@@ -219,11 +219,12 @@ public class Solicitud_Constancia extends JFrame
 		// Agregamos MUCHOS mas datos
 		for (EVENTO p : list) {
 			datosFila[0] = p.getId_evento();
-			datosFila[1] = p.getTitulo();
-			datosFila[2] = p.getFechaFinal();
-			datosFila[3] = p.getFechaInicio();
-			datosFila[4] = p.getInformacion();
-			datosFila[5] = p.getTutor().getNombre();
+			datosFila[1] = p.getTipo();
+			datosFila[2] = p.getTitulo();
+			datosFila[3] = p.getFechaFinal();
+			datosFila[4] = p.getFechaInicio();
+			datosFila[5] = p.getInformacion();
+			datosFila[6] = p.getTutor().getNombre();
 
 			modelo.addRow(datosFila);
 		}

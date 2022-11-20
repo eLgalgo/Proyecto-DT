@@ -63,6 +63,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_1_1 = new JButton("");
+        btnNewButton_1_1.setEnabled(false);
         btnNewButton_1_1.setBounds(118, 323, 70, 70);
         btnNewButton_1_1.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchJust.png")));
         btnNewButton_1_1.setBackground(Color.WHITE);
@@ -71,7 +72,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					Baja_Usuario baja = new Baja_Usuario(usuario);
+					EliminarUsuarios baja = new EliminarUsuarios(usuario);
 					baja.getFrame().setVisible(true);
 					baja.getFrame().setLocationRelativeTo(null);
 					dispose();
@@ -86,6 +87,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_2.setBackground(Color.WHITE);
         
         JButton btnNewButton_3 = new JButton("");
+        btnNewButton_3.setEnabled(false);
         btnNewButton_3.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
@@ -100,6 +102,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
+        btnNewButton_5.setEnabled(false);
         btnNewButton_5.setBounds(465, 59, 70, 70);
         btnNewButton_5.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modUser.png")));
         btnNewButton_5.setBackground(Color.WHITE);
@@ -110,16 +113,19 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_6.setBackground(Color.WHITE);
         
         JButton btnNewButton_7 = new JButton("");
+        btnNewButton_7.setEnabled(false);
         btnNewButton_7.setBounds(465, 193, 70, 70);
         btnNewButton_7.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modJust.png")));
         btnNewButton_7.setBackground(Color.WHITE);
         
         JButton btnNewButton_8 = new JButton("");
+        btnNewButton_8.setEnabled(false);
         btnNewButton_8.setBounds(638, 193, 70, 70);
         btnNewButton_8.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modConst.png")));
         btnNewButton_8.setBackground(Color.WHITE);
         
         JButton btnNewButton_9 = new JButton("");
+        btnNewButton_9.setEnabled(false);
         btnNewButton_9.setBounds(636, 59, 70, 70);
         btnNewButton_9.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modReclam.png")));
         btnNewButton_9.setBackground(Color.WHITE);
@@ -240,7 +246,10 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         getContentPane().add(lblModificar_1_1_1_1_1_1_1_1);
         getContentPane().add(btnNewButton_6);
         setTitle("Administraci\u00F3n Secretar\u00EDa - Analista");
-
+        if(!usuario.getDios()) {
+        	btnNewButton.setEnabled(false);
+        }
+        
         setSize(838, 579);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -288,19 +297,19 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         	}
         });
         
-        btnNewButton_5.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
-					ModificarUsuarios table = new ModificarUsuarios(usuario);
-					table.getFrame().setVisible(true);
-					table.getFrame().setLocationRelativeTo(null);
-					dispose();
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
-        });
+//        btnNewButton_5.addActionListener(new ActionListener() {
+//        	public void actionPerformed(ActionEvent e) {
+//        		try {
+//					ModificarUsuarios table = new ModificarUsuarios(usuario);
+//					table.getFrame().setVisible(true);
+//					table.getFrame().setLocationRelativeTo(null);
+//					dispose();
+//				} catch (NamingException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//        	}
+//        });
         
         btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
