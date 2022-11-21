@@ -21,6 +21,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
 
 import com.entities.ANALISTA;
+import com.entities.USUARIO;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -46,7 +47,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         System.out.println(e.getActionCommand());
     }
 
-    public Ppal_Analista(ANALISTA usuario) throws NamingException {
+    public Ppal_Analista(USUARIO usuario) throws NamingException {
         super("Administración Secretaría");
         getContentPane().setBackground(Color.WHITE);
         
@@ -72,7 +73,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					EliminarUsuarios baja = new EliminarUsuarios(usuario);
+					EliminarUsuarios baja = new EliminarUsuarios((ANALISTA) usuario);
 					baja.getFrame().setVisible(true);
 					baja.getFrame().setLocationRelativeTo(null);
 					dispose();
@@ -87,11 +88,6 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_2.setBackground(Color.WHITE);
         
         JButton btnNewButton_3 = new JButton("");
-        btnNewButton_3.setEnabled(false);
-        btnNewButton_3.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
         btnNewButton_3.setBounds(287, 193, 70, 70);
         btnNewButton_3.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_3.setBackground(Color.WHITE);
@@ -101,11 +97,10 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_4.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchConst.png")));
         btnNewButton_4.setBackground(Color.WHITE);
         
-        JButton btnNewButton_5 = new JButton("");
-        btnNewButton_5.setEnabled(false);
-        btnNewButton_5.setBounds(118, 193, 70, 70);
-        btnNewButton_5.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modUser.png")));
-        btnNewButton_5.setBackground(Color.WHITE);
+        JButton btnAnaliticaR = new JButton("");
+        btnAnaliticaR.setBounds(118, 193, 70, 70);
+        btnAnaliticaR.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/icons8-search-contacts-48.png")));
+        btnAnaliticaR.setBackground(Color.WHITE);
         
         JButton btnNewButton_6 = new JButton("");
         btnNewButton_6.setBounds(638, 389, 70, 70);
@@ -138,11 +133,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblBajaUsuario.setBounds(287, 135, 72, 15);
         lblBajaUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblModificar = new JLabel("Modificar");
+        JLabel lblModificar = new JLabel("Analitica de");
         lblModificar.setBounds(118, 269, 72, 15);
         lblModificar.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblUsuario = new JLabel("Usuario");
+        JLabel lblUsuario = new JLabel("Reclamos");
         lblUsuario.setBounds(118, 290, 72, 15);
         lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
@@ -162,11 +157,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblJustificacin.setBounds(465, 156, 48, 15);
         lblJustificacin.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblModificar_1_1_1 = new JLabel("Buscar");
+        JLabel lblModificar_1_1_1 = new JLabel("Modificar");
         lblModificar_1_1_1.setBounds(287, 269, 72, 15);
         lblModificar_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblConstancia = new JLabel("Reclamos");
+        JLabel lblConstancia = new JLabel("Mis Datos");
         lblConstancia.setBounds(287, 290, 78, 15);
         lblConstancia.setFont(new Font("SimSun", Font.PLAIN, 12));
         
@@ -221,7 +216,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         getContentPane().add(lblNewLabel);
         getContentPane().add(btnNewButton_2);
         getContentPane().add(lblBajaUsuario);
-        getContentPane().add(btnNewButton_5);
+        getContentPane().add(btnAnaliticaR);
         getContentPane().add(lblModificar);
         getContentPane().add(lblUsuario);
         getContentPane().add(lblReclamo);
@@ -246,7 +241,8 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         getContentPane().add(lblModificar_1_1_1_1_1_1_1_1);
         getContentPane().add(btnNewButton_6);
         setTitle("Administraci\u00F3n Secretar\u00EDa - Analista");
-        if(!usuario.getDios()) {
+        ANALISTA analista = (ANALISTA) usuario;
+        if(!analista.getDios()) {
         	btnNewButton.setEnabled(false);
         }
         
@@ -296,7 +292,32 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         		dispose();
         	}
         });
-        
+        btnAnaliticaR.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ListarReclamos listR = new ListarReclamos(usuario);
+					listR.setVisible(true);
+					listR.setLocationRelativeTo(null);
+					dispose();
+				} catch (NamingException | ServiciosException e1) {
+					e1.printStackTrace();
+				}
+        	}
+        });
+        btnNewButton_3.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ModPropiaAnalista modPropia = null;
+				try {
+					modPropia = new ModPropiaAnalista(usuario);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		modPropia.getFrame().setVisible(true);
+        		modPropia.getFrame().setLocationRelativeTo(null);
+        		dispose();
+        	}
+        });
 //        btnNewButton_5.addActionListener(new ActionListener() {
 //        	public void actionPerformed(ActionEvent e) {
 //        		try {
@@ -314,7 +335,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					ListarUsuarios table = new ListarUsuarios(usuario);
+					ListarUsuarios table = new ListarUsuarios((ANALISTA) usuario);
 					table.getFrame().setVisible(true);
 					table.getFrame().setLocationRelativeTo(null);
 					dispose();
@@ -328,7 +349,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_4.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					Listar_SConstanciasAnalista constW = new Listar_SConstanciasAnalista(usuario);
+					Listar_SConstanciasAnalista constW = new Listar_SConstanciasAnalista((ANALISTA) usuario);
 					constW.setVisible(true);
 					constW.setLocationRelativeTo(null);
 					dispose();
