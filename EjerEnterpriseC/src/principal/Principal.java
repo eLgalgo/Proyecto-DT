@@ -9,6 +9,7 @@ import javax.naming.NamingException;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
+import com.entities.RECLAMO;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.EITRs;
@@ -16,11 +17,13 @@ import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
 import com.enums.TipoConstancia;
+import com.enums.TipoReclamo;
 import com.exception.ServiciosException;
 import com.gui.Login;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
+import com.services.ReclamoBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
@@ -46,78 +49,81 @@ public class Principal{
 		EventoBeanRemote eventoBean = (EventoBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
 
+		ReclamoBeanRemote reclamoBean = (ReclamoBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ReclamoBean!com.services.ReclamoBeanRemote");
+
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
 		
-//		ESTUDIANTE user1 = new ESTUDIANTE();
-//		user1.setNombre("Cristofer");
-//		user1.setApellido("Cabrera");
-//		user1.setDocumento(1);
-//		user1.setMail("c");
-//		user1.setContrasena("c");
-//		user1.setItr(EITRs.NORTE);
-//		user1.setDepartamento(Departamento.ARTIGAS);
-//		user1.setLocalidad(Localidad.CAPITAL);
-//		user1.setTelefono("tele");
-//		user1.setMail_insti("c");
-//		user1.setGeneracion("2022");
-//		user1.setEstado(EstadoUsuario.ACTIVO);
-//		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
-//		
-//		estudianteBean.addStudent(user1);
-//		
-//		ESTUDIANTE user2 = new ESTUDIANTE();
-//		user2.setNombre("Lucas");
-//		user2.setApellido("Sergio");
-//		user2.setDocumento(5);
-//		user2.setMail("q");
-//		user2.setContrasena("q");
-//		user2.setDepartamento(Departamento.CERRO_LARGO);
-//		user2.setLocalidad(Localidad.INTERIOR);
-//		user2.setTelefono("+59891231");
-//		user2.setMail_insti("q");
-//		user2.setItr(EITRs.NORTE);
-//		user2.setGeneracion("2022");
-//		user2.setEstado(EstadoUsuario.ACTIVO);
-//		user2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
-//		
-//		estudianteBean.addStudent(user2);
-//		
-		TUTOR tutor = new TUTOR();
-		tutor.setNombre("fasgasa");
-		tutor.setApellido("casasfas");
-		tutor.setDocumento(2);
-		tutor.setMail("t");
-		tutor.setContrasena("t");
-		tutor.setDepartamento(Departamento.DURAZNO);
-		tutor.setLocalidad(Localidad.CAPITAL);
-		tutor.setTelefono("tele");
-		tutor.setMail_insti("t");
-		tutor.setArea("Area1");
-		tutor.setTipo(RolTutor.TUTOR);
-		tutor.setItr(EITRs.NORTE);
-		tutor.setEstado(EstadoUsuario.ACTIVO);
-		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		ESTUDIANTE user1 = new ESTUDIANTE();
+		user1.setNombre("Cristofer");
+		user1.setApellido("Cabrera");
+		user1.setDocumento(1);
+		user1.setMail("c");
+		user1.setContrasena("c");
+		user1.setItr(EITRs.NORTE);
+		user1.setDepartamento(Departamento.ARTIGAS);
+		user1.setLocalidad(Localidad.CAPITAL);
+		user1.setTelefono("tele");
+		user1.setMail_insti("c");
+		user1.setGeneracion("2022");
+		user1.setEstado(EstadoUsuario.ACTIVO);
+		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
-		tutorBean.addTutor(tutor);
+		estudianteBean.addStudent(user1);
+		
+		ESTUDIANTE user2 = new ESTUDIANTE();
+		user2.setNombre("Lucas");
+		user2.setApellido("Sergio");
+		user2.setDocumento(5);
+		user2.setMail("q");
+		user2.setContrasena("q");
+		user2.setDepartamento(Departamento.CERRO_LARGO);
+		user2.setLocalidad(Localidad.INTERIOR);
+		user2.setTelefono("+59891231");
+		user2.setMail_insti("q");
+		user2.setItr(EITRs.NORTE);
+		user2.setGeneracion("2022");
+		user2.setEstado(EstadoUsuario.ACTIVO);
+		user2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		
+		estudianteBean.addStudent(user2);
 //		
-//		TUTOR tutor2 = new TUTOR();
-//		tutor2.setNombre("Tutor2");
-//		tutor2.setApellido("Ap");
-//		tutor2.setDocumento(120);
-//		tutor2.setMail("l");
-//		tutor2.setContrasena("l");
-//		tutor2.setItr(EITRs.NORTE);
-//		tutor2.setDepartamento(Departamento.DURAZNO);
-//		tutor2.setLocalidad(Localidad.CAPITAL);
-//		tutor2.setTelefono("1241241");
-//		tutor2.setMail_insti("l");
-//		tutor2.setArea("Area2");
-//		tutor2.setTipo(RolTutor.ENCARGADO);
-//		tutor2.setEstado(EstadoUsuario.ACTIVO);
-//		tutor2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+//		TUTOR tutor = new TUTOR();
+//		tutor.setNombre("fasgasa");
+//		tutor.setApellido("casasfas");
+//		tutor.setDocumento(2);
+//		tutor.setMail("t");
+//		tutor.setContrasena("t");
+//		tutor.setDepartamento(Departamento.DURAZNO);
+//		tutor.setLocalidad(Localidad.CAPITAL);
+//		tutor.setTelefono("tele");
+//		tutor.setMail_insti("t");
+//		tutor.setArea("Area1");
+//		tutor.setTipo(RolTutor.TUTOR);
+//		tutor.setItr(EITRs.NORTE);
+//		tutor.setEstado(EstadoUsuario.ACTIVO);
+//		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 //		
-//		tutorBean.addTutor(tutor2);
+//		tutorBean.addTutor(tutor);
+//		
+		TUTOR tutor2 = new TUTOR();
+		tutor2.setNombre("Tutor2");
+		tutor2.setApellido("Ap");
+		tutor2.setDocumento(120);
+		tutor2.setMail("t");
+		tutor2.setContrasena("t");
+		tutor2.setItr(EITRs.NORTE);
+		tutor2.setDepartamento(Departamento.DURAZNO);
+		tutor2.setLocalidad(Localidad.CAPITAL);
+		tutor2.setTelefono("1241241");
+		tutor2.setMail_insti("t");
+		tutor2.setArea("Area2");
+		tutor2.setTipo(RolTutor.ENCARGADO);
+		tutor2.setEstado(EstadoUsuario.ACTIVO);
+		tutor2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		
+		tutorBean.addTutor(tutor2);
 //		
 		ANALISTA analista = new ANALISTA();
 		
@@ -155,6 +161,24 @@ public class Principal{
 //		eventoBean.asignEstToEvent(1, 1);
 //		eventoBean.asignEstToEvent(1, 2);
 //		eventoBean.asignEstToEvent(2, 2);
+		
+		RECLAMO r1 = new RECLAMO();
+		r1.setTitulo("Reclamo 1");
+		r1.setDetalle("Detalle de Reclamo 1");
+		r1.setTipo(TipoReclamo.APE);
+		r1.setFecha(LocalDate.now());
+		r1.setEs((ESTUDIANTE) usuarioBean.findUser(user1.getDocumento()).get(0));
+		
+		RECLAMO r2 = new RECLAMO();
+		r2.setTitulo("Reclamo 2");
+		r2.setDetalle("Detalle de Reclamo 2");
+		r2.setTipo(TipoReclamo.Optativas);
+		r2.setFecha(LocalDate.now());
+		r2.setEs((ESTUDIANTE) usuarioBean.findUser(user2.getDocumento()).get(0));
+		
+		reclamoBean.addReclamo(r1);
+		reclamoBean.addReclamo(r2);
+		
 	}
 
 }

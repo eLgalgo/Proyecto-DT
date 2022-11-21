@@ -373,7 +373,7 @@ public class Registro_Usuario_Nuevo {
 					EVENTO evActivo = new EVENTO();
 					evActivo.setFechaInicio(LocalDate.now());
 					try {
-						evActivo.setTutor((TUTOR) usuarioBean.findUser(2).get(0));
+						evActivo.setTutor((TUTOR) usuarioBean.findUser(120).get(0));
 					} catch (ServiciosException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();

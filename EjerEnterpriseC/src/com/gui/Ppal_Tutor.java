@@ -20,6 +20,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
 
 import com.entities.TUTOR;
+import com.entities.USUARIO;
+import com.exception.ServiciosException;
 
 public class Ppal_Tutor extends JFrame
         implements ActionListener {
@@ -36,7 +38,7 @@ public class Ppal_Tutor extends JFrame
         System.out.println(e.getActionCommand());
     }
 
-    public Ppal_Tutor(TUTOR usuario) {
+    public Ppal_Tutor(USUARIO usuario) {
         super("Administración Secretaría");
         getContentPane().setBackground(Color.WHITE);
         
@@ -77,9 +79,8 @@ public class Ppal_Tutor extends JFrame
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
-        btnNewButton_5.setEnabled(false);
         btnNewButton_5.setBounds(396, 59, 70, 70);
-        btnNewButton_5.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-event-declined-48.png")));
+        btnNewButton_5.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_5.setBackground(Color.WHITE);
         
         JButton btnNewButton_6 = new JButton("");
@@ -88,7 +89,6 @@ public class Ppal_Tutor extends JFrame
         btnNewButton_6.setBackground(Color.WHITE);
         
         JButton btnNewButton_9 = new JButton("");
-        btnNewButton_9.setEnabled(false);
         btnNewButton_9.setBounds(562, 59, 70, 70);
         btnNewButton_9.setIcon(new ImageIcon(Ppal_Tutor.class.getResource("/PNG/icons8-search-contacts-48.png")));
         btnNewButton_9.setBackground(Color.WHITE);
@@ -100,22 +100,6 @@ public class Ppal_Tutor extends JFrame
         JLabel lblBajaUsuario = new JLabel("Responder");
         lblBajaUsuario.setBounds(223, 135, 72, 15);
         lblBajaUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
-        JLabel lblModificar = new JLabel("Cancelar");
-        lblModificar.setBounds(396, 135, 70, 15);
-        lblModificar.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
-        JLabel lblUsuario = new JLabel("Evento");
-        lblUsuario.setBounds(396, 156, 36, 15);
-        lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
-        JLabel lblModificar_1 = new JLabel("Buscar");
-        lblModificar_1.setBounds(562, 135, 72, 15);
-        lblModificar_1.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
-        JLabel lblReclamo = new JLabel("Estudiantes");
-        lblReclamo.setBounds(562, 156, 72, 15);
-        lblReclamo.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1 = new JLabel("Buscar");
         lblModificar_1_1.setBounds(69, 286, 72, 15);
@@ -174,13 +158,9 @@ public class Ppal_Tutor extends JFrame
         getContentPane().add(btnNewButton_3);
         getContentPane().add(lblModificar_1_1);
         getContentPane().add(btnNewButton_5);
-        getContentPane().add(lblUsuario);
-        getContentPane().add(lblModificar);
         getContentPane().add(btnNewButton_1_1);
         getContentPane().add(lblJustificaciones);
-        getContentPane().add(lblModificar_1);
         getContentPane().add(btnNewButton_9);
-        getContentPane().add(lblReclamo);
         getContentPane().add(btnNewButton_4);
         getContentPane().add(lblConstancias);
         getContentPane().add(lblModificar_1_1_1_1_1_1_1);
@@ -198,6 +178,26 @@ public class Ppal_Tutor extends JFrame
         lblNewLabel_1_1.setForeground(Color.WHITE);
         lblNewLabel_1_1.setBounds(233, 340, 220, 179);
         getContentPane().add(lblNewLabel_1_1);
+        
+        JLabel lblModificar_1 = new JLabel("Analitica de");
+        lblModificar_1.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblModificar_1.setBounds(562, 135, 72, 15);
+        getContentPane().add(lblModificar_1);
+        
+        JLabel lblUsuario_1 = new JLabel("Reclamos");
+        lblUsuario_1.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblUsuario_1.setBounds(562, 156, 72, 15);
+        getContentPane().add(lblUsuario_1);
+        
+        JLabel lblModificar_1_1_1_1 = new JLabel("Modificar");
+        lblModificar_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblModificar_1_1_1_1.setBounds(396, 135, 72, 15);
+        getContentPane().add(lblModificar_1_1_1_1);
+        
+        JLabel lblConstancia_2 = new JLabel("Mis Datos");
+        lblConstancia_2.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblConstancia_2.setBounds(396, 156, 78, 15);
+        getContentPane().add(lblConstancia_2);
         setTitle("Administraci\u00F3n Secretar\u00EDa - Tutor");
        
         setSize(720, 570);
@@ -217,6 +217,32 @@ public class Ppal_Tutor extends JFrame
 				}
         		login.getFrame().setVisible(true);
         		dispose();
+        	}
+        });
+        btnNewButton_5.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ModPropiaTutor modPropia = null;
+				try {
+					modPropia = new ModPropiaTutor(usuario);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		modPropia.getFrame().setVisible(true);
+        		modPropia.getFrame().setLocationRelativeTo(null);
+        		dispose();
+        	}
+        });
+        btnNewButton_9.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ListarReclamos listR = new ListarReclamos(usuario);
+					listR.setVisible(true);
+					listR.setLocationRelativeTo(null);
+					dispose();
+				} catch (NamingException | ServiciosException e1) {
+					e1.printStackTrace();
+				}
         	}
         });
     }

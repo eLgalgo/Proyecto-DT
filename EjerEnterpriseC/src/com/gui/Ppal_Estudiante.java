@@ -52,9 +52,8 @@ public class Ppal_Estudiante extends JFrame
         btnNewButton.setBackground(Color.WHITE);
         
         JButton btnNewButton_1 = new JButton("");
-        btnNewButton_1.setEnabled(false);
         btnNewButton_1.setBounds(118, 177, 70, 70);
-        btnNewButton_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchEvent.png")));
+        btnNewButton_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_1_1 = new JButton("");
@@ -120,14 +119,6 @@ public class Ppal_Estudiante extends JFrame
         lblReclamo.setBounds(287, 274, 72, 15);
         lblReclamo.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblModificar_1_1 = new JLabel("Buscar");
-        lblModificar_1_1.setBounds(118, 253, 72, 15);
-        lblModificar_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
-        JLabel lblJustificacin = new JLabel("Eventos");
-        lblJustificacin.setBounds(118, 274, 42, 15);
-        lblJustificacin.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
         JLabel lblModificar_1_1_1 = new JLabel("Eliminar");
         lblModificar_1_1_1.setBounds(287, 135, 72, 15);
         lblModificar_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
@@ -187,8 +178,6 @@ public class Ppal_Estudiante extends JFrame
         getContentPane().add(btnNewButton_2);
         getContentPane().add(lblBajaUsuario);
         getContentPane().add(lblConstancia_1_1);
-        getContentPane().add(lblModificar_1_1);
-        getContentPane().add(lblJustificacin);
         getContentPane().add(btnNewButton_4);
         getContentPane().add(lblModificar_1_1_1_1_1_1_1);
         getContentPane().add(lblConstancias);
@@ -206,6 +195,16 @@ public class Ppal_Estudiante extends JFrame
         getContentPane().add(btnNewButton_9);
         getContentPane().add(lblModificar_1_1_1_1_1_1_1_2);
         getContentPane().add(btnNewButton_6);
+        
+        JLabel lblModificar_1_1_1_1 = new JLabel("Modificar");
+        lblModificar_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblModificar_1_1_1_1.setBounds(118, 258, 72, 15);
+        getContentPane().add(lblModificar_1_1_1_1);
+        
+        JLabel lblConstancia_2 = new JLabel("Mis Datos");
+        lblConstancia_2.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblConstancia_2.setBounds(118, 279, 78, 15);
+        getContentPane().add(lblConstancia_2);
         setTitle("Administraci\u00F3n Secretar\u00EDa - Estudiante");
      
         setSize(838, 547);
@@ -238,6 +237,20 @@ public class Ppal_Estudiante extends JFrame
 					e1.printStackTrace();
 				}
         		
+        	}
+        });
+        btnNewButton_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ModPropiaEstudiante modPropia = null;
+				try {
+					modPropia = new ModPropiaEstudiante(usuario);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		modPropia.getFrame().setVisible(true);
+        		modPropia.getFrame().setLocationRelativeTo(null);
+        		dispose();
         	}
         });
         btnNewButton.addActionListener(new ActionListener() {
