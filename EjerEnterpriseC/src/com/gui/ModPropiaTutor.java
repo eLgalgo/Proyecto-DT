@@ -194,18 +194,6 @@ public class ModPropiaTutor {
 		tfArea.setText(tutor.getArea());
 		tfTipo.setText(tutor.getTipo().name());
 		
-		
-		JComboBox comboBoxEstado = new JComboBox();
-		comboBoxEstado.setBounds(151, 231, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
-		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
-		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
-		
-		JLabel lblEstado = new JLabel("Estado");
-		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblEstado.setBounds(151, 209, 64, 14);
-		frmModificacionDeUsuario.getContentPane().add(lblEstado);
-		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(293, 124, 131, 20);
 		Calendar today = Calendar.getInstance();
@@ -246,7 +234,6 @@ public class ModPropiaTutor {
 				tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				tutor.setArea(tfArea.getText());
 //				usuario.setTipo(tfTipo.getText());
-				tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				
 				try {

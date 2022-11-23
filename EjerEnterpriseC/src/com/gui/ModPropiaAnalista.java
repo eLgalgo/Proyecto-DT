@@ -165,18 +165,6 @@ public class ModPropiaAnalista {
 		tfDocumento.setText(Integer.toString(analista.getDocumento()));
 		comboBoxDep.setSelectedIndex(analista.getDepartamento().ordinal());
 
-		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
-		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxEstado.setBounds(293, 206, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
-		comboBoxEstado.setSelectedIndex(analista.getEstado().ordinal());
-		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
-
-		JLabel lblEstado = new JLabel("Estado");
-		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblEstado.setBounds(293, 181, 64, 14);
-		frmModificacionDeUsuario.getContentPane().add(lblEstado);
-
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(293, 156, 131, 20);
 		
@@ -218,7 +206,6 @@ public class ModPropiaAnalista {
 				analista.setMail(tfEmail.getText());
 				analista.setTelefono(tfTelefono.getText());
 				analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				analista.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				analista.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
 				try {

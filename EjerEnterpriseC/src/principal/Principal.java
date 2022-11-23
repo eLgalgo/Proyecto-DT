@@ -74,7 +74,7 @@ public class Principal{
 		
 		ESTUDIANTE user2 = new ESTUDIANTE();
 		user2.setNombre("Lucas");
-		user2.setApellido("Sergio");
+		user2.setApellido("Mansilla");
 		user2.setDocumento(5);
 		user2.setMail("q");
 		user2.setContrasena("q");
@@ -108,8 +108,8 @@ public class Principal{
 //		tutorBean.addTutor(tutor);
 //		
 		TUTOR tutor2 = new TUTOR();
-		tutor2.setNombre("Tutor2");
-		tutor2.setApellido("Ap");
+		tutor2.setNombre("Guillermo");
+		tutor2.setApellido("Uscudun");
 		tutor2.setDocumento(120);
 		tutor2.setMail("t");
 		tutor2.setContrasena("t");
@@ -124,19 +124,19 @@ public class Principal{
 		tutor2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		tutorBean.addTutor(tutor2);
-//		
+	
 		ANALISTA analista = new ANALISTA();
 		
-		analista.setNombre("Dios");
-		analista.setApellido("Dios");
+		analista.setNombre("Jimena");
+		analista.setApellido("Goytiño");
 		analista.setDocumento(3);
-		analista.setMail("m");
-		analista.setContrasena("m");
+		analista.setMail("JIMENA");
+		analista.setContrasena("JIMENA");
 		analista.setDepartamento(Departamento.CANELONES);
 		analista.setLocalidad(Localidad.CAPITAL);
 		analista.setTelefono("tele");
 		analista.setItr(EITRs.NORTE);
-		analista.setMail_insti("m");
+		analista.setMail_insti("JIMENA");
 		analista.setEstado(EstadoUsuario.ACTIVO);
 		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		analista.setDios(true);
