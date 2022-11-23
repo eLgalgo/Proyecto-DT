@@ -142,7 +142,7 @@ public class Solicitud_Constancia extends JFrame
         		SOLICITUD sol = new SOLICITUD();
         		sol.setTipo(TipoConstancia.valueOf(comboBoxTipo.getSelectedItem().toString()));
         		sol.setInfoAdj(textField.getText());
-        		sol.setEstado(EstadoSolicitud.PENDIENTE);
+        		sol.setEstado(EstadoSolicitud.INGRESADO);
         		Date date = Date.from(Instant.now());
         		sol.setFecha(date);
         		sol.setEstSol(usuario);

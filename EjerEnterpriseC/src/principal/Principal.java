@@ -6,6 +6,7 @@ import java.time.Month;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.entities.ACCION;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
@@ -20,6 +21,7 @@ import com.enums.TipoConstancia;
 import com.enums.TipoReclamo;
 import com.exception.ServiciosException;
 import com.gui.Login;
+import com.services.AccionBeanRemote;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
@@ -51,6 +53,9 @@ public class Principal{
 
 		ReclamoBeanRemote reclamoBean = (ReclamoBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/ReclamoBean!com.services.ReclamoBeanRemote");
+		
+		AccionBeanRemote accionBean = (AccionBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/AccionBean!com.services.AccionBeanRemote");
 
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
@@ -178,7 +183,6 @@ public class Principal{
 		
 		reclamoBean.addReclamo(r1);
 		reclamoBean.addReclamo(r2);
-		
 	}
 
 }

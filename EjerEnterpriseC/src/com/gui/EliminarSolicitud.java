@@ -115,7 +115,7 @@ public class EliminarSolicitud extends JFrame
         	public void actionPerformed(ActionEvent e) {
         		try {
 					SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
-					if(sol.getEstado().equals(EstadoSolicitud.EMITIDA)) {
+					if(sol.getEstado().equals(EstadoSolicitud.FINALIZADO) || sol.getEstado().equals(EstadoSolicitud.EN_PROCESO)) {
 						JOptionPane.showMessageDialog(null, "Error, existen acciones en esta solicitud");
 					}else {
 						solicitudBean.deleteSolicitud(sol);

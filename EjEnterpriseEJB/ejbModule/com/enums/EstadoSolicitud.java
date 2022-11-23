@@ -1,5 +1,5 @@
 package com.enums;
 
 public enum EstadoSolicitud {
-	PENDIENTE, EMITIDA, SIN_FILTRO
+	INGRESADO, EN_PROCESO, FINALIZADO , SIN_FILTRO
 }
