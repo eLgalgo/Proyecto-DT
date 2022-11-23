@@ -336,6 +336,7 @@ public class Registro_Usuario_Nuevo {
 					try {
 						
 						tutorBean.addTutor(tutor);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
 						e1.printStackTrace();
 					}
@@ -360,6 +361,7 @@ public class Registro_Usuario_Nuevo {
 					try {
 						
 						estudianteBean.addStudent(estudiante);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
 						e1.printStackTrace();
 					}

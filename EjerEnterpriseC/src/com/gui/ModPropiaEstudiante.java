@@ -200,17 +200,6 @@ public class ModPropiaEstudiante {
 		tfDocumento.setText(Integer.toString(estudiante.getDocumento()));
 		comboBoxDep.setSelectedIndex(estudiante.getDepartamento().ordinal());
 		
-		JComboBox comboBoxEstado = new JComboBox();
-		comboBoxEstado.setBounds(151, 230, 131, 22);
-		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
-		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
-		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
-		
-		JLabel lblNewLabel_1_2_1_1_2 = new JLabel("Estado");
-		lblNewLabel_1_2_1_1_2.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1_1_2.setBounds(151, 208, 52, 14);
-		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1_2);
-		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblFechaDeNacimiento.setBounds(292, 101, 132, 14);
@@ -259,7 +248,6 @@ public class ModPropiaEstudiante {
 				estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				estudiante.setLocalidad(null);
 				estudiante.setGeneracion(tfGeneracion.getText());
-				estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				
 				try {

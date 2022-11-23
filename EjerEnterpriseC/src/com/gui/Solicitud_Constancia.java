@@ -164,7 +164,7 @@ public class Solicitud_Constancia extends JFrame
         });
     }
     private void crearTablaPersona() {
-		String[] columnas = { "ID","Tipo", "Titulo", "Fecha_Inc", "Fech_Fin", "Detalle", "Tutor" };
+		String[] columnas = { "ID","Tipo", "Titulo", "Fecha_Fin", "Fecha_Inc", "Detalle", "Tutor" };
 		tabla = new JTable();
 		modelo = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
