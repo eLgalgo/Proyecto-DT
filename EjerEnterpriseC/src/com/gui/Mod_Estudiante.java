@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.enums.Departamento;
+import com.enums.EITRs;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
@@ -125,6 +126,8 @@ public class Mod_Estudiante {
 		comboBoxItr.setBounds(10, 230, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().name());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
+		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));

@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
 import com.enums.Departamento;
+import com.enums.EITRs;
 import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -109,6 +110,8 @@ public class Mod_Analista {
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 207, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().name());
+		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());
 
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 

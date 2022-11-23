@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,8 +14,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowStateListener;
+import java.lang.constant.Constable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -48,6 +51,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Registro_Usuario_Nuevo {
 
@@ -55,7 +60,7 @@ public class Registro_Usuario_Nuevo {
 	private JTextField tfTelefono;
 	private JTextField tfEmail;
 	private JTextField tfMailInsti;
-	private JPasswordField tfContraseña;
+	private JPasswordField tfContrasena;
 	private JTextField tfNombre;
 	private JTextField tfApellido;
 	private JTextField tfDocumento;
@@ -64,6 +69,22 @@ public class Registro_Usuario_Nuevo {
 	public Registro_Usuario_Nuevo() throws NamingException {
 		initialize();
 	}
+	
+	public boolean isValidEmailAddress(String email) {
+		String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+		java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+		java.util.regex.Matcher m = p.matcher(email);
+		return m.matches();
+	}
+	
+	public boolean validUtecMail(String mailInsti) {
+		final String dom = "@utec.edu.uy";
+		if (mailInsti.contains(dom)) {
+			return true;
+		}
+		return false;
+	}
+
 
 	private void initialize() throws NamingException {
 		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
@@ -158,41 +179,166 @@ public class Registro_Usuario_Nuevo {
 		JLabel lblNewLabel2 = new JLabel("DE");
 
 		tfTelefono = new JTextField();
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros)
+					evt.consume();
+
+				if (tfTelefono.getText().length() < 7)
+					tfTelefono.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+				else
+					tfTelefono.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
+				if (tfTelefono.getText().trim().length() > 10) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(10, 125, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfTelefono);
 
 		tfEmail = new JTextField();
+		tfEmail.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (!isValidEmailAddress(tfEmail.getText())) {
+					tfEmail.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+				} else {
+					tfEmail.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+				}
+			}
+		});
 		tfEmail.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(151, 124, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfEmail);
 
 		tfMailInsti = new JTextField();
+		tfMailInsti.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(!validUtecMail(tfMailInsti.getText())) {
+					tfMailInsti.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+				}
+				else {
+					tfMailInsti.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+				}
+			}
+		});
 		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfMailInsti.setColumns(10);
 		tfMailInsti.setBounds(293, 125, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfMailInsti);
 
-		tfContraseña = new JPasswordField();
-		tfContraseña.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfContraseña.setBounds(292, 181, 132, 20);
-		frmRegistroUsuarioNuevo.getContentPane().add(tfContraseña);
+		tfContrasena = new JPasswordField();
+		tfContrasena.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				if (tfContrasena.getText().length() < 8)
+					tfContrasena.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+				else
+					tfContrasena.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+			}
+		});
+		tfContrasena.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfContrasena.setBounds(292, 181, 132, 20);
+		frmRegistroUsuarioNuevo.getContentPane().add(tfContrasena);
 
 		tfNombre = new JTextField();
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				
+				String nombre = tfNombre.getText();
+				
+				int key = evt.getKeyChar();
+
+				if (nombre.length() > 21) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio))
+					evt.consume();
+
+				if (nombre.length() <= 2)
+					tfNombre.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+				else
+					tfNombre.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+			}
+		});
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(10, 70, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfNombre);
 
 		tfApellido = new JTextField();
+		tfApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+
+				int key = evt.getKeyChar();
+
+				if (tfApellido.getText().length() > 21) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio))
+					evt.consume();
+
+				if (tfApellido.getText().length() <= 2)
+					tfApellido.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+				else
+					tfApellido.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+			}
+		});
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(151, 69, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfApellido);
 
 		tfDocumento = new JTextField();
+		tfDocumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().length() < 7)
+					tfDocumento.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+				else
+					tfDocumento.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
+				if (tfDocumento.getText().length() > 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+
+			}
+		});
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
@@ -300,7 +446,7 @@ public class Registro_Usuario_Nuevo {
 					ANALISTA Analista = new ANALISTA();
 					Analista.setApellido(tfApellido.getText());
 					Analista.setNombre(tfNombre.getText());
-					Analista.setContrasena(tfContraseña.getText());
+					Analista.setContrasena(tfContrasena.getText());
 					Analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					Analista.setMail(tfEmail.getText());
 					Analista.setTelefono(tfTelefono.getText());
@@ -321,7 +467,7 @@ public class Registro_Usuario_Nuevo {
 					TUTOR tutor=new TUTOR();
 					tutor.setApellido(tfApellido.getText());
 					tutor.setNombre(tfNombre.getText());
-					tutor.setContrasena(tfContraseña.getText());
+					tutor.setContrasena(tfContrasena.getText());
 					tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					tutor.setMail(tfEmail.getText());
 					tutor.setTelefono(tfTelefono.getText());
@@ -346,7 +492,7 @@ public class Registro_Usuario_Nuevo {
 					ESTUDIANTE estudiante=new ESTUDIANTE();
 					estudiante.setApellido(tfApellido.getText());
 					estudiante.setNombre(tfNombre.getText());
-					estudiante.setContrasena(tfContraseña.getText());
+					estudiante.setContrasena(tfContrasena.getText());
 					estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					estudiante.setMail(tfEmail.getText());
 					estudiante.setTelefono(tfTelefono.getText());
