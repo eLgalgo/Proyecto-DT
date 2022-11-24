@@ -39,7 +39,7 @@ public class Alta_Usuario_Tutor {
 	private JTextField tfTelefono;
 	private JTextField tfEmail;
 	private JTextField tfMailInsti;
-	private JPasswordField tfContraseña;
+	private JPasswordField tfContrase;
 	private JTextField tfNombre;
 	private JTextField tfApellido;
 	private JTextField tfDocumento;
@@ -175,10 +175,10 @@ public class Alta_Usuario_Tutor {
 		tfMailInsti.setBounds(293, 114, 131, 20);
 		frmAltaDeUsuarioT.getContentPane().add(tfMailInsti);
 
-		tfContraseña = new JPasswordField();
-		tfContraseña.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfContraseña.setBounds(292, 166, 132, 20);
-		frmAltaDeUsuarioT.getContentPane().add(tfContraseña);
+		tfContrase = new JPasswordField();
+		tfContrase.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfContrase.setBounds(292, 166, 132, 20);
+		frmAltaDeUsuarioT.getContentPane().add(tfContrase);
 
 		
 		tfNombre = new JTextField();
@@ -272,7 +272,7 @@ public class Alta_Usuario_Tutor {
 				TUTOR tutor=new TUTOR();
 				tutor.setApellido(tfApellido.getText());
 				tutor.setNombre(tfNombre.getText());
-				tutor.setContrasena(tfContraseña.getText());
+				tutor.setContrasena(tfContrase.getText());
 				tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
 				tutor.setMail(tfEmail.getText());
 				tutor.setTelefono(tfTelefono.getText());
