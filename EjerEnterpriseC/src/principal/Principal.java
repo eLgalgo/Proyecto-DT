@@ -11,6 +11,7 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
 import com.entities.ITR;
+import com.entities.MODELOCONSTANCIA;
 import com.entities.RECLAMO;
 import com.entities.TUTOR;
 import com.enums.Departamento;
@@ -21,12 +22,14 @@ import com.enums.RolTutor;
 import com.enums.TipoConstancia;
 import com.enums.TipoReclamo;
 import com.exception.ServiciosException;
+import com.gui.CrearModelosConstancia;
 import com.gui.Login;
 import com.services.AccionBeanRemote;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
 import com.services.ItrBeanRemote;
+import com.services.ModeloBeanRemote;
 import com.services.ReclamoBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
@@ -62,6 +65,9 @@ public class Principal{
 		ItrBeanRemote itrBean = (ItrBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
 
+		ModeloBeanRemote modeloBean = (ModeloBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ModeloBean!com.services.ModeloBeanRemote");
+		
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
 		
@@ -69,6 +75,7 @@ public class Principal{
 		ITR itr1 = new ITR();
 		ITR itr2 = new ITR();
 		ITR itr3 = new ITR();
+		ITR itr4 = new ITR();
 		
 		itr1.setNombre("NORTE1");
 		itr1.setEstado(true);
@@ -76,10 +83,13 @@ public class Principal{
 		itr2.setEstado(true);
 		itr3.setNombre("CENTROSUR1");
 		itr3.setEstado(true);
+		itr4.setNombre("CENTROSUR2");
+		itr4.setEstado(true);
 		
 		itrBean.addItr(itr1);
 		itrBean.addItr(itr2);
 		itrBean.addItr(itr3);
+		itrBean.addItr(itr4);
 		
 		
 		ESTUDIANTE user1 = new ESTUDIANTE();
@@ -88,7 +98,7 @@ public class Principal{
 		user1.setDocumento(1);
 		user1.setMail("c");
 		user1.setContrasena("c");
-		user1.setItr(itr1);
+		user1.setItr(itrBean.findItr(1).get(0));
 		user1.setDepartamento(Departamento.ARTIGAS);
 		user1.setLocalidad(Localidad.CAPITAL);
 		user1.setTelefono("tele");
@@ -109,7 +119,7 @@ public class Principal{
 		user2.setLocalidad(Localidad.INTERIOR);
 		user2.setTelefono("+59891231");
 		user2.setMail_insti("q");
-		user2.setItr(itr2);
+		user2.setItr(itrBean.findItr(2).get(0));
 		user2.setGeneracion("2022");
 		user2.setEstado(EstadoUsuario.ACTIVO);
 		user2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
@@ -128,7 +138,7 @@ public class Principal{
 		tutor.setMail_insti("t");
 		tutor.setArea("Area1");
 		tutor.setTipo(RolTutor.TUTOR);
-		tutor.setItr(itr2);
+		tutor.setItr(itrBean.findItr(3).get(0));
 		tutor.setEstado(EstadoUsuario.ACTIVO);
 		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
@@ -138,13 +148,13 @@ public class Principal{
 		tutor2.setNombre("Guillermo");
 		tutor2.setApellido("Uscudun");
 		tutor2.setDocumento(120);
-		tutor2.setMail("t");
-		tutor2.setContrasena("t");
-		tutor2.setItr(itr3);
+		tutor2.setMail("t2");
+		tutor2.setContrasena("t2");
+		tutor2.setItr(itrBean.findItr(4).get(0));
 		tutor2.setDepartamento(Departamento.DURAZNO);
 		tutor2.setLocalidad(Localidad.CAPITAL);
 		tutor2.setTelefono("1241241");
-		tutor2.setMail_insti("t");
+		tutor2.setMail_insti("t2");
 		tutor2.setArea("Area2");
 		tutor2.setTipo(RolTutor.ENCARGADO);
 		tutor2.setEstado(EstadoUsuario.ACTIVO);
@@ -162,7 +172,7 @@ public class Principal{
 		analista.setDepartamento(Departamento.CANELONES);
 		analista.setLocalidad(Localidad.CAPITAL);
 		analista.setTelefono("tele");
-		analista.setItr(itr1);
+		analista.setItr(itrBean.findItr(1).get(0));
 		analista.setMail_insti("JIMENA");
 		analista.setEstado(EstadoUsuario.ACTIVO);
 		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
@@ -205,6 +215,18 @@ public class Principal{
 		
 		reclamoBean.addReclamo(r1);
 		reclamoBean.addReclamo(r2);
+		
+		MODELOCONSTANCIA m1 = new MODELOCONSTANCIA();
+		m1.setTipo(TipoConstancia.ESTUDIANTE_ACTIVO);
+		m1.setModelo("Se deja constancia que el estudiante de nombre &nombre& y cedula &cedula& es un estudiante activo.");
+		
+		modeloBean.addMoldeo(m1);
+		
+		MODELOCONSTANCIA m2 = new MODELOCONSTANCIA();
+		m2.setTipo(TipoConstancia.PRESENCIAL);
+		m2.setModelo("Se deja constancia que el estudiante de nombre &nombre& y cedula &cedula& asistio a la presencial del dia &fecha&.");
+		
+		modeloBean.addMoldeo(m2);
 	}
 
 }
