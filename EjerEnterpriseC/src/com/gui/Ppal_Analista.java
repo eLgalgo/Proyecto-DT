@@ -65,7 +65,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         
         JButton btnNewButton_1_1 = new JButton("");
         btnNewButton_1_1.setEnabled(false);
-        btnNewButton_1_1.setBounds(118, 323, 70, 70);
+        btnNewButton_1_1.setBounds(287, 323, 70, 70);
         btnNewButton_1_1.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/searchJust.png")));
         btnNewButton_1_1.setBackground(Color.WHITE);
         
@@ -109,7 +109,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         
         JButton btnNewButton_7 = new JButton("");
         btnNewButton_7.setEnabled(false);
-        btnNewButton_7.setBounds(465, 193, 70, 70);
+        btnNewButton_7.setBounds(118, 323, 70, 70);
         btnNewButton_7.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modJust.png")));
         btnNewButton_7.setBackground(Color.WHITE);
         
@@ -121,7 +121,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         
         JButton btnNewButton_9 = new JButton("");
         btnNewButton_9.setEnabled(false);
-        btnNewButton_9.setBounds(285, 323, 70, 70);
+        btnNewButton_9.setBounds(465, 323, 70, 70);
         btnNewButton_9.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modReclam.png")));
         btnNewButton_9.setBackground(Color.WHITE);
         
@@ -142,11 +142,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1 = new JLabel("Modificar");
-        lblModificar_1.setBounds(285, 399, 72, 15);
+        lblModificar_1.setBounds(465, 399, 72, 15);
         lblModificar_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblReclamo = new JLabel("Reclamo");
-        lblReclamo.setBounds(285, 420, 72, 15);
+        lblReclamo.setBounds(465, 420, 72, 15);
         lblReclamo.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1 = new JLabel("Buscar");
@@ -166,11 +166,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblConstancia.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1 = new JLabel("Modificar");
-        lblModificar_1_1_1_1.setBounds(465, 269, 72, 15);
+        lblModificar_1_1_1_1.setBounds(118, 399, 72, 15);
         lblModificar_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblUsuarios = new JLabel("Justificaciones");
-        lblUsuarios.setBounds(465, 290, 90, 15);
+        lblUsuarios.setBounds(118, 420, 90, 15);
         lblUsuarios.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1 = new JLabel("Modificar");
@@ -182,11 +182,11 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblReclamos.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1_1 = new JLabel("Buscar");
-        lblModificar_1_1_1_1_1_1.setBounds(118, 399, 72, 15);
+        lblModificar_1_1_1_1_1_1.setBounds(287, 399, 72, 15);
         lblModificar_1_1_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblJustificaciones = new JLabel("Justificaciones");
-        lblJustificaciones.setBounds(118, 420, 90, 15);
+        lblJustificaciones.setBounds(287, 420, 90, 15);
         lblJustificaciones.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1_1_1 = new JLabel("Buscar");
@@ -240,6 +240,36 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         getContentPane().add(btnNewButton_8);
         getContentPane().add(lblModificar_1_1_1_1_1_1_1_1);
         getContentPane().add(btnNewButton_6);
+        
+        JButton btnMantenimientoItr = new JButton("");
+        btnMantenimientoItr.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Mantenimiento_ITRS mant = null;
+				try {
+					mant = new Mantenimiento_ITRS(usuario);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		mant.getFrame().setVisible(true);
+        		mant.getFrame().setLocationRelativeTo(null);
+        		dispose();
+        	}
+        });
+        btnMantenimientoItr.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/itr.png")));
+        btnMantenimientoItr.setBackground(Color.WHITE);
+        btnMantenimientoItr.setBounds(465, 193, 70, 70);
+        getContentPane().add(btnMantenimientoItr);
+        
+        JLabel lblModificar_1_1_1_2 = new JLabel("Mantenimiento");
+        lblModificar_1_1_1_2.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblModificar_1_1_1_2.setBounds(465, 269, 90, 15);
+        getContentPane().add(lblModificar_1_1_1_2);
+        
+        JLabel lblItrs = new JLabel("ITRs");
+        lblItrs.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblItrs.setBounds(465, 290, 78, 15);
+        getContentPane().add(lblItrs);
         setTitle("Administraci\u00F3n Secretar\u00EDa - Analista");
         ANALISTA analista = (ANALISTA) usuario;
         if(!analista.getDios()) {
