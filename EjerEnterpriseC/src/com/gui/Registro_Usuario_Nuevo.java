@@ -48,8 +48,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-import java.awt.Toolkit;
 
 public class Registro_Usuario_Nuevo {
 
@@ -84,9 +82,7 @@ public class Registro_Usuario_Nuevo {
 				InitialContext.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
 		
 		frmRegistroUsuarioNuevo = new JFrame();
-		frmRegistroUsuarioNuevo.setIconImage(Toolkit.getDefaultToolkit().getImage(Registro_Usuario_Nuevo.class.getResource("/PNG/logoUtec.png")));
 		frmRegistroUsuarioNuevo.setResizable(false);
-		frmRegistroUsuarioNuevo.getContentPane().setBackground(SystemColor.control);
 		frmRegistroUsuarioNuevo.setTitle("Registro Usuario Nuevo");
 		frmRegistroUsuarioNuevo.setBounds(100, 100, 456, 474);
 		frmRegistroUsuarioNuevo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,7 +177,7 @@ public class Registro_Usuario_Nuevo {
 
 		tfContraseña = new JPasswordField();
 		tfContraseña.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfContraseña.setBounds(293, 215, 132, 20);
+		tfContraseña.setBounds(292, 181, 132, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfContraseña);
 
 		tfNombre = new JTextField();
