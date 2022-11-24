@@ -39,6 +39,8 @@ import com.services.UsuarioBeanRemote;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class Listar_SConstanciasAnalista extends JFrame implements ActionListener {
 	private JTable tabla;
@@ -50,27 +52,28 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 
 	public Listar_SConstanciasAnalista(ANALISTA usuario) throws NamingException, ServiciosException {
 		super("Administración Secretaría");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Listar_SConstanciasAnalista.class.getResource("/PNG/logoUtec.png")));
 		setResizable(false);
 		setBackground(Color.WHITE);
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(SystemColor.control);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(550, 362);
+		setSize(550, 395);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setLayout(null);
 
 		JButton btnCancelar = new JButton("Volver");
-		btnCancelar.setBounds(10, 293, 97, 23);
+		btnCancelar.setBounds(10, 322, 97, 23);
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		getContentPane().add(btnCancelar);
 
 		JButton btnSolicitar = new JButton("Emitir");
-		btnSolicitar.setBounds(406, 293, 113, 23);
+		btnSolicitar.setBounds(408, 322, 113, 23);
 		btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
 		getContentPane().add(btnSolicitar);
 
 		JLabel lblNewLabel_2 = new JLabel("Solicitudes");
-		lblNewLabel_2.setBounds(10, 11, 448, 34);
+		lblNewLabel_2.setBounds(10, 23, 448, 34);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
 		getContentPane().add(lblNewLabel_2);
@@ -164,7 +167,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 48, 511, 234);
+		desplazamiento.setBounds(10, 68, 511, 234);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 

@@ -20,6 +20,7 @@ import com.enums.EstadoUsuario;
 import com.enums.TipoUser;
 import com.exception.ServiciosException;
 import com.services.UsuarioBeanRemote;
+import java.awt.Toolkit;
 
 public class SeleccionarAlta {
 
@@ -39,6 +40,8 @@ public class SeleccionarAlta {
 	 */
 	private void initialize(USUARIO usuario) throws NamingException {
 		selectAltaType = new JFrame();
+		selectAltaType.setResizable(false);
+		selectAltaType.setIconImage(Toolkit.getDefaultToolkit().getImage(SeleccionarAlta.class.getResource("/PNG/logoUtec.png")));
 		selectAltaType.setTitle("Alta de Usuarios");
 		selectAltaType.setBounds(100, 100, 450, 340);
 		selectAltaType.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

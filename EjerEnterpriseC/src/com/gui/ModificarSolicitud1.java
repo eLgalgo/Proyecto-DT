@@ -39,6 +39,8 @@ import com.services.UsuarioBeanRemote;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class ModificarSolicitud1 extends JFrame
         implements ActionListener {
@@ -51,26 +53,28 @@ public class ModificarSolicitud1 extends JFrame
 
     public ModificarSolicitud1(ESTUDIANTE usuario) throws NamingException, ServiciosException {
         super("Administración Secretaría");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ModificarSolicitud1.class.getResource("/PNG/logoUtec.png")));
         setResizable(false);
         setBackground(Color.WHITE);
-        getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(SystemColor.control);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(550,362);
+        setSize(549,394);
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setLayout(null);
         
         JButton btnCancelar = new JButton("Volver");
-        btnCancelar.setBounds(10, 293, 97, 23);
+        btnCancelar.setBounds(10, 321, 97, 23);
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
         JButton btnSolicitar = new JButton("Modificar");
-        btnSolicitar.setBounds(406, 293, 113, 23);
+        btnSolicitar.setBounds(410, 321, 113, 23);
         btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
         getContentPane().add(btnSolicitar);
         
         JLabel lblNewLabel_2 = new JLabel("Mis Solicitudes");
+        lblNewLabel_2.setBackground(SystemColor.control);
         lblNewLabel_2.setBounds(10, 11, 448, 34);
         lblNewLabel_2.setForeground(Color.BLACK);
         lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
@@ -146,7 +150,7 @@ public class ModificarSolicitud1 extends JFrame
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 48, 511, 234);
+		desplazamiento.setBounds(10, 65, 511, 234);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
