@@ -111,7 +111,7 @@ public class Mod_Tutor {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 201, 131, 22);
-		comboBoxItr.addItem(usuario.getItr().name());
+		comboBoxItr.addItem(usuario.getItr().toString());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JButton btnGuardar = new JButton("Guardar");

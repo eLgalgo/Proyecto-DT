@@ -38,8 +38,6 @@ import com.services.UsuarioBeanRemote;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
-import java.awt.Toolkit;
 
 public class ModificarSolicitud2 extends JFrame
         implements ActionListener {
@@ -53,54 +51,54 @@ public class ModificarSolicitud2 extends JFrame
 
     public ModificarSolicitud2(ESTUDIANTE usuario, SOLICITUD solicitud) throws NamingException, ServiciosException {
         super("Administración Secretaría");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(ModificarSolicitud2.class.getResource("/PNG/logoUtec.png")));
-        setBackground(SystemColor.control);
-        getContentPane().setBackground(SystemColor.control);
+        setResizable(false);
+        setBackground(Color.WHITE);
+        getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(550,411);
+        setSize(550,362);
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setLayout(null);
         
         JButton btnCancelar = new JButton("Volver");
-        btnCancelar.setBounds(10, 338, 97, 23);
+        btnCancelar.setBounds(10, 293, 97, 23);
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
         JButton btnSolicitar = new JButton("Modificar");
-        btnSolicitar.setBounds(411, 338, 113, 23);
+        btnSolicitar.setBounds(406, 293, 113, 23);
         btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
         getContentPane().add(btnSolicitar);
         
         JLabel lblTipo = new JLabel("Tipo");
-        lblTipo.setBounds(10, 70, 86, 14);
-        lblTipo.setFont(new Font("SimSun", Font.PLAIN, 15));
+        lblTipo.setBounds(10, 60, 86, 14);
+        lblTipo.setFont(new Font("SimSun", Font.PLAIN, 17));
         getContentPane().add(lblTipo);
         
         JComboBox comboBoxTipo = new JComboBox();
-        comboBoxTipo.setBounds(10, 95, 150, 28);
+        comboBoxTipo.setBounds(10, 79, 150, 28);
         comboBoxTipo.setModel(new DefaultComboBoxModel(TipoConstancia.values()));
         getContentPane().add(comboBoxTipo);
         
         JLabel lblNewLabel_2 = new JLabel("Modificar Solicitud");
         lblNewLabel_2.setBounds(10, 11, 219, 34);
         lblNewLabel_2.setForeground(Color.BLACK);
-        lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 17));
+        lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
         getContentPane().add(lblNewLabel_2);
         
         JLabel lblSeleccioneEvento = new JLabel("Seleccione Evento");
-        lblSeleccioneEvento.setBounds(10, 146, 288, 14);
-        lblSeleccioneEvento.setFont(new Font("SimSun", Font.PLAIN, 15));
+        lblSeleccioneEvento.setBounds(10, 118, 288, 14);
+        lblSeleccioneEvento.setFont(new Font("SimSun", Font.PLAIN, 17));
         getContentPane().add(lblSeleccioneEvento);
         
         tfMasInfo = new JTextField();
-        tfMasInfo.setBounds(190, 95, 329, 28);
+        tfMasInfo.setBounds(190, 79, 329, 28);
         getContentPane().add(tfMasInfo);
         tfMasInfo.setColumns(10);
         
         JLabel lblMasInfo = new JLabel("Mas info");
-        lblMasInfo.setFont(new Font("SimSun", Font.PLAIN, 15));
-        lblMasInfo.setBounds(190, 70, 161, 14);
+        lblMasInfo.setFont(new Font("SimSun", Font.PLAIN, 17));
+        lblMasInfo.setBounds(194, 60, 161, 14);
         getContentPane().add(lblMasInfo);
         setTitle("Modificar Solicitud de Constancia");
         
@@ -183,7 +181,7 @@ public class ModificarSolicitud2 extends JFrame
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 171, 509, 139);
+		desplazamiento.setBounds(10, 143, 509, 139);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 

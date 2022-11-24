@@ -28,7 +28,6 @@ import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
-import java.awt.SystemColor;
 
 public class Baja_Usuario {
 
@@ -64,9 +63,9 @@ public class Baja_Usuario {
 		frame = new JFrame();
 		frame.setIconImage(
 				Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
-		frame.getContentPane().setBackground(SystemColor.control);
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 486, 381);
+		frame.setBounds(100, 100, 453, 344);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		JButton btnEliminar = new JButton("Eliminar");
@@ -74,25 +73,25 @@ public class Baja_Usuario {
 		JButton atras = new JButton("Atras");
 		
 		JLabel lblNewLabel_2 = new JLabel("BAJA DE USUARIO");
-		lblNewLabel_2.setBounds(10, 22, 188, 30);
+		lblNewLabel_2.setBounds(10, 11, 188, 30);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel = new JLabel("Buscar Usuario");
 		lblNewLabel.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel.setBounds(10, 78, 104, 14);
+		lblNewLabel.setBounds(10, 52, 104, 14);
 		frame.getContentPane().add(lblNewLabel);
 
 		JFormattedTextField ftfDocumento = new JFormattedTextField();
 		ftfDocumento.setFont(new Font("SimSun", Font.PLAIN, 12));
-		ftfDocumento.setBounds(124, 75, 237, 20);
+		ftfDocumento.setBounds(118, 49, 212, 20);
 		frame.getContentPane().add(ftfDocumento);
 
 		JList list = new JList();
 		list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		list.setFont(new Font("SimSun", Font.PLAIN, 13));
-		list.setBounds(10, 103, 414, 146);
+		list.setBounds(10, 80, 386, 146);
 		frame.getContentPane().add(list);
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -131,7 +130,7 @@ public class Baja_Usuario {
 			}
 		});
 		btnBuscar.setFont(new Font("SimSun", Font.PLAIN, 13));
-		btnBuscar.setBounds(371, 74, 89, 23);
+		btnBuscar.setBounds(335, 48, 89, 23);
 		frame.getContentPane().add(btnBuscar);
 
 		
@@ -155,7 +154,7 @@ public class Baja_Usuario {
 			}
 		});
 		atras.setFont(new Font("SimSun", Font.BOLD, 13));
-		atras.setBounds(359, 308, 101, 23);
+		atras.setBounds(323, 271, 101, 23);
 		frame.getContentPane().add(atras);
 		
 		btnEliminar.addActionListener(new ActionListener() {
@@ -176,22 +175,17 @@ public class Baja_Usuario {
 			}
 		});
 		btnEliminar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnEliminar.setBounds(359, 274, 101, 23);
+		btnEliminar.setBounds(323, 237, 101, 23);
 		frame.getContentPane().add(btnEliminar);
 
 		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(443, 100, 17, 149);
+		scrollBar.setBounds(407, 77, 17, 149);
 		frame.getContentPane().add(scrollBar);
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\deleteUser.png"));
-		lblNewLabel_1.setBounds(414, 11, 46, 48);
+		lblNewLabel_1.setBounds(245, 246, 46, 48);
 		frame.getContentPane().add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(Baja_Usuario.class.getResource("/PNG/NC 100.jpg")));
-		lblNewLabel_3.setBounds(0, 322, 104, 20);
-		frame.getContentPane().add(lblNewLabel_3);
 	}
 
 	public Window getFrame() {

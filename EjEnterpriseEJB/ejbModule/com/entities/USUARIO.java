@@ -16,10 +16,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import com.enums.Departamento;
-import com.enums.EITRs;
+
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
@@ -61,9 +64,9 @@ public abstract class USUARIO implements Serializable {
 
 	@Enumerated(value = EnumType.STRING)
 	private EstadoUsuario estado;
-
-	@Enumerated(value = EnumType.STRING)
-	private EITRs itr;
+	
+	@ManyToOne
+	private ITR itr;
 
 	@Enumerated(value = EnumType.STRING)
 	private Localidad localidad;
@@ -144,11 +147,13 @@ public abstract class USUARIO implements Serializable {
 		this.departamento = departamento;
 	}
 
-	public EITRs getItr() {
+
+
+	public ITR getItr() {
 		return itr;
 	}
 
-	public void setItr(EITRs itr) {
+	public void setItr(ITR itr) {
 		this.itr = itr;
 	}
 

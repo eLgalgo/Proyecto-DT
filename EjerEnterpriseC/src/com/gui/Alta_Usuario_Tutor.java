@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,14 +22,16 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
+import com.entities.ITR;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.EITRs;
+
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
 import com.exception.ServiciosException;
+import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
@@ -63,6 +66,8 @@ public class Alta_Usuario_Tutor {
 	private void initialize(USUARIO usuario) throws NamingException {
 		TutorBeanRemote tutorBean = (TutorBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
 		
 		frmAltaDeUsuarioT = new JFrame();
 		frmAltaDeUsuarioT.setTitle("Alta de Usuario Tutor");
@@ -221,10 +226,23 @@ public class Alta_Usuario_Tutor {
 
 
 
-		JComboBox<EITRs> comboBoxItr = new JComboBox<>();
+		JComboBox<ITR> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 277, 131, 22);
-		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+
+		//ITRS activos
+		List<ITR> itrs = itrBean.findAll(true);
+
+		// Declaring Array with Equal Size to the List
+		String[] itrNombres = new String[itrs.size()];
+
+		// Converting List to Array
+		for (int i = 0; i < itrs.size(); i++) {
+			itrNombres[i] = itrs.get(i).getNombre();
+		}
+
+		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));
+
 		frmAltaDeUsuarioT.getContentPane().add(comboBoxItr);
 
 	
@@ -282,7 +300,12 @@ public class Alta_Usuario_Tutor {
 				tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-				tutor.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
+				try {
+					tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+				} catch (ServiciosException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				tutor.setArea(textFieldArea.getText());
 				tutor.setTipo(RolTutor.valueOf(comboBoxRolT.getSelectedItem().toString()));

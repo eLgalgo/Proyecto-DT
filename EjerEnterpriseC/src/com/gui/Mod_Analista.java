@@ -109,7 +109,7 @@ public class Mod_Analista {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 231, 131, 22);
-		comboBoxItr.addItem(usuario.getItr().name());
+		comboBoxItr.addItem(usuario.getItr().toString());
 
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 

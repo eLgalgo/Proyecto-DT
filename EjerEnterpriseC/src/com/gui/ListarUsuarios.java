@@ -43,7 +43,6 @@ import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
-import java.awt.SystemColor;
 
 public class ListarUsuarios {
 
@@ -75,7 +74,7 @@ public class ListarUsuarios {
 		frmListadoDeUsuarios.setTitle("Listado de Usuarios");
 		frmListadoDeUsuarios.setIconImage(
 				Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
-		frmListadoDeUsuarios.getContentPane().setBackground(SystemColor.control);
+		frmListadoDeUsuarios.getContentPane().setBackground(Color.WHITE);
 		frmListadoDeUsuarios.setResizable(false);
 		frmListadoDeUsuarios.setBounds(100, 100, 788, 451);
 		frmListadoDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,7 +111,7 @@ public class ListarUsuarios {
 
 		lblListadoDeUsuarios = new JLabel("Listado de Usuarios");
 		lblListadoDeUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
-		lblListadoDeUsuarios.setFont(new Font("SimSun", Font.BOLD, 18));
+		lblListadoDeUsuarios.setFont(new Font("SimSun", Font.PLAIN, 18));
 		lblListadoDeUsuarios.setBounds(10, 14, 752, 15);
 		frmListadoDeUsuarios.getContentPane().add(lblListadoDeUsuarios);
 		
@@ -145,13 +144,13 @@ public class ListarUsuarios {
 				tabla.setRowSorter(trs);
 			}
 		});
-		txtFiltro.setBounds(117, 61, 131, 25);
+		txtFiltro.setBounds(108, 61, 131, 25);
 		frmListadoDeUsuarios.getContentPane().add(txtFiltro);
 		txtFiltro.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("Filtrar por CI");
+		JLabel lblNewLabel_1 = new JLabel("Filtrar x CI");
 		lblNewLabel_1.setFont(new Font("SimSun", Font.PLAIN, 11));
-		lblNewLabel_1.setBounds(22, 67, 98, 14);
+		lblNewLabel_1.setBounds(22, 67, 80, 14);
 		frmListadoDeUsuarios.getContentPane().add(lblNewLabel_1);
 		
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext

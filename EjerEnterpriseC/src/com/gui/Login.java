@@ -80,18 +80,7 @@ public class Login {
 		frmProgramaIncreible.setBounds(100, 100, 476, 404);
 		frmProgramaIncreible.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProgramaIncreible.setLocationRelativeTo(null);
-		// Logica botones
-		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-
-		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
-
-		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
-
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+				
 				JLabel lblInicioDeSesion = new JLabel("Inicio de Sesi\u00F3n");
 				lblInicioDeSesion.setBounds(10, 26, 203, 28);
 				lblInicioDeSesion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -118,46 +107,7 @@ public class Login {
 				btnIngresar.setBounds(350, 293, 100, 25);
 				btnIngresar.setFont(new Font("SimSun", Font.BOLD, 13));
 				
-						btnIngresar.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								String nom_usuario = tfUser.getText().toUpperCase();
-								String clave = tfContra.getText();
-				
-								try {
-									List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);
-									if (usuario.isEmpty()) {
-										JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
-									} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
-										if (usuario.get(0) instanceof ESTUDIANTE) {
-											ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
-											Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
-											principalStudentW.setVisible(true);
-											principalStudentW.setLocationRelativeTo(null);
-											getFrame().dispose();
-										} else if (usuario.get(0) instanceof TUTOR) {
-											TUTOR usuario2 = (TUTOR) usuarioBean.findUser(nom_usuario, clave).get(0);
-											Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
-											principalTutorW.setVisible(true);
-											principalTutorW.setLocationRelativeTo(null);
-											getFrame().dispose();
-										} else if (usuario.get(0) instanceof ANALISTA) {
-											ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
-											Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
-											principalanalistaW.setVisible(true);
-											principalanalistaW.setLocationRelativeTo(null);
-											getFrame().dispose();
-										}
-									} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
-										JOptionPane.showMessageDialog(null, "Usuario inactivo");
-									} else {
-										JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
-									}
-								} catch (ServiciosException | NamingException e1) {
-									e1.printStackTrace();
-								}
-				
-							}
-						});
+					
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(350, 329, 100, 25);
@@ -194,6 +144,60 @@ public class Login {
 		lblNewLabel_1.setBounds(-13, 11, 483, 366);
 		frmProgramaIncreible.getContentPane().add(lblNewLabel_1);
 		frmProgramaIncreible.setLocationRelativeTo(null);
+
+		// Logica botones
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nom_usuario = tfUser.getText().toUpperCase();
+				String clave = tfContra.getText();
+
+				try {
+					List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);
+					if (usuario.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
+					} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
+						if (usuario.get(0) instanceof ESTUDIANTE) {
+							ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
+							Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
+							principalStudentW.setVisible(true);
+							principalStudentW.setLocationRelativeTo(null);
+							getFrame().dispose();
+						} else if (usuario.get(0) instanceof TUTOR) {
+							TUTOR usuario2 = (TUTOR) usuarioBean.findUser(nom_usuario, clave).get(0);
+							Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
+							principalTutorW.setVisible(true);
+							principalTutorW.setLocationRelativeTo(null);
+							getFrame().dispose();
+						} else if (usuario.get(0) instanceof ANALISTA) {
+							ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
+							Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
+							principalanalistaW.setVisible(true);
+							principalanalistaW.setLocationRelativeTo(null);
+							getFrame().dispose();
+						}
+					} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
+						JOptionPane.showMessageDialog(null, "Usuario inactivo");
+					} else {
+						JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
+					}
+				} catch (ServiciosException | NamingException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
 	}
 
 	public JFrame getFrame() {

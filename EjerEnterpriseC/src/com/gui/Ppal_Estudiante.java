@@ -22,7 +22,6 @@ import javax.swing.UIManager;
 
 import com.entities.ESTUDIANTE;
 import com.exception.ServiciosException;
-import java.awt.SystemColor;
 
 public class Ppal_Estudiante extends JFrame
         implements ActionListener {
@@ -45,137 +44,128 @@ public class Ppal_Estudiante extends JFrame
         setBackground(Color.WHITE);
         setIconImage(Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
         getContentPane().setForeground(Color.WHITE);
-        getContentPane().setBackground(SystemColor.menu);
+        getContentPane().setBackground(UIManager.getColor("InternalFrame.inactiveBorderColor"));
         
         JButton btnNewButton = new JButton("");
-        btnNewButton.setBounds(98, 59, 70, 70);
+        btnNewButton.setBounds(118, 59, 70, 70);
         btnNewButton.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newConst.png")));
         btnNewButton.setBackground(Color.WHITE);
         
         JButton btnNewButton_1 = new JButton("");
-        btnNewButton_1.setEnabled(false);
-        btnNewButton_1.setBounds(98, 203, 70, 70);
-        btnNewButton_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchEvent.png")));
+        btnNewButton_1.setBounds(118, 177, 70, 70);
+        btnNewButton_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchReclam.png")));
         btnNewButton_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_1_1 = new JButton("");
-        btnNewButton_1_1.setBounds(619, 59, 70, 70);
+        btnNewButton_1_1.setBounds(652, 59, 70, 70);
         btnNewButton_1_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchJust.png")));
         btnNewButton_1_1.setBackground(Color.WHITE);
         
         JButton btnNewButton_2 = new JButton("");
         btnNewButton_2.setEnabled(false);
-        btnNewButton_2.setBounds(619, 203, 70, 70);
+        btnNewButton_2.setBounds(652, 177, 70, 70);
         btnNewButton_2.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newReclam.png")));
         btnNewButton_2.setBackground(Color.WHITE);
         
         JButton btnEliminarSolicitud = new JButton("");
-        btnEliminarSolicitud.setBounds(268, 59, 70, 70);
+        btnEliminarSolicitud.setBounds(287, 59, 70, 70);
         btnEliminarSolicitud.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchReclam.png")));
         btnEliminarSolicitud.setBackground(Color.WHITE);
         
         JButton btnNewButton_4 = new JButton("");
         btnNewButton_4.setEnabled(false);
-        btnNewButton_4.setBounds(268, 342, 70, 70);
+        btnNewButton_4.setBounds(118, 307, 70, 70);
         btnNewButton_4.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/cancelEvento.png")));
         btnNewButton_4.setBackground(Color.WHITE);
         
         JButton btnNewButton_5 = new JButton("");
         btnNewButton_5.setEnabled(false);
-        btnNewButton_5.setBounds(442, 203, 70, 70);
+        btnNewButton_5.setBounds(463, 177, 70, 70);
         btnNewButton_5.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/newJust.png")));
         btnNewButton_5.setBackground(Color.WHITE);
         
         JButton btnNewButton_6 = new JButton("");
-        btnNewButton_6.setBounds(619, 389, 70, 70);
+        btnNewButton_6.setBounds(654, 360, 70, 70);
         btnNewButton_6.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/CloseSession.png")));
         btnNewButton_6.setBackground(Color.WHITE);
         
         JButton btnNewButton_9 = new JButton("");
         btnNewButton_9.setEnabled(false);
-        btnNewButton_9.setBounds(268, 203, 70, 70);
+        btnNewButton_9.setBounds(287, 177, 70, 70);
         btnNewButton_9.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/acceptEvento.png")));
         btnNewButton_9.setBackground(Color.WHITE);
         
         JLabel lblNewLabel = new JLabel("Nueva");
-        lblNewLabel.setBounds(98, 140, 30, 15);
+        lblNewLabel.setBounds(118, 135, 30, 15);
         lblNewLabel.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblBajaUsuario = new JLabel("Nuevo");
-        lblBajaUsuario.setBounds(619, 284, 72, 15);
+        lblBajaUsuario.setBounds(652, 253, 72, 15);
         lblBajaUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar = new JLabel("Nueva");
-        lblModificar.setBounds(442, 284, 78, 15);
+        lblModificar.setBounds(463, 253, 78, 15);
         lblModificar.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblUsuario = new JLabel("Justificaci\u00F3n");
-        lblUsuario.setBounds(442, 303, 78, 15);
+        lblUsuario.setBounds(463, 274, 78, 15);
         lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1 = new JLabel("Asistencia a");
-        lblModificar_1.setBounds(268, 284, 72, 15);
+        lblModificar_1.setBounds(287, 253, 72, 15);
         lblModificar_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblReclamo = new JLabel("Evento");
-        lblReclamo.setBounds(268, 303, 72, 15);
+        lblReclamo.setBounds(287, 274, 72, 15);
         lblReclamo.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblModificar_1_1 = new JLabel("Buscar");
-        lblModificar_1_1.setBounds(98, 284, 72, 15);
-        lblModificar_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
-        JLabel lblJustificacin = new JLabel("Eventos");
-        lblJustificacin.setBounds(98, 303, 42, 15);
-        lblJustificacin.setFont(new Font("SimSun", Font.PLAIN, 12));
-        
         JLabel lblModificar_1_1_1 = new JLabel("Eliminar");
-        lblModificar_1_1_1.setBounds(268, 140, 72, 15);
+        lblModificar_1_1_1.setBounds(287, 135, 72, 15);
         lblModificar_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblConstancia = new JLabel("Solicitud");
-        lblConstancia.setBounds(268, 161, 78, 15);
+        lblConstancia.setBounds(287, 156, 78, 15);
         lblConstancia.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1_1 = new JLabel("Modificar");
-        lblModificar_1_1_1_1_1_1.setBounds(619, 140, 72, 15);
+        lblModificar_1_1_1_1_1_1.setBounds(652, 135, 72, 15);
         lblModificar_1_1_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblJustificaciones = new JLabel("Solicitudes");
-        lblJustificaciones.setBounds(619, 161, 90, 15);
+        lblJustificaciones.setBounds(652, 156, 90, 15);
         lblJustificaciones.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1_1_1 = new JLabel("Cancelar asist.");
-        lblModificar_1_1_1_1_1_1_1.setBounds(268, 423, 90, 15);
+        lblModificar_1_1_1_1_1_1_1.setBounds(118, 383, 90, 15);
         lblModificar_1_1_1_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblConstancias = new JLabel("Evento");
-        lblConstancias.setBounds(268, 444, 90, 15);
+        lblConstancias.setBounds(118, 404, 90, 15);
         lblConstancias.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar_1_1_1_1_1_1_1_1 = new JLabel("Cerrar Sesi\u00F3n");
-        lblModificar_1_1_1_1_1_1_1_1.setBounds(619, 470, 78, 15);
+        lblModificar_1_1_1_1_1_1_1_1.setBounds(654, 436, 78, 15);
         lblModificar_1_1_1_1_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblConstancia_1 = new JLabel("Constancia");
-        lblConstancia_1.setBounds(98, 161, 60, 15);
+        lblConstancia_1.setBounds(118, 156, 60, 15);
         lblConstancia_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblConstancia_1_1 = new JLabel("Reclamo");
-        lblConstancia_1_1.setBounds(619, 303, 60, 15);
+        lblConstancia_1_1.setBounds(652, 274, 60, 15);
         lblConstancia_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JButton btnNewButton_6_1 = new JButton("");
-        btnNewButton_6_1.setBounds(442, 59, 70, 70);
+        btnNewButton_6_1.setBounds(463, 59, 70, 70);
         btnNewButton_6_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/searchConst.png")));
         btnNewButton_6_1.setBackground(Color.WHITE);
         
         JLabel lblModificar_1_1_1_1_1_1_1_2 = new JLabel("Buscar");
-        lblModificar_1_1_1_1_1_1_1_2.setBounds(442, 140, 72, 15);
+        lblModificar_1_1_1_1_1_1_1_2.setBounds(463, 135, 72, 15);
         lblModificar_1_1_1_1_1_1_1_2.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblEvento = new JLabel("Solicitudes");
-        lblEvento.setBounds(442, 161, 90, 15);
+        lblEvento.setBounds(463, 156, 90, 15);
         lblEvento.setFont(new Font("SimSun", Font.PLAIN, 12));
         getContentPane().setLayout(null);
         getContentPane().add(btnNewButton);
@@ -188,8 +178,6 @@ public class Ppal_Estudiante extends JFrame
         getContentPane().add(btnNewButton_2);
         getContentPane().add(lblBajaUsuario);
         getContentPane().add(lblConstancia_1_1);
-        getContentPane().add(lblModificar_1_1);
-        getContentPane().add(lblJustificacin);
         getContentPane().add(btnNewButton_4);
         getContentPane().add(lblModificar_1_1_1_1_1_1_1);
         getContentPane().add(lblConstancias);
@@ -208,30 +196,18 @@ public class Ppal_Estudiante extends JFrame
         getContentPane().add(lblModificar_1_1_1_1_1_1_1_2);
         getContentPane().add(btnNewButton_6);
         
-        JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/logoUtec2.png")));
-        lblNewLabel_1.setBounds(66, 382, 146, 103);
-        getContentPane().add(lblNewLabel_1);
+        JLabel lblModificar_1_1_1_1 = new JLabel("Modificar");
+        lblModificar_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblModificar_1_1_1_1.setBounds(118, 258, 72, 15);
+        getContentPane().add(lblModificar_1_1_1_1);
         
-        JButton btnAyuda = new JButton("?");
-        btnAyuda.setForeground(Color.BLACK);
-        btnAyuda.setFont(new Font("SimSun", Font.PLAIN, 13));
-        btnAyuda.setBackground(SystemColor.menu);
-        btnAyuda.setBounds(744, 0, 42, 24);
-        getContentPane().add(btnAyuda);
-        
-        JLabel lblNewLabel_3 = new JLabel("");
-        lblNewLabel_3.setIcon(new ImageIcon(Ppal_Estudiante.class.getResource("/PNG/NC 100.jpg")));
-        lblNewLabel_3.setBounds(686, 511, 100, 24);
-        getContentPane().add(lblNewLabel_3);
-        
-        JLabel lblNewLabel_2 = new JLabel("BIENVENIDO!");
-        lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 13));
-        lblNewLabel_2.setBounds(38, 24, 90, 14);
-        getContentPane().add(lblNewLabel_2);
+        JLabel lblConstancia_2 = new JLabel("Mis Datos");
+        lblConstancia_2.setFont(new Font("SimSun", Font.PLAIN, 12));
+        lblConstancia_2.setBounds(118, 279, 78, 15);
+        getContentPane().add(lblConstancia_2);
         setTitle("Administraci\u00F3n Secretar\u00EDa - Estudiante");
      
-        setSize(802, 574);
+        setSize(838, 547);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         
@@ -263,10 +239,18 @@ public class Ppal_Estudiante extends JFrame
         		
         	}
         });
-        btnAyuda.addActionListener(new ActionListener() {
+        btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Ayuda ayW = new Ayuda();
-        		ayW.getFrame().setVisible(true);
+        		ModPropiaEstudiante modPropia = null;
+				try {
+					modPropia = new ModPropiaEstudiante(usuario);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		modPropia.getFrame().setVisible(true);
+        		modPropia.getFrame().setLocationRelativeTo(null);
+        		dispose();
         	}
         });
         btnNewButton.addActionListener(new ActionListener() {

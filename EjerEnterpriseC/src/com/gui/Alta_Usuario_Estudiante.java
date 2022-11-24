@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,13 +24,15 @@ import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
+import com.entities.ITR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.EITRs;
+
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.EstudianteBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
 import java.awt.SystemColor;
@@ -62,6 +65,8 @@ public class Alta_Usuario_Estudiante {
 	private void initialize(USUARIO usuario) throws NamingException {
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
 		
 		frmAltaDeUsuarioA = new JFrame();
 		frmAltaDeUsuarioA.setTitle("Alta de Usuario Estudiante");
@@ -210,10 +215,24 @@ public class Alta_Usuario_Estudiante {
 
 
 
-		JComboBox<EITRs> comboBoxItr = new JComboBox<>();
+		JComboBox<ITR> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(150, 274, 131, 22);
-		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+
+		//ITRS activos
+		List<ITR> itrs = itrBean.findAll(true);
+
+		// Declaring Array with Equal Size to the List
+		String[] itrNombres = new String[itrs.size()];
+
+		// Converting List to Array
+		for (int i = 0; i < itrs.size(); i++) {
+			itrNombres[i] = itrs.get(i).getNombre();
+		}
+
+		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));
+
+	
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxItr);
 
 	
@@ -271,7 +290,12 @@ public class Alta_Usuario_Estudiante {
 				estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-				estudiante.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
+				try {
+					estudiante.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+				} catch (ServiciosException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				estudiante.setGeneracion(comboBoxIngreso.getSelectedItem().toString());
 				try {
