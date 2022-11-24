@@ -54,15 +54,11 @@ public class SolicitudBean implements SolicitudBeanRemote {
 	}
 	
 	@Override
-	public void cambiarEstado(SOLICITUD sol, EstadoSolicitud estado) throws ServiciosException {
+	public void emitirSolicitud(SOLICITUD sol) throws ServiciosException {
 		// TODO Auto-generated method stub
 		SOLICITUD sol2 = em.find(SOLICITUD.class, sol.getId_solicitud());
+		sol2.setEstado(EstadoSolicitud.EMITIDA);
 		sol2.setAnalist(sol.getAnalist());
-		if(estado == EstadoSolicitud.INGRESADO) {
-			sol2.setEstado(EstadoSolicitud.EN_PROCESO);
-		}else if(estado == EstadoSolicitud.EN_PROCESO) {
-			sol2.setEstado(EstadoSolicitud.FINALIZADO);
-		}
 		em.merge(sol2);
 		em.flush();
 	}

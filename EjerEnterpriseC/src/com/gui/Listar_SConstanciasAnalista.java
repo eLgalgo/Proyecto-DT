@@ -3,7 +3,6 @@ package com.gui;
 import java.awt.EventQueue;
 import java.awt.event.*;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.entities.ACCION;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
@@ -32,7 +30,6 @@ import com.enums.EstadoSolicitud;
 import com.enums.EstadoUsuario;
 import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
-import com.services.AccionBeanRemote;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
@@ -67,8 +64,8 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		getContentPane().add(btnCancelar);
 
-		JButton btnSolicitar = new JButton("Cambiar Estado");
-		btnSolicitar.setBounds(361, 293, 158, 23);
+		JButton btnSolicitar = new JButton("Emitir");
+		btnSolicitar.setBounds(406, 293, 113, 23);
 		btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
 		getContentPane().add(btnSolicitar);
 
@@ -79,11 +76,6 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		getContentPane().add(lblNewLabel_2);
 		setTitle("Solicitudes de Constancia");
 
-		JButton btnRegistrarAccion = new JButton("Registrar Accion");
-		btnRegistrarAccion.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnRegistrarAccion.setBounds(179, 293, 158, 23);
-		getContentPane().add(btnRegistrarAccion);
-		
 		// Logica botones
 
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
@@ -103,9 +95,6 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 
 		SolicitudBeanRemote solicitudBean = (SolicitudBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/SolicitudBean!com.services.SolicitudBeanRemote");
-
-		AccionBeanRemote accionBean = (AccionBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/AccionBean!com.services.AccionBeanRemote");
 
 		// Tabla
 		crearTablaPersona();
@@ -134,42 +123,17 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 						SOLICITUD sol = solicitudBean
 								.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
 								.get(0);
-						if (sol.getEstado() == EstadoSolicitud.FINALIZADO) {
-							JOptionPane.showMessageDialog(null, "¡Error! constancia ya finalizada");
-						} else if(sol.getEstado() == EstadoSolicitud.EN_PROCESO){
+						if (sol.getEstado() == EstadoSolicitud.EMITIDA) {
+							JOptionPane.showMessageDialog(null, "¡Error! constancia ya emitida");
+						} else {
 							sol.setAnalist(usuario);
-							solicitudBean.cambiarEstado(sol, EstadoSolicitud.EN_PROCESO);
+							solicitudBean.emitirSolicitud(sol);
 							try {
 								agregarDatosLista(modelo);
 							} catch (NamingException e1) {
 								e1.printStackTrace();
 							}
-							
-							ACCION acc = new ACCION();
-							acc.setAnalista(usuario);
-							acc.setFecha(LocalDate.now());
-							acc.setDetalle("Cambio a Solicitud Finalizada");
-							acc.setSolicitud(sol);
-							
-							accionBean.addAccion(acc);
-							JOptionPane.showMessageDialog(null, "Estado cambiado con exito");
-						} else if(sol.getEstado() == EstadoSolicitud.INGRESADO) {
-							sol.setAnalist(usuario);
-							solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
-							try {
-								agregarDatosLista(modelo);
-							} catch (NamingException e1) {
-								e1.printStackTrace();
-							}
-							
-							ACCION acc = new ACCION();
-							acc.setAnalista(usuario);
-							acc.setFecha(LocalDate.now());
-							acc.setDetalle("Cambio a Solicitud En Proceso");
-							acc.setSolicitud(sol);
-							
-							accionBean.addAccion(acc);
-							JOptionPane.showMessageDialog(null, "Estado cambiado con exito");
+							JOptionPane.showMessageDialog(null, "Constancia emitida con exito");
 						}
 					}
 					else {
@@ -183,40 +147,6 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 					e1.printStackTrace();
 				}
 
-			}
-		});
-		
-		btnRegistrarAccion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tabla.getSelectedRow() != -1) {
-					String detalle = JOptionPane.showInputDialog("Aclare detalle de accion");
-					if(detalle.equals("")) {
-						JOptionPane.showMessageDialog(null, "Debe ingresar detalle de accion");
-					}else {
-							ACCION acc = new ACCION();
-							acc.setAnalista(usuario);
-							acc.setDetalle(detalle);
-							acc.setFecha(LocalDate.now());
-							SOLICITUD sol = null;
-							try {
-								sol = solicitudBean
-										.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
-										.get(0);
-							} catch (NumberFormatException | ServiciosException e2) {
-								e2.printStackTrace();
-							}
-							acc.setSolicitud(sol);
-							try {
-								accionBean.addAccion(acc);
-								JOptionPane.showMessageDialog(null, "Accion registrada con exito");
-							} catch (ServiciosException e1) {
-								e1.printStackTrace();
-							}
-					}
-				}else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud");
-				}
-				
 			}
 		});
 	}

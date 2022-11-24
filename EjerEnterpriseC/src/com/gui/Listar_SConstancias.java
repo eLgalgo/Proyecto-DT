@@ -141,7 +141,7 @@ public class Listar_SConstancias extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(tabla.getValueAt(tabla.getSelectedRow(), 4).toString().equals("FINALIZADO")) {
+        		if(tabla.getValueAt(tabla.getSelectedRow(), 4).toString().equals("EMITIDA")) {
         			if(tabla.getSelectedRow() != -1) {
                 		String header = "CONSTANCIA " + usuario.getNombre() +" "+ usuario.getApellido();
                 		String footer = "EMITIDO POR UTEC \nFECHA: " + LocalDate.now();
