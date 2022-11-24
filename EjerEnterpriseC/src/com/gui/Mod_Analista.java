@@ -22,7 +22,6 @@ import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
 import com.enums.Departamento;
-import com.enums.EITRs;
 import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
@@ -30,6 +29,7 @@ import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+import java.awt.SystemColor;
 
 public class Mod_Analista {
 
@@ -58,107 +58,105 @@ public class Mod_Analista {
 		frmModificacionDeUsuario.setResizable(false);
 		frmModificacionDeUsuario.setIconImage(
 				Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
-		frmModificacionDeUsuario.getContentPane().setBackground(Color.WHITE);
+		frmModificacionDeUsuario.getContentPane().setBackground(SystemColor.control);
 		frmModificacionDeUsuario.getContentPane().setLayout(null);
 		frmModificacionDeUsuario.setLocationRelativeTo(null);
 
 		JLabel lblNewLabel_2 = new JLabel("MODIFICACI\u00D3N DE ANALISTA");
-		lblNewLabel_2.setBounds(9, 21, 273, 34);
+		lblNewLabel_2.setBounds(9, 28, 273, 34);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_1 = new JLabel("Tel\u00E9fono");
 		lblNewLabel_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(10, 132, 64, 14);
+		lblNewLabel_1.setBounds(9, 151, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1);
 
 		tfTelefono = new JTextField();
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
-		tfTelefono.setBounds(10, 156, 131, 20);
+		tfTelefono.setBounds(9, 176, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfTelefono);
 
 		JLabel lblCorreo = new JLabel("Email");
 		lblCorreo.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblCorreo.setBounds(10, 185, 64, 14);
+		lblCorreo.setBounds(9, 207, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblCorreo);
 
 		tfEmail = new JTextField();
 		tfEmail.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfEmail.setColumns(10);
-		tfEmail.setBounds(10, 208, 131, 20);
+		tfEmail.setBounds(9, 232, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfEmail);
 
 		JLabel lblNewLabel_1_2_1 = new JLabel("Departamento");
 		lblNewLabel_1_2_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1.setBounds(151, 131, 91, 14);
+		lblNewLabel_1_2_1.setBounds(151, 151, 91, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1);
 
 		JComboBox<Departamento> comboBoxDep = new javax.swing.JComboBox<>();
 		comboBoxDep.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxDep.setBounds(151, 155, 131, 22);
+		comboBoxDep.setBounds(151, 174, 131, 22);
 		comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
 		frmModificacionDeUsuario.getContentPane().add(comboBoxDep);
 
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1_1_1.setBounds(151, 185, 42, 14);
+		lblNewLabel_1_2_1_1_1.setBounds(151, 207, 42, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1_1);
 
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxItr.setBounds(151, 207, 131, 22);
+		comboBoxItr.setBounds(151, 231, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().name());
-		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
-		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());
 
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(187, 267, 97, 23);
+		btnGuardar.setBounds(205, 311, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(327, 267, 97, 23);
+		btnCancelar.setBounds(327, 311, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		frmModificacionDeUsuario.setBounds(100, 100, 450, 340);
+		frmModificacionDeUsuario.setBounds(100, 100, 450, 384);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		tfNombre = new JTextField();
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
-		tfNombre.setBounds(10, 101, 131, 20);
+		tfNombre.setBounds(9, 120, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfNombre);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Nombre");
 		lblNewLabel_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_1.setBounds(10, 77, 64, 14);
+		lblNewLabel_1_1.setBounds(9, 95, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_1);
 
 		tfApellido = new JTextField();
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
-		tfApellido.setBounds(151, 100, 131, 20);
+		tfApellido.setBounds(151, 120, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfApellido);
 
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblApellido.setBounds(151, 76, 64, 14);
+		lblApellido.setBounds(152, 95, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblApellido);
 
 		tfDocumento = new JTextField();
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
-		tfDocumento.setBounds(293, 101, 131, 20);
+		tfDocumento.setBounds(293, 120, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfDocumento);
 
 		JLabel lblDocumento = new JLabel("Documento");
 		lblDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblDocumento.setBounds(293, 77, 64, 14);
+		lblDocumento.setBounds(293, 95, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblDocumento);
 		tfNombre.setText(usuario.getNombre());
 		tfApellido.setText(usuario.getApellido());
@@ -169,18 +167,18 @@ public class Mod_Analista {
 
 		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxEstado.setBounds(293, 206, 131, 22);
+		comboBoxEstado.setBounds(293, 231, 131, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
 
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblEstado.setBounds(293, 181, 64, 14);
+		lblEstado.setBounds(293, 207, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblEstado);
 
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(293, 156, 131, 20);
+		dateChooser.setBounds(293, 176, 131, 20);
 		
 		Calendar today = Calendar.getInstance();
 		today.clear(Calendar.HOUR);
@@ -195,7 +193,7 @@ public class Mod_Analista {
 
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblFechaDeNacimiento.setBounds(293, 132, 131, 14);
+		lblFechaDeNacimiento.setBounds(293, 151, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
 
 		// Logica
