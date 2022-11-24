@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -64,7 +65,7 @@ public abstract class USUARIO implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private EstadoUsuario estado;
 	
-	@OneToOne
+	@ManyToOne
 	private ITR itr;
 
 	@Enumerated(value = EnumType.STRING)
