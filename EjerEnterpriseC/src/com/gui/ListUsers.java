@@ -38,6 +38,7 @@ import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
+import java.awt.SystemColor;
 
 public class ListUsers {
 
@@ -69,13 +70,13 @@ public class ListUsers {
 		frmListadoDeUsuarios.setTitle("Listado de Usuarios");
 		frmListadoDeUsuarios.setIconImage(
 				Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
-		frmListadoDeUsuarios.getContentPane().setBackground(Color.WHITE);
+		frmListadoDeUsuarios.getContentPane().setBackground(SystemColor.control);
 		frmListadoDeUsuarios.setResizable(false);
-		frmListadoDeUsuarios.setBounds(100, 100, 547, 392);
+		frmListadoDeUsuarios.setBounds(100, 100, 549, 435);
 		frmListadoDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 300, 110, 25);
+		btnVolver.setBounds(10, 360, 110, 25);
 		btnVolver.setFont(new Font("SimSun", Font.BOLD, 13));
 
 		lblNewLabel = new JLabel("");
@@ -114,10 +115,10 @@ public class ListUsers {
 		};
 
 		JButton btnNewButton_2 = new JButton("Modificar");
-		btnNewButton_2.setBounds(411, 300, 110, 25);
+		btnNewButton_2.setBounds(411, 360, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 69, 511, 201);
+		desplazamiento.setBounds(10, 124, 511, 201);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -133,8 +134,8 @@ public class ListUsers {
 
 		lblListadoDeUsuarios = new JLabel("Listado de Usuarios");
 		lblListadoDeUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
-		lblListadoDeUsuarios.setFont(new Font("SimSun", Font.PLAIN, 18));
-		lblListadoDeUsuarios.setBounds(10, 14, 511, 15);
+		lblListadoDeUsuarios.setFont(new Font("SimSun", Font.BOLD, 18));
+		lblListadoDeUsuarios.setBounds(10, 28, 511, 15);
 		frmListadoDeUsuarios.getContentPane().add(lblListadoDeUsuarios);
 
 		txtFiltro = new JTextField();
@@ -153,18 +154,18 @@ public class ListUsers {
 				tabla.setRowSorter(trs);
 			}
 		});
-		txtFiltro.setBounds(10, 40, 131, 20);
+		txtFiltro.setBounds(121, 93, 131, 20);
 		frmListadoDeUsuarios.getContentPane().add(txtFiltro);
 		txtFiltro.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("Filtrar x CI");
+		JLabel lblNewLabel_1 = new JLabel("Filtrar por CI");
 		lblNewLabel_1.setFont(new Font("SimSun", Font.PLAIN, 11));
-		lblNewLabel_1.setBounds(151, 44, 101, 14);
+		lblNewLabel_1.setBounds(10, 99, 101, 14);
 		frmListadoDeUsuarios.getContentPane().add(lblNewLabel_1);
 
 		comboBoxEstado = new JComboBox();
 
-		comboBoxEstado.setBounds(411, 40, 110, 22);
+		comboBoxEstado.setBounds(411, 91, 110, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedItem(null);
 		frmListadoDeUsuarios.getContentPane().add(comboBoxEstado);

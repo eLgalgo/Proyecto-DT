@@ -115,12 +115,12 @@ public class ModificarSolicitud1 extends JFrame
         	public void actionPerformed(ActionEvent e) {
         		try {
         			SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
-        			if(sol.getEstado() != EstadoSolicitud.FINALIZADO || sol.getEstado() != EstadoSolicitud.EN_PROCESO) {
+        			if(sol.getEstado() != EstadoSolicitud.EMITIDA) {
         				ModificarSolicitud2 modW = new ModificarSolicitud2(usuario, sol);
             			modW.setVisible(true);
             			dispose();
         			}else {
-        				JOptionPane.showMessageDialog(null, "Imposible modificar una solicitud ya emitida o en proceso");
+        				JOptionPane.showMessageDialog(null, "Imposible modificar una solicitud ya emitida");
         			}
         			
 				} catch (NumberFormatException | ServiciosException e1) {
