@@ -23,33 +23,15 @@ public class Mantenimiento_ITRS {
 
 	private JFrame frmMantenimientoItr;
 	private JTextField tfNombreItr;
-
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the application.
-	 * @param usuario 
-	 * 
-	 * @throws NamingException
-	 */
 	public Mantenimiento_ITRS(USUARIO usuario) throws NamingException {
 		initialize(usuario);
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 * 
-	 * @throws NamingException
-	 */
 	private void initialize(USUARIO usuario) throws NamingException {
 
 		ItrBeanRemote itrBean = (ItrBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
 
 		frmMantenimientoItr = new JFrame();
-		frmMantenimientoItr.setEnabled(false);
 		frmMantenimientoItr.setBounds(100, 100, 506, 375);
 		frmMantenimientoItr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMantenimientoItr.getContentPane().setLayout(null);
@@ -120,6 +102,7 @@ public class Mantenimiento_ITRS {
 
 		JComboBox<ITR> comboBoxItrs = new JComboBox();
 		comboBoxItrs.setBounds(133, 77, 177, 22);
+		frmMantenimientoItr.getContentPane().add(comboBoxItrs);
 		try {
 			List<ITR> itrs = itrBean.listAllItrs();
 			String[] itrNombres = new String[itrs.size()];
@@ -133,11 +116,6 @@ public class Mantenimiento_ITRS {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		// Declaring Array with Equal Size to the List
-		
-
-		
-		frmMantenimientoItr.getContentPane().add(comboBoxItrs);
 
 	}
 

@@ -114,7 +114,6 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         btnNewButton_7.setBackground(Color.WHITE);
         
         JButton btnNewButton_8 = new JButton("");
-        btnNewButton_8.setEnabled(false);
         btnNewButton_8.setBounds(638, 193, 70, 70);
         btnNewButton_8.setIcon(new ImageIcon(Ppal_Analista.class.getResource("/PNG/modConst.png")));
         btnNewButton_8.setBackground(Color.WHITE);
@@ -173,7 +172,7 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblUsuarios.setBounds(118, 420, 90, 15);
         lblUsuarios.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblModificar_1_1_1_1_1 = new JLabel("Modificar");
+        JLabel lblModificar_1_1_1_1_1 = new JLabel("Tipos de");
         lblModificar_1_1_1_1_1.setBounds(638, 269, 72, 15);
         lblModificar_1_1_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 12));
         
@@ -330,6 +329,21 @@ public class Ppal_Analista extends JFrame implements ActionListener {
 					listR.setLocationRelativeTo(null);
 					dispose();
 				} catch (NamingException | ServiciosException e1) {
+					e1.printStackTrace();
+				}
+        	}
+        });
+        btnNewButton_8.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ListarTiposDeConstancia listTips = new ListarTiposDeConstancia(usuario);
+					listTips.setVisible(true);
+					dispose();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
         	}
