@@ -16,4 +16,6 @@
 	</entity>
 	<entity class="com.entities.ACCION" access="FIELD">
 	</entity>
+	<entity class="com.entities.ITR" access="FIELD">
+	</entity>
 </entity-mappings>

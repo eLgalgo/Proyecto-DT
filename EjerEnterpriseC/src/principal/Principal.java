@@ -10,10 +10,11 @@ import com.entities.ACCION;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
+import com.entities.ITR;
 import com.entities.RECLAMO;
 import com.entities.TUTOR;
 import com.enums.Departamento;
-import com.enums.EITRs;
+
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
@@ -25,6 +26,7 @@ import com.services.AccionBeanRemote;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.ReclamoBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
@@ -56,9 +58,29 @@ public class Principal{
 		
 		AccionBeanRemote accionBean = (AccionBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/AccionBean!com.services.AccionBeanRemote");
+		
+		ItrBeanRemote itrBean = (ItrBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
 
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
+		
+		
+		ITR itr1 = new ITR();
+		ITR itr2 = new ITR();
+		ITR itr3 = new ITR();
+		
+		itr1.setNombre("NORTE1");
+		itr1.setEstado(true);
+		itr2.setNombre("SURESTE1");
+		itr2.setEstado(true);
+		itr3.setNombre("CENTROSUR1");
+		itr3.setEstado(true);
+		
+		itrBean.addItr(itr1);
+		itrBean.addItr(itr2);
+		itrBean.addItr(itr3);
+		
 		
 		ESTUDIANTE user1 = new ESTUDIANTE();
 		user1.setNombre("Cristofer");
@@ -66,7 +88,7 @@ public class Principal{
 		user1.setDocumento(1);
 		user1.setMail("c");
 		user1.setContrasena("c");
-		user1.setItr(EITRs.NORTE);
+		user1.setItr(itr1);
 		user1.setDepartamento(Departamento.ARTIGAS);
 		user1.setLocalidad(Localidad.CAPITAL);
 		user1.setTelefono("tele");
@@ -87,38 +109,38 @@ public class Principal{
 		user2.setLocalidad(Localidad.INTERIOR);
 		user2.setTelefono("+59891231");
 		user2.setMail_insti("q");
-		user2.setItr(EITRs.NORTE);
+		user2.setItr(itr2);
 		user2.setGeneracion("2022");
 		user2.setEstado(EstadoUsuario.ACTIVO);
 		user2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		
 		estudianteBean.addStudent(user2);
-//		
-//		TUTOR tutor = new TUTOR();
-//		tutor.setNombre("fasgasa");
-//		tutor.setApellido("casasfas");
-//		tutor.setDocumento(2);
-//		tutor.setMail("t");
-//		tutor.setContrasena("t");
-//		tutor.setDepartamento(Departamento.DURAZNO);
-//		tutor.setLocalidad(Localidad.CAPITAL);
-//		tutor.setTelefono("tele");
-//		tutor.setMail_insti("t");
-//		tutor.setArea("Area1");
-//		tutor.setTipo(RolTutor.TUTOR);
-//		tutor.setItr(EITRs.NORTE);
-//		tutor.setEstado(EstadoUsuario.ACTIVO);
-//		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
-//		
-//		tutorBean.addTutor(tutor);
-//		
+		
+		TUTOR tutor = new TUTOR();
+		tutor.setNombre("fasgasa");
+		tutor.setApellido("casasfas");
+		tutor.setDocumento(2);
+		tutor.setMail("t");
+		tutor.setContrasena("t");
+		tutor.setDepartamento(Departamento.DURAZNO);
+		tutor.setLocalidad(Localidad.CAPITAL);
+		tutor.setTelefono("tele");
+		tutor.setMail_insti("t");
+		tutor.setArea("Area1");
+		tutor.setTipo(RolTutor.TUTOR);
+		tutor.setItr(itr2);
+		tutor.setEstado(EstadoUsuario.ACTIVO);
+		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		
+		tutorBean.addTutor(tutor);
+		
 		TUTOR tutor2 = new TUTOR();
 		tutor2.setNombre("Guillermo");
 		tutor2.setApellido("Uscudun");
 		tutor2.setDocumento(120);
 		tutor2.setMail("t");
 		tutor2.setContrasena("t");
-		tutor2.setItr(EITRs.NORTE);
+		tutor2.setItr(itr3);
 		tutor2.setDepartamento(Departamento.DURAZNO);
 		tutor2.setLocalidad(Localidad.CAPITAL);
 		tutor2.setTelefono("1241241");
@@ -140,32 +162,32 @@ public class Principal{
 		analista.setDepartamento(Departamento.CANELONES);
 		analista.setLocalidad(Localidad.CAPITAL);
 		analista.setTelefono("tele");
-		analista.setItr(EITRs.NORTE);
+		analista.setItr(itr1);
 		analista.setMail_insti("JIMENA");
 		analista.setEstado(EstadoUsuario.ACTIVO);
 		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
 		analista.setDios(true);
 		
 		analistaBean.addAnalista(analista);
-//		
-//		EVENTO e1 = new EVENTO();
-//		e1.setTitulo("Presencial 1");
-//		e1.setTipo(TipoConstancia.PRESENCIAL);
-//		e1.setInformacion("Ultima presencial S5");
-//		e1.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
-//		
-//		EVENTO e2 = new EVENTO();
-//		e2.setTitulo("Examen PDT 2022");
-//		e2.setTipo(TipoConstancia.EXAMEN);
-//		e2.setInformacion("Instancia Febrero");
-//		e2.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
-//		
-//		eventoBean.addEvento(e2);
-//		eventoBean.addEvento(e1);
-//		
-//		eventoBean.asignEstToEvent(1, 1);
-//		eventoBean.asignEstToEvent(1, 2);
-//		eventoBean.asignEstToEvent(2, 2);
+		
+		EVENTO e1 = new EVENTO();
+		e1.setTitulo("Presencial 1");
+		e1.setTipo(TipoConstancia.PRESENCIAL);
+		e1.setInformacion("Ultima presencial S5");
+		e1.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
+		
+		EVENTO e2 = new EVENTO();
+		e2.setTitulo("Examen PDT 2022");
+		e2.setTipo(TipoConstancia.EXAMEN);
+		e2.setInformacion("Instancia Febrero");
+		e2.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
+		
+		eventoBean.addEvento(e2);
+		eventoBean.addEvento(e1);
+		
+		eventoBean.asignEstToEvent(1, 1);
+		eventoBean.asignEstToEvent(1, 2);
+		eventoBean.asignEstToEvent(2, 2);
 		
 		RECLAMO r1 = new RECLAMO();
 		r1.setTitulo("Reclamo 1");
