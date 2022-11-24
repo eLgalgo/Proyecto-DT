@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,13 +22,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
+import com.entities.ITR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.EITRs;
+
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
 
@@ -58,6 +61,9 @@ public class Alta_Usuario_Analista {
 	private void initialize(USUARIO usuario) throws NamingException {
 		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+		
 		frmAltaDeUsuarioA = new JFrame();
 		frmAltaDeUsuarioA.setTitle("Alta de Usuario Analista");
 		frmAltaDeUsuarioA.setResizable(false);
@@ -199,10 +205,28 @@ public class Alta_Usuario_Analista {
 
 
 
-		JComboBox<EITRs> comboBoxItr = new JComboBox<>();
+		JComboBox<ITR> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
+<<<<<<< Updated upstream
 		comboBoxItr.setBounds(151, 234, 131, 22);
 		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+=======
+		comboBoxItr.setBounds(151, 283, 131, 22);
+
+		//ITRS activos
+		List<ITR> itrs = itrBean.findAll(true);
+
+		// Declaring Array with Equal Size to the List
+		String[] itrNombres = new String[itrs.size()];
+
+		// Converting List to Array
+		for (int i = 0; i < itrs.size(); i++) {
+			itrNombres[i] = itrs.get(i).getNombre();
+		}
+
+		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));
+
+>>>>>>> Stashed changes
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxItr);
 
 	
@@ -254,7 +278,13 @@ public class Alta_Usuario_Analista {
 				Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				Analista.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				Analista.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-				Analista.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
+				
+				try {
+					Analista.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+				} catch (ServiciosException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 			Analista.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		
 				try {

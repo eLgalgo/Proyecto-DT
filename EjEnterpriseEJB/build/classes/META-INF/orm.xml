@@ -14,4 +14,11 @@
 	</entity>
 	<entity class="com.entities.RECLAMO" access="FIELD">
 	</entity>
+<<<<<<< Updated upstream
+=======
+	<entity class="com.entities.ACCION" access="FIELD">
+	</entity>
+	<entity class="com.entities.ITR" access="FIELD">
+	</entity>
+>>>>>>> Stashed changes
 </entity-mappings>

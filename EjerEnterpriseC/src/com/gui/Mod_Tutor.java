@@ -110,8 +110,13 @@ public class Mod_Tutor {
 		
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
+<<<<<<< Updated upstream
 		comboBoxItr.setBounds(151, 176, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().name());
+=======
+		comboBoxItr.setBounds(151, 201, 131, 22);
+		comboBoxItr.addItem(usuario.getItr().toString());
+>>>>>>> Stashed changes
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
 		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());

@@ -1,17 +1,31 @@
 package com.gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+<<<<<<< Updated upstream
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -23,29 +37,30 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
+=======
+>>>>>>> Stashed changes
 import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
+import com.entities.ITR;
 import com.entities.TUTOR;
-import com.entities.USUARIO;
 import com.enums.Departamento;
-import com.enums.EITRs;
-import com.enums.EstadoSolicitud;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
 import com.enums.TipoConstancia;
 import com.enums.TipoUser;
 import com.exception.ServiciosException;
-import com.services.AnalistaBean;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+<<<<<<< Updated upstream
 import javax.swing.JButton;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -53,6 +68,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+=======
+>>>>>>> Stashed changes
 
 public class Registro_Usuario_Nuevo {
 
@@ -89,21 +106,31 @@ public class Registro_Usuario_Nuevo {
 	private void initialize() throws NamingException {
 		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
-		
+
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 
-		TutorBeanRemote tutorBean = (TutorBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
-		
-		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-		
-		EventoBeanRemote eventoBean = (EventoBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
-		
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+
+		EventoBeanRemote eventoBean = (EventoBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
+
+		ItrBeanRemote itrBean = (ItrBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+
 		frmRegistroUsuarioNuevo = new JFrame();
+<<<<<<< Updated upstream
 		frmRegistroUsuarioNuevo.getContentPane().setBackground(Color.WHITE);
+=======
+		frmRegistroUsuarioNuevo.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(Registro_Usuario_Nuevo.class.getResource("/PNG/logoUtec.png")));
+		frmRegistroUsuarioNuevo.setResizable(false);
+		frmRegistroUsuarioNuevo.getContentPane().setBackground(SystemColor.control);
+>>>>>>> Stashed changes
 		frmRegistroUsuarioNuevo.setTitle("Registro Usuario Nuevo");
 		frmRegistroUsuarioNuevo.setBounds(100, 100, 450, 399);
 		frmRegistroUsuarioNuevo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -357,16 +384,35 @@ public class Registro_Usuario_Nuevo {
 		comboBoxRol.setModel(new DefaultComboBoxModel(RolTutor.values()));
 		frmRegistroUsuarioNuevo.getContentPane().add(comboBoxRol);
 
-		JComboBox<EITRs> comboBoxItr = new JComboBox<>();
+		JComboBox<ITR> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
+<<<<<<< Updated upstream
 		comboBoxItr.setBounds(151, 234, 131, 22);
 		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
+=======
+		comboBoxItr.setBounds(151, 283, 131, 22);
+
+		//ITRS activos
+		List<ITR> itrs = itrBean.findAll(true);
+
+		// Declaring Array with Equal Size to the List
+		String[] itrNombres = new String[itrs.size()];
+
+		// Converting List to Array
+		for (int i = 0; i < itrs.size(); i++) {
+			itrNombres[i] = itrs.get(i).getNombre();
+		}
+
+		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));
+
+>>>>>>> Stashed changes
 		frmRegistroUsuarioNuevo.getContentPane().add(comboBoxItr);
 
 		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 234, 131, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
+
 		comboBoxEstado.setSelectedIndex(1);
 		comboBoxEstado.setEnabled(false);
 		frmRegistroUsuarioNuevo.getContentPane().add(comboBoxEstado);
@@ -454,7 +500,12 @@ public class Registro_Usuario_Nuevo {
 					Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 					Analista.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 					Analista.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-					Analista.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
+					try {
+						Analista.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+					} catch (ServiciosException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
 					Analista.setFechaNac(
 							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 					try {
@@ -464,7 +515,7 @@ public class Registro_Usuario_Nuevo {
 						e1.printStackTrace();
 					}
 				} else if (comboBoxTipo.getSelectedItem().equals(TipoUser.TUTOR)) {
-					TUTOR tutor=new TUTOR();
+					TUTOR tutor = new TUTOR();
 					tutor.setApellido(tfApellido.getText());
 					tutor.setNombre(tfNombre.getText());
 					tutor.setContrasena(tfContrasena.getText());
@@ -475,12 +526,17 @@ public class Registro_Usuario_Nuevo {
 					tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 					tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 					tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-					tutor.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
+					try {
+						tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+					} catch (ServiciosException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
 					tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 					tutor.setArea(tfArea.getText());
 					tutor.setTipo(RolTutor.valueOf(comboBoxRol.getSelectedItem().toString()));
 					try {
-						
+
 						tutorBean.addTutor(tutor);
 						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
@@ -488,8 +544,8 @@ public class Registro_Usuario_Nuevo {
 					}
 
 				} else if (comboBoxTipo.getSelectedItem().equals(TipoUser.ESTUDIANTE)) {
-	
-					ESTUDIANTE estudiante=new ESTUDIANTE();
+
+					ESTUDIANTE estudiante = new ESTUDIANTE();
 					estudiante.setApellido(tfApellido.getText());
 					estudiante.setNombre(tfNombre.getText());
 					estudiante.setContrasena(tfContrasena.getText());
@@ -500,12 +556,18 @@ public class Registro_Usuario_Nuevo {
 					estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 					estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 					estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-					estudiante.setItr(EITRs.valueOf(comboBoxItr.getSelectedItem().toString()));
-					estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-					estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
-					
 					try {
-						
+						estudiante.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+					} catch (ServiciosException e3) {
+						// TODO Auto-generated catch block
+						e3.printStackTrace();
+					}
+					estudiante.setFechaNac(
+							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+					estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
+
+					try {
+
 						estudianteBean.addStudent(estudiante);
 						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
@@ -528,14 +590,14 @@ public class Registro_Usuario_Nuevo {
 					}
 					evActivo.setTipo(TipoConstancia.ESTUDIANTE_ACTIVO);
 					evActivo.setTitulo("Estudiante activo");
-					
+
 					try {
 						eventoBean.addEvento(evActivo);
 					} catch (ServiciosException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
+
 					try {
 						EVENTO eActivo2 = eventoBean.findEvento(evActivo.getFechaInicio()).get(0);
 						eventoBean.asignEstToEvent(eActivo.getId_usuario(), eActivo2.getId_evento());

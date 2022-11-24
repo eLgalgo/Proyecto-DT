@@ -108,10 +108,15 @@ public class Mod_Analista {
 
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
+<<<<<<< Updated upstream
 		comboBoxItr.setBounds(151, 207, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().name());
 		comboBoxItr.setModel(new DefaultComboBoxModel(EITRs.values()));
 		comboBoxItr.setSelectedIndex(usuario.getItr().ordinal());
+=======
+		comboBoxItr.setBounds(151, 231, 131, 22);
+		comboBoxItr.addItem(usuario.getItr().toString());
+>>>>>>> Stashed changes
 
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
