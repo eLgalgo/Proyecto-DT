@@ -1,6 +1,7 @@
 package com.gui;
 
 import java.awt.EventQueue;
+
 import java.awt.event.*;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -25,17 +26,18 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
 import com.entities.SOLICITUD;
+import com.entities.TIPOCONSTANCIA;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
 import com.enums.EstadoSolicitud;
 import com.enums.EstadoUsuario;
-import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.services.AccionBeanRemote;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
+import com.services.ModeloBeanRemote;
 import com.services.SolicitudBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
@@ -57,7 +59,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		setBackground(Color.WHITE);
 		getContentPane().setBackground(Color.WHITE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(550, 362);
+		setSize(704, 365);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setLayout(null);
@@ -68,7 +70,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		getContentPane().add(btnCancelar);
 
 		JButton btnSolicitar = new JButton("Cambiar Estado");
-		btnSolicitar.setBounds(361, 293, 158, 23);
+		btnSolicitar.setBounds(352, 293, 158, 23);
 		btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
 		getContentPane().add(btnSolicitar);
 
@@ -81,9 +83,13 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 
 		JButton btnRegistrarAccion = new JButton("Registrar Accion");
 		btnRegistrarAccion.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnRegistrarAccion.setBounds(179, 293, 158, 23);
+		btnRegistrarAccion.setBounds(184, 293, 158, 23);
 		getContentPane().add(btnRegistrarAccion);
 		
+		JButton btnEmitir = new JButton("Emitir");
+		btnEmitir.setFont(new Font("SimSun", Font.BOLD, 14));
+		btnEmitir.setBounds(520, 293, 158, 23);
+		getContentPane().add(btnEmitir);
 		// Logica botones
 
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
@@ -107,6 +113,9 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		AccionBeanRemote accionBean = (AccionBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/AccionBean!com.services.AccionBeanRemote");
 
+		ModeloBeanRemote modeloBean = (ModeloBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/ModeloBean!com.services.ModeloBeanRemote");
+
 		// Tabla
 		crearTablaPersona();
 		// Agregamos datos
@@ -126,7 +135,16 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 				dispose();
 			}
 		});
-
+		btnEmitir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					TIPOCONSTANCIA tipo = modeloBean.findTipo(tabla.getValueAt(tabla.getSelectedRow(), 1).toString()).get(0);
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnSolicitar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -234,7 +252,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 48, 511, 234);
+		desplazamiento.setBounds(10, 48, 668, 234);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -280,7 +298,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		// Agregamos MUCHOS mas datos
 		for (SOLICITUD p : list) {
 			datosFila[0] = p.getId_solicitud();
-			datosFila[1] = p.getTipo();
+			datosFila[1] = p.getTipo().getTipo();
 			datosFila[2] = p.getFecha();
 			datosFila[3] = p.getEventoAsis().getTitulo();
 			datosFila[4] = p.getEstSol().getDocumento();

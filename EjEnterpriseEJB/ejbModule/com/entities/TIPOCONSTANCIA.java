@@ -1,22 +1,24 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
-import javax.persistence.*;
-
-import com.enums.TipoConstancia;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  * Entity implementation class for Entity: MODELOCONSTANCIA
  *
  */
 @Entity
-public class MODELOCONSTANCIA implements Serializable {
+public class TIPOCONSTANCIA implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;	
-	public MODELOCONSTANCIA() {
+	public TIPOCONSTANCIA() {
 		super();
 	} 
 	
@@ -26,9 +28,11 @@ public class MODELOCONSTANCIA implements Serializable {
 	private int id_modelo;
 	
 	private String modelo;
+
+	@Column(unique = true)
+	private String tipo;
 	
-	@Enumerated(value = EnumType.STRING)
-	private TipoConstancia tipo;
+	private boolean estado;
 	
 	public int getId_modelo() {
 		return id_modelo;
@@ -46,12 +50,20 @@ public class MODELOCONSTANCIA implements Serializable {
 		this.modelo = modelo;
 	}
 
-	public TipoConstancia getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoConstancia tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 	
 	

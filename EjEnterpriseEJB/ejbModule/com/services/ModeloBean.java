@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.List;
 
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,7 +11,8 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.ACCION;
-import com.entities.MODELOCONSTANCIA;
+import com.entities.ITR;
+import com.entities.TIPOCONSTANCIA;
 import com.entities.SOLICITUD;
 import com.exception.ServiciosException;
 
@@ -29,7 +31,7 @@ public class ModeloBean implements ModeloBeanRemote {
     }
 
 	@Override
-	public void addMoldeo(MODELOCONSTANCIA modelo) throws ServiciosException {
+	public void addMoldeo(TIPOCONSTANCIA modelo) throws ServiciosException {
 		try{
 			em.persist(modelo);
 			em.flush();
@@ -40,30 +42,56 @@ public class ModeloBean implements ModeloBeanRemote {
 	}
 
 	@Override
-	public List<MODELOCONSTANCIA> listAllModelo() throws ServiciosException {
-		TypedQuery<MODELOCONSTANCIA> query = em.createQuery("SELECT m FROM MODELOCONSTANCIA m",MODELOCONSTANCIA.class); 
+	public List<TIPOCONSTANCIA> listAllModelo() throws ServiciosException {
+		TypedQuery<TIPOCONSTANCIA> query = em.createQuery("SELECT m FROM TIPOCONSTANCIA m",TIPOCONSTANCIA.class); 
 		return query.getResultList();
 	}
 	
 	@Override
-	public void editModelo(MODELOCONSTANCIA sol) throws ServiciosException {
+	public void editModelo(TIPOCONSTANCIA sol) throws ServiciosException {
 		// TODO Auto-generated method stub
-		MODELOCONSTANCIA sol2 = em.find(MODELOCONSTANCIA.class, sol.getId_modelo());
+		TIPOCONSTANCIA sol2 = em.find(TIPOCONSTANCIA.class, sol.getId_modelo());
 		sol2.setModelo(sol.getModelo());
+		sol2.setEstado(sol.isEstado());
+		sol2.setTipo(sol.getTipo());
 		em.merge(sol2);
 		em.flush();
 	}
 	
 	@Override
-	public List<MODELOCONSTANCIA> findSol(int id) throws ServiciosException {
+	public List<TIPOCONSTANCIA> findSol(int id) throws ServiciosException {
 		try{
-			TypedQuery<MODELOCONSTANCIA> query = em.createQuery(
-					"SELECT u FROM MODELOCONSTANCIA u WHERE u.id_modelo = :id ",
-					MODELOCONSTANCIA.class).setParameter("id", id);
+			TypedQuery<TIPOCONSTANCIA> query = em.createQuery(
+					"SELECT u FROM TIPOCONSTANCIA u WHERE u.id_modelo = :id ",
+					TIPOCONSTANCIA.class).setParameter("id", id);
 			return query.getResultList();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se encontro ningun modelo");
 		}
+	}
+
+	@Override
+	public void logicDelete(String nombre) throws ServiciosException {
+		List<TIPOCONSTANCIA> itrs = this.findTipo(nombre);
+		itrs.get(0).setEstado(false);
+		em.merge(itrs.get(0));
+		em.flush();
+	}
+	
+	@Override
+	public void activarTipo(String nombre) throws ServiciosException {
+		List<TIPOCONSTANCIA> itrs = this.findTipo(nombre);
+		itrs.get(0).setEstado(true);
+		em.merge(itrs.get(0));
+		em.flush();
+	}
+	
+	@Override
+	public List<TIPOCONSTANCIA> findTipo(String tipo) throws ServiciosException {
+		TypedQuery<TIPOCONSTANCIA> query = em.createQuery(
+				"SELECT i FROM TIPOCONSTANCIA i WHERE i.tipo = :tipo",
+				TIPOCONSTANCIA.class).setParameter("tipo", tipo);
+		return query.getResultList();
 	}
 
 }

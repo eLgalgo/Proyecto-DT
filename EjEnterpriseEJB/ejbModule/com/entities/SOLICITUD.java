@@ -1,13 +1,19 @@
 package com.entities;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import com.enums.EstadoSolicitud;
-import com.enums.TipoConstancia;
 
 
 /**
@@ -27,8 +33,8 @@ public class SOLICITUD implements Serializable {
 	
 	private Date fecha;
 	
-	@Enumerated(value = EnumType.STRING)
-	private TipoConstancia tipo;
+	@ManyToOne
+	private TIPOCONSTANCIA tipo;
 	
 	@OneToOne
 	private EVENTO eventoAsis;
@@ -64,11 +70,11 @@ public class SOLICITUD implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public TipoConstancia getTipo() {
+	public TIPOCONSTANCIA getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoConstancia tipo) {
+	public void setTipo(TIPOCONSTANCIA tipo) {
 		this.tipo = tipo;
 	}
 

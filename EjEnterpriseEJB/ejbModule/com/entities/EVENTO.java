@@ -4,9 +4,14 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.*;
-
-import com.enums.TipoConstancia;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  * Entity implementation class for Entity: Evento
@@ -27,9 +32,6 @@ public class EVENTO implements Serializable {
 	private LocalDate fechaInicio;
 	private LocalDate fechaFinal;
 	private String informacion;
-	
-	@Enumerated(value = EnumType.STRING)
-	private TipoConstancia tipo;
 	
 	@OneToOne
 	private TUTOR tutor;
@@ -96,14 +98,6 @@ public class EVENTO implements Serializable {
 	public void setEstudiantesConv(List<ESTUDIANTE> estudiantesConv) {
 		this.estudiantesConv = estudiantesConv;
 	}
-
-	public TipoConstancia getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoConstancia tipo) {
-		this.tipo = tipo;
-	} 
 	
    
 }

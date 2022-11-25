@@ -5,17 +5,24 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import com.entities.ACCION;
-import com.entities.MODELOCONSTANCIA;
+import com.entities.ITR;
+import com.entities.TIPOCONSTANCIA;
 import com.exception.ServiciosException;
 
 @Remote
 public interface ModeloBeanRemote {
 
-	void addMoldeo(MODELOCONSTANCIA reclamo) throws ServiciosException;
+	void addMoldeo(TIPOCONSTANCIA reclamo) throws ServiciosException;
 
-	List<MODELOCONSTANCIA> listAllModelo() throws ServiciosException;
+	List<TIPOCONSTANCIA> listAllModelo() throws ServiciosException;
 	
-	public void editModelo(MODELOCONSTANCIA sol) throws ServiciosException;
+	public void editModelo(TIPOCONSTANCIA sol) throws ServiciosException;
 	
-	public List<MODELOCONSTANCIA> findSol(int id) throws ServiciosException;
+	public List<TIPOCONSTANCIA> findSol(int id) throws ServiciosException;
+	
+	void logicDelete(String nombre) throws ServiciosException;
+	
+	public List<TIPOCONSTANCIA> findTipo(String nombre) throws ServiciosException;
+	
+	public void activarTipo(String nombre) throws ServiciosException;
 }

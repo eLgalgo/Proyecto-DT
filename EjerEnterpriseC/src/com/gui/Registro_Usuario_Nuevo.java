@@ -1,6 +1,7 @@
 package com.gui;
 
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
@@ -30,18 +31,19 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
 import com.entities.ITR;
+import com.entities.TIPOCONSTANCIA;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
-import com.enums.TipoConstancia;
 import com.enums.TipoUser;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
 import com.services.ItrBeanRemote;
+import com.services.ModeloBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
@@ -411,7 +413,6 @@ public class Registro_Usuario_Nuevo {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
-					evActivo.setTipo(TipoConstancia.ESTUDIANTE_ACTIVO);
 					evActivo.setTitulo("Estudiante activo");
 
 					try {

@@ -11,7 +11,7 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
 import com.entities.ITR;
-import com.entities.MODELOCONSTANCIA;
+import com.entities.TIPOCONSTANCIA;
 import com.entities.RECLAMO;
 import com.entities.TUTOR;
 import com.enums.Departamento;
@@ -19,7 +19,6 @@ import com.enums.Departamento;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.enums.RolTutor;
-import com.enums.TipoConstancia;
 import com.enums.TipoReclamo;
 import com.exception.ServiciosException;
 import com.gui.CrearModelosConstancia;
@@ -180,15 +179,26 @@ public class Principal{
 		
 		analistaBean.addAnalista(analista);
 		
+		TIPOCONSTANCIA tp1 = new TIPOCONSTANCIA();
+		tp1.setTipo("ESTUDIANTE ACTIVO");
+		tp1.setEstado(true);
+		tp1.setModelo("SE DEJA CONSTANCIA DE QUE EL ESTUDIANTE &nombre& ESTA ACTIVO");
+		
+		TIPOCONSTANCIA tp2 = new TIPOCONSTANCIA();
+		tp2.setTipo("EXAMEN");
+		tp2.setEstado(true);
+		tp2.setModelo("SE DEJA CONSTANCIA DE QUE EL ESTUDIANTE &nombre& ASISTIO AL EXAMEN");
+		
+		modeloBean.addMoldeo(tp1);
+		modeloBean.addMoldeo(tp2);
+		
 		EVENTO e1 = new EVENTO();
 		e1.setTitulo("Presencial 1");
-		e1.setTipo(TipoConstancia.PRESENCIAL);
 		e1.setInformacion("Ultima presencial S5");
 		e1.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
 		
 		EVENTO e2 = new EVENTO();
 		e2.setTitulo("Examen PDT 2022");
-		e2.setTipo(TipoConstancia.EXAMEN);
 		e2.setInformacion("Instancia Febrero");
 		e2.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
 		
@@ -215,18 +225,6 @@ public class Principal{
 		
 		reclamoBean.addReclamo(r1);
 		reclamoBean.addReclamo(r2);
-		
-		MODELOCONSTANCIA m1 = new MODELOCONSTANCIA();
-		m1.setTipo(TipoConstancia.ESTUDIANTE_ACTIVO);
-		m1.setModelo("Se deja constancia que el estudiante de nombre &nombre& y cedula &cedula& es un estudiante activo.");
-		
-		modeloBean.addMoldeo(m1);
-		
-		MODELOCONSTANCIA m2 = new MODELOCONSTANCIA();
-		m2.setTipo(TipoConstancia.PRESENCIAL);
-		m2.setModelo("Se deja constancia que el estudiante de nombre &nombre& y cedula &cedula& asistio a la presencial del dia &fecha&.");
-		
-		modeloBean.addMoldeo(m2);
 	}
 
 }

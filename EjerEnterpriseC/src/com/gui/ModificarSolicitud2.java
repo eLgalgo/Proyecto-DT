@@ -1,43 +1,39 @@
 package com.gui;
 
-import java.awt.EventQueue;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.swing.*;
-import java.awt.Font;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Label;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
-import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
 import com.entities.SOLICITUD;
-import com.entities.TUTOR;
-import com.entities.USUARIO;
-import com.enums.Departamento;
-import com.enums.EstadoUsuario;
-import com.enums.TipoConstancia;
+import com.entities.TIPOCONSTANCIA;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
 import com.services.EventoBeanRemote;
+import com.services.ModeloBeanRemote;
 import com.services.SolicitudBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
-
-import java.awt.Color;
-import java.awt.Component;
 
 public class ModificarSolicitud2 extends JFrame
         implements ActionListener {
@@ -51,6 +47,9 @@ public class ModificarSolicitud2 extends JFrame
 
     public ModificarSolicitud2(ESTUDIANTE usuario, SOLICITUD solicitud) throws NamingException, ServiciosException {
         super("Administración Secretaría");
+        ModeloBeanRemote modeloBean = (ModeloBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/ModeloBean!com.services.ModeloBeanRemote");
+
         setResizable(false);
         setBackground(Color.WHITE);
         getContentPane().setBackground(Color.WHITE);
@@ -77,7 +76,14 @@ public class ModificarSolicitud2 extends JFrame
         
         JComboBox comboBoxTipo = new JComboBox();
         comboBoxTipo.setBounds(10, 79, 150, 28);
-        comboBoxTipo.setModel(new DefaultComboBoxModel(TipoConstancia.values()));
+        List<TIPOCONSTANCIA> listaTipos = modeloBean.listAllModelo();
+        
+        String[] itrNombres = new String[listaTipos.size()];
+		// Converting List to Array
+		for (int i = 0; i < listaTipos.size(); i++) {
+			itrNombres[i] = listaTipos.get(i).getTipo();
+		}
+		comboBoxTipo.setModel(new DefaultComboBoxModel(itrNombres));
         getContentPane().add(comboBoxTipo);
         
         JLabel lblNewLabel_2 = new JLabel("Modificar Solicitud");
@@ -102,7 +108,7 @@ public class ModificarSolicitud2 extends JFrame
         getContentPane().add(lblMasInfo);
         setTitle("Modificar Solicitud de Constancia");
         
-        comboBoxTipo.setSelectedIndex(solicitud.getTipo().ordinal());
+        comboBoxTipo.setSelectedItem(solicitud.getTipo().getTipo());
         tfMasInfo.setText(solicitud.getInfoAdj());
         //Logica botones
         
@@ -147,7 +153,14 @@ public class ModificarSolicitud2 extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		solicitud.setTipo(TipoConstancia.valueOf(comboBoxTipo.getSelectedItem().toString()));
+        		TIPOCONSTANCIA tipo = null;
+				try {
+					tipo = modeloBean.findTipo(comboBoxTipo.getSelectedItem().toString()).get(0);
+				} catch (ServiciosException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+        		solicitud.setTipo(tipo);
         		solicitud.setInfoAdj(tfMasInfo.getText());
         		Date date = Date.from(Instant.now());
         		solicitud.setFecha(date);
