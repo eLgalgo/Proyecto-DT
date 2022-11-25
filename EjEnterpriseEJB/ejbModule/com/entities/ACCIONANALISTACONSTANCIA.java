@@ -10,7 +10,8 @@ import javax.persistence.*;
  *
  */
 @Entity
-public class ACCION implements Serializable {
+@Table(name="ACCION_ANALISTA_CONSTANCIA")
+public class ACCIONANALISTACONSTANCIA implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -29,7 +30,7 @@ public class ACCION implements Serializable {
 	@OneToOne
 	private SOLICITUD solicitud;
 	
-	public ACCION() {
+	public ACCIONANALISTACONSTANCIA() {
 		super();
 	}
 

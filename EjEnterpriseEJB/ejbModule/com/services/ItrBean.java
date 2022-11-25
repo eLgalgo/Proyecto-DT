@@ -22,6 +22,7 @@ public class ItrBean implements ItrBeanRemote {
 	@PersistenceContext
 	EntityManager em;
 	
+	@Override
 	public void addItr(ITR itr) throws ServiciosException {
 		try{
 			em.persist(itr);
@@ -55,14 +56,15 @@ public class ItrBean implements ItrBeanRemote {
 
 
 	@Override
-	public void editItr(ITR itr) throws ServiciosException {
-		try {
-			em.merge(itr);
+	public void editItr(ITR itr, String nombre) throws ServiciosException {
+		try{
+			ITR itr2 = em.find(ITR.class, itr.getId_itr());
+			itr2.setNombre(nombre);
+			em.merge(itr2);
 			em.flush();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo actualizar el ITR");
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo modificar ITR");
 		}
-
 	}
 
 	@Override

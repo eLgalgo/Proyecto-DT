@@ -31,6 +31,8 @@ import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ModPropiaTutor {
 
@@ -75,6 +77,24 @@ public class ModPropiaTutor {
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1);
 		
 		tfTelefono = new JTextField();
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        evt.consume();
+			    }
+
+			    if (tfTelefono.getText().trim().length() == 9) {
+			        evt.consume();
+			        Toolkit.getDefaultToolkit().beep();
+			    }
+			}
+		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(10, 125, 131, 20);
@@ -127,6 +147,21 @@ public class ModPropiaTutor {
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		tfNombre = new JTextField();
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(10, 70, 131, 20);
@@ -138,6 +173,21 @@ public class ModPropiaTutor {
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_1);
 		
 		tfApellido = new JTextField();
+		tfApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(151, 69, 131, 20);
@@ -149,6 +199,24 @@ public class ModPropiaTutor {
 		frmModificacionDeUsuario.getContentPane().add(lblApellido);
 		
 		tfDocumento = new JTextField();
+		tfDocumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        evt.consume();
+			    }
+
+			    if (tfDocumento.getText().trim().length() == 9) {
+			        evt.consume();
+			        Toolkit.getDefaultToolkit().beep();
+			    }
+			}
+		});
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);

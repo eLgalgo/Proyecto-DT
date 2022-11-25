@@ -5,9 +5,11 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,12 +25,14 @@ import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
+import com.entities.ITR;
 import com.enums.Departamento;
 import com.enums.EstadoUsuario;
 import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
@@ -43,6 +47,7 @@ public class Mod_Estudiante {
 	private JTextField tfApellido;
 	private JTextField tfDocumento;
 	private JTextField tfGeneracion;
+	private JTextField tfMailInsti;
 
 	/**
 	 * Create the application.
@@ -56,9 +61,23 @@ public class Mod_Estudiante {
 	 * @throws NamingException 
 	 */
 	private void initialize(ESTUDIANTE usuario, ANALISTA analista) throws NamingException {
+		
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+		
+		TutorBeanRemote tutorBean = (TutorBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+		
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+		
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+		
 		frmModificacionDeUsuario = new JFrame();
 		frmModificacionDeUsuario.setTitle("Modificacion de Estudiante");
-		frmModificacionDeUsuario.setResizable(false);
 		frmModificacionDeUsuario.setIconImage(Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
 		frmModificacionDeUsuario.getContentPane().setBackground(SystemColor.control);
 		frmModificacionDeUsuario.getContentPane().setLayout(null);
@@ -118,25 +137,35 @@ public class Mod_Estudiante {
 		
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1_1_1.setBounds(10, 244, 42, 14);
+		lblNewLabel_1_2_1_1_1.setBounds(11, 298, 42, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1_1);
 		
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxItr.setBounds(10, 269, 131, 22);
+		comboBoxItr.setBounds(11, 323, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().toString());
+		// ITRS activos
+				List<ITR> itrs = itrBean.findAll(true);
+
+				// Declaring Array with Equal Size to the List
+				String[] itrNombres = new String[itrs.size()];
+
+				// Converting List to Array
+				for (int i = 0; i < itrs.size(); i++) {
+					itrNombres[i] = itrs.get(i).getNombre();
+				}
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(221, 344, 97, 23);
+		btnGuardar.setBounds(218, 356, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(328, 344, 97, 23);
+		btnCancelar.setBounds(328, 356, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		frmModificacionDeUsuario.setBounds(100, 100, 451, 417);
+		frmModificacionDeUsuario.setBounds(100, 100, 451, 429);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		tfNombre = new JTextField();
@@ -185,13 +214,9 @@ public class Mod_Estudiante {
 		lblGen.setBounds(293, 186, 91, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblGen);
 		
-		JSpinner tfSemestre = new JSpinner();
-		tfSemestre.setBounds(293, 270, 133, 20);
-		frmModificacionDeUsuario.getContentPane().add(tfSemestre);
-		
-		JLabel lblSemestre = new JLabel("Semestre");
+		JLabel lblSemestre = new JLabel("A\u00F1o Ingreso");
 		lblSemestre.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblSemestre.setBounds(293, 244, 68, 14);
+		lblSemestre.setBounds(293, 244, 91, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblSemestre);
 		tfNombre.setText(usuario.getNombre());
 		tfApellido.setText(usuario.getApellido());
@@ -223,6 +248,7 @@ public class Mod_Estudiante {
 		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
 		Date todayDate = today.getTime();
 		dateChooser.setMaxSelectableDate(todayDate);
+		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
 		
 		//Cargar en dateChoser la fecha del usuario, recibe como argumento tipo fecha DATE
 		//convierte la fecha desde LocalDate a Date
@@ -232,22 +258,32 @@ public class Mod_Estudiante {
 		
 		JButton btnVerSolicitudes = new JButton("Solicitudes");
 		btnVerSolicitudes.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnVerSolicitudes.setBounds(90, 344, 120, 23);
+		btnVerSolicitudes.setBounds(88, 356, 120, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnVerSolicitudes);
+		
+		JComboBox comboBoxAnioIng = new JComboBox();
+		comboBoxAnioIng.setBounds(293, 269, 132, 22);
+		for(int i=2012;i<=LocalDate.now().getYear();i+=1){
+		    comboBoxAnioIng.addItem(i);
+		}
+		frmModificacionDeUsuario.getContentPane().add(comboBoxAnioIng);
+		comboBoxAnioIng.setSelectedItem(usuario.getGeneracion());
+		
+		tfMailInsti = new JTextField();
+		tfMailInsti.setText(usuario.getMail_insti());
+		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfMailInsti.setColumns(10);
+		tfMailInsti.setBounds(11, 270, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfMailInsti);
+		
+		JLabel lblMailInstitucional = new JLabel("Mail Institucional");
+		lblMailInstitucional.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblMailInstitucional.setBounds(11, 243, 130, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblMailInstitucional);
 		
 		//Logica
 		
-        EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-		
-		TutorBeanRemote tutorBean = (TutorBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
-		
-		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
-		
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+        
 		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -256,6 +292,7 @@ public class Mod_Estudiante {
 				usuario.setNombre(tfNombre.getText());
 				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 				usuario.setMail(tfEmail.getText());
+				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setTelefono(tfTelefono.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setLocalidad(null);

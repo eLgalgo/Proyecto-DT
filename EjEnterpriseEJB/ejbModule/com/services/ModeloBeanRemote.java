@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import com.entities.ACCION;
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.ITR;
 import com.entities.TIPOCONSTANCIA;
 import com.exception.ServiciosException;
