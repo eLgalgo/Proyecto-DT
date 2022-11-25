@@ -10,6 +10,7 @@ import javax.persistence.*;
  *
  */
 @Entity
+@Table(name="ACCION_ANALISTA_CONSTANCIA")
 public class ACCIONANALISTACONSTANCIA implements Serializable {
 
 	

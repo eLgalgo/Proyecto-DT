@@ -47,6 +47,8 @@ import com.services.ModeloBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Registro_Usuario_Nuevo {
 
@@ -163,6 +165,24 @@ public class Registro_Usuario_Nuevo {
 		JLabel lblNewLabel2 = new JLabel("DE");
 
 		tfTelefono = new JTextField();
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        evt.consume();
+			    }
+
+			    if (tfTelefono.getText().trim().length() == 9) {
+			        evt.consume();
+			        Toolkit.getDefaultToolkit().beep();
+			    }
+			}
+		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(10, 148, 131, 20);
@@ -186,18 +206,66 @@ public class Registro_Usuario_Nuevo {
 		frmRegistroUsuarioNuevo.getContentPane().add(tfContraseña);
 
 		tfNombre = new JTextField();
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(10, 92, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfNombre);
 
 		tfApellido = new JTextField();
+		tfApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(151, 92, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfApellido);
 
 		tfDocumento = new JTextField();
+		tfDocumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        evt.consume();
+			    }
+
+			    if (tfDocumento.getText().trim().length() == 9) {
+			        evt.consume();
+			        Toolkit.getDefaultToolkit().beep();
+			    }
+			}
+		});
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
@@ -220,7 +288,7 @@ public class Registro_Usuario_Nuevo {
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 283, 131, 22);
 
-		//ITRS activos
+		// ITRS activos
 		List<ITR> itrs = itrBean.findAll(true);
 
 		// Declaring Array with Equal Size to the List
@@ -469,6 +537,16 @@ public class Registro_Usuario_Nuevo {
 		lblRol.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblRol.setBounds(151, 322, 91, 14);
 		frmRegistroUsuarioNuevo.getContentPane().add(lblRol);
+	}
+
+	public boolean validarMailInsti(String mail) {
+		final String dominio = "@utec.edu.uy";
+		if (mail.contains(dominio)) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	public Window getFrame() {
