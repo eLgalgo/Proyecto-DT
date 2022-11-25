@@ -6,7 +6,7 @@ import java.time.Month;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import com.entities.ACCION;
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;

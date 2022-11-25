@@ -14,7 +14,7 @@
 	</entity>
 	<entity class="com.entities.RECLAMO" access="FIELD">
 	</entity>
-	<entity class="com.entities.ACCION" access="FIELD">
+	<entity class="com.entities.ACCIONANALISTACONSTANCIA" access="FIELD">
 	</entity>
 	<entity class="com.entities.ITR" access="FIELD">
 	</entity>
