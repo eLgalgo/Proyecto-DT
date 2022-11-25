@@ -138,8 +138,16 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		btnEmitir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					TIPOCONSTANCIA tipo = modeloBean.findTipo(tabla.getValueAt(tabla.getSelectedRow(), 1).toString()).get(0);
+					SOLICITUD sol = solicitudBean
+							.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
+							.get(0);
+					EmitirConstancia emitirW = new EmitirConstancia(usuario, sol);
+					emitirW.setVisible(true);
+					dispose();
 				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

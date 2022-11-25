@@ -38,7 +38,6 @@ import org.hibernate.type.LocalDateType;
 public class Principal{
 	
 	public static void main(String[] args) throws NamingException, ServiciosException {
-		// TODO Auto-generated method stub
 		
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
