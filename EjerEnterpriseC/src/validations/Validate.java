@@ -88,5 +88,9 @@ public class Validate {
 		return email = nombre + "." + apellido + dominio;
 
 	}
+	private boolean syso() {
+		return true;
+
+	}
 
 }
