@@ -110,6 +110,7 @@ public class ModPropiaAnalista {
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 207, 131, 22);
 		comboBoxItr.addItem(analista.getItr().getNombre());
+		comboBoxItr.setEnabled(false);
 
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 

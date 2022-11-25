@@ -112,6 +112,7 @@ public class ModPropiaTutor {
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().getNombre());
+		comboBoxItr.setEnabled(false);
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JButton btnGuardar = new JButton("Guardar");
