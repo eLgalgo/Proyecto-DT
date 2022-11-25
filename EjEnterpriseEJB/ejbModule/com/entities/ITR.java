@@ -47,6 +47,18 @@ public class ITR implements Serializable {
 
 
 
+	public int getId_itr() {
+		return id_itr;
+	}
+
+
+
+	public void setId_itr(int id_itr) {
+		this.id_itr = id_itr;
+	}
+
+
+
 	public ITR() {
 		super();
 	}
