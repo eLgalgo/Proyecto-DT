@@ -148,6 +148,7 @@ public class Alta_Usuario_Estudiante {
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_3 = new JLabel("A\u00F1o de ingreso");
+		lblNewLabel_3.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_3.setBounds(10, 307, 107, 14);
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_3);
 		frmAltaDeUsuarioA.setBounds(100, 100, 453, 445);

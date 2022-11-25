@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,11 +22,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
+import com.entities.ITR;
 import com.enums.Departamento;
 import com.enums.EstadoUsuario;
+import com.enums.Localidad;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
@@ -39,6 +43,7 @@ public class Mod_Analista {
 	private JTextField tfNombre;
 	private JTextField tfApellido;
 	private JTextField tfDocumento;
+	private JTextField tfMailInsti;
 
 	/**
 	 * Create the application.
@@ -53,9 +58,24 @@ public class Mod_Analista {
 	 * @throws NamingException
 	 */
 	private void initialize(ANALISTA usuario, ANALISTA analista) throws NamingException {
+
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+
 		frmModificacionDeUsuario = new JFrame();
-		frmModificacionDeUsuario.setTitle("Modificacion de Analista");
 		frmModificacionDeUsuario.setResizable(false);
+		frmModificacionDeUsuario.setTitle("Modificacion de Analista");
 		frmModificacionDeUsuario.setIconImage(
 				Toolkit.getDefaultToolkit().getImage("Z:\\ONE DRIVE\\OneDrive\\Escritorio\\PNG\\logoUtec.png"));
 		frmModificacionDeUsuario.getContentPane().setBackground(SystemColor.control);
@@ -81,48 +101,59 @@ public class Mod_Analista {
 
 		JLabel lblCorreo = new JLabel("Email");
 		lblCorreo.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblCorreo.setBounds(9, 207, 64, 14);
+		lblCorreo.setBounds(151, 151, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblCorreo);
 
 		tfEmail = new JTextField();
 		tfEmail.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfEmail.setColumns(10);
-		tfEmail.setBounds(9, 232, 131, 20);
+		tfEmail.setBounds(150, 176, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfEmail);
 
 		JLabel lblNewLabel_1_2_1 = new JLabel("Departamento");
 		lblNewLabel_1_2_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1.setBounds(151, 151, 91, 14);
+		lblNewLabel_1_2_1.setBounds(151, 218, 91, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1);
 
 		JComboBox<Departamento> comboBoxDep = new javax.swing.JComboBox<>();
 		comboBoxDep.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxDep.setBounds(151, 174, 131, 22);
+		comboBoxDep.setBounds(151, 237, 131, 22);
 		comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
 		frmModificacionDeUsuario.getContentPane().add(comboBoxDep);
 
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNewLabel_1_2_1_1_1.setBounds(151, 207, 42, 14);
+		lblNewLabel_1_2_1_1_1.setBounds(84, 274, 42, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1_1);
 
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxItr.setBounds(151, 231, 131, 22);
-		comboBoxItr.addItem(usuario.getItr().toString());
+		comboBoxItr.setBounds(84, 299, 131, 22);
+		// ITRS activos
+		List<ITR> itrs = itrBean.findAll(true);
+
+		// Declaring Array with Equal Size to the List
+		String[] itrNombres = new String[itrs.size()];
+
+		// Converting List to Array
+		for (int i = 0; i < itrs.size(); i++) {
+			itrNombres[i] = itrs.get(i).getNombre();
+			comboBoxItr.addItem(itrNombres[i]);
+		}
+		comboBoxItr.setSelectedItem(usuario.getItr().getNombre());
 
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnGuardar.setBounds(205, 311, 97, 23);
+		btnGuardar.setBounds(204, 353, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
-		btnCancelar.setBounds(327, 311, 97, 23);
+		btnCancelar.setBounds(327, 353, 97, 23);
 		frmModificacionDeUsuario.getContentPane().add(btnCancelar);
-		frmModificacionDeUsuario.setBounds(100, 100, 450, 384);
+		frmModificacionDeUsuario.setBounds(100, 100, 450, 431);
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		tfNombre = new JTextField();
@@ -167,48 +198,64 @@ public class Mod_Analista {
 
 		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxEstado.setBounds(293, 231, 131, 22);
+		comboBoxEstado.setBounds(293, 237, 131, 22);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoUsuario.values()));
 		comboBoxEstado.setSelectedIndex(usuario.getEstado().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxEstado);
 
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblEstado.setBounds(293, 207, 64, 14);
+		lblEstado.setBounds(293, 218, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblEstado);
 
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(293, 176, 131, 20);
-		
+		dateChooser.setBounds(225, 299, 131, 20);
+
 		Calendar today = Calendar.getInstance();
 		today.clear(Calendar.HOUR);
 		today.clear(Calendar.MINUTE);
 		today.clear(Calendar.SECOND);
 		Date todayDate = today.getTime();
 		dateChooser.setMaxSelectableDate(todayDate);
-		
+
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		dateChooser.setDate(Date.from(usuario.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
 		frmModificacionDeUsuario.getContentPane().add(dateChooser);
 
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblFechaDeNacimiento.setBounds(293, 151, 131, 14);
+		lblFechaDeNacimiento.setBounds(226, 270, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
+		
+		tfMailInsti = new JTextField();
+		tfMailInsti.setText((String) null);
+		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfMailInsti.setColumns(10);
+		tfMailInsti.setBounds(293, 176, 131, 20);
+		tfMailInsti.setText(usuario.getMail_insti());
+		frmModificacionDeUsuario.getContentPane().add(tfMailInsti);
+		
+		JLabel lblMail = new JLabel("Mail Institucional");
+		lblMail.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblMail.setBounds(293, 151, 131, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblMail);
+		
+		JLabel lblNewLabel_1_2_1_1 = new JLabel("Localidad");
+		lblNewLabel_1_2_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblNewLabel_1_2_1_1.setBounds(10, 218, 91, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1);
+		
+		JComboBox comboBoxLoc = new JComboBox();
+		comboBoxLoc.setBounds(9, 237, 107, 22);
+		comboBoxLoc.setModel(new DefaultComboBoxModel(Localidad.values()));
+		comboBoxLoc.setSelectedIndex(usuario.getLocalidad().ordinal());
+		frmModificacionDeUsuario.getContentPane().add(comboBoxLoc);
+		
+		JLabel lblNewLabel = new JLabel("DE");
+		lblNewLabel.setBounds(118, 241, 22, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblNewLabel);
 
 		// Logica
-
-		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-
-		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
-
-		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
-
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,10 +263,18 @@ public class Mod_Analista {
 				usuario.setNombre(tfNombre.getText());
 				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 				usuario.setMail(tfEmail.getText());
+				usuario.setMail_insti(tfMailInsti.getText());
 				usuario.setTelefono(tfTelefono.getText());
 				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 				usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+				usuario.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+				try {
+					usuario.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+				} catch (ServiciosException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 
 				try {
 					analistaBean.editAnalista((ANALISTA) usuario);

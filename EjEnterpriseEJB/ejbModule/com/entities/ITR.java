@@ -57,7 +57,10 @@ public class ITR implements Serializable {
 		this.id_itr = id_itr;
 	}
 
-
+	@Override
+	public String toString() {
+		return nombre;
+	}
 
 	public ITR() {
 		super();

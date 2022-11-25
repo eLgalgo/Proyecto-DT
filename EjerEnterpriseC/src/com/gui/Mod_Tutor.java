@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,12 +22,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
+import com.entities.ITR;
 import com.entities.TUTOR;
 import com.enums.Departamento;
 import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
@@ -55,6 +58,20 @@ public class Mod_Tutor {
 	 * @throws NamingException 
 	 */
 	private void initialize(TUTOR usuario, ANALISTA analista) throws NamingException {
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+		
+		TutorBeanRemote tutorBean = (TutorBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+		
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+		
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote)
+				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+		
 		frmModificacionDeUsuario = new JFrame();
 		frmModificacionDeUsuario.setTitle("Modificacion de Tutor");
 		frmModificacionDeUsuario.setResizable(false);
@@ -112,6 +129,17 @@ public class Mod_Tutor {
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 201, 131, 22);
 		comboBoxItr.addItem(usuario.getItr().toString());
+		
+		// ITRS activos
+				List<ITR> itrs = itrBean.findAll(true);
+
+				// Declaring Array with Equal Size to the List
+				String[] itrNombres = new String[itrs.size()];
+
+				// Converting List to Array
+				for (int i = 0; i < itrs.size(); i++) {
+					itrNombres[i] = itrs.get(i).getNombre();
+				}
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 		
 		JButton btnGuardar = new JButton("Guardar");
@@ -221,18 +249,6 @@ public class Mod_Tutor {
 		
 		
 		//Logica
-		
-        EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-		
-		TutorBeanRemote tutorBean = (TutorBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
-		
-		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
-		
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
 		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
