@@ -224,7 +224,6 @@ public class Principal{
 		
 		reclamoBean.addReclamo(r1);
 		reclamoBean.addReclamo(r2);
-
 	}
 
 }
