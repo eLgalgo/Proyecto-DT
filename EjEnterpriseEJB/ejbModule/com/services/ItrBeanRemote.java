@@ -27,4 +27,6 @@ public interface ItrBeanRemote {
 
 	void logicDelete(int id) throws ServiciosException;
 
+	void activeItr(ITR itr, boolean estado) throws ServiciosException;
+
 }

@@ -176,8 +176,9 @@ public class Mantenimiento_ITRS {
 				} else {
 					try {
 						itrBean.logicDelete(comboBoxItrs.getSelectedItem().toString());
+						JOptionPane.showMessageDialog(null, "ITR Borrado!");
 					} catch (ServiciosException e1) {
-						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "Error al borrar ITR");
 						e1.printStackTrace();
 					}
 				}
@@ -257,14 +258,36 @@ public class Mantenimiento_ITRS {
 		btnAgregar_2.setFont(new Font("SimSun", Font.PLAIN, 13));
 		btnAgregar_2.setBounds(10, 225, 131, 23);
 		frmMantenimientoItr.getContentPane().add(btnAgregar_2);
-		
+
 		Label label = new Label("(?) Para modificar seleccione del combo el ITR y clickee en Modificar");
 		label.setBounds(10, 280, 349, 22);
 		frmMantenimientoItr.getContentPane().add(label);
-		
+
 		Label label_1 = new Label("Modifique el nombre y clickee en Guardar Modif.");
 		label_1.setBounds(10, 302, 319, 22);
 		frmMantenimientoItr.getContentPane().add(label_1);
+
+		JButton btnReActivar = new JButton("Reactivar");
+		btnReActivar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboBoxItrs.getSelectedItem() == null) {
+					JOptionPane.showMessageDialog(null, "No hay tal ITR");
+				} else {
+					try {
+						ITR itr = itrBean.findItr(comboBoxItrs.getSelectedItem().toString()).get(0);
+						itrBean.activeItr(itr, true);
+						JOptionPane.showMessageDialog(null, "Reactivado!");
+
+					} catch (ServiciosException e1) {
+						JOptionPane.showMessageDialog(null, "No se pudo reactivar ITR");
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnReActivar.setFont(new Font("SimSun", Font.PLAIN, 13));
+		btnReActivar.setBounds(198, 118, 131, 23);
+		frmMantenimientoItr.getContentPane().add(btnReActivar);
 
 	}
 

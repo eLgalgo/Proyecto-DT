@@ -68,6 +68,14 @@ public class ItrBean implements ItrBeanRemote {
 	}
 
 	@Override
+	public void activeItr(ITR itr, boolean estado) throws ServiciosException{
+		ITR itr2 = em.find(ITR.class, itr.getId_itr());
+		itr2.setEstado(estado);
+		em.merge(itr2);
+		em.flush();	
+	}
+	
+	@Override
 	public List<ITR> findAll(boolean estado) {
 		TypedQuery<ITR> query = em
 				.createQuery("SELECT i FROM ITR i WHERE i.estado = :estado", ITR.class)
