@@ -23,6 +23,7 @@ import com.entities.USUARIO;
 import com.enums.EstadoSolicitud;
 import com.exception.ServiciosException;
 import com.services.ItrBeanRemote;
+import java.awt.Label;
 
 public class Mantenimiento_ITRS {
 
@@ -54,7 +55,7 @@ public class Mantenimiento_ITRS {
 		frmMantenimientoItr.getContentPane().add(comboBoxFiltroItr);
 
 		JComboBox<ITR> comboBoxItrs = new JComboBox();
-		comboBoxItrs.setBounds(136, 101, 177, 22);
+		comboBoxItrs.setBounds(10, 85, 177, 22);
 		frmMantenimientoItr.getContentPane().add(comboBoxItrs);
 		try {
 			List<ITR> itrs = itrBean.listAllItrs();
@@ -113,7 +114,7 @@ public class Mantenimiento_ITRS {
 		};
 		comboBoxFiltroItr.addItemListener(changeClick);
 
-		JButton btnGrabar = new JButton("Rec Mod");
+		JButton btnGrabar = new JButton("Guardar Modif.");
 		btnGrabar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<ITR> itr = null;
@@ -139,7 +140,7 @@ public class Mantenimiento_ITRS {
 			}
 		});
 		btnGrabar.setFont(new Font("SimSun", Font.PLAIN, 13));
-		btnGrabar.setBounds(37, 192, 89, 23);
+		btnGrabar.setBounds(197, 193, 132, 23);
 		frmMantenimientoItr.getContentPane().add(btnGrabar);
 
 		JLabel Filtrar = new JLabel("Filtrar");
@@ -164,7 +165,7 @@ public class Mantenimiento_ITRS {
 			}
 		});
 		btnVolver.setFont(new Font("SimSun", Font.PLAIN, 13));
-		btnVolver.setBounds(391, 302, 89, 23);
+		btnVolver.setBounds(391, 301, 89, 23);
 		frmMantenimientoItr.getContentPane().add(btnVolver);
 
 		JButton btnBorrar = new JButton("Borrar");
@@ -183,13 +184,13 @@ public class Mantenimiento_ITRS {
 			}
 		});
 		btnBorrar.setFont(new Font("SimSun", Font.PLAIN, 13));
-		btnBorrar.setBounds(323, 101, 89, 23);
+		btnBorrar.setBounds(10, 118, 131, 23);
 		frmMantenimientoItr.getContentPane().add(btnBorrar);
 
 		frmMantenimientoItr.setTitle("Mantenimiento de ITRs");
 
 		tfNombreItr = new JTextField();
-		tfNombreItr.setBounds(136, 193, 177, 20);
+		tfNombreItr.setBounds(10, 194, 177, 20);
 		frmMantenimientoItr.getContentPane().add(tfNombreItr);
 		tfNombreItr.setColumns(10);
 
@@ -214,15 +215,15 @@ public class Mantenimiento_ITRS {
 			}
 		});
 		btnModificar.setFont(new Font("SimSun", Font.PLAIN, 13));
-		btnModificar.setBounds(37, 101, 89, 23);
+		btnModificar.setBounds(197, 85, 132, 23);
 		frmMantenimientoItr.getContentPane().add(btnModificar);
 
 		JLabel lblNombre = new JLabel("Nombre ITR");
 		lblNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblNombre.setBounds(183, 168, 79, 14);
+		lblNombre.setBounds(10, 175, 79, 14);
 		frmMantenimientoItr.getContentPane().add(lblNombre);
 
-		JButton btnAgregar_2 = new JButton("Agregar");
+		JButton btnAgregar_2 = new JButton("Agregar Nuevo");
 		btnAgregar_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ITR itr2 = new ITR();
@@ -254,8 +255,16 @@ public class Mantenimiento_ITRS {
 			}
 		});
 		btnAgregar_2.setFont(new Font("SimSun", Font.PLAIN, 13));
-		btnAgregar_2.setBounds(320, 192, 89, 23);
+		btnAgregar_2.setBounds(10, 225, 131, 23);
 		frmMantenimientoItr.getContentPane().add(btnAgregar_2);
+		
+		Label label = new Label("(?) Para modificar seleccione del combo el ITR y clickee en Modificar");
+		label.setBounds(10, 280, 349, 22);
+		frmMantenimientoItr.getContentPane().add(label);
+		
+		Label label_1 = new Label("Modifique el nombre y clickee en Guardar Modif.");
+		label_1.setBounds(10, 302, 319, 22);
+		frmMantenimientoItr.getContentPane().add(label_1);
 
 	}
 
