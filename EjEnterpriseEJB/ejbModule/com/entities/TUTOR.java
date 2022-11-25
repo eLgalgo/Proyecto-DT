@@ -17,32 +17,19 @@ public class TUTOR extends USUARIO implements Serializable{
 	
 	private RolTutor tipo;
 	
-	
 	public TUTOR() {
 		super();
 	}
-
-
 	public String getArea() {
 		return area;
 	}
-
-
 	public void setArea(String area) {
 		this.area = area;
 	}
-
-
 	public RolTutor getTipo() {
 		return tipo;
 	}
-
-
 	public void setTipo(RolTutor tipo) {
 		this.tipo = tipo;
 	}
-
-	
-	
-   
 }

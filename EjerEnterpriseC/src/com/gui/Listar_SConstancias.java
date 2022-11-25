@@ -1,37 +1,36 @@
 package com.gui;
 
-import java.awt.EventQueue;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.swing.*;
-import java.awt.Font;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Label;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
-import com.entities.EVENTO;
 import com.entities.SOLICITUD;
-import com.entities.TUTOR;
 import com.entities.USUARIO;
-import com.enums.Departamento;
 import com.enums.EstadoSolicitud;
-import com.enums.EstadoUsuario;
-import com.enums.TipoConstancia;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -39,9 +38,6 @@ import com.services.EventoBeanRemote;
 import com.services.SolicitudBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
-
-import java.awt.Color;
-import java.awt.Component;
 
 public class Listar_SConstancias extends JFrame
         implements ActionListener {

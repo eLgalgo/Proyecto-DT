@@ -18,6 +18,6 @@
 	</entity>
 	<entity class="com.entities.ITR" access="FIELD">
 	</entity>
-	<entity class="com.entities.MODELOCONSTANCIA" access="FIELD">
+	<entity class="com.entities.TIPOCONSTANCIA" access="FIELD">
 	</entity>
 </entity-mappings>
