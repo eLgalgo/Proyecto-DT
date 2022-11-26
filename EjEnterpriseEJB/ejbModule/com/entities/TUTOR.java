@@ -13,8 +13,10 @@ import com.enums.RolTutor;
 public class TUTOR extends USUARIO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Column (nullable = false)
 	private String area;
 	
+	@Enumerated(value = EnumType.STRING)
 	private RolTutor tipo;
 	
 	public TUTOR() {

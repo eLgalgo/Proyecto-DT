@@ -30,8 +30,6 @@ import com.services.EventoBeanRemote;
 import com.services.ItrBeanRemote;
 import com.services.ModeloBeanRemote;
 import com.services.ReclamoBeanRemote;
-import com.services.SolicitudBean;
-import com.services.SolicitudBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
@@ -67,9 +65,6 @@ public class Principal{
 
 		ModeloBeanRemote modeloBean = (ModeloBeanRemote)
 				InitialContext.doLookup("EjEnterpriseEJB/ModeloBean!com.services.ModeloBeanRemote");
-		
-		SolicitudBeanRemote solicitudBean = (SolicitudBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/SolicitudBean!com.services.SolicitudBeanRemote");
 		
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
@@ -147,14 +142,14 @@ public class Principal{
 		ESTUDIANTE user4 = new ESTUDIANTE();
 		user4.setNombre("Heber");
 		user4.setApellido("Zagami");
-		user4.setDocumento(1);
+		user4.setDocumento(12134538);
 		user4.setMail("heber.zagami@gmail.com");
-		user4.setContrasena("c");
+		user4.setContrasena("heberzagami1");
 		user4.setItr(itrBean.findItr(1).get(0));
 		user4.setDepartamento(Departamento.TACUAREMBO);
 		user4.setLocalidad(Localidad.INTERIOR);
 		user4.setTelefono("099990077");
-		user4.setMail_insti("c");
+		user4.setMail_insti("heber.zagami@utec.edu.uy");
 		user4.setGeneracion("2022");
 		user4.setEstado(EstadoUsuario.ACTIVO);
 		user4.setFechaNac(LocalDate.of(1993, Month.JANUARY, 26));
@@ -186,12 +181,12 @@ public class Principal{
 		tutor2.setApellido("Musk");
 		tutor2.setDocumento(66666666);
 		tutor2.setMail("elon.musk@tesla.com");
-		tutor2.setContrasena("t");
+		tutor2.setContrasena("elonmusk1");
 		tutor2.setItr(itrBean.findItr(2).get(0));
 		tutor2.setDepartamento(Departamento.MONTEVIDEO);
 		tutor2.setLocalidad(Localidad.CAPITAL);
 		tutor2.setTelefono("124124133");
-		tutor2.setMail_insti("t");
+		tutor2.setMail_insti("elon.musk@utec.edu.uy");
 		tutor2.setArea("Area 2");
 		tutor2.setTipo(RolTutor.ENCARGADO);
 		tutor2.setEstado(EstadoUsuario.ACTIVO);
@@ -205,12 +200,12 @@ public class Principal{
 		analista.setApellido("Goytiño");
 		analista.setDocumento(39988776);
 		analista.setMail("jimena.goytino@gmail.com");
-		analista.setContrasena("m");
+		analista.setContrasena("jimenagoytiño1");
 		analista.setDepartamento(Departamento.CANELONES);
 		analista.setLocalidad(Localidad.CAPITAL);
 		analista.setTelefono("092334445");
 		analista.setItr(itrBean.findItr(1).get(0));
-		analista.setMail_insti("m");
+		analista.setMail_insti("jimena.goytino@utec.edu.uy");
 		analista.setEstado(EstadoUsuario.ACTIVO);
 		analista.setFechaNac(LocalDate.of(1985, Month.OCTOBER, 3));
 		analista.setDios(true);
@@ -218,14 +213,14 @@ public class Principal{
 		analistaBean.addAnalista(analista);
 		
 		TIPOCONSTANCIA tp1 = new TIPOCONSTANCIA();
-		tp1.setTipo("TRANSPORTE");
+		tp1.setTipo("ESTUDIANTE ACTIVO");
 		tp1.setEstado(true);
-		tp1.setModelo("Se deja constancia de que &nombre& &apellido& de cedula &cedula& ");
+		tp1.setModelo("SE DEJA CONSTANCIA DE QUE EL ESTUDIANTE &nombre& ESTA ACTIVO");
 		
 		TIPOCONSTANCIA tp2 = new TIPOCONSTANCIA();
 		tp2.setTipo("EXAMEN");
 		tp2.setEstado(true);
-		tp2.setModelo("SE DEJA CONSTANCIA DE QUE EL ESTUDIANTE &nombre& y apellido &apellido& con cedula &cedula& ASISTIO AL EXAMEN de nombre &evento&");
+		tp2.setModelo("SE DEJA CONSTANCIA DE QUE EL ESTUDIANTE &nombre& ASISTIO AL EXAMEN");
 		
 		modeloBean.addMoldeo(tp1);
 		modeloBean.addMoldeo(tp2);
@@ -242,7 +237,10 @@ public class Principal{
 		
 		eventoBean.addEvento(e2);
 		eventoBean.addEvento(e1);
-		eventoBean.asignEstToEvent(4, 1);
+		
+		eventoBean.asignEstToEvent(1, 1);
+		eventoBean.asignEstToEvent(1, 2);
+		eventoBean.asignEstToEvent(2, 2);
 		
 		RECLAMO r1 = new RECLAMO();
 		r1.setTitulo("Reclamo 1");
@@ -260,7 +258,6 @@ public class Principal{
 		
 		reclamoBean.addReclamo(r1);
 		reclamoBean.addReclamo(r2);
-
 	}
 
 }

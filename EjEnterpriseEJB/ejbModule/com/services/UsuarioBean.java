@@ -12,8 +12,6 @@ import com.entities.USUARIO;
 import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 
-import org.hibernate.validator.internal.constraintvalidators.hv.ISBNValidator;
-
 /**
  * Session Bean implementation class AreaBean
  */

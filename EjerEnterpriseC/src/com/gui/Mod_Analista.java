@@ -33,7 +33,12 @@ import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+
+import validations.Validate;
+
 import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Mod_Analista {
 
@@ -94,6 +99,23 @@ public class Mod_Analista {
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1);
 
 		tfTelefono = new JTextField();
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(9, 176, 131, 20);
@@ -157,6 +179,22 @@ public class Mod_Analista {
 		frmModificacionDeUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		tfNombre = new JTextField();
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(9, 120, 131, 20);
@@ -168,6 +206,22 @@ public class Mod_Analista {
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_1);
 
 		tfApellido = new JTextField();
+		tfApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(151, 120, 131, 20);
@@ -179,6 +233,23 @@ public class Mod_Analista {
 		frmModificacionDeUsuario.getContentPane().add(lblApellido);
 
 		tfDocumento = new JTextField();
+		tfDocumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
@@ -226,7 +297,7 @@ public class Mod_Analista {
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblFechaDeNacimiento.setBounds(226, 270, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
-		
+
 		tfMailInsti = new JTextField();
 		tfMailInsti.setText((String) null);
 		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -234,23 +305,23 @@ public class Mod_Analista {
 		tfMailInsti.setBounds(293, 176, 131, 20);
 		tfMailInsti.setText(usuario.getMail_insti());
 		frmModificacionDeUsuario.getContentPane().add(tfMailInsti);
-		
+
 		JLabel lblMail = new JLabel("Mail Institucional");
 		lblMail.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblMail.setBounds(293, 151, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblMail);
-		
+
 		JLabel lblNewLabel_1_2_1_1 = new JLabel("Localidad");
 		lblNewLabel_1_2_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1_1.setBounds(10, 218, 91, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2_1_1);
-		
+
 		JComboBox comboBoxLoc = new JComboBox();
 		comboBoxLoc.setBounds(9, 237, 107, 22);
 		comboBoxLoc.setModel(new DefaultComboBoxModel(Localidad.values()));
 		comboBoxLoc.setSelectedIndex(usuario.getLocalidad().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxLoc);
-		
+
 		JLabel lblNewLabel = new JLabel("DE");
 		lblNewLabel.setBounds(118, 241, 22, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel);
@@ -259,28 +330,31 @@ public class Mod_Analista {
 
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usuario.setApellido(tfApellido.getText());
-				usuario.setNombre(tfNombre.getText());
-				usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
-				usuario.setMail(tfEmail.getText());
-				usuario.setMail_insti(tfMailInsti.getText());
-				usuario.setTelefono(tfTelefono.getText());
-				usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-				usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-				usuario.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 				try {
-					usuario.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-				} catch (ServiciosException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+					Validate v = new Validate();
+					if (v.nameAndLast(tfApellido.getText()))
+					usuario.setApellido(tfApellido.getText());
+					if (v.nameAndLast(tfNombre.getText()))
+					usuario.setNombre(tfNombre.getText());
+					if (v.documento(tfDocumento.getText()))
+					usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
+					if (v.email(tfEmail.getText()))
+					usuario.setMail(tfEmail.getText());
+					if (v.mailInsti(tfMailInsti.getText()))
+					usuario.setMail_insti(tfMailInsti.getText());
+					if (v.telefono(tfTelefono.getText()))
+					usuario.setTelefono(tfTelefono.getText());
+					usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+					usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+					usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+					usuario.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 
-				try {
+					usuario.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+
 					analistaBean.editAnalista((ANALISTA) usuario);
 					JOptionPane.showMessageDialog(null, "Analista modificado con exito");
 				} catch (ServiciosException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
 		});

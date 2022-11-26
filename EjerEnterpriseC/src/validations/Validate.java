@@ -15,7 +15,7 @@ public class Validate {
 
 	//Valida que el email ingresado sea
 	//de dominio @utec.edu.uy
-	public boolean mailInsti(String email) {
+	public boolean mailInsti(String email) throws ServiciosException {
 
 		final String dom = "@utec.edu.uy";
 
@@ -25,12 +25,12 @@ public class Validate {
 				return true;
 			}
 		}
-		return false;
+		throw new ServiciosException("Formato de email institucional incorrecto");
 	}
 
 	//Controla que el email ingresado sea válido
 	//Mediante una expresión regular
-	public boolean email(String email) {
+	public boolean email(String email) throws ServiciosException {
 
 		Pattern pattern = Pattern.compile(
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -40,14 +40,14 @@ public class Validate {
 		if (mather.find() == true) {
 			return true;
 		} else {
-			return false;
+			throw new ServiciosException("Formato de email incorrecto");
 		}
 
 	}
 	
 	//Valida que la contraseña tenga largo 8 o +
 	//y que contenga al menos un número #
-	public boolean pass(String pass) {
+	public boolean pass(String pass) throws ServiciosException {
 
 		if (pass.length() >= 8) {
 			char[] chars = pass.toCharArray();
@@ -58,15 +58,16 @@ public class Validate {
 				}
 			}
 		}
-		return false;
+		throw new ServiciosException("La contraseña debe tener 8 caracteres alfanuméricos");
 	}
 
 	//Valida que nombre y apellido tengan entre 3 y 21 caracteres
-	public boolean nameAndLast(String dato) {
+	public boolean nameAndLast(String dato) throws ServiciosException {
 
 		if (dato.length() >= 3 && dato.length() <= 21)
 			return true;
-		return false;
+		
+		throw new ServiciosException("El nombre y apellido deben tener entre 3 y 21 caracteres");
 
 	}
 
@@ -88,9 +89,39 @@ public class Validate {
 		return email = nombre + "." + apellido + dominio;
 
 	}
-	private boolean syso() {
+	
+	//Genera nombre de usuario a partir de mail institucional
+	public String getUserName(String email) {
+		
+		String username="";
+		
+		username.substring(0, email.indexOf("@"));
+		
+		return username;
+		
+	}
+	
+	public boolean documento(String documento) throws ServiciosException {
+		if(documento.length() < 7 || documento.length() > 9) {
+			throw new ServiciosException("El documento debe contener entre 7 y 9 caracteres numéricos");
+		}
 		return true;
-
+		
+	}
+	
+	public boolean telefono(String telefono) throws ServiciosException {
+		if(telefono.length() < 8 || telefono.length() > 11) {
+			throw new ServiciosException("El teléfono debe contener entre 8 y 11 caracteres numéricos");
+		}
+		return true;
+		
+	}
+	
+	public boolean area(String area) throws ServiciosException {
+		if (area.isBlank()) {
+			throw new ServiciosException("El área no puede estar vacía");
+		}
+		return true;
 	}
 
 }
