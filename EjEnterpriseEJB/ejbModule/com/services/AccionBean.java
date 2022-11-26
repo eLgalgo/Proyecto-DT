@@ -39,7 +39,7 @@ public class AccionBean implements AccionBeanRemote {
 
 	@Override
 	public List<ACCIONANALISTACONSTANCIA> listAllAccion() throws ServiciosException {
-		TypedQuery<ACCIONANALISTACONSTANCIA> query = em.createQuery("SELECT m FROM ACCION m",ACCIONANALISTACONSTANCIA.class); 
+		TypedQuery<ACCIONANALISTACONSTANCIA> query = em.createQuery("SELECT m FROM ACCION_ANALISTA_CONSTANCIA m",ACCIONANALISTACONSTANCIA.class); 
 		return query.getResultList();
 	}
 

@@ -29,6 +29,7 @@ public class TIPOCONSTANCIA implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_MODELO")
 	private int id_modelo;
 	
+	@Column(length=10000000)
 	private String modelo;
 
 	@Column(unique = true)
