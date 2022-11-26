@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.wildfly.common.annotation.Nullable;
+
 /**
  * Entity implementation class for Entity: MODELOCONSTANCIA
  *
@@ -29,12 +31,13 @@ public class TIPOCONSTANCIA implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_MODELO")
 	private int id_modelo;
 	
-	@Column(length=10000000)
+	@Column(length=10000000, nullable = false)
 	private String modelo;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String tipo;
 	
+	@Column(nullable = false)
 	private boolean estado;
 	
 	public int getId_modelo() {
