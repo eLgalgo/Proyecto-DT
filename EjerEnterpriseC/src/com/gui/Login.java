@@ -105,13 +105,13 @@ public class Login {
 						tfContra.setBounds(168, 141, 136, 20);
 		
 				btnIngresar = new JButton("Ingresar");
-				btnIngresar.setBounds(350, 293, 100, 25);
+				btnIngresar.setBounds(336, 293, 114, 25);
 				btnIngresar.setFont(new Font("SimSun", Font.BOLD, 13));
 				
 					
 		
 		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(350, 329, 100, 25);
+		btnRegistrar.setBounds(336, 329, 114, 25);
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmProgramaIncreible.dispose();
@@ -161,42 +161,47 @@ public class Login {
 		
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nom_usuario1 = tfUser.getText().toUpperCase();
-				String clave = tfContra.getText();
-				String nom_usuario = (nom_usuario1 + "@utec.edu.uy").toUpperCase();
+				if(!tfUser.getText().isBlank() || !tfContra.getText().isBlank()) {
+					String nom_usuario1 = tfUser.getText().toUpperCase();
+					String clave = tfContra.getText();
+					String nom_usuario = (nom_usuario1 + "@utec.edu.uy").toUpperCase();
 
-				try {
-					List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);
-					if (usuario.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
-					} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
-						if (usuario.get(0) instanceof ESTUDIANTE) {
-							ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
-							Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
-							principalStudentW.setVisible(true);
-							principalStudentW.setLocationRelativeTo(null);
-							getFrame().dispose();
-						} else if (usuario.get(0) instanceof TUTOR) {
-							TUTOR usuario2 = (TUTOR) usuarioBean.findUser(nom_usuario, clave).get(0);
-							Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
-							principalTutorW.setVisible(true);
-							principalTutorW.setLocationRelativeTo(null);
-							getFrame().dispose();
-						} else if (usuario.get(0) instanceof ANALISTA) {
-							ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
-							Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
-							principalanalistaW.setVisible(true);
-							principalanalistaW.setLocationRelativeTo(null);
-							getFrame().dispose();
+					try {
+						List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);
+						if (usuario.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
+						} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
+							if (usuario.get(0) instanceof ESTUDIANTE) {
+								ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
+								Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
+								principalStudentW.setVisible(true);
+								principalStudentW.setLocationRelativeTo(null);
+								getFrame().dispose();
+							} else if (usuario.get(0) instanceof TUTOR) {
+								TUTOR usuario2 = (TUTOR) usuarioBean.findUser(nom_usuario, clave).get(0);
+								Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
+								principalTutorW.setVisible(true);
+								principalTutorW.setLocationRelativeTo(null);
+								getFrame().dispose();
+							} else if (usuario.get(0) instanceof ANALISTA) {
+								ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
+								Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
+								principalanalistaW.setVisible(true);
+								principalanalistaW.setLocationRelativeTo(null);
+								getFrame().dispose();
+							}
+						} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
+							JOptionPane.showMessageDialog(null, "Usuario inactivo");
+						} else {
+							JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
 						}
-					} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
-						JOptionPane.showMessageDialog(null, "Usuario inactivo");
-					} else {
-						JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
+					} catch (ServiciosException | NamingException e1) {
+						e1.printStackTrace();
 					}
-				} catch (ServiciosException | NamingException e1) {
-					e1.printStackTrace();
+				}else {
+					JOptionPane.showMessageDialog(null, "Debe ingresar nombre de usuario y contraseña");
 				}
+				
 
 			}
 		});

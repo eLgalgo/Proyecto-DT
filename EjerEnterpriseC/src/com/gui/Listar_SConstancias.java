@@ -55,20 +55,20 @@ public class Listar_SConstancias extends JFrame
         setBackground(Color.WHITE);
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(550,362);
+        setSize(625,412);
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setLayout(null);
         
         JButton btnCancelar = new JButton("Volver");
-        btnCancelar.setBounds(10, 293, 97, 23);
+        btnCancelar.setBounds(10, 339, 97, 23);
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
-        JButton btnSolicitar = new JButton("Imprimir");
-        btnSolicitar.setBounds(406, 293, 113, 23);
-        btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
-        getContentPane().add(btnSolicitar);
+//        JButton btnSolicitar = new JButton("Imprimir");
+//        btnSolicitar.setBounds(486, 339, 113, 23);
+//        btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
+//        getContentPane().add(btnSolicitar);
         
         JLabel lblNewLabel_2 = new JLabel("Mis Solicitudes");
         lblNewLabel_2.setBounds(10, 11, 159, 34);
@@ -102,7 +102,7 @@ public class Listar_SConstancias extends JFrame
 		// Agregamos datos
 		agregarDatosLista(usuario, EstadoSolicitud.SIN_FILTRO);
 		
-		comboBoxEstado.setSelectedIndex(2);
+		comboBoxEstado.setSelectedIndex(3);
 		
         btnCancelar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -135,23 +135,23 @@ public class Listar_SConstancias extends JFrame
         	}
         });
         
-        btnSolicitar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if(tabla.getValueAt(tabla.getSelectedRow(), 4).toString().equals("FINALIZADO")) {
-        			if(tabla.getSelectedRow() != -1) {
-                		String header = "CONSTANCIA " + usuario.getNombre() +" "+ usuario.getApellido();
-                		String footer = "EMITIDO POR UTEC \nFECHA: " + LocalDate.now();
-                		utilJTablePrint(tabla, header, footer, true);
-                		}
-                		else {
-        					JOptionPane.showMessageDialog(null, "Seleccione una constancia para imprimir");
-        				}	
-        		}else {
-        			JOptionPane.showMessageDialog(null, "Solicitud de constancia aun no emitida");
-        		}
-        		
-        	}
-        });
+//        btnSolicitar.addActionListener(new ActionListener() {
+//        	public void actionPerformed(ActionEvent e) {
+//        		if(tabla.getValueAt(tabla.getSelectedRow(), 4).toString().equals("FINALIZADO")) {
+//        			if(tabla.getSelectedRow() != -1) {
+//                		String header = "CONSTANCIA " + usuario.getNombre() +" "+ usuario.getApellido();
+//                		String footer = "EMITIDO POR UTEC \nFECHA: " + LocalDate.now();
+//                		utilJTablePrint(tabla, header, footer, true);
+//                		}
+//                		else {
+//        					JOptionPane.showMessageDialog(null, "Seleccione una constancia para imprimir");
+//        				}	
+//        		}else {
+//        			JOptionPane.showMessageDialog(null, "Solicitud de constancia aun no emitida");
+//        		}
+//        		
+//        	}
+//        });
     }
     private void crearTablaPersona(ESTUDIANTE usuario) {
 		String[] columnas = { "Tipo", "Fecha", "Evento", "Estudiante", "Estado" };
@@ -166,7 +166,7 @@ public class Listar_SConstancias extends JFrame
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 48, 511, 234);
+		desplazamiento.setBounds(10, 48, 589, 280);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -177,7 +177,7 @@ public class Listar_SConstancias extends JFrame
 		getContentPane().add(desplazamiento);
 		
 		comboBoxEstado = new JComboBox();
-		comboBoxEstado.setBounds(393, 18, 126, 28);
+		comboBoxEstado.setBounds(473, 15, 126, 28);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(EstadoSolicitud.values()));
 		getContentPane().add(comboBoxEstado);
 		
@@ -237,7 +237,7 @@ public class Listar_SConstancias extends JFrame
 		// Agregamos MUCHOS mas datos
 		for (SOLICITUD p : list) {
 			if(p.getEstado().equals(estadoSolicitud) || estadoSolicitud.equals(EstadoSolicitud.SIN_FILTRO)) {
-				datosFila[0] = p.getTipo();
+				datosFila[0] = p.getTipo().getTipo();
 				datosFila[1] = p.getFecha();
 				datosFila[2] = p.getEventoAsis().getTitulo();
 				datosFila[3] = p.getEstSol().getDocumento();
