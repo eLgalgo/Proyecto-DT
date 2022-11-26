@@ -92,7 +92,7 @@ public class Principal{
 		user1.setNombre("Cristofer");
 		user1.setApellido("Cabrera");
 		user1.setDocumento(11111111);
-		user1.setMail("cristofer50056@gmail.com");
+		user1.setMail("cristofer.cabrera@estudiantes.utec.edu.uy");
 		user1.setContrasena("cristofer1");
 		user1.setItr(itrBean.findItr(1).get(0));
 		user1.setDepartamento(Departamento.ARTIGAS);
