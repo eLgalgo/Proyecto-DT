@@ -14,7 +14,19 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
@@ -31,6 +43,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.ANALISTA;
+import com.entities.ESTUDIANTE;
 import com.entities.SOLICITUD;
 import com.entities.TIPOCONSTANCIA;
 import com.enums.EstadoSolicitud;
@@ -313,6 +326,8 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 						accionBean.addAccion(acc);
 						
 						JOptionPane.showMessageDialog(null, "Constancia emitida con exito");
+						
+						MandarEmail("reportePDFDatoJava.pdf", sol2.getEstSol());
 					} catch (IOException | ServiciosException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -348,5 +363,51 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 			    }
 			}
 		});
+		
+	}
+	
+	public void MandarEmail(String ruta, ESTUDIANTE estudiante) {
+		Properties properties = new Properties();
+
+	      properties.put("mail.smtp.auth", true);
+	      properties.put("mail.smtp.host", "smtp.gmail.com");
+	      properties.put("mail.smtp.port", 587);
+	      properties.put("mail.smtp.starttls.enable", true);
+	      properties.put("mail.transport.protocl", "smtp");
+	      properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	      
+	      Session session = Session.getInstance(properties, new Authenticator() {
+	    	  @Override
+	    	  protected PasswordAuthentication getPasswordAuthentication() {
+	    		  return new PasswordAuthentication("","");
+	    	  }
+	      });
+
+	      
+	      try {
+	    	Message message = new MimeMessage(session);
+			message.setSubject("Emision de Constancia " + estudiante.getNombre());
+			
+			 Address addressTo = new InternetAddress(estudiante.getMail());
+		      message.setRecipient(Message.RecipientType.TO, addressTo);
+		      
+		      MimeMultipart multipart = new MimeMultipart();
+		      
+		      MimeBodyPart attachment = new MimeBodyPart();
+		      attachment.attachFile(new File(ruta));
+		      
+		      MimeBodyPart messageBodyPart = new MimeBodyPart();
+		      messageBodyPart.setContent("<h1> SE LE INFORMA QUE EL PDT A SIDO APROBADO SALUTH</h1> ", "text/html");
+		      
+		      multipart.addBodyPart(attachment);
+		      multipart.addBodyPart(messageBodyPart);
+		      
+		      message.setContent(multipart);
+		      
+		      Transport.send(message);
+	     } catch (MessagingException | IOException e) {
+			e.printStackTrace();
+	     }
+	      
 	}
 }
