@@ -270,15 +270,15 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 			        
 					Paragraph paragraph = new Paragraph();
 					paragraph.add(new Phrase(Chunk.NEWLINE));
-					paragraph.add(new Phrase("CONSTANCIA DE ESTUDIANTE", fontTitulos));
+					paragraph.add(new Phrase("CONSTANCIA " + textField.getText(), fontTitulos));
 					paragraph.add(new Phrase(Chunk.NEWLINE));
-					paragraph.add(new Phrase(sol.getTipo().getTipo(), fontTitulos));
 					paragraph.add(new Phrase(Chunk.NEWLINE));
 					paragraph.add(new Phrase(Chunk.NEWLINE));
 					paragraph.add(new Phrase(textArea.getText(), fontContenido));
 					paragraph.add(new Phrase(Chunk.NEWLINE));
 					paragraph.add(new Phrase(Chunk.NEWLINE));
-					paragraph.add(new Phrase("A los efectos de ser presentada ante quien corresponda se extiende dicha constancia", fontContenido));
+					paragraph.add(new Phrase("Se expide la presente constancia en la fecha "+ LocalDate.now()+" a los efectos de ser presentada"
+							+ " ante quien corresponda", fontContenido));
 					paragraph.add(new Phrase(Chunk.NEWLINE));
 					paragraph.add(new Phrase(Chunk.NEWLINE));
 					Image img2 = null;
@@ -294,6 +294,24 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 					paragraph.add(new Phrase(Chunk.NEWLINE));
 					paragraph.add(new Phrase("Firma", fontContenido));
 					img2.setAlignment(Element.ALIGN_CENTER);
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					
+					paragraph.add(new Phrase("----------------------------------------", fontContenido));
+					paragraph.add(new Phrase("\r\n"
+							+ " Debe contar con firma y sello de persona autorizada para que tenga validez"
+							+ "Av. Italia 6201 Edificio Los Talas – CP 11500 Montevideo, Uruguay – Tel. (+598) 26038832 – secretaria@utec.edu.uy."
+							+ "www.utec.edu.uy", fontContenido));
 					paragraph.setAlignment(Element.ALIGN_CENTER);
 					
 					try {
@@ -379,7 +397,7 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 	      Session session = Session.getInstance(properties, new Authenticator() {
 	    	  @Override
 	    	  protected PasswordAuthentication getPasswordAuthentication() {
-	    		  return new PasswordAuthentication("","");
+	    		  return new PasswordAuthentication("cristofer.cabrera@estudiantes.utec.edu.uy","_.CL5315841c");
 	    	  }
 	      });
 
@@ -397,7 +415,7 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 		      attachment.attachFile(new File(ruta));
 		      
 		      MimeBodyPart messageBodyPart = new MimeBodyPart();
-		      messageBodyPart.setContent("<h1> CONSTANCIA EMITIDA! SALUDOS!</h1> ", "text/html");
+		      messageBodyPart.setContent("<h1> ¡CONSTANCIA EMITIDA! ¡SALUDOS!</h1> ", "text/html");
 		      
 		      multipart.addBodyPart(attachment);
 		      multipart.addBodyPart(messageBodyPart);

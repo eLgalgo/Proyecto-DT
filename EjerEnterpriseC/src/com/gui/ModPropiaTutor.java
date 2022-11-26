@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,6 +22,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.entities.ANALISTA;
+import com.entities.ITR;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
 import com.enums.Departamento;
@@ -28,6 +30,7 @@ import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
@@ -36,6 +39,7 @@ import validations.Validate;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import com.enums.Localidad;
 
 public class ModPropiaTutor {
 
@@ -47,6 +51,7 @@ public class ModPropiaTutor {
 	private JTextField tfDocumento;
 	private JTextField tfArea;
 	private JTextField tfTipo;
+	private JTextField tfContrasena;
 
 	/**
 	 * Create the application.
@@ -114,6 +119,8 @@ public class ModPropiaTutor {
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(10, 177, 131, 20);
 		frmModificacionDeUsuario.getContentPane().add(tfEmail);
+		ItrBeanRemote itrBean = (ItrBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
 
 		JLabel lblNewLabel_1_2_1 = new JLabel("Departamento");
 		lblNewLabel_1_2_1.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -134,7 +141,18 @@ public class ModPropiaTutor {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 176, 131, 22);
-		comboBoxItr.addItem(usuario.getItr().getNombre());
+		// ITRS activos
+		List<ITR> itrs = itrBean.findAll(true);
+
+		// Declaring Array with Equal Size to the List
+		String[] itrNombres = new String[itrs.size()];
+
+		// Converting List to Array
+		for (int i = 0; i < itrs.size(); i++) {
+			itrNombres[i] = itrs.get(i).getNombre();
+		}
+
+		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));	
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JButton btnGuardar = new JButton("Guardar");
@@ -282,6 +300,29 @@ public class ModPropiaTutor {
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblFechaDeNacimiento.setBounds(293, 101, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
+		
+		tfContrasena = new JTextField();
+		tfContrasena.setText((String) null);
+		tfContrasena.setFont(new Font("SimSun", Font.PLAIN, 13));
+		tfContrasena.setColumns(10);
+		tfContrasena.setBounds(151, 233, 131, 20);
+		frmModificacionDeUsuario.getContentPane().add(tfContrasena);
+		
+		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
+		lblContrasea.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblContrasea.setBounds(151, 209, 131, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblContrasea);
+
+		JComboBox<Localidad> comboBoxLocal = new JComboBox<Localidad>();
+		comboBoxLocal.setFont(new Font("SimSun", Font.PLAIN, 13));
+		comboBoxLocal.setBounds(293, 231, 131, 22);	
+		comboBoxLocal.setModel(new DefaultComboBoxModel(Localidad.values()));
+		frmModificacionDeUsuario.getContentPane().add(comboBoxLocal);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Localidad");
+		lblNewLabel_1_2.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblNewLabel_1_2.setBounds(293, 211, 64, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2);
 
 		// Logica
 
@@ -314,9 +355,13 @@ public class ModPropiaTutor {
 					tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 					if (v.area(tfArea.getText()))
 						tutor.setArea(tfArea.getText());
+					if (v.pass(tfContrasena.getText()))
+						tutor.setContrasena(tfContrasena.getText());
 					//usuario.setTipo(tfTipo.getText());
 					tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
+					tutor.setLocalidad(Localidad.valueOf(comboBoxLocal.getSelectedItem().toString()));
+					
+					tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
 					tutorBean.editTutor((TUTOR) usuario);
 					JOptionPane.showMessageDialog(null, "Tutor modificado con exito");
 				} catch (ServiciosException e1) {

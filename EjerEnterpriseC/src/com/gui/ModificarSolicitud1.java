@@ -103,23 +103,27 @@ public class ModificarSolicitud1 extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		try {
-        			SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
-        			if(sol.getEstado() != EstadoSolicitud.FINALIZADO || sol.getEstado() != EstadoSolicitud.EN_PROCESO) {
-        				ModificarSolicitud2 modW = new ModificarSolicitud2(usuario, sol);
-            			modW.setVisible(true);
-            			dispose();
-        			}else {
-        				JOptionPane.showMessageDialog(null, "Imposible modificar una solicitud ya emitida o en proceso");
-        			}
-        			
-				} catch (NumberFormatException | ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+        		if (tabla.getSelectedRow() != -1) {
+        			try {
+            			SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
+            			if(sol.getEstado() != EstadoSolicitud.FINALIZADO) {
+            				ModificarSolicitud2 modW = new ModificarSolicitud2(usuario, sol);
+                			modW.setVisible(true);
+                			dispose();
+            			}else {
+            				JOptionPane.showMessageDialog(null, "Imposible modificar una solicitud ya emitida");
+            			}
+            			
+    				} catch (NumberFormatException | ServiciosException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				} catch (NamingException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe seleccionar un elemento en la tabla.");
+        		}
         	}
         });
     }
@@ -182,7 +186,7 @@ public class ModificarSolicitud1 extends JFrame
 		// Agregamos MUCHOS mas datos
 		for (SOLICITUD p : list) {
 			datosFila[0] = p.getId_solicitud();
-			datosFila[1] = p.getTipo();
+			datosFila[1] = p.getTipo().getTipo();
 			datosFila[2] = p.getFecha();
 			datosFila[3] = p.getEventoAsis().getTitulo();
 			datosFila[4] = p.getEstSol().getDocumento();
