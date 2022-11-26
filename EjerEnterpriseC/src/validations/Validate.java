@@ -49,7 +49,7 @@ public class Validate {
 	//y que contenga al menos un número #
 	public boolean pass(String pass) throws ServiciosException {
 
-		if (pass.length() >= 8) {
+		if (pass.length() >= 8 && !pass.isBlank()) {
 			char[] chars = pass.toCharArray();
 
 			for (char c : chars) {
@@ -64,7 +64,7 @@ public class Validate {
 	//Valida que nombre y apellido tengan entre 3 y 21 caracteres
 	public boolean nameAndLast(String dato) throws ServiciosException {
 
-		if (dato.length() >= 3 && dato.length() <= 21)
+		if (dato.length() >= 3 && dato.length() <= 21 && !dato.isBlank())
 			return true;
 		
 		throw new ServiciosException("El nombre y apellido deben tener entre 3 y 21 caracteres");
