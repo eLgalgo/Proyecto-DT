@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -35,8 +36,13 @@ import com.services.EstudianteBeanRemote;
 import com.services.ItrBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+
+import validations.Validate;
+
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Alta_Usuario_Estudiante {
 
@@ -63,11 +69,11 @@ public class Alta_Usuario_Estudiante {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize(USUARIO usuario) throws NamingException {
-		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-		ItrBeanRemote itrBean = (ItrBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
-		
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+
 		frmAltaDeUsuarioA = new JFrame();
 		frmAltaDeUsuarioA.setTitle("Alta de Usuario Estudiante");
 		frmAltaDeUsuarioA.setResizable(false);
@@ -97,12 +103,12 @@ public class Alta_Usuario_Estudiante {
 		lblNewLabel_1_2_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1.setBounds(150, 191, 91, 14);
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_1_2_1);
-		
+
 		JLabel lblUsuario = new JLabel("Mail Institucional");
 		lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblUsuario.setBounds(293, 135, 131, 14);
 		frmAltaDeUsuarioA.getContentPane().add(lblUsuario);
-		
+
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1_1_1.setBounds(150, 249, 42, 14);
@@ -137,27 +143,43 @@ public class Alta_Usuario_Estudiante {
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblFechaDeNacimiento.setBounds(293, 249, 143, 14);
 		frmAltaDeUsuarioA.getContentPane().add(lblFechaDeNacimiento);
-		
+
 		JLabel lblNewLabel_1_2_1_1 = new JLabel("Localidad");
 		lblNewLabel_1_2_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1_1.setBounds(10, 191, 91, 14);
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_1_2_1_1);
-		
+
 		JLabel lblNewLabel = new JLabel("DE");
 		lblNewLabel.setBounds(127, 220, 22, 14);
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("A\u00F1o de ingreso");
+		lblNewLabel_3.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_3.setBounds(10, 307, 107, 14);
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_3);
 		frmAltaDeUsuarioA.setBounds(100, 100, 453, 445);
 		frmAltaDeUsuarioA.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		
-		
-		//TextFields
-		
+		// TextFields
+
 		tfTelefono = new JTextField();
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfTelefono.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(10, 160, 131, 20);
@@ -168,7 +190,6 @@ public class Alta_Usuario_Estudiante {
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(150, 160, 131, 20);
 		frmAltaDeUsuarioA.getContentPane().add(tfEmail);
-
 
 		tfMailInsti = new JTextField();
 		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -181,45 +202,87 @@ public class Alta_Usuario_Estudiante {
 		tfContraseña.setBounds(293, 218, 132, 20);
 		frmAltaDeUsuarioA.getContentPane().add(tfContraseña);
 
-		
 		tfNombre = new JTextField();
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(8, 104, 131, 20);
 		frmAltaDeUsuarioA.getContentPane().add(tfNombre);
 
 		tfApellido = new JTextField();
+		tfApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(150, 104, 131, 20);
 		frmAltaDeUsuarioA.getContentPane().add(tfApellido);
 
 		tfDocumento = new JTextField();
+		tfDocumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
 		tfDocumento.setBounds(293, 104, 131, 20);
 		frmAltaDeUsuarioA.getContentPane().add(tfDocumento);
 
+		// Comboboxes Dates
 
-		
-		//Comboboxes Dates
-		
-		
-		
 		JComboBox<Departamento> comboBoxDep = new javax.swing.JComboBox<>();
 		comboBoxDep.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxDep.setBounds(150, 216, 131, 22);
-     	comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
+		comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxDep);
-
-
 
 		JComboBox<ITR> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(150, 274, 131, 22);
 
-		//ITRS activos
+		// ITRS activos
 		List<ITR> itrs = itrBean.findAll(true);
 
 		// Declaring Array with Equal Size to the List
@@ -232,10 +295,8 @@ public class Alta_Usuario_Estudiante {
 
 		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));
 
-	
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxItr);
 
-	
 		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 274, 131, 22);
@@ -260,51 +321,52 @@ public class Alta_Usuario_Estudiante {
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		frmAltaDeUsuarioA.getContentPane().add(dateChooser);
 
-		
 		JComboBox comboBoxIngreso = new JComboBox();
 		comboBoxIngreso.setBounds(10, 332, 107, 22);
-		for(int i=2012;i<=LocalDate.now().getYear();i+=1){
-		    comboBoxIngreso.addItem(i);
+		for (int i = 2012; i <= LocalDate.now().getYear(); i += 1) {
+			comboBoxIngreso.addItem(i);
 		}
 		frmAltaDeUsuarioA.getContentPane().add(comboBoxIngreso);
-		
-	
-		//Botones
-		
-		
-		
-		
+
+		// Botones
+
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-		
-				ESTUDIANTE estudiante=new ESTUDIANTE();
-				estudiante.setApellido(tfApellido.getText());
-				estudiante.setNombre(tfNombre.getText());
-				estudiante.setContrasena(tfContraseña.getText());
-				estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
-				estudiante.setMail(tfEmail.getText());
-				estudiante.setTelefono(tfTelefono.getText());
-				estudiante.setMail_insti(tfMailInsti.getText());
-				estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-				estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 				try {
+					Validate v = new Validate();
+					ESTUDIANTE estudiante = new ESTUDIANTE();
+					if (v.nameAndLast(tfApellido.getText()))
+						estudiante.setApellido(tfApellido.getText());
+					if (v.nameAndLast(tfNombre.getText()))
+						estudiante.setNombre(tfNombre.getText());
+					if (v.pass(tfContraseña.getText()))
+						estudiante.setContrasena(tfContraseña.getText());
+					if (v.documento(tfDocumento.getText()))
+						estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
+					if (v.email(tfEmail.getText()))
+						estudiante.setMail(tfEmail.getText());
+					if (v.telefono(tfTelefono.getText()))
+						estudiante.setTelefono(tfTelefono.getText());
+					if (v.mailInsti(tfMailInsti.getText()))
+						estudiante.setMail_insti(tfMailInsti.getText());
+					estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+					estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+					estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+
 					estudiante.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-				} catch (ServiciosException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-				estudiante.setGeneracion(comboBoxIngreso.getSelectedItem().toString());
-				try {
-					
+
+					estudiante.setFechaNac(
+							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+					estudiante.setGeneracion(comboBoxIngreso.getSelectedItem().toString());
+
 					estudianteBean.addStudent(estudiante);
+					JOptionPane.showMessageDialog(null, "Alta exitosa!");
 				} catch (ServiciosException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
-				
+
 			}
 		});
 		btnGuardar.setFont(new Font("SimSun", Font.BOLD, 14));
@@ -312,7 +374,7 @@ public class Alta_Usuario_Estudiante {
 		frmAltaDeUsuarioA.getContentPane().add(btnGuardar);
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
+
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -335,25 +397,21 @@ public class Alta_Usuario_Estudiante {
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnCancelar.setBounds(329, 372, 97, 23);
 		frmAltaDeUsuarioA.getContentPane().add(btnCancelar);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(Alta_Usuario_Estudiante.class.getResource("/PNG/logoUtec.png")));
 		lblNewLabel_4.setBounds(367, 8, 64, 65);
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_4);
-		
+
 		JLabel lblNewLabel_5 = new JLabel("");
 		lblNewLabel_5.setIcon(new ImageIcon(Alta_Usuario_Estudiante.class.getResource("/PNG/NC 100.jpg")));
 		lblNewLabel_5.setBounds(0, 386, 107, 20);
 		frmAltaDeUsuarioA.getContentPane().add(lblNewLabel_5);
-		
-		
-	
-		
+
 	}
 
 	public Window getFrame() {
 		// TODO Auto-generated method stub
 		return this.frmAltaDeUsuarioA;
 	}
-	}
-
+}

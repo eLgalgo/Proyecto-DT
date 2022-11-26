@@ -6,7 +6,7 @@ import java.time.Month;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import com.entities.ACCION;
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
@@ -73,90 +73,124 @@ public class Principal{
 		ITR itr1 = new ITR();
 		ITR itr2 = new ITR();
 		ITR itr3 = new ITR();
-		ITR itr4 = new ITR();
+
 		
-		itr1.setNombre("NORTE1");
+		itr1.setNombre("NORTE");
 		itr1.setEstado(true);
-		itr2.setNombre("SURESTE1");
+		itr2.setNombre("SURESTE");
 		itr2.setEstado(true);
-		itr3.setNombre("CENTROSUR1");
+		itr3.setNombre("CENTROSUR");
 		itr3.setEstado(true);
-		itr4.setNombre("CENTROSUR2");
-		itr4.setEstado(true);
+
 		
 		itrBean.addItr(itr1);
 		itrBean.addItr(itr2);
 		itrBean.addItr(itr3);
-		itrBean.addItr(itr4);
 		
 		
 		ESTUDIANTE user1 = new ESTUDIANTE();
 		user1.setNombre("Cristofer");
 		user1.setApellido("Cabrera");
-		user1.setDocumento(1);
-		user1.setMail("c");
-		user1.setContrasena("c");
+		user1.setDocumento(11111111);
+		user1.setMail("cristofer.cabrera@gmail.com");
+		user1.setContrasena("cristofer1");
 		user1.setItr(itrBean.findItr(1).get(0));
 		user1.setDepartamento(Departamento.ARTIGAS);
 		user1.setLocalidad(Localidad.CAPITAL);
-		user1.setTelefono("tele");
-		user1.setMail_insti("c");
+		user1.setTelefono("099111222");
+		user1.setMail_insti("cristofer.cabrera@utec.edu.uy");
 		user1.setGeneracion("2022");
 		user1.setEstado(EstadoUsuario.ACTIVO);
-		user1.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		user1.setFechaNac(LocalDate.of(2002, Month.JANUARY, 24));
 		
 		estudianteBean.addStudent(user1);
 		
 		ESTUDIANTE user2 = new ESTUDIANTE();
 		user2.setNombre("Lucas");
 		user2.setApellido("Mansilla");
-		user2.setDocumento(5);
-		user2.setMail("q");
-		user2.setContrasena("q");
+		user2.setDocumento(12222222);
+		user2.setMail("luquitas.mansi@gmail.com");
+		user2.setContrasena("luquitas1");
 		user2.setDepartamento(Departamento.CERRO_LARGO);
 		user2.setLocalidad(Localidad.INTERIOR);
-		user2.setTelefono("+59891231");
-		user2.setMail_insti("q");
+		user2.setTelefono("099111233");
+		user2.setMail_insti("luquitas.mansi@utec.edu.uy");
 		user2.setItr(itrBean.findItr(2).get(0));
 		user2.setGeneracion("2022");
 		user2.setEstado(EstadoUsuario.ACTIVO);
-		user2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		user2.setFechaNac(LocalDate.of(2002, Month.MARCH, 23));
 		
 		estudianteBean.addStudent(user2);
 		
+		ESTUDIANTE user3 = new ESTUDIANTE();
+		user3.setNombre("Gabriel");
+		user3.setApellido("Jorge");
+		user3.setDocumento(1234567);
+		user3.setMail("gabriel.jorge@gmail.com");
+		user3.setContrasena("gabriel1");
+		user3.setItr(itrBean.findItr(1).get(0));
+		user3.setDepartamento(Departamento.FLORIDA);
+		user3.setLocalidad(Localidad.CAPITAL);
+		user3.setTelefono("092769259");
+		user3.setMail_insti("gabriel.jorge@utec.edu.uy");
+		user3.setGeneracion("2022");
+		user3.setEstado(EstadoUsuario.ACTIVO);
+		user3.setFechaNac(LocalDate.of(1993, Month.JANUARY, 26));
+		
+		estudianteBean.addStudent(user3);
+		
+		ESTUDIANTE user4 = new ESTUDIANTE();
+		user4.setNombre("Heber");
+		user4.setApellido("Zagami");
+		user4.setDocumento(12134538);
+		user4.setMail("heber.zagami@gmail.com");
+		user4.setContrasena("heberzagami1");
+		user4.setItr(itrBean.findItr(1).get(0));
+		user4.setDepartamento(Departamento.TACUAREMBO);
+		user4.setLocalidad(Localidad.INTERIOR);
+		user4.setTelefono("099990077");
+		user4.setMail_insti("heber.zagami@utec.edu.uy");
+		user4.setGeneracion("2022");
+		user4.setEstado(EstadoUsuario.ACTIVO);
+		user4.setFechaNac(LocalDate.of(1993, Month.JANUARY, 26));
+		
+		estudianteBean.addStudent(user4);
+		
+		
+		
 		TUTOR tutor = new TUTOR();
-		tutor.setNombre("fasgasa");
-		tutor.setApellido("casasfas");
-		tutor.setDocumento(2);
-		tutor.setMail("t");
-		tutor.setContrasena("t");
+		tutor.setNombre("Michael");
+		tutor.setApellido("Jackson");
+		tutor.setDocumento(13344445);
+		tutor.setMail("michael.jackson@gmail.com");
+		tutor.setContrasena("michael1");
 		tutor.setDepartamento(Departamento.DURAZNO);
 		tutor.setLocalidad(Localidad.CAPITAL);
-		tutor.setTelefono("tele");
-		tutor.setMail_insti("t");
-		tutor.setArea("Area1");
+		tutor.setTelefono("22923344");
+		tutor.setMail_insti("michael.jackson@utec.edu.uy");
+		tutor.setArea("Area 1");
 		tutor.setTipo(RolTutor.TUTOR);
 		tutor.setItr(itrBean.findItr(3).get(0));
 		tutor.setEstado(EstadoUsuario.ACTIVO);
-		tutor.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		tutor.setFechaNac(LocalDate.of(1960, Month.JULY, 23));
 		
 		tutorBean.addTutor(tutor);
 		
 		TUTOR tutor2 = new TUTOR();
-		tutor2.setNombre("Guillermo");
-		tutor2.setApellido("Uscudun");
-		tutor2.setDocumento(120);
-		tutor2.setMail("t2");
-		tutor2.setContrasena("t2");
-		tutor2.setItr(itrBean.findItr(4).get(0));
-		tutor2.setDepartamento(Departamento.DURAZNO);
+		tutor2.setNombre("Elon");
+		tutor2.setApellido("Musk");
+		tutor2.setDocumento(66666666);
+		tutor2.setMail("elon.musk@tesla.com");
+		tutor2.setContrasena("elonmusk1");
+		tutor2.setItr(itrBean.findItr(2).get(0));
+		tutor2.setDepartamento(Departamento.MONTEVIDEO);
 		tutor2.setLocalidad(Localidad.CAPITAL);
-		tutor2.setTelefono("1241241");
-		tutor2.setMail_insti("t2");
-		tutor2.setArea("Area2");
+		tutor2.setTelefono("124124133");
+		tutor2.setMail_insti("elon.musk@utec.edu.uy");
+		tutor2.setArea("Area 2");
 		tutor2.setTipo(RolTutor.ENCARGADO);
 		tutor2.setEstado(EstadoUsuario.ACTIVO);
-		tutor2.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		tutor2.setFechaNac(LocalDate.of(1966, Month.JUNE, 6));
 		
 		tutorBean.addTutor(tutor2);
 	
@@ -164,16 +198,16 @@ public class Principal{
 		
 		analista.setNombre("Jimena");
 		analista.setApellido("Goytiño");
-		analista.setDocumento(3);
-		analista.setMail("JIMENA");
-		analista.setContrasena("JIMENA");
+		analista.setDocumento(39988776);
+		analista.setMail("jimena.goytino@gmail.com");
+		analista.setContrasena("jimenagoytiño1");
 		analista.setDepartamento(Departamento.CANELONES);
 		analista.setLocalidad(Localidad.CAPITAL);
-		analista.setTelefono("tele");
+		analista.setTelefono("092334445");
 		analista.setItr(itrBean.findItr(1).get(0));
-		analista.setMail_insti("JIMENA");
+		analista.setMail_insti("jimena.goytino@utec.edu.uy");
 		analista.setEstado(EstadoUsuario.ACTIVO);
-		analista.setFechaNac(LocalDate.of(1999, Month.JANUARY, 10));
+		analista.setFechaNac(LocalDate.of(1985, Month.OCTOBER, 3));
 		analista.setDios(true);
 		
 		analistaBean.addAnalista(analista);
@@ -198,7 +232,7 @@ public class Principal{
 		
 		EVENTO e2 = new EVENTO();
 		e2.setTitulo("Examen PDT 2022");
-		e2.setInformacion("Instancia Febrero");
+		e2.setInformacion("Instancia Diciembre 2022");
 		e2.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
 		
 		eventoBean.addEvento(e2);

@@ -21,7 +21,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.entities.ACCION;
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.EVENTO;
@@ -171,7 +171,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 								e1.printStackTrace();
 							}
 							
-							ACCION acc = new ACCION();
+							ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
 							acc.setAnalista(usuario);
 							acc.setFecha(LocalDate.now());
 							acc.setDetalle("Cambio a Solicitud Finalizada");
@@ -188,7 +188,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 								e1.printStackTrace();
 							}
 							
-							ACCION acc = new ACCION();
+							ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
 							acc.setAnalista(usuario);
 							acc.setFecha(LocalDate.now());
 							acc.setDetalle("Cambio a Solicitud En Proceso");
@@ -219,7 +219,7 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 					if(detalle.equals("")) {
 						JOptionPane.showMessageDialog(null, "Debe ingresar detalle de accion");
 					}else {
-							ACCION acc = new ACCION();
+							ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
 							acc.setAnalista(usuario);
 							acc.setDetalle(detalle);
 							acc.setFecha(LocalDate.now());

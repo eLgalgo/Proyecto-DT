@@ -48,6 +48,11 @@ import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
 
+import validations.Validate;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 public class Registro_Usuario_Nuevo {
 
 	private JFrame frmRegistroUsuarioNuevo;
@@ -163,6 +168,23 @@ public class Registro_Usuario_Nuevo {
 		JLabel lblNewLabel2 = new JLabel("DE");
 
 		tfTelefono = new JTextField();
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfTelefono.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(10, 148, 131, 20);
@@ -186,18 +208,67 @@ public class Registro_Usuario_Nuevo {
 		frmRegistroUsuarioNuevo.getContentPane().add(tfContraseña);
 
 		tfNombre = new JTextField();
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(10, 92, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfNombre);
 
 		tfApellido = new JTextField();
+		tfApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(151, 92, 131, 20);
 		frmRegistroUsuarioNuevo.getContentPane().add(tfApellido);
 
 		tfDocumento = new JTextField();
+		tfDocumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
@@ -220,7 +291,7 @@ public class Registro_Usuario_Nuevo {
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 283, 131, 22);
 
-		//ITRS activos
+		// ITRS activos
 		List<ITR> itrs = itrBean.findAll(true);
 
 		// Declaring Array with Equal Size to the List
@@ -316,118 +387,121 @@ public class Registro_Usuario_Nuevo {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxTipo.getSelectedItem().equals(TipoUser.ANALISTA)) {
-					ANALISTA Analista = new ANALISTA();
-					Analista.setApellido(tfApellido.getText());
-					Analista.setNombre(tfNombre.getText());
-					Analista.setContrasena(tfContraseña.getText());
-					Analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
-					Analista.setMail(tfEmail.getText());
-					Analista.setTelefono(tfTelefono.getText());
-					Analista.setMail_insti(tfMailInsti.getText());
-					Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-					Analista.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-					Analista.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+
 					try {
+						Validate v = new Validate();
+						ANALISTA Analista = new ANALISTA();
+						if (v.nameAndLast(tfApellido.getText()))
+							Analista.setApellido(tfApellido.getText());
+						if (v.nameAndLast(tfNombre.getText()))
+							Analista.setNombre(tfNombre.getText());
+						if (v.pass(tfContraseña.getText()))
+							Analista.setContrasena(tfContraseña.getText());
+						if (v.documento(tfDocumento.getText()))
+							Analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
+						if (v.email(tfEmail.getText()))
+							Analista.setMail(tfEmail.getText());
+						if (v.telefono(tfTelefono.getText()))
+							Analista.setTelefono(tfTelefono.getText());
+						if (v.mailInsti(tfMailInsti.getText()))
+							Analista.setMail_insti(tfMailInsti.getText());
+						Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+						Analista.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+						Analista.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+
 						Analista.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-					} catch (ServiciosException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-					Analista.setFechaNac(
-							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-					try {
+
+						Analista.setFechaNac(
+								dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
 						analistaBean.addAnalista(Analista);
 						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 				} else if (comboBoxTipo.getSelectedItem().equals(TipoUser.TUTOR)) {
-					TUTOR tutor = new TUTOR();
-					tutor.setApellido(tfApellido.getText());
-					tutor.setNombre(tfNombre.getText());
-					tutor.setContrasena(tfContraseña.getText());
-					tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
-					tutor.setMail(tfEmail.getText());
-					tutor.setTelefono(tfTelefono.getText());
-					tutor.setMail_insti(tfMailInsti.getText());
-					tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-					tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-					tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 					try {
+						Validate v = new Validate();
+						TUTOR tutor = new TUTOR();
+						if (v.nameAndLast(tfApellido.getText()))
+							tutor.setApellido(tfApellido.getText());
+						if (v.nameAndLast(tfNombre.getText()))
+							tutor.setNombre(tfNombre.getText());
+						if (v.pass(tfContraseña.getText()))
+							tutor.setContrasena(tfContraseña.getText());
+						if (v.documento(tfDocumento.getText()))
+							tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
+						if (v.email(tfEmail.getText()))
+							tutor.setMail(tfEmail.getText());
+						if (v.telefono(tfTelefono.getText()))
+							tutor.setTelefono(tfTelefono.getText());
+						if (v.mailInsti(tfMailInsti.getText()))
+							tutor.setMail_insti(tfMailInsti.getText());
+						tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+						tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+						tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+
 						tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-					} catch (ServiciosException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-					tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-					tutor.setArea(tfArea.getText());
-					tutor.setTipo(RolTutor.valueOf(comboBoxRol.getSelectedItem().toString()));
-					try {
+
+						tutor.setFechaNac(
+								dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+						tutor.setArea(tfArea.getText());
 
 						tutorBean.addTutor(tutor);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 
 				} else if (comboBoxTipo.getSelectedItem().equals(TipoUser.ESTUDIANTE)) {
-
-					ESTUDIANTE estudiante = new ESTUDIANTE();
-					estudiante.setApellido(tfApellido.getText());
-					estudiante.setNombre(tfNombre.getText());
-					estudiante.setContrasena(tfContraseña.getText());
-					estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
-					estudiante.setMail(tfEmail.getText());
-					estudiante.setTelefono(tfTelefono.getText());
-					estudiante.setMail_insti(tfMailInsti.getText());
-					estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-					estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-					estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 					try {
+						Validate v = new Validate();
+						ESTUDIANTE estudiante = new ESTUDIANTE();
+						if (v.nameAndLast(tfApellido.getText()))
+							estudiante.setApellido(tfApellido.getText());
+						if (v.nameAndLast(tfNombre.getText()))
+							estudiante.setNombre(tfNombre.getText());
+						if (v.pass(tfContraseña.getText()))
+							estudiante.setContrasena(tfContraseña.getText());
+						if (v.documento(tfDocumento.getText()))
+							estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
+						if (v.email(tfEmail.getText()))
+							estudiante.setMail(tfEmail.getText());
+						if (v.telefono(tfTelefono.getText()))
+							estudiante.setTelefono(tfTelefono.getText());
+						if (v.mailInsti(tfMailInsti.getText()))
+							estudiante.setMail_insti(tfMailInsti.getText());
+						estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+						estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+						estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+
 						estudiante.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-					} catch (ServiciosException e3) {
-						// TODO Auto-generated catch block
-						e3.printStackTrace();
-					}
-					estudiante.setFechaNac(
-							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-					estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
 
-					try {
+						estudiante.setFechaNac(
+								dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+						estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
 
 						estudianteBean.addStudent(estudiante);
-					} catch (ServiciosException e1) {
-						e1.printStackTrace();
-					}
-					ESTUDIANTE eActivo = null;
-					try {
+
+						ESTUDIANTE eActivo = null;
+
 						eActivo = estudianteBean.findUser(estudiante.getDocumento()).get(0);
-					} catch (ServiciosException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-					EVENTO evActivo = new EVENTO();
-					evActivo.setFechaInicio(LocalDate.now());
-					try {
+
+						EVENTO evActivo = new EVENTO();
+						evActivo.setFechaInicio(LocalDate.now());
+
 						evActivo.setTutor((TUTOR) usuarioBean.findUser(2).get(0));
-					} catch (ServiciosException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-					evActivo.setTitulo("Estudiante activo");
 
-					try {
+						evActivo.setTitulo("Estudiante activo");
+
 						eventoBean.addEvento(evActivo);
-					} catch (ServiciosException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 
-					try {
 						EVENTO eActivo2 = eventoBean.findEvento(evActivo.getFechaInicio()).get(0);
 						eventoBean.asignEstToEvent(eActivo.getId_usuario(), eActivo2.getId_evento());
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
 					} catch (ServiciosException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 				}
 
@@ -469,6 +543,16 @@ public class Registro_Usuario_Nuevo {
 		lblRol.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblRol.setBounds(151, 322, 91, 14);
 		frmRegistroUsuarioNuevo.getContentPane().add(lblRol);
+	}
+
+	public boolean validarMailInsti(String mail) {
+		final String dominio = "@utec.edu.uy";
+		if (mail.contains(dominio)) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	public Window getFrame() {

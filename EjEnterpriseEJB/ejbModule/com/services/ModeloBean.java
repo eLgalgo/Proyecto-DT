@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import com.entities.ACCION;
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.ITR;
 import com.entities.TIPOCONSTANCIA;
 import com.entities.SOLICITUD;

@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import com.entities.ACCION;
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.RECLAMO;
 import com.exception.ServiciosException;
 
@@ -27,9 +27,9 @@ public class AccionBean implements AccionBeanRemote {
     }
 
 	@Override
-	public void addAccion(ACCION accion) throws ServiciosException {
+	public void addAccion(ACCIONANALISTACONSTANCIA accionanalistaconstancia) throws ServiciosException {
 		try{
-			em.persist(accion);
+			em.persist(accionanalistaconstancia);
 			em.flush();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo crear la accion");
@@ -38,8 +38,8 @@ public class AccionBean implements AccionBeanRemote {
 	}
 
 	@Override
-	public List<ACCION> listAllAccion() throws ServiciosException {
-		TypedQuery<ACCION> query = em.createQuery("SELECT m FROM ACCION m",ACCION.class); 
+	public List<ACCIONANALISTACONSTANCIA> listAllAccion() throws ServiciosException {
+		TypedQuery<ACCIONANALISTACONSTANCIA> query = em.createQuery("SELECT m FROM ACCION m",ACCIONANALISTACONSTANCIA.class); 
 		return query.getResultList();
 	}
 
