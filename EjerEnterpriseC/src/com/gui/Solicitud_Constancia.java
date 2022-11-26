@@ -80,12 +80,12 @@ public class Solicitud_Constancia extends JFrame
 
         List<TIPOCONSTANCIA> listaTipos = modeloBean.listAllModelo();
         
-        String[] itrNombres = new String[listaTipos.size()];
 		// Converting List to Array
 		for (int i = 0; i < listaTipos.size(); i++) {
-			itrNombres[i] = listaTipos.get(i).getTipo();
+			if(listaTipos.get(i).isEstado()) {
+				comboBoxTipo.addItem(listaTipos.get(i).getTipo());
+			}
 		}
-		comboBoxTipo.setModel(new DefaultComboBoxModel(itrNombres));
         
         getContentPane().add(comboBoxTipo);
         
