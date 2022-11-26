@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class ANALISTA extends USUARIO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Column(nullable = false)
 	private boolean dios = false;
 	
 	public ANALISTA() {

@@ -130,7 +130,7 @@ public class Principal{
 		user3.setDepartamento(Departamento.FLORIDA);
 		user3.setLocalidad(Localidad.CAPITAL);
 		user3.setTelefono("092769259");
-		user3.setMail_insti("c.c@utec.edu.uy");
+		user3.setMail_insti("gabriel.jorge@utec.edu.uy");
 		user3.setGeneracion("2022");
 		user3.setEstado(EstadoUsuario.ACTIVO);
 		user3.setFechaNac(LocalDate.of(1993, Month.JANUARY, 26));

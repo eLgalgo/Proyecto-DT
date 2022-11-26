@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity implementation class for Entity: ACCION
@@ -21,13 +22,18 @@ public class ACCIONANALISTACONSTANCIA implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_ACCION")
 	private int id_accion;
 	
+	@Column(nullable = false)
 	private LocalDate fecha;
+
+	@Column(nullable = false)
 	private String detalle;
 	
 	@ManyToOne
+	@NotNull
 	private ANALISTA analista;
 	
 	@OneToOne
+	@NotNull
 	private SOLICITUD solicitud;
 	
 	public ACCIONANALISTACONSTANCIA() {
