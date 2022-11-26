@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import com.entities.ACCION;
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.exception.ServiciosException;
 
 @Remote
 public interface AccionBeanRemote {
 
-	void addAccion(ACCION reclamo) throws ServiciosException;
+	void addAccion(ACCIONANALISTACONSTANCIA reclamo) throws ServiciosException;
 
-	List<ACCION> listAllAccion() throws ServiciosException;
+	List<ACCIONANALISTACONSTANCIA> listAllAccion() throws ServiciosException;
 }

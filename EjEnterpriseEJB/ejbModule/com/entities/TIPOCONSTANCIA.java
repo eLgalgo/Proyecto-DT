@@ -8,12 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * Entity implementation class for Entity: MODELOCONSTANCIA
  *
  */
 @Entity
+@Table(name="TIPO_CONSTANCIA")
 public class TIPOCONSTANCIA implements Serializable {
 
 	

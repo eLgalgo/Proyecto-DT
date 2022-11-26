@@ -92,6 +92,7 @@ public class Login {
 				lblNewLabel.setFont(new Font("SimSun", Font.BOLD, 16));
 		
 				tfUser = new JTextField();
+				tfUser.setToolTipText("Ej: nombre.apellido");
 				tfUser.setBounds(168, 100, 136, 20);
 				tfUser.setColumns(10);
 		
@@ -160,8 +161,9 @@ public class Login {
 		
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nom_usuario = tfUser.getText().toUpperCase();
+				String nom_usuario1 = tfUser.getText().toUpperCase();
 				String clave = tfContra.getText();
+				String nom_usuario = (nom_usuario1 + "@utec.edu.uy").toUpperCase();
 
 				try {
 					List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);

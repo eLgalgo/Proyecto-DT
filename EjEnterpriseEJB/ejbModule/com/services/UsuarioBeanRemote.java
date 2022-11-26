@@ -29,4 +29,6 @@ public interface UsuarioBeanRemote {
 	public void editUser(USUARIO user) throws ServiciosException;
 	
 	public void logicDelete(int doc) throws ServiciosException;
+
+	List<USUARIO> findUserByNom(String nombre, String apellido) throws ServiciosException;
 }
