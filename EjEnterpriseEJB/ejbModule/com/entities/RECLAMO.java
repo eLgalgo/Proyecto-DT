@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 import com.enums.TipoReclamo;
 
@@ -29,17 +31,19 @@ public class RECLAMO implements Serializable {
 	@SequenceGenerator(name = "SEQ_ID_RECLAMO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_RECLAMO")
 	private int id_reclamo;
-	
+	@Column(nullable=false)
 	private String detalle;
-	
+	@Column(nullable=false)
 	private String titulo;
-	
+	@Column(nullable=false)
 	private LocalDate fecha;
 	
 	@Enumerated(value = EnumType.STRING)
+	@NotNull
 	private TipoReclamo tipo;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull
 	private ESTUDIANTE es;
 	
 	public TipoReclamo getTipo() {

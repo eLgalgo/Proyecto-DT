@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity implementation class for Entity: Evento
@@ -27,16 +29,21 @@ public class EVENTO implements Serializable {
 	@SequenceGenerator(name = "SEQ_ID_EVENTO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_EVENTO")
 	private int id_evento;
-	
+	@Column(nullable = false)
 	private String titulo;
+	@Column(nullable = false)
 	private LocalDate fechaInicio;
+	@Column(nullable = false)
 	private LocalDate fechaFinal;
+	@Column(nullable = false)
 	private String informacion;
 	
 	@OneToOne
+	@NotNull
 	private TUTOR tutor;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
+	@NotNull
 	private List<ESTUDIANTE> estudiantesConv;
 	
 	public EVENTO() {
