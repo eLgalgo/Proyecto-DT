@@ -397,7 +397,7 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 		      attachment.attachFile(new File(ruta));
 		      
 		      MimeBodyPart messageBodyPart = new MimeBodyPart();
-		      messageBodyPart.setContent("<h1> SE LE INFORMA QUE EL PDT A SIDO APROBADO SALUTH</h1> ", "text/html");
+		      messageBodyPart.setContent("<h1> CONSTANCIA EMITIDA! SALUDOS!</h1> ", "text/html");
 		      
 		      multipart.addBodyPart(attachment);
 		      multipart.addBodyPart(messageBodyPart);
