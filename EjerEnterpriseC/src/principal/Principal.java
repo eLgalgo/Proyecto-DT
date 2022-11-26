@@ -69,11 +69,9 @@ public class Principal{
 		Login loginWindow = new Login();
 		loginWindow.getFrame().setVisible(true);
 		
-		
 		ITR itr1 = new ITR();
 		ITR itr2 = new ITR();
 		ITR itr3 = new ITR();
-
 		
 		itr1.setNombre("NORTE");
 		itr1.setEstado(true);
@@ -99,7 +97,7 @@ public class Principal{
 		user1.setLocalidad(Localidad.CAPITAL);
 		user1.setTelefono("099111222");
 		user1.setMail_insti("cristofer.cabrera@utec.edu.uy");
-		user1.setGeneracion("2022");
+		user1.setGeneracion("2020");
 		user1.setEstado(EstadoUsuario.ACTIVO);
 		user1.setFechaNac(LocalDate.of(2002, Month.JANUARY, 24));
 		
@@ -116,7 +114,7 @@ public class Principal{
 		user2.setTelefono("099111233");
 		user2.setMail_insti("luquitas.mansi@utec.edu.uy");
 		user2.setItr(itrBean.findItr(2).get(0));
-		user2.setGeneracion("2022");
+		user2.setGeneracion("2018");
 		user2.setEstado(EstadoUsuario.ACTIVO);
 		user2.setFechaNac(LocalDate.of(2002, Month.MARCH, 23));
 		
@@ -150,7 +148,7 @@ public class Principal{
 		user4.setLocalidad(Localidad.INTERIOR);
 		user4.setTelefono("099990077");
 		user4.setMail_insti("heber.zagami@utec.edu.uy");
-		user4.setGeneracion("2022");
+		user4.setGeneracion("2020");
 		user4.setEstado(EstadoUsuario.ACTIVO);
 		user4.setFechaNac(LocalDate.of(1993, Month.JANUARY, 26));
 		
@@ -210,39 +208,122 @@ public class Principal{
 		
 		analistaBean.addAnalista(analista);
 		
+		ANALISTA analista2 = new ANALISTA();
+		
+		analista2.setNombre("Simone");
+		analista2.setApellido("DaSilva");
+		analista2.setDocumento(13412341);
+		analista2.setMail("simone@gmail.com");
+		analista2.setContrasena("simonedasilva5");
+		analista2.setDepartamento(Departamento.COLONIA);
+		analista2.setLocalidad(Localidad.CAPITAL);
+		analista2.setTelefono("098121251");
+		analista2.setItr(itrBean.findItr(1).get(0));
+		analista2.setMail_insti("simone.dasilva@utec.edu.uy");
+		analista2.setEstado(EstadoUsuario.ACTIVO);
+		analista2.setFechaNac(LocalDate.of(1985, Month.OCTOBER, 3));
+		
+		analistaBean.addAnalista(analista2);
+		
 		TIPOCONSTANCIA tp1 = new TIPOCONSTANCIA();
 		tp1.setTipo("ESTUDIANTE ACTIVO");
 		tp1.setEstado(true);
-		tp1.setModelo("SE DEJA CONSTANCIA DE QUE EL ESTUDIANTE &nombre& ESTA ACTIVO");
+		tp1.setModelo("Se deja constancia que el estudiante &nombre& &apellido& de cedula &cedula& se encuentra realizando la carrera Licenciatura en Tecnologias de la Informacion desde el dia 1/1/2020"
+				+ "en la Universidad Tecnologica del Uruguay");
 		
 		TIPOCONSTANCIA tp2 = new TIPOCONSTANCIA();
 		tp2.setTipo("EXAMEN");
 		tp2.setEstado(true);
-		tp2.setModelo("SE DEJA CONSTANCIA DE QUE EL ESTUDIANTE &nombre& ASISTIO AL EXAMEN");
+		tp2.setModelo("Se deja constancia que el estudiante &nombre& &apellido& de cedula &cedula& asistio al examen &evento&.");
+		
+		TIPOCONSTANCIA tp3 = new TIPOCONSTANCIA();
+		tp3.setTipo("TRANSPORTE");
+		tp3.setEstado(true);
+		tp3.setModelo("Se deja constancia que el estudiante &nombre& &apellido& de cedula &cedula& se encuentra realizando la carrera de Licenciatura en tecnologias de la Informacion en el semestre 1.");
+		
+		TIPOCONSTANCIA tp4 = new TIPOCONSTANCIA();
+		tp4.setTipo("PRESENCIAL PRUEBA");
+		tp4.setEstado(true);
+		tp4.setModelo("Se deja constancia que el estudiante &nombre& &apellido& de cedula &cedula& asistio al a la presencial &evento& en el horario de 09hrs a 17hrs donde realizo la prueba de la materia Aplicaciones Enterprise.");
+		
+		TIPOCONSTANCIA tp5 = new TIPOCONSTANCIA();
+		tp5.setTipo("PRESENCIAL COMUN");
+		tp5.setEstado(true);
+		tp5.setModelo("Se deja constancia que el estudiante &nombre& &apellido& de cedula &cedula& asistio al a la presencial &evento& en el horario de 09hrs a 17hrs.");
+		
+		TIPOCONSTANCIA tp6 = new TIPOCONSTANCIA();
+		tp6.setTipo("CREDITOS");
+		tp6.setEstado(true);
+		tp6.setModelo("Se deja constancia que el estudiante &nombre& &apellido& de cedula &cedula& cuenta con la cantidad total de 5 creditos en la materia Vinculacion con el Medio.");
 		
 		modeloBean.addMoldeo(tp1);
 		modeloBean.addMoldeo(tp2);
+		modeloBean.addMoldeo(tp3);
+		modeloBean.addMoldeo(tp4);
+		modeloBean.addMoldeo(tp5);
+		modeloBean.addMoldeo(tp6);
+		
+		EVENTO e3 = new EVENTO();
+		e3.setTitulo("Estudiante Activo");
+		e3.setInformacion("Estudiante super activo");
+		e3.setFechaInicio(LocalDate.of(2021, Month.FEBRUARY, 15));
+		e3.setFechaFinal(LocalDate.of(2022, Month.DECEMBER, 20));
+		e3.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
+		
+		EVENTO e4 = new EVENTO();
+		e4.setTitulo("Presencial Prueba");
+		e4.setInformacion("Prueba de Aplicaciones Enterprise");
+		e4.setFechaInicio(LocalDate.of(2022, Month.JANUARY, 25));
+		e4.setFechaFinal(LocalDate.of(2022, Month.AUGUST, 20));
+		e4.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
+		
+		EVENTO e5 = new EVENTO();
+		e5.setTitulo("Creditos");
+		e5.setInformacion("Creditos de VME");
+		e5.setFechaInicio(LocalDate.of(2022, Month.JULY, 3));
+		e5.setFechaFinal(LocalDate.of(2022, Month.DECEMBER, 5));
+		e5.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
+		
+		EVENTO e6 = new EVENTO();
+		e6.setTitulo("Transporte");
+		e6.setInformacion("Para transporte");
+		e6.setFechaInicio(LocalDate.of(2022, Month.FEBRUARY, 18));
+		e6.setFechaFinal(LocalDate.of(2022, Month.AUGUST, 15));
+		e6.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
 		
 		EVENTO e1 = new EVENTO();
-		e1.setTitulo("Presencial 1");
+		e1.setTitulo("Presencial Comun");
 		e1.setInformacion("Ultima presencial S5");
+		e1.setFechaInicio(LocalDate.of(2022, Month.AUGUST, 3));
+		e1.setFechaFinal(LocalDate.of(2022, Month.DECEMBER, 20));
 		e1.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
 		
 		EVENTO e2 = new EVENTO();
 		e2.setTitulo("Examen PDT 2022");
 		e2.setInformacion("Instancia Diciembre 2022");
+		e2.setFechaInicio(LocalDate.of(2022, Month.AUGUST, 3));
+		e2.setFechaFinal(LocalDate.of(2022, Month.AUGUST, 10));
 		e2.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
 		
 		eventoBean.addEvento(e2);
 		eventoBean.addEvento(e1);
+		eventoBean.addEvento(e3);
+		eventoBean.addEvento(e4);
+		eventoBean.addEvento(e5);
+		eventoBean.addEvento(e6);
 		
 		eventoBean.asignEstToEvent(1, 1);
-		eventoBean.asignEstToEvent(3, 1);
-		eventoBean.asignEstToEvent(3, 2);
-		eventoBean.asignEstToEvent(4, 1);
-		eventoBean.asignEstToEvent(4, 2);
 		eventoBean.asignEstToEvent(1, 2);
+		eventoBean.asignEstToEvent(1, 3);
+		eventoBean.asignEstToEvent(1, 4);
+		
 		eventoBean.asignEstToEvent(2, 2);
+		eventoBean.asignEstToEvent(2, 4);
+		eventoBean.asignEstToEvent(2, 6);
+		
+		eventoBean.asignEstToEvent(3, 2);
+		eventoBean.asignEstToEvent(3, 4);
+		eventoBean.asignEstToEvent(3, 5);
 		
 		RECLAMO r1 = new RECLAMO();
 		r1.setTitulo("Reclamo 1");

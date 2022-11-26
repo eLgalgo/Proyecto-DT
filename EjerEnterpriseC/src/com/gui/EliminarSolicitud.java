@@ -103,29 +103,33 @@ public class EliminarSolicitud extends JFrame
         
         btnSolicitar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		try {
-					SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
-					if(sol.getEstado().equals(EstadoSolicitud.FINALIZADO) || sol.getEstado().equals(EstadoSolicitud.EN_PROCESO)) {
-						JOptionPane.showMessageDialog(null, "Error, existen acciones en esta solicitud");
-					}else {
-						solicitudBean.deleteSolicitud(sol);
-						try {
-							agregarDatosLista(modelo, usuario);
-						} catch (NamingException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						JOptionPane.showMessageDialog(null, "Solicitud eliminada con exito");
-					}
-					
-					
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+        		if (tabla.getSelectedRow() != -1) {
+        			try {
+    					SOLICITUD sol = solicitudBean.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())).get(0);
+    					if(sol.getEstado().equals(EstadoSolicitud.FINALIZADO) || sol.getEstado().equals(EstadoSolicitud.EN_PROCESO)) {
+    						JOptionPane.showMessageDialog(null, "Error, existen acciones en esta solicitud");
+    					}else {
+    						solicitudBean.deleteSolicitud(sol);
+    						try {
+    							agregarDatosLista(modelo, usuario);
+    						} catch (NamingException e1) {
+    							// TODO Auto-generated catch block
+    							e1.printStackTrace();
+    						}
+    						JOptionPane.showMessageDialog(null, "Solicitud eliminada con exito");
+    					}
+    					
+    					
+    				} catch (NumberFormatException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				} catch (ServiciosException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe seleccionar un elemento en la tabla");
+        		}
         	}
         });
     }
