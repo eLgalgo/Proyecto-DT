@@ -33,6 +33,8 @@ import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
 
+import validations.Validate;
+
 public class ModPropiaEstudiante {
 
 	private JFrame frmModificacionDeUsuario;
@@ -164,8 +166,9 @@ public class ModPropiaEstudiante {
 				boolean mayusculas = key >= 65 && key <= 90;
 				boolean minusculas = key >= 97 && key <= 122;
 				boolean espacio = key == 32;
+				boolean borrar = key == 8;
 
-				if (!(minusculas || mayusculas || espacio)) {
+				if (!(minusculas || mayusculas || espacio || borrar)) {
 					evt.consume();
 					Toolkit.getDefaultToolkit().beep();
 				}
@@ -190,8 +193,9 @@ public class ModPropiaEstudiante {
 				boolean mayusculas = key >= 65 && key <= 90;
 				boolean minusculas = key >= 97 && key <= 122;
 				boolean espacio = key == 32;
+				boolean borrar = key == 8;
 
-				if (!(minusculas || mayusculas || espacio)) {
+				if (!(minusculas || mayusculas || espacio || borrar)) {
 					evt.consume();
 					Toolkit.getDefaultToolkit().beep();
 				}
@@ -305,23 +309,32 @@ public class ModPropiaEstudiante {
 
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				estudiante.setApellido(tfApellido.getText());
-				estudiante.setNombre(tfNombre.getText());
-				estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
-				estudiante.setMail(tfEmail.getText());
-				estudiante.setTelefono(tfTelefono.getText());
-				estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				estudiante.setLocalidad(null);
-				estudiante.setGeneracion(tfGeneracion.getText());
-				estudiante.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
 				try {
+					Validate v = new Validate();
+					if (v.nameAndLast(tfApellido.getText()))
+						estudiante.setApellido(tfApellido.getText());
+					if (v.nameAndLast(tfNombre.getText()))
+						estudiante.setNombre(tfNombre.getText());
+					if (v.documento(tfDocumento.getText()))
+						estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
+					if (v.email(tfEmail.getText()))
+						estudiante.setMail(tfEmail.getText());
+					if (v.telefono(tfTelefono.getText()))
+						estudiante.setTelefono(tfTelefono.getText());
+
+					estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+					estudiante.setLocalidad(null);
+					estudiante.setGeneracion(tfGeneracion.getText());
+					estudiante.setFechaNac(
+							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
 					estudianteBean.editEstudiante(estudiante);
 					JOptionPane.showMessageDialog(null, "Estudiante modificado con exito");
+
 				} catch (ServiciosException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
+				
 			}
 		});
 

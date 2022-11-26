@@ -30,6 +30,9 @@ import com.services.EstudianteBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+
+import validations.Validate;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -81,17 +84,16 @@ public class ModPropiaAnalista {
 			public void keyTyped(KeyEvent evt) {
 				int key = evt.getKeyChar();
 
-			    boolean numeros = key >= 48 && key <= 57;
-			        
-			    if (!numeros)
-			    {
-			        evt.consume();
-			    }
+				boolean numeros = key >= 48 && key <= 57;
 
-			    if (tfTelefono.getText().trim().length() == 9) {
-			        evt.consume();
-			        Toolkit.getDefaultToolkit().beep();
-			    }
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfTelefono.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
 			}
 		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -154,8 +156,9 @@ public class ModPropiaAnalista {
 				boolean mayusculas = key >= 65 && key <= 90;
 				boolean minusculas = key >= 97 && key <= 122;
 				boolean espacio = key == 32;
+				boolean borrar = key == 8;
 
-				if (!(minusculas || mayusculas || espacio)) {
+				if (!(minusculas || mayusculas || espacio || borrar)) {
 					evt.consume();
 					Toolkit.getDefaultToolkit().beep();
 				}
@@ -180,8 +183,9 @@ public class ModPropiaAnalista {
 				boolean mayusculas = key >= 65 && key <= 90;
 				boolean minusculas = key >= 97 && key <= 122;
 				boolean espacio = key == 32;
+				boolean borrar = key == 8;
 
-				if (!(minusculas || mayusculas || espacio)) {
+				if (!(minusculas || mayusculas || espacio || borrar)) {
 					evt.consume();
 					Toolkit.getDefaultToolkit().beep();
 				}
@@ -203,17 +207,16 @@ public class ModPropiaAnalista {
 			public void keyTyped(KeyEvent evt) {
 				int key = evt.getKeyChar();
 
-			    boolean numeros = key >= 48 && key <= 57;
-			        
-			    if (!numeros)
-			    {
-			        evt.consume();
-			    }
+				boolean numeros = key >= 48 && key <= 57;
 
-			    if (tfDocumento.getText().trim().length() == 9) {
-			        evt.consume();
-			        Toolkit.getDefaultToolkit().beep();
-			    }
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
 			}
 		});
 		tfDocumento.setText((String) null);
@@ -235,14 +238,14 @@ public class ModPropiaAnalista {
 
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(293, 156, 131, 20);
-		
+
 		Calendar today = Calendar.getInstance();
 		today.clear(Calendar.HOUR);
 		today.clear(Calendar.MINUTE);
 		today.clear(Calendar.SECOND);
 		Date todayDate = today.getTime();
 		dateChooser.setMaxSelectableDate(todayDate);
-		
+
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		dateChooser.setDate(Date.from(analista.getFechaNac().atStartOfDay(defaultZoneId).toInstant()));
 		frmModificacionDeUsuario.getContentPane().add(dateChooser);
@@ -268,20 +271,29 @@ public class ModPropiaAnalista {
 
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				analista.setApellido(tfApellido.getText());
-				analista.setNombre(tfNombre.getText());
-				analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
-				analista.setMail(tfEmail.getText());
-				analista.setTelefono(tfTelefono.getText());
-				analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				analista.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
 				try {
+					Validate v = new Validate();
+					if (v.nameAndLast(tfApellido.getText()))
+						analista.setApellido(tfApellido.getText());
+					if (v.nameAndLast(tfNombre.getText()))
+						analista.setNombre(tfNombre.getText());
+					if (v.documento(tfDocumento.getText()))
+						analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
+					if (v.email(tfEmail.getText()))
+						analista.setMail(tfEmail.getText());
+					if (v.telefono(tfTelefono.getText()))
+						analista.setTelefono(tfTelefono.getText());
+					analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+					analista.setFechaNac(
+							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
 					analistaBean.editAnalista((ANALISTA) analista);
 					JOptionPane.showMessageDialog(null, "Analista modificado con exito");
+
 				} catch (ServiciosException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
+				
 			}
 		});
 
