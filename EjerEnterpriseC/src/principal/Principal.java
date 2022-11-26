@@ -92,7 +92,7 @@ public class Principal{
 		user1.setNombre("Cristofer");
 		user1.setApellido("Cabrera");
 		user1.setDocumento(11111111);
-		user1.setMail("cristofer.cabrera@gmail.com");
+		user1.setMail("cristofer50056@gmail.com");
 		user1.setContrasena("cristofer1");
 		user1.setItr(itrBean.findItr(1).get(0));
 		user1.setDepartamento(Departamento.ARTIGAS);
@@ -126,13 +126,13 @@ public class Principal{
 		user3.setNombre("Gabriel");
 		user3.setApellido("Jorge");
 		user3.setDocumento(1234567);
-		user3.setMail("gabriel.jorge@gmail.com");
-		user3.setContrasena("gabriel1");
+		user3.setMail("gabriel.jorge@estudiantes.utec.edu.uy");
+		user3.setContrasena("c");
 		user3.setItr(itrBean.findItr(1).get(0));
 		user3.setDepartamento(Departamento.FLORIDA);
 		user3.setLocalidad(Localidad.CAPITAL);
 		user3.setTelefono("092769259");
-		user3.setMail_insti("gabriel.jorge@utec.edu.uy");
+		user3.setMail_insti("c.c@utec.edu.uy");
 		user3.setGeneracion("2022");
 		user3.setEstado(EstadoUsuario.ACTIVO);
 		user3.setFechaNac(LocalDate.of(1993, Month.JANUARY, 26));
@@ -143,7 +143,7 @@ public class Principal{
 		user4.setNombre("Heber");
 		user4.setApellido("Zagami");
 		user4.setDocumento(12134538);
-		user4.setMail("heber.zagami@gmail.com");
+		user4.setMail("heber.zagami@estudiantes.utec.edu.uy");
 		user4.setContrasena("heberzagami1");
 		user4.setItr(itrBean.findItr(1).get(0));
 		user4.setDepartamento(Departamento.TACUAREMBO);
@@ -155,8 +155,6 @@ public class Principal{
 		user4.setFechaNac(LocalDate.of(1993, Month.JANUARY, 26));
 		
 		estudianteBean.addStudent(user4);
-		
-		
 		
 		TUTOR tutor = new TUTOR();
 		tutor.setNombre("Michael");
@@ -200,12 +198,12 @@ public class Principal{
 		analista.setApellido("Goytiño");
 		analista.setDocumento(39988776);
 		analista.setMail("jimena.goytino@gmail.com");
-		analista.setContrasena("jimenagoytiño1");
+		analista.setContrasena("m");
 		analista.setDepartamento(Departamento.CANELONES);
 		analista.setLocalidad(Localidad.CAPITAL);
 		analista.setTelefono("092334445");
 		analista.setItr(itrBean.findItr(1).get(0));
-		analista.setMail_insti("jimena.goytino@utec.edu.uy");
+		analista.setMail_insti("m.m@utec.edu.uy");
 		analista.setEstado(EstadoUsuario.ACTIVO);
 		analista.setFechaNac(LocalDate.of(1985, Month.OCTOBER, 3));
 		analista.setDios(true);
@@ -239,6 +237,10 @@ public class Principal{
 		eventoBean.addEvento(e1);
 		
 		eventoBean.asignEstToEvent(1, 1);
+		eventoBean.asignEstToEvent(3, 1);
+		eventoBean.asignEstToEvent(3, 2);
+		eventoBean.asignEstToEvent(4, 1);
+		eventoBean.asignEstToEvent(4, 2);
 		eventoBean.asignEstToEvent(1, 2);
 		eventoBean.asignEstToEvent(2, 2);
 		
