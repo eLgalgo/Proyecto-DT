@@ -397,7 +397,7 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 	      Session session = Session.getInstance(properties, new Authenticator() {
 	    	  @Override
 	    	  protected PasswordAuthentication getPasswordAuthentication() {
-	    		  return new PasswordAuthentication("cristofer.cabrera@estudiantes.utec.edu.uy","_.CL5315841c");
+	    		  return new PasswordAuthentication("","");
 	    	  }
 	      });
 
