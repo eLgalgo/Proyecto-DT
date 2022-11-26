@@ -141,9 +141,13 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 					SOLICITUD sol = solicitudBean
 							.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
 							.get(0);
-					EmitirConstancia emitirW = new EmitirConstancia(usuario, sol);
-					emitirW.setVisible(true);
-					dispose();
+					if (sol.getEstado() == EstadoSolicitud.FINALIZADO) {
+						JOptionPane.showMessageDialog(null, "¡Error! constancia ya finalizada");
+					} else {
+						EmitirConstancia emitirW = new EmitirConstancia(usuario, sol);
+						emitirW.setVisible(true);
+						dispose();
+					}
 				} catch (ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -160,26 +164,8 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 						SOLICITUD sol = solicitudBean
 								.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
 								.get(0);
-						if (sol.getEstado() == EstadoSolicitud.FINALIZADO) {
-							JOptionPane.showMessageDialog(null, "¡Error! constancia ya finalizada");
-						} else if(sol.getEstado() == EstadoSolicitud.EN_PROCESO){
-							sol.setAnalist(usuario);
-							solicitudBean.cambiarEstado(sol, EstadoSolicitud.EN_PROCESO);
-							try {
-								agregarDatosLista(modelo);
-							} catch (NamingException e1) {
-								e1.printStackTrace();
-							}
-							
-							ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
-							acc.setAnalista(usuario);
-							acc.setFecha(LocalDate.now());
-							acc.setDetalle("Cambio a Solicitud Finalizada");
-							acc.setSolicitud(sol);
-							
-							accionBean.addAccion(acc);
-							JOptionPane.showMessageDialog(null, "Estado cambiado con exito");
-						} else if(sol.getEstado() == EstadoSolicitud.INGRESADO) {
+			
+						if(sol.getEstado() == EstadoSolicitud.INGRESADO) {
 							sol.setAnalist(usuario);
 							solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
 							try {
@@ -228,6 +214,8 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 								sol = solicitudBean
 										.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
 										.get(0);
+								solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
+								sol.setAnalist(usuario);
 							} catch (NumberFormatException | ServiciosException e2) {
 								e2.printStackTrace();
 							}
@@ -235,6 +223,11 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 							try {
 								accionBean.addAccion(acc);
 								JOptionPane.showMessageDialog(null, "Accion registrada con exito");
+								try {
+									agregarDatosLista(modelo);
+								} catch (NamingException e1) {
+									e1.printStackTrace();
+								}
 							} catch (ServiciosException e1) {
 								e1.printStackTrace();
 							}

@@ -1,27 +1,52 @@
 package com.gui;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+import com.entities.ACCIONANALISTACONSTANCIA;
 import com.entities.ANALISTA;
 import com.entities.SOLICITUD;
 import com.entities.TIPOCONSTANCIA;
+import com.enums.EstadoSolicitud;
 import com.exception.ServiciosException;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.services.AccionBeanRemote;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -31,9 +56,14 @@ import com.services.SolicitudBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
+import org.w3c.dom.Text;
+
+
+
 public class EmitirConstancia extends JFrame implements ActionListener {
 	private DefaultTableModel modelo;
 	private JTextField textField;
+    private String ruta = null;
 
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getActionCommand());
@@ -85,19 +115,42 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 		textField.setBounds(190, 100, 158, 28);
 		getContentPane().add(textField);
 		textField.setText(sol.getTipo().getTipo());
-		
 		String area = sol.getTipo().getModelo();
-		int posicion = area.indexOf("&nombre&");
-		String principio = area.substring(0, posicion);
-		String final2 = area.substring(posicion + 8, area.length());
-		String cadenaFinal = principio + sol.getEstSol().getNombre() + final2;
+		String cadenaTerminada = area;
+		if(area.indexOf("&nombre&") != -1) {
+			int posicion = area.indexOf("&nombre&");
+			String principio = area.substring(0, posicion);
+			String final2 = area.substring(posicion + 8, area.length());
+			String cadenaFinal = principio + sol.getEstSol().getNombre() + final2;
+			cadenaTerminada = cadenaFinal;
+			
+			if(cadenaTerminada.indexOf("&apellido&") != -1) {
+				int posicion2 = cadenaTerminada.indexOf("&apellido&");
+				String principio2 = cadenaTerminada.substring(0, posicion2);
+				String final22 = cadenaTerminada.substring(posicion2 + 10, cadenaTerminada.length());
+				String cadenaFinal2 = principio2 + sol.getEstSol().getApellido() + final22;
+				cadenaTerminada = cadenaFinal2;
+				
+				if(cadenaTerminada.indexOf("&cedula&") != -1) {
+					int posicion3 = cadenaTerminada.indexOf("&cedula&");
+					String principio3 = cadenaTerminada.substring(0, posicion3);
+					String final222 = cadenaTerminada.substring(posicion3 + 8, cadenaTerminada.length());
+					String cadenaFinal22 = principio3 + sol.getEstSol().getDocumento() + final222;
+					cadenaTerminada = cadenaFinal22;
+				}
+				
+				if(cadenaTerminada.indexOf("&evento&") != -1) {
+					int posicion3 = cadenaTerminada.indexOf("&evento&");
+					String principio3 = cadenaTerminada.substring(0, posicion3);
+					String final222 = cadenaTerminada.substring(posicion3 + 8, cadenaTerminada.length());
+					String cadenaFinal22 = principio3 + sol.getEventoAsis().getTitulo() + final222;
+					cadenaTerminada = cadenaFinal22;
+				}
+			}
+		}
 		
-		int posicion2 = cadenaFinal.indexOf("&apellido&");
-		String principio2 = cadenaFinal.substring(0, posicion2);
-		String final22 = cadenaFinal.substring(posicion2 + 10, area.length());
-		String cadenaFinal2 = principio2 + sol.getEstSol().getApellido() + final22;
-		
-		textArea.setText(cadenaFinal2);
+		textArea.setText(cadenaTerminada);
+	
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Tipo de Constancia");
@@ -157,39 +210,143 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 
 		btnSolicitar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<TIPOCONSTANCIA> tipo = null;
-				try {
-					tipo = modeloBean.findTipo(textField.getText());
-				} catch (ServiciosException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				if(tipo.isEmpty()) {
-					TIPOCONSTANCIA tipo2 = new TIPOCONSTANCIA();
+				if(ruta != null) {
+					Document document = new Document(PageSize.A4, 35, 30, 50, 50);
 					
-					tipo2.setEstado(true);
-					tipo2.setModelo(textArea.getText());
-					tipo2.setTipo(textField.getText());
+					// El archivo pdf que vamos a generar
+					FileOutputStream fileOutputStream = null;
+					try {
+						fileOutputStream = new FileOutputStream(
+						  "reportePDFDatoJava.pdf");
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					 
+					// Obtener la instancia del PdfWriter
+					try {
+						PdfWriter.getInstance(document, fileOutputStream);
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					// Abrir el documento
+					document.open();
+					
+					// Crear las fuentes para el contenido y los titulos
+					com.itextpdf.text.Font fontContenido = FontFactory.getFont(
+					  FontFactory.TIMES_ROMAN.toString(), 12, 0,
+					  BaseColor.BLACK);
+					com.itextpdf.text.Font fontTitulos = FontFactory.getFont(
+					  FontFactory.TIMES_BOLDITALIC, 17, 0,
+					  BaseColor.BLACK);
+					Image img = null;
+					try {
+						img = Image.getInstance("src/PNG/logoasfas.jpg");
+						img.scaleToFit(125, 250);
+					} catch (BadElementException | IOException e3) {
+						// TODO Auto-generated catch block
+						e3.printStackTrace();
+					}
+			        try {
+						document.add(img);
+					} catch (DocumentException e3) {
+						// TODO Auto-generated catch block
+						e3.printStackTrace();
+					}
+			        
+					Paragraph paragraph = new Paragraph();
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase("CONSTANCIA DE ESTUDIANTE", fontTitulos));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(sol.getTipo().getTipo(), fontTitulos));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(textArea.getText(), fontContenido));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase("A los efectos de ser presentada ante quien corresponda se extiende dicha constancia", fontContenido));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					Image img2 = null;
+					try {
+						img2 = Image.getInstance(ruta);
+						img2.scaleToFit(200, 200);
+					} catch (BadElementException | IOException e3) {
+						// TODO Auto-generated catch block
+						e3.printStackTrace();
+					}
+					paragraph.add(img2);
+					paragraph.add(new Phrase("----------------------------------------", fontContenido));
+					paragraph.add(new Phrase(Chunk.NEWLINE));
+					paragraph.add(new Phrase("Firma", fontContenido));
+					img2.setAlignment(Element.ALIGN_CENTER);
+					paragraph.setAlignment(Element.ALIGN_CENTER);
 					
 					try {
-						modeloBean.addMoldeo(tipo2);
-						JOptionPane.showMessageDialog(null, "Agregado con exito");
-					} catch (ServiciosException e1) {
+						document.add(paragraph);
+					} catch (DocumentException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					
+					// Cerrar el documento
+					document.close();
+					 
+					// Abrir el archivo
+					File file = new File("reportePDFDatoJava.pdf");
+					try {
+						Desktop.getDesktop().open(file);
+						
+						SOLICITUD sol2 = solicitudBean
+								.findSol(sol.getId_solicitud())
+								.get(0);
+						sol2.setAnalist(usuario);
+						sol2.setFile(file);
+						solicitudBean.cambiarEstado(sol2, EstadoSolicitud.EN_PROCESO);
+						
+						ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
+						acc.setAnalista(usuario);
+						acc.setFecha(LocalDate.now());
+						acc.setDetalle("Emision de constancia");
+						acc.setSolicitud(sol);
+						
+						accionBean.addAccion(acc);
+						
+						JOptionPane.showMessageDialog(null, "Constancia emitida con exito");
+					} catch (IOException | ServiciosException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}else {
-					tipo.get(0).setModelo(textArea.getText());
-					tipo.get(0).setTipo(textField.getText());
-					
-					try {
-						modeloBean.editModelo(tipo.get(0));
-						JOptionPane.showMessageDialog(null, "Actualizado con exito");
-					} catch (ServiciosException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una firma para poder emitir.");
 				}
+				
+			}
+		});
+		
+		btnAgregarFirma.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		        
+				JFileChooser fileChooser = new JFileChooser();
+			    fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+			    
+			    FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png"); 
+			    fileChooser.setFileFilter(imgFilter);
+
+			    int result = fileChooser.showOpenDialog(null);
+
+			    if (result != JFileChooser.CANCEL_OPTION) {
+
+			        File fileName = fileChooser.getSelectedFile();
+
+			        if ((fileName == null) || (fileName.getName().equals(""))) {
+			        	ruta = "...";
+			        } else {
+			        	ruta = (fileName.getAbsolutePath());
+			        	JOptionPane.showMessageDialog(null, "Firma cargada con exito");
+			        }
+			    }
 			}
 		});
 	}

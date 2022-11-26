@@ -1,5 +1,6 @@
 package com.entities;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -49,6 +50,8 @@ public class SOLICITUD implements Serializable {
 	
 	@OneToOne
 	private ANALISTA analist;
+	
+	private File file;
 	
 	public SOLICITUD() {
 		super();
@@ -116,6 +119,14 @@ public class SOLICITUD implements Serializable {
 
 	public void setAnalist(ANALISTA analist) {
 		this.analist = analist;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 	
 	
