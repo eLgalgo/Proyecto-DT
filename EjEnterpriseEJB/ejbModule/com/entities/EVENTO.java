@@ -43,7 +43,6 @@ public class EVENTO implements Serializable {
 	private TUTOR tutor;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@NotNull
 	private List<ESTUDIANTE> estudiantesConv;
 	
 	public EVENTO() {

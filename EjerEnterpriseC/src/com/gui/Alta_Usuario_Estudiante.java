@@ -363,7 +363,7 @@ public class Alta_Usuario_Estudiante {
 
 					estudianteBean.addStudent(estudiante);
 					JOptionPane.showMessageDialog(null, "Alta exitosa!");
-				} catch (ServiciosException e1) {
+				} catch (ServiciosException | NumberFormatException | NamingException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 

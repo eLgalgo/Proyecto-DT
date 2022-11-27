@@ -31,4 +31,6 @@ public interface UsuarioBeanRemote {
 	public void logicDelete(int doc) throws ServiciosException;
 
 	List<USUARIO> findUserByNom(String nombre, String apellido) throws ServiciosException;
+
+	List<USUARIO> findUserByEmail(String mail) throws ServiciosException;
 }

@@ -50,6 +50,13 @@ public class UsuarioBean implements UsuarioBeanRemote {
 				USUARIO.class).setParameter("nombre", nombre).setParameter("apellido", apellido);
 		return query.getResultList();
 	}
+	@Override
+	public List<USUARIO> findUserByEmail(String mail) throws ServiciosException {
+		TypedQuery<USUARIO> query = em.createQuery(
+				"SELECT u FROM USUARIO u WHERE u.mail_insti = :mail",
+				USUARIO.class).setParameter("mail", mail);
+		return query.getResultList();
+	}
 	
 	@Override
 	public List<USUARIO> findUser(int doc) throws ServiciosException {
