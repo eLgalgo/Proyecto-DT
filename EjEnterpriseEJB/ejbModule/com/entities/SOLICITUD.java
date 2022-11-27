@@ -45,7 +45,7 @@ public class SOLICITUD implements Serializable {
 	@NotNull
 	private EVENTO eventoAsis;
 	
-	@Column(nullable = false)
+
 	private String infoAdj;
 	
 	@Enumerated(value = EnumType.STRING)
@@ -57,7 +57,6 @@ public class SOLICITUD implements Serializable {
 	private ESTUDIANTE estSol;
 	
 	@OneToOne
-	@NotNull
 	private ANALISTA analist;
 
 	

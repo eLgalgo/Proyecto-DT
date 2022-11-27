@@ -346,7 +346,7 @@ public class Alta_Usuario_Analista {
 					Analista.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
 					analistaBean.addAnalista(Analista);
 					JOptionPane.showMessageDialog(null, "Alta exitosa!");
-				} catch (NumberFormatException | ServiciosException e1) {
+				} catch (NumberFormatException | ServiciosException | NamingException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 

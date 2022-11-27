@@ -80,11 +80,9 @@ public class Principal{
 		itr3.setNombre("CENTROSUR");
 		itr3.setEstado(true);
 
-		
 		itrBean.addItr(itr1);
 		itrBean.addItr(itr2);
 		itrBean.addItr(itr3);
-		
 		
 		ESTUDIANTE user1 = new ESTUDIANTE();
 		user1.setNombre("Cristofer");
@@ -282,7 +280,7 @@ public class Principal{
 		e5.setInformacion("Creditos de VME");
 		e5.setFechaInicio(LocalDate.of(2022, Month.JULY, 3));
 		e5.setFechaFinal(LocalDate.of(2022, Month.DECEMBER, 5));
-		e5.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
+		e5.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
 		
 		EVENTO e6 = new EVENTO();
 		e6.setTitulo("Transporte");
@@ -296,7 +294,7 @@ public class Principal{
 		e1.setInformacion("Ultima presencial S5");
 		e1.setFechaInicio(LocalDate.of(2022, Month.AUGUST, 3));
 		e1.setFechaFinal(LocalDate.of(2022, Month.DECEMBER, 20));
-		e1.setTutor((TUTOR) usuarioBean.findUser(tutor.getDocumento()).get(0));
+		e1.setTutor((TUTOR) usuarioBean.findUser(tutor2.getDocumento()).get(0));
 		
 		EVENTO e2 = new EVENTO();
 		e2.setTitulo("Examen PDT 2022");

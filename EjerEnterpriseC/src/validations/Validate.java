@@ -16,16 +16,29 @@ public class Validate {
 	//Valida que el email ingresado sea
 	//de dominio @utec.edu.uy
 	public boolean mailInsti(String email) throws ServiciosException {
-
-		final String dom = "@utec.edu.uy";
-
-		if (email.contains(dom)) {
-			String usuario = email.substring(0, email.indexOf("@"));
-			if (usuario.contains(".") && usuario.length() >= 7) {
-				return true;
-			}
+		UsuarioBeanRemote usuarioBean = null;
+		try {
+			usuarioBean = (UsuarioBeanRemote) InitialContext
+					.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		throw new ServiciosException("Formato de email institucional incorrecto");
+
+		if(usuarioBean.findUserByEmail(email).isEmpty()) {
+			final String dom = "@utec.edu.uy";
+
+			if (email.contains(dom)) {
+				String usuario = email.substring(0, email.indexOf("@"));
+				if (usuario.contains(".") && usuario.length() >= 7) {
+					return true;
+				}
+			}
+			throw new ServiciosException("Formato de email institucional incorrecto");
+		}else {
+			throw new ServiciosException("El email institucional ya existe");
+		}
+		
 	}
 
 	//Controla que el email ingresado sea válido
@@ -44,6 +57,7 @@ public class Validate {
 		}
 
 	}
+	
 	
 	//Valida que la contraseña tenga largo 8 o +
 	//y que contenga al menos un número #
@@ -101,12 +115,24 @@ public class Validate {
 		
 	}
 	
-	public boolean documento(String documento) throws ServiciosException {
+	public boolean documento(String documento) throws ServiciosException, NamingException {
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+
+		if(usuarioBean.findUser(Integer.parseInt(documento)).isEmpty()) {
+			if(documento.length() < 7 || documento.length() > 9) {
+				throw new ServiciosException("El documento debe contener entre 7 y 9 caracteres numéricos");
+			}
+			return true;
+		}
+		throw new ServiciosException("Documento ya ingeresado en el sistema");
+	}
+	
+	public boolean documentoMod(String documento) throws ServiciosException, NamingException {
 		if(documento.length() < 7 || documento.length() > 9) {
 			throw new ServiciosException("El documento debe contener entre 7 y 9 caracteres numéricos");
 		}
 		return true;
-		
 	}
 	
 	public boolean telefono(String telefono) throws ServiciosException {

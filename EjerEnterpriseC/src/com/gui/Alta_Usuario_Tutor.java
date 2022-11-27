@@ -376,7 +376,7 @@ public class Alta_Usuario_Tutor {
 
 					tutorBean.addTutor(tutor);
 					JOptionPane.showMessageDialog(null, "Alta exitosa!");
-				} catch (ServiciosException e1) {
+				} catch (ServiciosException | NumberFormatException | NamingException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 

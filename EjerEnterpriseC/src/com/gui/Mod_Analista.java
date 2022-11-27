@@ -299,6 +299,8 @@ public class Mod_Analista {
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
 
 		tfMailInsti = new JTextField();
+		tfMailInsti.setEnabled(false);
+		tfMailInsti.setEditable(false);
 		tfMailInsti.setText((String) null);
 		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfMailInsti.setColumns(10);
@@ -336,12 +338,10 @@ public class Mod_Analista {
 					usuario.setApellido(tfApellido.getText());
 					if (v.nameAndLast(tfNombre.getText()))
 					usuario.setNombre(tfNombre.getText());
-					if (v.documento(tfDocumento.getText()))
+					if (v.documentoMod(tfDocumento.getText()))
 					usuario.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					if (v.email(tfEmail.getText()))
 					usuario.setMail(tfEmail.getText());
-					if (v.mailInsti(tfMailInsti.getText()))
-					usuario.setMail_insti(tfMailInsti.getText());
 					if (v.telefono(tfTelefono.getText()))
 					usuario.setTelefono(tfTelefono.getText());
 					usuario.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
@@ -353,7 +353,7 @@ public class Mod_Analista {
 
 					analistaBean.editAnalista((ANALISTA) usuario);
 					JOptionPane.showMessageDialog(null, "Analista modificado con exito");
-				} catch (ServiciosException e1) {
+				} catch (ServiciosException | NumberFormatException | NamingException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}

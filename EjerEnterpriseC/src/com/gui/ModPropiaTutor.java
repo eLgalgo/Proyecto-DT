@@ -40,6 +40,7 @@ import validations.Validate;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import com.enums.Localidad;
+import com.enums.RolTutor;
 
 public class ModPropiaTutor {
 
@@ -50,7 +51,6 @@ public class ModPropiaTutor {
 	private JTextField tfApellido;
 	private JTextField tfDocumento;
 	private JTextField tfArea;
-	private JTextField tfTipo;
 	private JTextField tfContrasena;
 
 	/**
@@ -151,7 +151,6 @@ public class ModPropiaTutor {
 		for (int i = 0; i < itrs.size(); i++) {
 			itrNombres[i] = itrs.get(i).getNombre();
 		}
-
 		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));	
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
@@ -261,20 +260,21 @@ public class ModPropiaTutor {
 		lblArea.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblArea.setBounds(10, 208, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblArea);
-
-		tfTipo = new JTextField();
-		tfTipo.setText((String) null);
-		tfTipo.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfTipo.setColumns(10);
-		tfTipo.setBounds(293, 178, 131, 20);
-		frmModificacionDeUsuario.getContentPane().add(tfTipo);
+		
+		JComboBox comboBoxRol = new JComboBox();
+		comboBoxRol.setFont(new Font("SimSun", Font.PLAIN, 11));
+		comboBoxRol.setEditable(true);
+		comboBoxRol.setBounds(293, 175, 131, 22);
+		comboBoxRol.setModel(new DefaultComboBoxModel(RolTutor.values()));
+		frmModificacionDeUsuario.getContentPane().add(comboBoxRol);
+		
+		JComboBox<Localidad> comboBoxLocal = new JComboBox<Localidad>();
+		comboBoxLocal.setFont(new Font("SimSun", Font.PLAIN, 13));
+		comboBoxLocal.setBounds(293, 231, 131, 22);	
+		comboBoxLocal.setModel(new DefaultComboBoxModel(Localidad.values()));
+		frmModificacionDeUsuario.getContentPane().add(comboBoxLocal);
 
 		TUTOR tutor = (TUTOR) usuario;
-
-		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblTipo.setBounds(293, 154, 64, 14);
-		frmModificacionDeUsuario.getContentPane().add(lblTipo);
 		tfNombre.setText(tutor.getNombre());
 		tfApellido.setText(tutor.getApellido());
 		tfTelefono.setText(tutor.getTelefono());
@@ -282,7 +282,9 @@ public class ModPropiaTutor {
 		tfDocumento.setText(Integer.toString(tutor.getDocumento()));
 		comboBoxDep.setSelectedIndex(tutor.getDepartamento().ordinal());
 		tfArea.setText(tutor.getArea());
-		tfTipo.setText(tutor.getTipo().name());
+		comboBoxLocal.setSelectedIndex(tutor.getLocalidad().ordinal());
+		comboBoxItr.setSelectedItem(tutor.getItr().getNombre());
+		comboBoxRol.setSelectedIndex(tutor.getTipo().ordinal());
 
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(293, 124, 131, 20);
@@ -302,7 +304,7 @@ public class ModPropiaTutor {
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
 		
 		tfContrasena = new JTextField();
-		tfContrasena.setText((String) null);
+		tfContrasena.setText(tutor.getContrasena());
 		tfContrasena.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfContrasena.setColumns(10);
 		tfContrasena.setBounds(151, 233, 131, 20);
@@ -312,17 +314,16 @@ public class ModPropiaTutor {
 		lblContrasea.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblContrasea.setBounds(151, 209, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblContrasea);
-
-		JComboBox<Localidad> comboBoxLocal = new JComboBox<Localidad>();
-		comboBoxLocal.setFont(new Font("SimSun", Font.PLAIN, 13));
-		comboBoxLocal.setBounds(293, 231, 131, 22);	
-		comboBoxLocal.setModel(new DefaultComboBoxModel(Localidad.values()));
-		frmModificacionDeUsuario.getContentPane().add(comboBoxLocal);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Localidad");
 		lblNewLabel_1_2.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2.setBounds(293, 211, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblNewLabel_1_2);
+		
+		JLabel lblRol = new JLabel("Rol");
+		lblRol.setFont(new Font("SimSun", Font.PLAIN, 13));
+		lblRol.setBounds(293, 150, 91, 14);
+		frmModificacionDeUsuario.getContentPane().add(lblRol);
 
 		// Logica
 
@@ -346,7 +347,7 @@ public class ModPropiaTutor {
 						tutor.setApellido(tfApellido.getText());
 					if (v.nameAndLast(tfNombre.getText()))
 						tutor.setNombre(tfNombre.getText());
-					if (v.documento(tfDocumento.getText()))
+					if (v.documentoMod(tfDocumento.getText()))
 						tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					if (v.email(tfEmail.getText()))
 						tutor.setMail(tfEmail.getText());
@@ -357,14 +358,13 @@ public class ModPropiaTutor {
 						tutor.setArea(tfArea.getText());
 					if (v.pass(tfContrasena.getText()))
 						tutor.setContrasena(tfContrasena.getText());
-					//usuario.setTipo(tfTipo.getText());
 					tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 					tutor.setLocalidad(Localidad.valueOf(comboBoxLocal.getSelectedItem().toString()));
-					
+					tutor.setTipo(RolTutor.valueOf(comboBoxRol.getSelectedItem().toString()));
 					tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
 					tutorBean.editTutor((TUTOR) usuario);
 					JOptionPane.showMessageDialog(null, "Tutor modificado con exito");
-				} catch (ServiciosException e1) {
+				} catch (ServiciosException | NumberFormatException | NamingException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 				
