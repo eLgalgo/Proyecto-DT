@@ -275,7 +275,7 @@ public class ModPropiaAnalista {
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
 		
 		tfContrasena = new JTextField();
-		tfContrasena.setText((String) null);
+		tfContrasena.setText(analista.getContrasena());
 		tfContrasena.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfContrasena.setColumns(10);
 		tfContrasena.setBounds(293, 209, 131, 20);
@@ -295,6 +295,7 @@ public class ModPropiaAnalista {
 		comboBoxLocal.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxLocal.setBounds(151, 207, 131, 22);
 		comboBoxLocal.setModel(new DefaultComboBoxModel(Localidad.values()));
+		comboBoxLocal.setSelectedIndex(analista.getLocalidad().ordinal());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxLocal);
 
 		// Logica
@@ -319,7 +320,7 @@ public class ModPropiaAnalista {
 						analista.setApellido(tfApellido.getText());
 					if (v.nameAndLast(tfNombre.getText()))
 						analista.setNombre(tfNombre.getText());
-					if (v.documento(tfDocumento.getText()))
+					if (v.documentoMod(tfDocumento.getText()))
 						analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					if (v.email(tfEmail.getText()))
 						analista.setMail(tfEmail.getText());
@@ -337,7 +338,7 @@ public class ModPropiaAnalista {
 					analistaBean.editAnalista((ANALISTA) analista);
 					JOptionPane.showMessageDialog(null, "Analista modificado con exito");
 
-				} catch (ServiciosException e1) {
+				} catch (ServiciosException | NumberFormatException | NamingException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 				

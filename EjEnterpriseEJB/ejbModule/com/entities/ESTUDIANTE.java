@@ -17,9 +17,6 @@ public class ESTUDIANTE extends USUARIO implements Serializable{
 	@Column (nullable = false)
 	private String generacion;
 	
-
-
-	
 	public ESTUDIANTE() {
 		super();
 	}

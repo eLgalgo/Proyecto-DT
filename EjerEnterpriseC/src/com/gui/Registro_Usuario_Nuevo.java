@@ -416,7 +416,7 @@ public class Registro_Usuario_Nuevo {
 
 						analistaBean.addAnalista(Analista);
 						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
-					} catch (ServiciosException e1) {
+					} catch (ServiciosException | NumberFormatException | NamingException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 				} else if (comboBoxTipo.getSelectedItem().equals(TipoUser.TUTOR)) {
@@ -440,7 +440,7 @@ public class Registro_Usuario_Nuevo {
 						tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 						tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 						tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-
+						tutor.setTipo(RolTutor.valueOf(comboBoxRol.getSelectedItem().toString()));
 						tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
 
 						tutor.setFechaNac(
@@ -449,7 +449,7 @@ public class Registro_Usuario_Nuevo {
 
 						tutorBean.addTutor(tutor);
 						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
-					} catch (ServiciosException e1) {
+					} catch (ServiciosException | NumberFormatException | NamingException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 
@@ -482,24 +482,8 @@ public class Registro_Usuario_Nuevo {
 						estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
 
 						estudianteBean.addStudent(estudiante);
-
-						ESTUDIANTE eActivo = null;
-
-						eActivo = estudianteBean.findUser(estudiante.getDocumento()).get(0);
-
-						EVENTO evActivo = new EVENTO();
-						evActivo.setFechaInicio(LocalDate.now());
-
-						evActivo.setTutor((TUTOR) usuarioBean.findUser(2).get(0));
-
-						evActivo.setTitulo("Estudiante activo");
-
-						eventoBean.addEvento(evActivo);
-
-						EVENTO eActivo2 = eventoBean.findEvento(evActivo.getFechaInicio()).get(0);
-						eventoBean.asignEstToEvent(eActivo.getId_usuario(), eActivo2.getId_evento());
 						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
-					} catch (ServiciosException e1) {
+					} catch (ServiciosException | NumberFormatException | NamingException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +47,6 @@ public class ModPropiaEstudiante {
 	private JTextField tfNombre;
 	private JTextField tfApellido;
 	private JTextField tfDocumento;
-	private JTextField tfGeneracion;
 	private JTextField tfContrasena;
 
 	/**
@@ -257,30 +257,15 @@ public class ModPropiaEstudiante {
 		lblDocumento.setBounds(293, 46, 64, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblDocumento);
 
-		tfGeneracion = new JTextField();
-		tfGeneracion.setText((String) null);
-		tfGeneracion.setFont(new Font("SimSun", Font.PLAIN, 13));
-		tfGeneracion.setColumns(10);
-		tfGeneracion.setBounds(292, 175, 52, 22);
-		frmModificacionDeUsuario.getContentPane().add(tfGeneracion);
-
-		JLabel lblGen = new JLabel("Gen");
+		JLabel lblGen = new JLabel("Generacion");
 		lblGen.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblGen.setBounds(294, 153, 52, 14);
+		lblGen.setBounds(294, 153, 130, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblGen);
 		ESTUDIANTE estudiante = (ESTUDIANTE) usuario;
-		JSpinner tfSemestre = new JSpinner();
-		tfSemestre.setBounds(354, 177, 70, 20);
-		frmModificacionDeUsuario.getContentPane().add(tfSemestre);
-		JLabel lblSemestre = new JLabel("Semestre");
-		lblSemestre.setFont(new Font("SimSun", Font.PLAIN, 13));
-		lblSemestre.setBounds(356, 154, 68, 14);
-		frmModificacionDeUsuario.getContentPane().add(lblSemestre);
 		tfNombre.setText(estudiante.getNombre());
 		tfApellido.setText(estudiante.getApellido());
 		tfTelefono.setText(estudiante.getTelefono());
 		tfEmail.setText(estudiante.getMail());
-		tfGeneracion.setText(estudiante.getGeneracion());
 		tfDocumento.setText(Integer.toString(estudiante.getDocumento()));
 		comboBoxDep.setSelectedIndex(estudiante.getDepartamento().ordinal());
 
@@ -311,7 +296,7 @@ public class ModPropiaEstudiante {
 		frmModificacionDeUsuario.getContentPane().add(btnVerSolicitudes);
 		
 		tfContrasena = new JTextField();
-		tfContrasena.setText((String) null);
+		tfContrasena.setText(estudiante.getContrasena());
 		tfContrasena.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfContrasena.setColumns(10);
 		tfContrasena.setBounds(151, 232, 131, 20);
@@ -321,6 +306,14 @@ public class ModPropiaEstudiante {
 		lblContrasea.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblContrasea.setBounds(151, 208, 131, 14);
 		frmModificacionDeUsuario.getContentPane().add(lblContrasea);
+		
+		JComboBox comboBoxAnioIng = new JComboBox();
+		comboBoxAnioIng.setBounds(292, 176, 132, 22);
+		for (int i = 2012; i <= LocalDate.now().getYear(); i += 1) {
+			comboBoxAnioIng.addItem(i);
+		}
+		comboBoxAnioIng.setSelectedItem(estudiante.getGeneracion());
+		frmModificacionDeUsuario.getContentPane().add(comboBoxAnioIng);
 
 		// Logica
 
@@ -344,7 +337,7 @@ public class ModPropiaEstudiante {
 						estudiante.setApellido(tfApellido.getText());
 					if (v.nameAndLast(tfNombre.getText()))
 						estudiante.setNombre(tfNombre.getText());
-					if (v.documento(tfDocumento.getText()))
+					if (v.documentoMod(tfDocumento.getText()))
 						estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
 					if (v.email(tfEmail.getText()))
 						estudiante.setMail(tfEmail.getText());
@@ -355,14 +348,14 @@ public class ModPropiaEstudiante {
 					estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
 					estudiante.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
 					estudiante.setLocalidad(Localidad.valueOf(comboBoxLocal.getSelectedItem().toString()));
-					estudiante.setGeneracion(tfGeneracion.getText());
+					estudiante.setGeneracion(comboBoxAnioIng.getSelectedItem().toString());
 					estudiante.setFechaNac(
 							dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
 					estudianteBean.editEstudiante(estudiante);
 					JOptionPane.showMessageDialog(null, "Estudiante modificado con exito");
 
-				} catch (ServiciosException e1) {
+				} catch (ServiciosException | NumberFormatException | NamingException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 				
