@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -35,8 +36,13 @@ import com.services.ItrBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 import com.toedter.calendar.JDateChooser;
+
+import validations.Validate;
+
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Alta_Usuario_Tutor {
 
@@ -64,11 +70,11 @@ public class Alta_Usuario_Tutor {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize(USUARIO usuario) throws NamingException {
-		TutorBeanRemote tutorBean = (TutorBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
-		ItrBeanRemote itrBean = (ItrBeanRemote)
-				InitialContext.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
-		
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+		ItrBeanRemote itrBean = (ItrBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/ItrBean!com.services.ItrBeanRemote");
+
 		frmAltaDeUsuarioT = new JFrame();
 		frmAltaDeUsuarioT.setTitle("Alta de Usuario Tutor");
 		frmAltaDeUsuarioT.setResizable(false);
@@ -98,12 +104,12 @@ public class Alta_Usuario_Tutor {
 		lblNewLabel_1_2_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1.setBounds(151, 194, 91, 14);
 		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_1_2_1);
-		
+
 		JLabel lblUsuario = new JLabel("Mail Institucional");
 		lblUsuario.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblUsuario.setBounds(293, 138, 131, 14);
 		frmAltaDeUsuarioT.getContentPane().add(lblUsuario);
-		
+
 		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("ITR");
 		lblNewLabel_1_2_1_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1_1_1.setBounds(151, 252, 42, 14);
@@ -138,21 +144,21 @@ public class Alta_Usuario_Tutor {
 		lblFechaDeNacimiento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblFechaDeNacimiento.setBounds(293, 252, 141, 14);
 		frmAltaDeUsuarioT.getContentPane().add(lblFechaDeNacimiento);
-		
+
 		JLabel lblNewLabel_1_2_1_1 = new JLabel("Localidad");
 		lblNewLabel_1_2_1_1.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblNewLabel_1_2_1_1.setBounds(10, 194, 91, 14);
 		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_1_2_1_1);
-		
+
 		JLabel lblNewLabel = new JLabel("DE");
 		lblNewLabel.setBounds(127, 223, 22, 14);
 		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblTipo = new JLabel("Rol");
 		lblTipo.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblTipo.setBounds(10, 310, 64, 14);
 		frmAltaDeUsuarioT.getContentPane().add(lblTipo);
-		
+
 		JLabel lblArea = new JLabel("Area");
 		lblArea.setFont(new Font("SimSun", Font.PLAIN, 13));
 		lblArea.setBounds(151, 310, 119, 14);
@@ -160,10 +166,26 @@ public class Alta_Usuario_Tutor {
 		frmAltaDeUsuarioT.setBounds(100, 100, 452, 465);
 		frmAltaDeUsuarioT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		
-		//TextFields
-		
+		// TextFields
+
 		tfTelefono = new JTextField();
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfTelefono.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(10, 163, 131, 20);
@@ -174,7 +196,6 @@ public class Alta_Usuario_Tutor {
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(152, 163, 131, 20);
 		frmAltaDeUsuarioT.getContentPane().add(tfEmail);
-
 
 		tfMailInsti = new JTextField();
 		tfMailInsti.setFont(new Font("SimSun", Font.PLAIN, 13));
@@ -187,50 +208,94 @@ public class Alta_Usuario_Tutor {
 		tfContraseña.setBounds(293, 221, 132, 20);
 		frmAltaDeUsuarioT.getContentPane().add(tfContraseña);
 
-		
 		tfNombre = new JTextField();
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfNombre.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfNombre.setColumns(10);
 		tfNombre.setBounds(10, 107, 131, 20);
 		frmAltaDeUsuarioT.getContentPane().add(tfNombre);
 
 		tfApellido = new JTextField();
+		tfApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+				boolean borrar = key == 8;
+
+				if (!(minusculas || mayusculas || espacio || borrar)) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfApellido.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfApellido.setColumns(10);
 		tfApellido.setBounds(151, 107, 131, 20);
 		frmAltaDeUsuarioT.getContentPane().add(tfApellido);
 
 		tfDocumento = new JTextField();
+		tfDocumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros) {
+					evt.consume();
+				}
+
+				if (tfDocumento.getText().trim().length() == 9) {
+					evt.consume();
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 		tfDocumento.setText((String) null);
 		tfDocumento.setFont(new Font("SimSun", Font.PLAIN, 13));
 		tfDocumento.setColumns(10);
 		tfDocumento.setBounds(293, 107, 131, 20);
 		frmAltaDeUsuarioT.getContentPane().add(tfDocumento);
-		
-		
+
 		textFieldArea = new JTextField();
 		textFieldArea.setBounds(151, 336, 131, 20);
 		frmAltaDeUsuarioT.getContentPane().add(textFieldArea);
 		textFieldArea.setColumns(10);
 
-		
-		//Comboboxes Dates
-		
-		
-		
+		// Comboboxes Dates
+
 		JComboBox<Departamento> comboBoxDep = new javax.swing.JComboBox<>();
 		comboBoxDep.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxDep.setBounds(151, 219, 131, 22);
-     	comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
+		comboBoxDep.setModel(new DefaultComboBoxModel(Departamento.values()));
 		frmAltaDeUsuarioT.getContentPane().add(comboBoxDep);
-
-
 
 		JComboBox<ITR> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(151, 277, 131, 22);
 
-		//ITRS activos
+		// ITRS activos
 		List<ITR> itrs = itrBean.findAll(true);
 
 		// Declaring Array with Equal Size to the List
@@ -245,7 +310,6 @@ public class Alta_Usuario_Tutor {
 
 		frmAltaDeUsuarioT.getContentPane().add(comboBoxItr);
 
-	
 		JComboBox<EstadoUsuario> comboBoxEstado = new javax.swing.JComboBox<>();
 		comboBoxEstado.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxEstado.setBounds(10, 277, 131, 22);
@@ -275,46 +339,47 @@ public class Alta_Usuario_Tutor {
 		comboBoxRolT.setBounds(10, 335, 131, 22);
 		comboBoxRolT.setModel(new DefaultComboBoxModel(RolTutor.values()));
 		frmAltaDeUsuarioT.getContentPane().add(comboBoxRolT);
-		
-		
-		
-		
-		//Botones
-		
-		
-		
-		
+
+		// Botones
+
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-			
-				TUTOR tutor=new TUTOR();
-				tutor.setApellido(tfApellido.getText());
-				tutor.setNombre(tfNombre.getText());
-				tutor.setContrasena(tfContraseña.getText());
-				tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
-				tutor.setMail(tfEmail.getText());
-				tutor.setTelefono(tfTelefono.getText());
-				tutor.setMail_insti(tfMailInsti.getText());
-				tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-				tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-				tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
 				try {
+					Validate v = new Validate();
+					TUTOR tutor = new TUTOR();
+					if (v.nameAndLast(tfApellido.getText()))
+						tutor.setApellido(tfApellido.getText());
+					if (v.nameAndLast(tfNombre.getText()))
+						tutor.setNombre(tfNombre.getText());
+					if (v.pass(tfContraseña.getText()))
+						tutor.setContrasena(tfContraseña.getText());
+					if (v.documento(tfDocumento.getText()))
+						tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
+					if (v.email(tfEmail.getText()))
+						tutor.setMail(tfEmail.getText());
+					if (v.telefono(tfTelefono.getText()))
+						tutor.setTelefono(tfTelefono.getText());
+					if (v.mailInsti(tfMailInsti.getText()))
+						tutor.setMail_insti(tfMailInsti.getText());
+					tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+					tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+					tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+
 					tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-				} catch (ServiciosException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-				tutor.setArea(textFieldArea.getText());
-				tutor.setTipo(RolTutor.valueOf(comboBoxRolT.getSelectedItem().toString()));
-				try {
-					
+
+					tutor.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+					if (v.area(textFieldArea.getText()))
+						tutor.setArea(textFieldArea.getText());
+					tutor.setTipo(RolTutor.valueOf(comboBoxRolT.getSelectedItem().toString()));
+
 					tutorBean.addTutor(tutor);
-				} catch (ServiciosException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Alta exitosa!");
+				} catch (ServiciosException | NumberFormatException | NamingException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
+
 				
 			}
 		});
@@ -324,7 +389,7 @@ public class Alta_Usuario_Tutor {
 
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-		
+
 		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -347,29 +412,21 @@ public class Alta_Usuario_Tutor {
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		btnCancelar.setBounds(327, 392, 97, 23);
 		frmAltaDeUsuarioT.getContentPane().add(btnCancelar);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon(Alta_Usuario_Tutor.class.getResource("/PNG/logoUtec.png")));
 		lblNewLabel_3.setBounds(354, 11, 70, 65);
 		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_3);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(Alta_Usuario_Tutor.class.getResource("/PNG/NC 100.jpg")));
 		lblNewLabel_4.setBounds(0, 404, 107, 22);
 		frmAltaDeUsuarioT.getContentPane().add(lblNewLabel_4);
-		
-	
-		
-		
-		
 
-	
-		
 	}
 
 	public Window getFrame() {
 		// TODO Auto-generated method stub
 		return this.frmAltaDeUsuarioT;
 	}
-	}
-
+}

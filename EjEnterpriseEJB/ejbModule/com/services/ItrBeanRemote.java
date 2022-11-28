@@ -19,12 +19,14 @@ public interface ItrBeanRemote {
 
 	List<ITR> findItr(int id) throws ServiciosException;
 
-	void editItr(ITR itr) throws ServiciosException;
+	public void editItr(ITR itr, String nombre) throws ServiciosException;
 
 	List<ITR> findAll(boolean estado);
 
 	void logicDelete(String nombre) throws ServiciosException;
 
 	void logicDelete(int id) throws ServiciosException;
+
+	void activeItr(ITR itr, boolean estado) throws ServiciosException;
 
 }

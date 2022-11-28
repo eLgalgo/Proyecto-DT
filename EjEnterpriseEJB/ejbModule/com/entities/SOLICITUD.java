@@ -1,8 +1,10 @@
 package com.entities;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 import com.enums.EstadoSolicitud;
 
@@ -31,24 +34,31 @@ public class SOLICITUD implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_SOLICITUD")
 	private int id_solicitud;
 	
+	@Column(nullable = false)
 	private Date fecha;
 	
 	@ManyToOne
+	@NotNull
 	private TIPOCONSTANCIA tipo;
 	
 	@OneToOne
+	@NotNull
 	private EVENTO eventoAsis;
 	
+
 	private String infoAdj;
 	
 	@Enumerated(value = EnumType.STRING)
+	@NotNull
 	private EstadoSolicitud estado;
 	
 	@OneToOne
+	@NotNull
 	private ESTUDIANTE estSol;
 	
 	@OneToOne
 	private ANALISTA analist;
+
 	
 	public SOLICITUD() {
 		super();
@@ -117,8 +127,5 @@ public class SOLICITUD implements Serializable {
 	public void setAnalist(ANALISTA analist) {
 		this.analist = analist;
 	}
-	
-	
-	
    
 }

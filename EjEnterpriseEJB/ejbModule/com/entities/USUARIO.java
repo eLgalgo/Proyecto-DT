@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 import com.enums.Departamento;
 
@@ -41,34 +42,45 @@ public abstract class USUARIO implements Serializable {
 	@SequenceGenerator(name = "SEQ_ID_USUARIO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_USUARIO")
 	private int id_usuario;
-	@Column(unique = true)
+	
+	@Column(unique = true, nullable = false)
 	private int documento;
-
+	
+	@Column (nullable = false)
 	private String nombre;
-
+	
+	@Column (nullable = false)
 	private String apellido;
-
+	
+	@Column (nullable = false)
 	private String telefono;
-	@Column(unique = true)
+	
+	@Column(unique = true, nullable = false)
 	private String mail;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String mail_insti;
-
+	
+	@Column (nullable = false)
 	private String contrasena;
-
+	
+	@Column (nullable = false)
 	private LocalDate fecha_nac;
 
 	@Enumerated(value = EnumType.STRING)
+	@NotNull
 	private Departamento departamento;
 
 	@Enumerated(value = EnumType.STRING)
+	@NotNull
 	private EstadoUsuario estado;
 	
 	@ManyToOne
+	@NotNull
 	private ITR itr;
 
 	@Enumerated(value = EnumType.STRING)
+	@NotNull
 	private Localidad localidad;
 
 	public EstadoUsuario getEstado() {

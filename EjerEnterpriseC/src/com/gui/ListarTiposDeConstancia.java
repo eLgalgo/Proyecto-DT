@@ -101,18 +101,21 @@ public class ListarTiposDeConstancia extends JFrame implements ActionListener {
 		JButton btnAgregar = new JButton("Agregar / Modificar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					CrearModelosConstancia mW = new CrearModelosConstancia((ANALISTA) userEntrar);
-					mW.setVisible(true);
-					dispose();
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(tabla.getSelectedRow() != -1) {
+					try {
+						CrearModelosConstancia mW = new CrearModelosConstancia((ANALISTA) userEntrar);
+						mW.setVisible(true);
+						dispose();
+					} catch (NamingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ServiciosException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Seleccione un tipo de constancia");
 				}
-
 			}
 		});
 		btnAgregar.setFont(new Font("SimSun", Font.BOLD, 14));
@@ -173,40 +176,49 @@ public class ListarTiposDeConstancia extends JFrame implements ActionListener {
 		});
 		btnActivar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					TIPOCONSTANCIA modelo = modeloBean.findTipo(tabla.getValueAt(tabla.getSelectedRow(), 1).toString())
-							.get(0);
-					modeloBean.activarTipo(modelo.getTipo());
-					JOptionPane.showMessageDialog(null, "Activado con exito");
+				if(tabla.getSelectedRow() != -1) {
 					try {
-						agregarDatosLista();
-					} catch (NamingException e1) {
+						TIPOCONSTANCIA modelo = modeloBean.findTipo(tabla.getValueAt(tabla.getSelectedRow(), 1).toString())
+								.get(0);
+						modeloBean.activarTipo(modelo.getTipo());
+						JOptionPane.showMessageDialog(null, "Activado con exito");
+						try {
+							agregarDatosLista();
+						} catch (NamingException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (ServiciosException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					}	
+				}else {
+					JOptionPane.showMessageDialog(null, "Seleccione un elemento en la tabla");
 				}
 			}
 		});
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					TIPOCONSTANCIA modelo = modeloBean.findTipo(tabla.getValueAt(tabla.getSelectedRow(), 1).toString())
-							.get(0);
-					modeloBean.logicDelete(modelo.getTipo());
-					JOptionPane.showMessageDialog(null, "Eliminado con exito");
+				if(tabla.getSelectedRow() != -1) {
 					try {
-						agregarDatosLista();
-					} catch (NamingException e1) {
+						TIPOCONSTANCIA modelo = modeloBean.findTipo(tabla.getValueAt(tabla.getSelectedRow(), 1).toString())
+								.get(0);
+						modeloBean.logicDelete(modelo.getTipo());
+						JOptionPane.showMessageDialog(null, "Eliminado con exito");
+						try {
+							agregarDatosLista();
+						} catch (NamingException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (ServiciosException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				}else {
+					JOptionPane.showMessageDialog(null, "Seleccione un elemento en la tabla");
 				}
+				
 			}
 		});
 	}

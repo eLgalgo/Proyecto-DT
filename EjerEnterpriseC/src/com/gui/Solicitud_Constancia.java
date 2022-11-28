@@ -55,18 +55,18 @@ public class Solicitud_Constancia extends JFrame
         setBackground(Color.WHITE);
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(550,362);
+        setSize(649,441);
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setLayout(null);
         
         JButton btnCancelar = new JButton("Volver");
-        btnCancelar.setBounds(10, 293, 97, 23);
+        btnCancelar.setBounds(0, 368, 97, 23);
         btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
         getContentPane().add(btnCancelar);
         
         JButton btnSolicitar = new JButton("Solicitar");
-        btnSolicitar.setBounds(406, 293, 113, 23);
+        btnSolicitar.setBounds(510, 368, 113, 23);
         btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
         getContentPane().add(btnSolicitar);
         
@@ -80,12 +80,12 @@ public class Solicitud_Constancia extends JFrame
 
         List<TIPOCONSTANCIA> listaTipos = modeloBean.listAllModelo();
         
-        String[] itrNombres = new String[listaTipos.size()];
 		// Converting List to Array
 		for (int i = 0; i < listaTipos.size(); i++) {
-			itrNombres[i] = listaTipos.get(i).getTipo();
+			if(listaTipos.get(i).isEstado()) {
+				comboBoxTipo.addItem(listaTipos.get(i).getTipo());
+			}
 		}
-		comboBoxTipo.setModel(new DefaultComboBoxModel(itrNombres));
         
         getContentPane().add(comboBoxTipo);
         
@@ -101,13 +101,13 @@ public class Solicitud_Constancia extends JFrame
         getContentPane().add(lblSeleccioneEvento);
         
         textField = new JTextField();
-        textField.setBounds(194, 79, 325, 28);
+        textField.setBounds(298, 79, 325, 28);
         getContentPane().add(textField);
         textField.setColumns(10);
         
-        JLabel lblMasInfo = new JLabel("Mas info");
+        JLabel lblMasInfo = new JLabel("Informacion Adicional");
         lblMasInfo.setFont(new Font("SimSun", Font.PLAIN, 17));
-        lblMasInfo.setBounds(194, 60, 161, 14);
+        lblMasInfo.setBounds(298, 60, 325, 14);
         getContentPane().add(lblMasInfo);
         setTitle("Solicitar Constancia");
         
@@ -190,7 +190,7 @@ public class Solicitud_Constancia extends JFrame
 		btnNewButton_2.setBounds(411, 300, 110, 25);
 		btnNewButton_2.setFont(new Font("SimSun", Font.BOLD, 13));
 		JScrollPane desplazamiento = new JScrollPane(tabla);
-		desplazamiento.setBounds(10, 143, 509, 139);
+		desplazamiento.setBounds(10, 143, 613, 214);
 		desplazamiento.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		desplazamiento.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 

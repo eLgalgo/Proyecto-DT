@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity implementation class for Entity: ACCION
  *
  */
 @Entity
-public class ACCION implements Serializable {
+@Table(name="ACCION_ANALISTA_CONSTANCIA")
+public class ACCIONANALISTACONSTANCIA implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -20,16 +22,21 @@ public class ACCION implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_ACCION")
 	private int id_accion;
 	
+	@Column(nullable = false)
 	private LocalDate fecha;
+
+	@Column(nullable = false)
 	private String detalle;
 	
 	@ManyToOne
+	@NotNull
 	private ANALISTA analista;
 	
 	@OneToOne
+	@NotNull
 	private SOLICITUD solicitud;
 	
-	public ACCION() {
+	public ACCIONANALISTACONSTANCIA() {
 		super();
 	}
 

@@ -12,8 +12,6 @@ import com.entities.USUARIO;
 import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 
-import org.hibernate.validator.internal.constraintvalidators.hv.ISBNValidator;
-
 /**
  * Session Bean implementation class AreaBean
  */
@@ -42,6 +40,21 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		TypedQuery<USUARIO> query = em.createQuery(
 				"SELECT u FROM USUARIO u WHERE u.mail_insti = :mail_insti and u.contrasena= '" + clave + "'",
 				USUARIO.class).setParameter("mail_insti", mail_insti);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<USUARIO> findUserByNom(String nombre, String apellido) throws ServiciosException {
+		TypedQuery<USUARIO> query = em.createQuery(
+				"SELECT u FROM USUARIO u WHERE u.nombre = :nombre and u.apellido= :apellido",
+				USUARIO.class).setParameter("nombre", nombre).setParameter("apellido", apellido);
+		return query.getResultList();
+	}
+	@Override
+	public List<USUARIO> findUserByEmail(String mail) throws ServiciosException {
+		TypedQuery<USUARIO> query = em.createQuery(
+				"SELECT u FROM USUARIO u WHERE u.mail_insti = :mail",
+				USUARIO.class).setParameter("mail", mail);
 		return query.getResultList();
 	}
 	

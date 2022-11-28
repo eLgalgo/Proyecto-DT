@@ -2,6 +2,7 @@ package com.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.enums.RolTutor;
 
@@ -13,8 +14,11 @@ import com.enums.RolTutor;
 public class TUTOR extends USUARIO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Column (nullable = false)
 	private String area;
 	
+	@Enumerated(value = EnumType.STRING)
+	@NotNull
 	private RolTutor tipo;
 	
 	public TUTOR() {
