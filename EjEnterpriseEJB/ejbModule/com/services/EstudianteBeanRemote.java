@@ -21,7 +21,7 @@ public interface EstudianteBeanRemote {
 	
 	public List<String> listAllGen() throws ServiciosException;
 		
-	public List<USUARIO> findUser(String email, String clave) throws ServiciosException;
+	public List<ESTUDIANTE> findUser(String email, String clave) throws ServiciosException;
 	
 	public List<ESTUDIANTE> findUser(int doc) throws ServiciosException;
 	
@@ -31,5 +31,5 @@ public interface EstudianteBeanRemote {
 	
 	public void editEstudiante(ESTUDIANTE user) throws ServiciosException;
 	
-	public void asignRoltoUser(int idRol, int idUser)throws ServiciosException;
+	void logicDelete(int doc) throws ServiciosException;
 }

@@ -1,11 +1,17 @@
 package com.services;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 
 import com.entities.ANALISTA;
+import com.entities.ESTUDIANTE;
+import com.entities.USUARIO;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 
 /**
@@ -61,9 +67,23 @@ public class AnalistaBean implements AnalistaBeanRemote {
     }
 
 	@Override
-	public void deleteUsuario(int documento) throws ServiciosException {
-		// TODO Auto-generated method stub
-		
+	public List<ANALISTA> findUser(int doc) throws ServiciosException{
+		TypedQuery<ANALISTA> query = em.createQuery("SELECT u FROM ANALISTA u WHERE u.documento = :doc",ANALISTA.class).setParameter("doc", doc); 
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<ANALISTA> findUser(String email, String clave) throws ServiciosException{
+		TypedQuery<ANALISTA> query = em.createQuery("SELECT u FROM ANALISTA u WHERE u.mail_insti = :email and u.contrasena= '" +clave+"'",ANALISTA.class).setParameter("email", email); 
+		return query.getResultList();
+	}
+	
+	@Override
+	public void logicDelete(int doc) throws ServiciosException {
+		List<ANALISTA> usuarios = this.findUser(doc);
+		usuarios.get(0).setEstado(EstadoUsuario.ELIMINADO);
+		em.merge(usuarios.get(0));
+		em.flush();
 	}
 
 }

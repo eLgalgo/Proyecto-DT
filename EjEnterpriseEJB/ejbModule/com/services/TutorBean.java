@@ -8,9 +8,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 
 /**
@@ -68,6 +70,20 @@ public class TutorBean implements TutorBeanRemote {
 	public List<TUTOR> findUser(int doc) throws ServiciosException{
 		TypedQuery<TUTOR> query = em.createQuery("SELECT u FROM TUTOR u WHERE u.documento = :doc",TUTOR.class).setParameter("doc", doc); 
 		return query.getResultList();
+	}
+	
+	@Override
+	public List<TUTOR> findUser(String email, String clave) throws ServiciosException{
+		TypedQuery<TUTOR> query = em.createQuery("SELECT u FROM TUTOR u WHERE u.mail_insti = :email and u.contrasena= '" +clave+"'",TUTOR.class).setParameter("email", email); 
+		return query.getResultList();
+	}
+	
+	@Override
+	public void logicDelete(int doc) throws ServiciosException {
+		List<TUTOR> usuarios = this.findUser(doc);
+		usuarios.get(0).setEstado(EstadoUsuario.ELIMINADO);
+		em.merge(usuarios.get(0));
+		em.flush();
 	}
 
 }

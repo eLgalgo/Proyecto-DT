@@ -1,5 +1,7 @@
 package com.services;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 import com.entities.ANALISTA;
@@ -12,6 +14,10 @@ public interface AnalistaBeanRemote {
 
 	public void editAnalista(ANALISTA user) throws ServiciosException;
 
-	public void deleteUsuario(int documento) throws ServiciosException;
+	List<ANALISTA> findUser(int doc) throws ServiciosException;
+
+	List<ANALISTA> findUser(String email, String clave) throws ServiciosException;
+
+	void logicDelete(int doc) throws ServiciosException;
 	
 }
