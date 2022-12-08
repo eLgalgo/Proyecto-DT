@@ -391,31 +391,35 @@ public class Registro_Usuario_Nuevo {
 					try {
 						Validate v = new Validate();
 						ANALISTA Analista = new ANALISTA();
-						if (v.nameAndLast(tfApellido.getText()))
-							Analista.setApellido(tfApellido.getText());
-						if (v.nameAndLast(tfNombre.getText()))
-							Analista.setNombre(tfNombre.getText());
-						if (v.pass(tfContraseña.getText()))
-							Analista.setContrasena(tfContraseña.getText());
 						if (v.documento(tfDocumento.getText()))
 							Analista.setDocumento(Integer.parseInt(tfDocumento.getText()));
-						if (v.email(tfEmail.getText()))
-							Analista.setMail(tfEmail.getText());
-						if (v.telefono(tfTelefono.getText()))
-							Analista.setTelefono(tfTelefono.getText());
-						if (v.mailInsti(tfMailInsti.getText()))
-							Analista.setMail_insti(tfMailInsti.getText());
-						Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-						Analista.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-						Analista.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-
-						Analista.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-
-						Analista.setFechaNac(
-								dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-						analistaBean.addAnalista(Analista);
-						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
+						if(!analistaBean.findUser(Integer.parseInt(tfDocumento.getText())).isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Ya existe un analista con ese documento");
+						}else {
+							if (v.nameAndLast(tfApellido.getText()))
+								Analista.setApellido(tfApellido.getText());
+							if (v.nameAndLast(tfNombre.getText()))
+								Analista.setNombre(tfNombre.getText());
+							if (v.pass(tfContraseña.getText()))
+								Analista.setContrasena(tfContraseña.getText());
+							if (v.email(tfEmail.getText()))
+								Analista.setMail(tfEmail.getText());
+							if (v.telefono(tfTelefono.getText()))
+								Analista.setTelefono(tfTelefono.getText());
+							if (v.mailInsti(tfMailInsti.getText()))
+								Analista.setMail_insti(tfMailInsti.getText());
+							Analista.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+							Analista.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+							Analista.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+	
+							Analista.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+	
+							Analista.setFechaNac(
+									dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+	
+							analistaBean.addAnalista(Analista);
+							JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
+						}
 					} catch (ServiciosException | NumberFormatException | NamingException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
@@ -423,32 +427,36 @@ public class Registro_Usuario_Nuevo {
 					try {
 						Validate v = new Validate();
 						TUTOR tutor = new TUTOR();
-						if (v.nameAndLast(tfApellido.getText()))
-							tutor.setApellido(tfApellido.getText());
-						if (v.nameAndLast(tfNombre.getText()))
-							tutor.setNombre(tfNombre.getText());
-						if (v.pass(tfContraseña.getText()))
-							tutor.setContrasena(tfContraseña.getText());
 						if (v.documento(tfDocumento.getText()))
 							tutor.setDocumento(Integer.parseInt(tfDocumento.getText()));
-						if (v.email(tfEmail.getText()))
-							tutor.setMail(tfEmail.getText());
-						if (v.telefono(tfTelefono.getText()))
-							tutor.setTelefono(tfTelefono.getText());
-						if (v.mailInsti(tfMailInsti.getText()))
-							tutor.setMail_insti(tfMailInsti.getText());
-						tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-						tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-						tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-						tutor.setTipo(RolTutor.valueOf(comboBoxRol.getSelectedItem().toString()));
-						tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-
-						tutor.setFechaNac(
-								dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-						tutor.setArea(tfArea.getText());
-
-						tutorBean.addTutor(tutor);
-						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
+						if(!tutorBean.findUser(Integer.parseInt(tfDocumento.getText())).isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Ya existe un tutor con ese documento");
+						}else {
+							if (v.nameAndLast(tfApellido.getText()))
+								tutor.setApellido(tfApellido.getText());
+							if (v.nameAndLast(tfNombre.getText()))
+								tutor.setNombre(tfNombre.getText());
+							if (v.pass(tfContraseña.getText()))
+								tutor.setContrasena(tfContraseña.getText());
+							if (v.email(tfEmail.getText()))
+								tutor.setMail(tfEmail.getText());
+							if (v.telefono(tfTelefono.getText()))
+								tutor.setTelefono(tfTelefono.getText());
+							if (v.mailInsti(tfMailInsti.getText()))
+								tutor.setMail_insti(tfMailInsti.getText());
+							tutor.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+							tutor.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+							tutor.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+							tutor.setTipo(RolTutor.valueOf(comboBoxRol.getSelectedItem().toString()));
+							tutor.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+	
+							tutor.setFechaNac(
+									dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+							tutor.setArea(tfArea.getText());
+	
+							tutorBean.addTutor(tutor);
+							JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
+						}	
 					} catch (ServiciosException | NumberFormatException | NamingException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
@@ -457,32 +465,36 @@ public class Registro_Usuario_Nuevo {
 					try {
 						Validate v = new Validate();
 						ESTUDIANTE estudiante = new ESTUDIANTE();
-						if (v.nameAndLast(tfApellido.getText()))
-							estudiante.setApellido(tfApellido.getText());
-						if (v.nameAndLast(tfNombre.getText()))
-							estudiante.setNombre(tfNombre.getText());
-						if (v.pass(tfContraseña.getText()))
-							estudiante.setContrasena(tfContraseña.getText());
 						if (v.documento(tfDocumento.getText()))
 							estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
-						if (v.email(tfEmail.getText()))
-							estudiante.setMail(tfEmail.getText());
-						if (v.telefono(tfTelefono.getText()))
-							estudiante.setTelefono(tfTelefono.getText());
-						if (v.mailInsti(tfMailInsti.getText()))
-							estudiante.setMail_insti(tfMailInsti.getText());
-						estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
-						estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
-						estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
-
-						estudiante.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
-
-						estudiante.setFechaNac(
-								dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-						estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
-
-						estudianteBean.addStudent(estudiante);
-						JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
+						if(!estudianteBean.findUser(Integer.parseInt(tfDocumento.getText())).isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Ya existe un tutor con ese documento");
+						}else {
+							if (v.nameAndLast(tfApellido.getText()))
+								estudiante.setApellido(tfApellido.getText());
+							if (v.nameAndLast(tfNombre.getText()))
+								estudiante.setNombre(tfNombre.getText());
+							if (v.pass(tfContraseña.getText()))
+								estudiante.setContrasena(tfContraseña.getText());
+							if (v.email(tfEmail.getText()))
+								estudiante.setMail(tfEmail.getText());
+							if (v.telefono(tfTelefono.getText()))
+								estudiante.setTelefono(tfTelefono.getText());
+							if (v.mailInsti(tfMailInsti.getText()))
+								estudiante.setMail_insti(tfMailInsti.getText());
+							estudiante.setDepartamento(Departamento.valueOf(comboBoxDep.getSelectedItem().toString()));
+							estudiante.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
+							estudiante.setLocalidad(Localidad.valueOf(comboBoxLoc.getSelectedItem().toString()));
+	
+							estudiante.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+	
+							estudiante.setFechaNac(
+									dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+							estudiante.setGeneracion(comboBoxFecIng.getSelectedItem().toString());
+	
+							estudianteBean.addStudent(estudiante);
+							JOptionPane.showMessageDialog(null, "Registrado exitosamente, espere a ser habilitado.");
+						}
 					} catch (ServiciosException | NumberFormatException | NamingException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, e1.getMessage());

@@ -8,8 +8,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.USUARIO;
+import com.enums.EstadoUsuario;
 import com.exception.ServiciosException;
 
 /**
@@ -45,8 +47,8 @@ public class EstudianteBean implements EstudianteBeanRemote {
 	}
 
 	@Override
-	public List<USUARIO> findUser(String email, String clave) throws ServiciosException{
-		TypedQuery<USUARIO> query = em.createQuery("SELECT u FROM USUARIOS u WHERE u.email = :email and u.clave= '" +clave+"'",USUARIO.class).setParameter("email", email); 
+	public List<ESTUDIANTE> findUser(String email, String clave) throws ServiciosException{
+		TypedQuery<ESTUDIANTE> query = em.createQuery("SELECT u FROM ESTUDIANTE u WHERE u.mail_insti = :email and u.contrasena= '" +clave+"'",ESTUDIANTE.class).setParameter("email", email); 
 		return query.getResultList();
 	}
 	
@@ -111,19 +113,12 @@ public class EstudianteBean implements EstudianteBeanRemote {
 		return query.getResultList();
 	}
 	
-	public void asignRoltoUser(int idRol, int idUser) throws ServiciosException{
-		try{
-//			ROLES r = em.find(ROLES.class, idRol);
-//			USUARIO user = em.find(USUARIO.class, idUser);
-//			
-//			user.setRol(r);
-//
-//			em.merge(user);
-//			em.flush();
-//			System.out.println("Se actualizo el rol del usuario");
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo actualizar el usuario");
-		}
+	@Override
+	public void logicDelete(int doc) throws ServiciosException {
+		List<ESTUDIANTE> usuarios = this.findUser(doc);
+		usuarios.get(0).setEstado(EstadoUsuario.ELIMINADO);
+		em.merge(usuarios.get(0));
+		em.flush();
 	}
 
 }

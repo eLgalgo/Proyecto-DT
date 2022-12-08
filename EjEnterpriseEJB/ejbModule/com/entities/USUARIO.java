@@ -43,7 +43,7 @@ public abstract class USUARIO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_USUARIO")
 	private int id_usuario;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private int documento;
 	
 	@Column (nullable = false)
@@ -55,10 +55,10 @@ public abstract class USUARIO implements Serializable {
 	@Column (nullable = false)
 	private String telefono;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String mail;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String mail_insti;
 	
 	@Column (nullable = false)
