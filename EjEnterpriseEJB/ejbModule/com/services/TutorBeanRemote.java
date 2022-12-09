@@ -18,4 +18,8 @@ public interface TutorBeanRemote {
 	void editTutor(TUTOR user) throws ServiciosException;
 	
 	public List<TUTOR> findUser(int doc) throws ServiciosException;
+
+	List<TUTOR> findUser(String email, String clave) throws ServiciosException;
+
+	void logicDelete(int doc) throws ServiciosException;
 }

@@ -21,6 +21,7 @@ import com.entities.ANALISTA;
 import com.entities.ESTUDIANTE;
 import com.entities.TUTOR;
 import com.entities.USUARIO;
+import com.enums.TipoUser;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
@@ -37,11 +38,14 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import java.awt.FlowLayout;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import javax.swing.JComboBox;
 
 public class Login {
 
@@ -51,6 +55,7 @@ public class Login {
 	public JButton btnIngresar;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_1;
+	private JComboBox comboBoxTipo;
 
 	/**
 	 * Launch the application.
@@ -87,22 +92,22 @@ public class Login {
 				lblInicioDeSesion.setFont(new Font("SimSun", Font.BOLD, 24));
 		
 				JLabel lblNewLabel = new JLabel("USUARIO");
-				lblNewLabel.setBounds(53, 100, 60, 19);
+				lblNewLabel.setBounds(51, 82, 60, 19);
 				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel.setFont(new Font("SimSun", Font.BOLD, 16));
 		
 				tfUser = new JTextField();
 				tfUser.setToolTipText("Ej: nombre.apellido");
-				tfUser.setBounds(168, 100, 136, 20);
+				tfUser.setBounds(166, 82, 136, 20);
 				tfUser.setColumns(10);
 		
 				JLabel lblContrasea = new JLabel("CONTRASE\u00D1A");
-				lblContrasea.setBounds(53, 141, 85, 19);
+				lblContrasea.setBounds(51, 123, 85, 19);
 				lblContrasea.setHorizontalAlignment(SwingConstants.CENTER);
 				lblContrasea.setFont(new Font("SimSun", Font.BOLD, 16));
 				
 						tfContra = new JPasswordField();
-						tfContra.setBounds(168, 141, 136, 20);
+						tfContra.setBounds(166, 123, 136, 20);
 		
 				btnIngresar = new JButton("Ingresar");
 				btnIngresar.setBounds(336, 293, 114, 25);
@@ -140,11 +145,18 @@ public class Login {
 		lblNewLabel_2.setBounds(390, 11, 60, 65);
 		frmProgramaIncreible.getContentPane().add(lblNewLabel_2);
 		
+		comboBoxTipo = new JComboBox();
+		comboBoxTipo.setFont(new Font("SimSun", Font.PLAIN, 13));
+		comboBoxTipo.setBounds(166, 152, 136, 22);
+		comboBoxTipo.setModel(new DefaultComboBoxModel(TipoUser.values()));
+		comboBoxTipo.setSelectedIndex(2);
+		frmProgramaIncreible.getContentPane().add(comboBoxTipo);
+		frmProgramaIncreible.setLocationRelativeTo(null);
+		
 		lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/PNG/UtecF.png")));
 		lblNewLabel_1.setBounds(-13, 11, 483, 366);
 		frmProgramaIncreible.getContentPane().add(lblNewLabel_1);
-		frmProgramaIncreible.setLocationRelativeTo(null);
 
 		// Logica botones
 		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
@@ -167,33 +179,57 @@ public class Login {
 					String nom_usuario = (nom_usuario1 + "@utec.edu.uy").toUpperCase();
 
 					try {
-						List<USUARIO> usuario = usuarioBean.findUser(nom_usuario, clave);
-						if (usuario.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
-						} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
-							if (usuario.get(0) instanceof ESTUDIANTE) {
-								ESTUDIANTE usuario2 = (ESTUDIANTE) usuarioBean.findUser(nom_usuario, clave).get(0);
-								Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
-								principalStudentW.setVisible(true);
-								principalStudentW.setLocationRelativeTo(null);
-								getFrame().dispose();
-							} else if (usuario.get(0) instanceof TUTOR) {
-								TUTOR usuario2 = (TUTOR) usuarioBean.findUser(nom_usuario, clave).get(0);
-								Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
-								principalTutorW.setVisible(true);
-								principalTutorW.setLocationRelativeTo(null);
-								getFrame().dispose();
-							} else if (usuario.get(0) instanceof ANALISTA) {
-								ANALISTA usuario2 = (ANALISTA) usuarioBean.findUser(nom_usuario, clave).get(0);
-								Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
-								principalanalistaW.setVisible(true);
-								principalanalistaW.setLocationRelativeTo(null);
-								getFrame().dispose();
+						if(comboBoxTipo.getSelectedItem().toString().equals("ANALISTA")) {
+							List<ANALISTA> usuario = analistaBean.findUser(nom_usuario, clave);
+							if (usuario.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
+							} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
+								if (usuario.get(0) instanceof ANALISTA) {
+									ANALISTA usuario2 = analistaBean.findUser(nom_usuario, clave).get(0);
+									Ppal_Analista principalanalistaW = new Ppal_Analista(usuario2);
+									principalanalistaW.setVisible(true);
+									principalanalistaW.setLocationRelativeTo(null);
+									getFrame().dispose();
+								}
+							} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
+								JOptionPane.showMessageDialog(null, "Usuario inactivo");
+							} else {
+								JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
 							}
-						} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
-							JOptionPane.showMessageDialog(null, "Usuario inactivo");
-						} else {
-							JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
+						}else if(comboBoxTipo.getSelectedItem().toString().equals("ESTUDIANTE")) {
+							List<ESTUDIANTE> usuario = estudianteBean.findUser(nom_usuario, clave);
+							if (usuario.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
+							} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
+								if (usuario.get(0) instanceof ESTUDIANTE) {
+									ESTUDIANTE usuario2 = estudianteBean.findUser(nom_usuario, clave).get(0);
+									Ppal_Estudiante principalStudentW = new Ppal_Estudiante(usuario2);
+									principalStudentW.setVisible(true);
+									principalStudentW.setLocationRelativeTo(null);
+									getFrame().dispose();
+								}
+							} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
+								JOptionPane.showMessageDialog(null, "Usuario inactivo");
+							} else {
+								JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
+							}
+						}else if(comboBoxTipo.getSelectedItem().toString().equals("TUTOR")) {
+							List<TUTOR> usuario = tutorBean.findUser(nom_usuario, clave);
+							if (usuario.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
+							} else if (usuario.get(0).getEstado().name() == "ACTIVO") {
+								if (usuario.get(0) instanceof TUTOR) {
+									TUTOR usuario2 = tutorBean.findUser(nom_usuario, clave).get(0);
+									Ppal_Tutor principalTutorW = new Ppal_Tutor(usuario2);
+									principalTutorW.setVisible(true);
+									principalTutorW.setLocationRelativeTo(null);
+									getFrame().dispose();
+								}
+							} else if (usuario.get(0).getEstado().name() == "SIN_CHEQUEAR") {
+								JOptionPane.showMessageDialog(null, "Usuario inactivo");
+							} else {
+								JOptionPane.showMessageDialog(null, "¡Error! Usuario eliminado");
+							}
 						}
 					} catch (ServiciosException | NamingException e1) {
 						e1.printStackTrace();

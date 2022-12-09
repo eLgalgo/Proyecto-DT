@@ -42,6 +42,7 @@ import com.enums.TipoUser;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.EventoBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
@@ -120,8 +121,21 @@ public class EliminarUsuarios {
 		modelo.setColumnIdentifiers(columnas);
 		// Agregamos datos
 		agregarDatosLista(usuario);
+		
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+
+		EventoBeanRemote eventoBean = (EventoBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
 
 		comboBoxEstado = new JComboBox();
 
@@ -169,23 +183,60 @@ public class EliminarUsuarios {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(tabla.getSelectedRow() != -1) {
-						USUARIO user = usuarioBean
-								.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
-								.get(0);
-						if(user.getEstado()!= EstadoUsuario.ELIMINADO) {
-							int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea borrar el Usuario?");
-							if (res == JOptionPane.YES_OPTION) {
-								usuarioBean.logicDelete(user.getDocumento());
-								try {
-									agregarDatosLista(usuario);
-								} catch (NamingException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
+						if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("ANALISTA")) {
+							ANALISTA user = analistaBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							if(user.getEstado()!= EstadoUsuario.ELIMINADO) {
+								int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea borrar el Usuario?");
+								if (res == JOptionPane.YES_OPTION) {
+									analistaBean.logicDelete(user.getDocumento());
+									try {
+										agregarDatosLista(usuario);
+									} catch (NamingException e1) {
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null, "Usuario dado de baja lógica.");
 								}
-								JOptionPane.showMessageDialog(null, "Usuario dado de baja lógica.");
+							}else {
+								JOptionPane.showMessageDialog(null, "Usuario ya eliminado");
 							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Usuario ya eliminado");
+						}else if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("ESTUDIANTE")) {
+							ESTUDIANTE user = estudianteBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							if(user.getEstado()!= EstadoUsuario.ELIMINADO) {
+								int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea borrar el Usuario?");
+								if (res == JOptionPane.YES_OPTION) {
+									estudianteBean.logicDelete(user.getDocumento());
+									try {
+										agregarDatosLista(usuario);
+									} catch (NamingException e1) {
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null, "Usuario dado de baja lógica.");
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Usuario ya eliminado");
+							}
+						}else if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("TUTOR")) {
+							TUTOR user = tutorBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							if(user.getEstado()!= EstadoUsuario.ELIMINADO) {
+								int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea borrar el Usuario?");
+								if (res == JOptionPane.YES_OPTION) {
+									tutorBean.logicDelete(user.getDocumento());
+									try {
+										agregarDatosLista(usuario);
+									} catch (NamingException e1) {
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null, "Usuario dado de baja lógica.");
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Usuario ya eliminado");
+							}
 						}
 					}else {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario en la tabla");
@@ -201,24 +252,66 @@ public class EliminarUsuarios {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(tabla.getSelectedRow() != -1) {
-						USUARIO user = usuarioBean
-								.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
-								.get(0);
-						if(user.getEstado()!= EstadoUsuario.ACTIVO) {
-							int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea activar el Usuario?");
-							if (res == JOptionPane.YES_OPTION) {
-								user.setEstado(EstadoUsuario.ACTIVO);
-								usuarioBean.editUser(user);
-								try {
-									agregarDatosLista(usuario);
-								} catch (NamingException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
+						if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("ANALISTA")){
+							ANALISTA user = analistaBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							if(user.getEstado()!= EstadoUsuario.ACTIVO) {
+								int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea activar el Usuario?");
+								if (res == JOptionPane.YES_OPTION) {
+									user.setEstado(EstadoUsuario.ACTIVO);
+									usuarioBean.editUser(user);
+									try {
+										agregarDatosLista(usuario);
+									} catch (NamingException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null, "Usuario activado con exito.");
 								}
-								JOptionPane.showMessageDialog(null, "Usuario activado con exito.");
+							}else {
+								JOptionPane.showMessageDialog(null, "Usuario ya activado");
 							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Usuario ya activado");
+						}else if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("ESTUDIANTE")) {
+							ESTUDIANTE user = estudianteBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							if(user.getEstado()!= EstadoUsuario.ACTIVO) {
+								int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea activar el Usuario?");
+								if (res == JOptionPane.YES_OPTION) {
+									user.setEstado(EstadoUsuario.ACTIVO);
+									usuarioBean.editUser(user);
+									try {
+										agregarDatosLista(usuario);
+									} catch (NamingException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null, "Usuario activado con exito.");
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Usuario ya activado");
+							}
+						}else if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("TUTOR")) {
+							TUTOR user = tutorBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							if(user.getEstado()!= EstadoUsuario.ACTIVO) {
+								int res = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea activar el Usuario?");
+								if (res == JOptionPane.YES_OPTION) {
+									user.setEstado(EstadoUsuario.ACTIVO);
+									usuarioBean.editUser(user);
+									try {
+										agregarDatosLista(usuario);
+									} catch (NamingException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null, "Usuario activado con exito.");
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Usuario ya activado");
+							}
 						}
 					}else {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario en la tabla");

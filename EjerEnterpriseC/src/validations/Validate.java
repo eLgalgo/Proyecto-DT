@@ -118,14 +118,10 @@ public class Validate {
 	public boolean documento(String documento) throws ServiciosException, NamingException {
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
-
-		if(usuarioBean.findUser(Integer.parseInt(documento)).isEmpty()) {
 			if(documento.length() < 7 || documento.length() > 9) {
 				throw new ServiciosException("El documento debe contener entre 7 y 9 caracteres numéricos");
 			}
 			return true;
-		}
-		throw new ServiciosException("Documento ya ingeresado en el sistema");
 	}
 	
 	public boolean documentoMod(String documento) throws ServiciosException, NamingException {

@@ -109,7 +109,7 @@ public class Listar_SConstancias extends JFrame
         		if(ventana == 1) {
         			ANALISTA analist;
 					try {
-						analist = (ANALISTA) usuarioBean.findUser(userEntrar.getDocumento()).get(0);
+						analist = analistaBean.findUser(userEntrar.getDocumento()).get(0);
 						ListarUsuarios listUsersW = new ListarUsuarios(analist);
 						listUsersW.getFrame().setVisible(true);
 						listUsersW.getFrame().setLocationRelativeTo(null);
@@ -121,7 +121,7 @@ public class Listar_SConstancias extends JFrame
         			if(ventana == 0) {
         				ESTUDIANTE est;
         				try {
-							est = (ESTUDIANTE) usuarioBean.findUser(userEntrar.getDocumento()).get(0);
+							est = estudianteBean.findUser(userEntrar.getDocumento()).get(0);
 							Ppal_Estudiante pEstudianteW = new Ppal_Estudiante(est);
 	        				pEstudianteW.setVisible(true);
 	        				pEstudianteW.setLocationRelativeTo(null);

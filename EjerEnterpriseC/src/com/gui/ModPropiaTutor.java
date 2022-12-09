@@ -263,7 +263,6 @@ public class ModPropiaTutor {
 		
 		JComboBox comboBoxRol = new JComboBox();
 		comboBoxRol.setFont(new Font("SimSun", Font.PLAIN, 11));
-		comboBoxRol.setEditable(true);
 		comboBoxRol.setBounds(293, 175, 131, 22);
 		comboBoxRol.setModel(new DefaultComboBoxModel(RolTutor.values()));
 		frmModificacionDeUsuario.getContentPane().add(comboBoxRol);
