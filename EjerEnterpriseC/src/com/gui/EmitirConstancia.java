@@ -77,6 +77,10 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 	private DefaultTableModel modelo;
 	private JTextField textField;
     private String ruta = null;
+    private JTextField tfNombre;
+    private JTextField tfApellido;
+    private JTextField tfEventoDetalle;
+    private JTextField tfEventoNombre;
 
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getActionCommand());
@@ -88,46 +92,42 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 		setBackground(Color.WHITE);
 		getContentPane().setBackground(SystemColor.activeCaption);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(550, 471);
+		setSize(619, 523);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setLayout(null);
 
 		JButton btnCancelar = new JButton("Volver");
-		btnCancelar.setBounds(10, 398, 97, 23);
+		btnCancelar.setBounds(10, 450, 97, 23);
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		getContentPane().add(btnCancelar);
 
-		JButton btnSolicitar = new JButton("Emitir");
-		btnSolicitar.setBounds(366, 398, 158, 23);
-		btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
-		getContentPane().add(btnSolicitar);
+		JButton btnSolicitar2 = new JButton("Emitir");
+		btnSolicitar2.setBounds(455, 416, 138, 23);
+		btnSolicitar2.setFont(new Font("SimSun", Font.BOLD, 14));
+		getContentPane().add(btnSolicitar2);
 
-		JLabel lblNewLabel_2 = new JLabel("Emitir Constancia");
-		lblNewLabel_2.setBounds(10, 11, 448, 34);
+		JLabel lblNewLabel_2 = new JLabel("Previsualizacion");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(10, 11, 583, 34);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 20));
 		getContentPane().add(lblNewLabel_2);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 19));
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 16));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setBackground(Color.WHITE);
-		textArea.setBounds(10, 176, 514, 177);
+		textArea.setBounds(10, 168, 291, 202);
 		getContentPane().add(textArea);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Header");
-		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1.setForeground(SystemColor.window);
-		lblNewLabel_2_1.setFont(new Font("SimSun", Font.BOLD, 15));
-		lblNewLabel_2_1.setBounds(10, 139, 514, 44);
-		getContentPane().add(lblNewLabel_2_1);
-		
 		textField = new JTextField();
-		textField.setBounds(190, 100, 158, 28);
-		getContentPane().add(textField);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setBounds(10, 123, 291, 34);
 		textField.setText(sol.getTipo().getTipo());
+		getContentPane().add(textField);
 		String area = sol.getTipo().getModelo();
 		String cadenaTerminada = area;
 		if(area.indexOf("&nombre&") != -1) {
@@ -166,18 +166,91 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 	
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_2_2 = new JLabel("Tipo de Constancia");
+		JLabel lblNewLabel_2_2 = new JLabel("Constancia");
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2_2.setForeground(SystemColor.window);
 		lblNewLabel_2_2.setFont(new Font("SimSun", Font.BOLD, 17));
-		lblNewLabel_2_2.setBounds(10, 68, 514, 34);
+		lblNewLabel_2_2.setBounds(10, 78, 291, 34);
 		getContentPane().add(lblNewLabel_2_2);
 		
 		JButton btnAgregarFirma = new JButton("Agregar Firma");
 		btnAgregarFirma.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnAgregarFirma.setBounds(190, 398, 158, 23);
+		btnAgregarFirma.setBounds(455, 450, 138, 23);
 		getContentPane().add(btnAgregarFirma);
-		setTitle("Emitir Constancias");
+		
+		tfNombre = new JTextField();
+		tfNombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tfNombre.setEditable(false);
+		tfNombre.setText(sol.getEstSol().getNombre());
+		tfNombre.setColumns(10);
+		tfNombre.setBounds(361, 124, 108, 28);
+		getContentPane().add(tfNombre);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("Estudiante");
+		lblNewLabel_2_2_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_2_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1.setFont(new Font("SimSun", Font.BOLD, 17));
+		lblNewLabel_2_2_1.setBounds(361, 78, 232, 34);
+		getContentPane().add(lblNewLabel_2_2_1);
+		
+		tfApellido = new JTextField();
+		tfApellido.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tfApellido.setEditable(false);
+		tfApellido.setText(sol.getEstSol().getApellido());
+		tfApellido.setColumns(10);
+		tfApellido.setBounds(485, 124, 108, 28);
+		getContentPane().add(tfApellido);
+		
+		tfEventoDetalle = new JTextField();
+		tfEventoDetalle.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tfEventoDetalle.setEditable(false);
+		tfEventoDetalle.setText(sol.getEventoAsis().getTutor().getNombre());
+		tfEventoDetalle.setColumns(10);
+		tfEventoDetalle.setBounds(485, 208, 108, 28);
+		getContentPane().add(tfEventoDetalle);
+		
+		tfEventoNombre = new JTextField();
+		tfEventoNombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tfEventoNombre.setEditable(false);
+		tfEventoNombre.setText(sol.getEventoAsis().getTitulo());
+		tfEventoNombre.setColumns(10);
+		tfEventoNombre.setBounds(361, 208, 108, 28);
+		getContentPane().add(tfEventoNombre);
+		
+		JTextArea txAreaDetalle = new JTextArea();
+		txAreaDetalle.setEditable(false);
+		txAreaDetalle.setWrapStyleWord(true);
+		txAreaDetalle.setText(sol.getInfoAdj());
+		txAreaDetalle.setLineWrap(true);
+		txAreaDetalle.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		txAreaDetalle.setBackground(Color.WHITE);
+		txAreaDetalle.setBounds(361, 292, 232, 78);
+		getContentPane().add(txAreaDetalle);
+		
+		JButton btnRegistrarAccion = new JButton("Registrar Accion");
+		btnRegistrarAccion.setFont(new Font("SimSun", Font.BOLD, 14));
+		btnRegistrarAccion.setBounds(287, 450, 158, 23);
+		getContentPane().add(btnRegistrarAccion);
+		
+		JButton btnSolicitar = new JButton("Procesar");
+		btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
+		btnSolicitar.setBounds(287, 416, 158, 23);
+		getContentPane().add(btnSolicitar);
+		
+		JLabel lblNewLabel_2_2_1_1 = new JLabel("Evento y Encargado");
+		lblNewLabel_2_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_2_1_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1_1.setFont(new Font("SimSun", Font.BOLD, 17));
+		lblNewLabel_2_2_1_1.setBounds(361, 163, 232, 34);
+		getContentPane().add(lblNewLabel_2_2_1_1);
+		
+		JLabel lblNewLabel_2_2_1_1_1 = new JLabel("Informacion Adicional");
+		lblNewLabel_2_2_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_2_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1_1_1.setFont(new Font("SimSun", Font.BOLD, 17));
+		lblNewLabel_2_2_1_1_1.setBounds(361, 247, 232, 34);
+		getContentPane().add(lblNewLabel_2_2_1_1_1);
+		setTitle("Ver Constancia");
 		
 		// Logica botones
 
@@ -221,7 +294,7 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 			}
 		});
 
-		btnSolicitar.addActionListener(new ActionListener() {
+		btnSolicitar2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ruta != null) {
 					Document document = new Document(PageSize.A4, 35, 30, 50, 50);
@@ -382,6 +455,69 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 			}
 		});
 		
+		btnSolicitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+			
+						if(sol.getEstado() == EstadoSolicitud.INGRESADO) {
+							sol.setAnalist(usuario);
+							solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
+							
+							ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
+							acc.setAnalista(usuario);
+							acc.setFecha(LocalDate.now());
+							acc.setDetalle("Cambio a Solicitud En Proceso");
+							acc.setSolicitud(sol);
+							
+							accionBean.addAccion(acc);
+							JOptionPane.showMessageDialog(null, "Estado cambiado con exito");
+							SOLICITUD sol2 = solicitudBean.findSol(sol.getId_solicitud()).get(0);
+							
+							MandarEmail(sol2);
+						}
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		
+		btnRegistrarAccion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					String detalle = JOptionPane.showInputDialog("Aclare detalle de accion");
+					if(detalle != null) {
+						if(detalle.equals("")) {
+							JOptionPane.showMessageDialog(null, "Debe ingresar detalle de accion");
+						}else {
+								ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
+								acc.setAnalista(usuario);
+								acc.setDetalle(detalle);
+								acc.setFecha(LocalDate.now());
+								try {
+									sol.setAnalist(usuario);
+									solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
+								} catch (NumberFormatException | ServiciosException e2) {
+									e2.printStackTrace();
+								}
+								
+								try {
+									SOLICITUD sol2 = solicitudBean.findSol(sol.getId_solicitud()).get(0);
+									acc.setSolicitud(sol2);
+									accionBean.addAccion(acc);
+									JOptionPane.showMessageDialog(null, "Accion registrada con exito");
+									MandarEmailAccion(sol2, acc);
+								} catch (ServiciosException e1) {
+									e1.printStackTrace();
+								}
+						}
+					}
+			}
+		});
+		
 	}
 	
 	public void MandarEmail(String ruta, ESTUDIANTE estudiante) {
@@ -424,6 +560,89 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 		      
 		      Transport.send(message);
 	     } catch (MessagingException | IOException e) {
+			e.printStackTrace();
+	     } 
+	}
+	
+	public void MandarEmail(SOLICITUD sol) {
+		Properties properties = new Properties();
+
+	      properties.put("mail.smtp.auth", true);
+	      properties.put("mail.smtp.host", "smtp.gmail.com");
+	      properties.put("mail.smtp.port", 587);
+	      properties.put("mail.smtp.starttls.enable", true);
+	      properties.put("mail.transport.protocl", "smtp");
+	      properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	      
+	      Session session = Session.getInstance(properties, new Authenticator() {
+	    	  @Override
+	    	  protected PasswordAuthentication getPasswordAuthentication() {
+	    		  return new PasswordAuthentication("cristofer.cabrera@estudiantes.utec.edu.uy","_.CL5315841c");
+	    	  }
+	      });
+
+	      
+	      try {
+	    	Message message = new MimeMessage(session);
+			message.setSubject("Cambio de Estado |  " + sol.getEstado() + " | " + sol.getEstSol().getNombre());
+			
+			 Address addressTo = new InternetAddress(sol.getEstSol().getMail());
+		      message.setRecipient(Message.RecipientType.TO, addressTo);
+		      
+		      MimeMultipart multipart = new MimeMultipart();
+		      
+		      MimeBodyPart messageBodyPart = new MimeBodyPart();
+		      messageBodyPart.setContent("<h1> SU SOLICITUD HA CAMBIADO DE ESTADO A </h1> " + sol.getEstado(), "text/html");
+		      
+		      multipart.addBodyPart(messageBodyPart);
+		      
+		      message.setContent(multipart);
+		      
+		      Transport.send(message);
+	     } catch (MessagingException e) {
+			e.printStackTrace();
+	     }
+	      
+	}
+	
+	public void MandarEmailAccion(SOLICITUD sol, ACCIONANALISTACONSTANCIA a) {
+		Properties properties = new Properties();
+
+	      properties.put("mail.smtp.auth", true);
+	      properties.put("mail.smtp.host", "smtp.gmail.com");
+	      properties.put("mail.smtp.port", 587);
+	      properties.put("mail.smtp.starttls.enable", true);
+	      properties.put("mail.transport.protocl", "smtp");
+	      properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	      
+	      Session session = Session.getInstance(properties, new Authenticator() {
+	    	  @Override
+	    	  protected PasswordAuthentication getPasswordAuthentication() {
+	    		  return new PasswordAuthentication("cristofer.cabrera@estudiantes.utec.edu.uy","_.CL5315841c");
+	    	  }
+	      });
+
+	      
+	      try {
+	    	Message message = new MimeMessage(session);
+			message.setSubject("ACCION SOBRE TU RECIENTE SOLICITUD DE CONSTANCIA");
+			
+			 Address addressTo = new InternetAddress(sol.getEstSol().getMail());
+		      message.setRecipient(Message.RecipientType.TO, addressTo);
+		      
+		      MimeMultipart multipart = new MimeMultipart();
+		      
+		      MimeBodyPart messageBodyPart = new MimeBodyPart();
+		      messageBodyPart.setContent("<h1> Accion del Analista "+ sol.getAnalist().getNombre()+ " sobre tu solicitud de constancia </h1></br>"
+		    		  + " <h3> Detalle de la accion: " + a.getDetalle() + "</h3></br>"
+		    		  + "<h2> Su solicitud de constancia pasa a estado de " + sol.getEstado() + "</h2>", "text/html");
+		      
+		      multipart.addBodyPart(messageBodyPart);
+		      
+		      message.setContent(multipart);
+		      
+		      Transport.send(message);
+	     } catch (MessagingException e) {
 			e.printStackTrace();
 	     }
 	      

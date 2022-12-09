@@ -164,6 +164,7 @@ public class Mod_Tutor {
 			itrNombres[i] = itrs.get(i).getNombre();
 		}
 		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));
+		comboBoxItr.setSelectedItem(usuario.getItr().getNombre());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JButton btnGuardar = new JButton("Guardar");
@@ -309,7 +310,6 @@ public class Mod_Tutor {
 		frmModificacionDeUsuario.getContentPane().add(lblFechaDeNacimiento);
 		
 		JComboBox comboBoxRol = new JComboBox();
-		comboBoxRol.setEditable(true);
 		comboBoxRol.setFont(new Font("SimSun", Font.PLAIN, 11));
 		comboBoxRol.setBounds(293, 202, 131, 22);
 		comboBoxRol.setModel(new DefaultComboBoxModel(RolTutor.values()));

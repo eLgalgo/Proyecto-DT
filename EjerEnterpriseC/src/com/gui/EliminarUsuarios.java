@@ -194,7 +194,6 @@ public class EliminarUsuarios {
 									try {
 										agregarDatosLista(usuario);
 									} catch (NamingException e1) {
-										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 									JOptionPane.showMessageDialog(null, "Usuario dado de baja lógica.");
@@ -213,7 +212,6 @@ public class EliminarUsuarios {
 									try {
 										agregarDatosLista(usuario);
 									} catch (NamingException e1) {
-										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 									JOptionPane.showMessageDialog(null, "Usuario dado de baja lógica.");
@@ -232,7 +230,6 @@ public class EliminarUsuarios {
 									try {
 										agregarDatosLista(usuario);
 									} catch (NamingException e1) {
-										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 									JOptionPane.showMessageDialog(null, "Usuario dado de baja lógica.");

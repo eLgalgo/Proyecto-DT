@@ -41,6 +41,7 @@ import com.enums.TipoUser;
 import com.exception.ServiciosException;
 import com.services.AnalistaBeanRemote;
 import com.services.EstudianteBeanRemote;
+import com.services.EventoBeanRemote;
 import com.services.TutorBeanRemote;
 import com.services.UsuarioBeanRemote;
 
@@ -118,8 +119,20 @@ public class ListarUsuarios {
 		modelo.setColumnIdentifiers(columnas);
 		// Agregamos datos
 		agregarDatosLista(usuario);
+		AnalistaBeanRemote analistaBean = (AnalistaBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/AnalistaBean!com.services.AnalistaBeanRemote");
+
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext
 				.doLookup("EjEnterpriseEJB/UsuarioBean!com.services.UsuarioBeanRemote");
+
+		TutorBeanRemote tutorBean = (TutorBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/TutorBean!com.services.TutorBeanRemote");
+
+		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
+
+		EventoBeanRemote eventoBean = (EventoBeanRemote) InitialContext
+				.doLookup("EjEnterpriseEJB/EventoBean!com.services.EventoBeanRemote");
 
 		comboBoxEstado = new JComboBox();
 
@@ -152,10 +165,6 @@ public class ListarUsuarios {
 		lblNewLabel_1.setFont(new Font("SimSun", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(22, 67, 80, 14);
 		frmListadoDeUsuarios.getContentPane().add(lblNewLabel_1);
-		
-		EstudianteBeanRemote estudianteBean = (EstudianteBeanRemote) InitialContext
-				.doLookup("EjEnterpriseEJB/EstudianteBean!com.services.EstudianteBeanRemote");
-		
 		List<String> listGens = null;
 		try {
 			listGens = estudianteBean.listAllGen();
@@ -264,21 +273,29 @@ public class ListarUsuarios {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(tabla.getSelectedRow() != -1) {
-						USUARIO user = usuarioBean
-								.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
-								.get(0);
-						if (user instanceof ESTUDIANTE) {
-							Mod_Estudiante modEstudW = new Mod_Estudiante((ESTUDIANTE) user, usuario);
-							modEstudW.getFrame().setVisible(true);
-							modEstudW.getFrame().setLocationRelativeTo(null);
-							getFrame().dispose();
-						} else if (user instanceof ANALISTA) {
-							Mod_Analista modAnalistW = new Mod_Analista((ANALISTA) user, usuario);
+						if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("ANALISTA")) {
+							ANALISTA user = analistaBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							Mod_Analista modAnalistW = new Mod_Analista(user, usuario);
 							modAnalistW.getFrame().setVisible(true);
 							modAnalistW.getFrame().setLocationRelativeTo(null);
 							getFrame().dispose();
-						} else if (user instanceof TUTOR) {
-							Mod_Tutor modTutorW = new Mod_Tutor((TUTOR) user, usuario);
+							
+						}else if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("ESTUDIANTE")) {
+							ESTUDIANTE user = estudianteBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							Mod_Estudiante modEstudW = new Mod_Estudiante(user, usuario);
+							modEstudW.getFrame().setVisible(true);
+							modEstudW.getFrame().setLocationRelativeTo(null);
+							getFrame().dispose();
+							
+						}else if(tabla.getValueAt(tabla.getSelectedRow(), 7).toString().equals("TUTOR")) {
+							TUTOR user = tutorBean
+									.findUser(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 4).toString()))
+									.get(0);
+							Mod_Tutor modTutorW = new Mod_Tutor(user, usuario);
 							modTutorW.getFrame().setVisible(true);
 							modTutorW.getFrame().setLocationRelativeTo(null);
 							getFrame().dispose();
