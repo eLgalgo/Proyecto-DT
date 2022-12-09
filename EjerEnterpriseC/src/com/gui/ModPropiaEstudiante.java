@@ -125,6 +125,7 @@ public class ModPropiaEstudiante {
 		comboBoxLocal.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxLocal.setBounds(151, 175, 131, 22);
 		comboBoxLocal.setModel(new DefaultComboBoxModel(Localidad.values()));
+		comboBoxLocal.setSelectedItem(usuario.getLocalidad());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxLocal);
 
 		JLabel lblNewLabel_1_2_1 = new JLabel("Departamento");
@@ -159,7 +160,8 @@ public class ModPropiaEstudiante {
 			itrNombres[i] = itrs.get(i).getNombre();
 		}
 
-		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));		
+		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));	
+		comboBoxItr.setSelectedItem(usuario.getItr().getNombre());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JButton btnGuardar = new JButton("Guardar");

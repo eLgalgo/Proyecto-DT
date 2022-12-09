@@ -151,7 +151,7 @@ public class ModPropiaAnalista {
 		}
 
 		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));		
-
+		comboBoxItr.setSelectedItem(analista.getItr().getNombre());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JButton btnGuardar = new JButton("Guardar");

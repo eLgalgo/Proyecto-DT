@@ -387,7 +387,6 @@ public class Registro_Usuario_Nuevo {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxTipo.getSelectedItem().equals(TipoUser.ANALISTA)) {
-
 					try {
 						Validate v = new Validate();
 						ANALISTA Analista = new ANALISTA();
@@ -468,7 +467,7 @@ public class Registro_Usuario_Nuevo {
 						if (v.documento(tfDocumento.getText()))
 							estudiante.setDocumento(Integer.parseInt(tfDocumento.getText()));
 						if(!estudianteBean.findUser(Integer.parseInt(tfDocumento.getText())).isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Ya existe un tutor con ese documento");
+							JOptionPane.showMessageDialog(null, "Ya existe un estudiante con ese documento");
 						}else {
 							if (v.nameAndLast(tfApellido.getText()))
 								estudiante.setApellido(tfApellido.getText());

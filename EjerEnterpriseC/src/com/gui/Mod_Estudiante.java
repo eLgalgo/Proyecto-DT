@@ -143,6 +143,7 @@ public class Mod_Estudiante {
 		comboBoxLocal.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxLocal.setBounds(151, 211, 131, 22);
 		comboBoxLocal.setModel(new DefaultComboBoxModel(Localidad.values()));
+		comboBoxLocal.setSelectedItem(usuario.getLocalidad());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxLocal);
 
 		JLabel lblNewLabel_1_2_1 = new JLabel("Departamento");
@@ -164,7 +165,6 @@ public class Mod_Estudiante {
 		JComboBox<String> comboBoxItr = new JComboBox<>();
 		comboBoxItr.setFont(new Font("SimSun", Font.PLAIN, 13));
 		comboBoxItr.setBounds(294, 269, 131, 22);
-		comboBoxItr.addItem(usuario.getItr().toString());
 		// ITRS activos
 		List<ITR> itrs = itrBean.findAll(true);
 
@@ -175,6 +175,8 @@ public class Mod_Estudiante {
 		for (int i = 0; i < itrs.size(); i++) {
 			itrNombres[i] = itrs.get(i).getNombre();
 		}
+		comboBoxItr.setModel(new DefaultComboBoxModel(itrNombres));
+		comboBoxItr.setSelectedItem(usuario.getItr().getNombre());
 		frmModificacionDeUsuario.getContentPane().add(comboBoxItr);
 
 		JButton btnGuardar = new JButton("Guardar");
@@ -367,7 +369,8 @@ public class Mod_Estudiante {
 					usuario.setGeneracion(comboBoxAnioIng.getSelectedItem().toString());
 					usuario.setEstado(EstadoUsuario.valueOf(comboBoxEstado.getSelectedItem().toString()));
 					usuario.setFechaNac(dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
+					usuario.setItr(itrBean.findItr(comboBoxItr.getSelectedItem().toString()).get(0));
+					
 					estudianteBean.editEstudiante((ESTUDIANTE) usuario);
 					JOptionPane.showMessageDialog(null, "Estudiante modificado con exito");
 

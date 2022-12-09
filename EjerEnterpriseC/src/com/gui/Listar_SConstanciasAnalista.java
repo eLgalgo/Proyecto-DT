@@ -84,24 +84,14 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 		btnCancelar.setFont(new Font("SimSun", Font.BOLD, 13));
 		getContentPane().add(btnCancelar);
 
-		JButton btnSolicitar = new JButton("Cambiar Estado");
-		btnSolicitar.setBounds(352, 293, 158, 23);
-		btnSolicitar.setFont(new Font("SimSun", Font.BOLD, 14));
-		getContentPane().add(btnSolicitar);
-
 		JLabel lblNewLabel_2 = new JLabel("Solicitudes");
 		lblNewLabel_2.setBounds(10, 11, 448, 34);
 		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
 		getContentPane().add(lblNewLabel_2);
 		setTitle("Solicitudes de Constancia");
-
-		JButton btnRegistrarAccion = new JButton("Registrar Accion");
-		btnRegistrarAccion.setFont(new Font("SimSun", Font.BOLD, 14));
-		btnRegistrarAccion.setBounds(184, 293, 158, 23);
-		getContentPane().add(btnRegistrarAccion);
 		
-		JButton btnEmitir = new JButton("Emitir");
+		JButton btnEmitir = new JButton("Ver");
 		btnEmitir.setFont(new Font("SimSun", Font.BOLD, 14));
 		btnEmitir.setBounds(520, 293, 158, 23);
 		getContentPane().add(btnEmitir);
@@ -203,96 +193,6 @@ public class Listar_SConstanciasAnalista extends JFrame implements ActionListene
 				}
 			}
 			
-		});
-		btnSolicitar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (tabla.getSelectedRow() != -1) {
-						SOLICITUD sol = solicitudBean
-								.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
-								.get(0);
-			
-						if(sol.getEstado() == EstadoSolicitud.INGRESADO) {
-							sol.setAnalist(usuario);
-							solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
-							try {
-								agregarDatosLista(modelo);
-							} catch (NamingException e1) {
-								e1.printStackTrace();
-							}
-							
-							ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
-							acc.setAnalista(usuario);
-							acc.setFecha(LocalDate.now());
-							acc.setDetalle("Cambio a Solicitud En Proceso");
-							acc.setSolicitud(sol);
-							
-							accionBean.addAccion(acc);
-							JOptionPane.showMessageDialog(null, "Estado cambiado con exito");
-							SOLICITUD sol2 = solicitudBean.findSol(sol.getId_solicitud()).get(0);
-							
-							MandarEmail(sol2);
-						}
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Seleccione la constacia que desea emitir");
-					}
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-		});
-		
-		btnRegistrarAccion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tabla.getSelectedRow() != -1) {
-					
-					String detalle = JOptionPane.showInputDialog("Aclare detalle de accion");
-					if(detalle != null) {
-						if(detalle.equals("")) {
-							JOptionPane.showMessageDialog(null, "Debe ingresar detalle de accion");
-						}else {
-								ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
-								acc.setAnalista(usuario);
-								acc.setDetalle(detalle);
-								acc.setFecha(LocalDate.now());
-								SOLICITUD sol = null;
-								try {
-									sol = solicitudBean
-											.findSol(Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString()))
-											.get(0);
-									sol.setAnalist(usuario);
-									solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
-								} catch (NumberFormatException | ServiciosException e2) {
-									e2.printStackTrace();
-								}
-								
-								try {
-									SOLICITUD sol2 = solicitudBean.findSol(sol.getId_solicitud()).get(0);
-									acc.setSolicitud(sol2);
-									accionBean.addAccion(acc);
-									JOptionPane.showMessageDialog(null, "Accion registrada con exito");
-									MandarEmailAccion(sol2, acc);
-									try {
-										agregarDatosLista(modelo);
-									} catch (NamingException e1) {
-										e1.printStackTrace();
-									}
-								} catch (ServiciosException e1) {
-									e1.printStackTrace();
-								}
-						}
-					}
-				}else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud");
-				}
-				
-			}
 		});
 	}
 
