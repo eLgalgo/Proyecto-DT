@@ -14,13 +14,16 @@ import javax.persistence.Entity;
 public class ESTUDIANTE extends USUARIO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//Atributos
 	@Column (nullable = false)
 	private String generacion;
 	
+	//Construcotr
 	public ESTUDIANTE() {
 		super();
 	}
 
+	//Setters & Getters
 	public String getGeneracion() {
 		return generacion;
 	}
