@@ -25,6 +25,7 @@ public class EVENTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	//Atributos
 	@Id
 	@SequenceGenerator(name = "SEQ_ID_EVENTO", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_EVENTO")
@@ -45,10 +46,12 @@ public class EVENTO implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<ESTUDIANTE> estudiantesConv;
 	
+	//Constructor
 	public EVENTO() {
 		super();
 	}
 
+	//Setters & Getters
 	public int getId_evento() {
 		return id_evento;
 	}

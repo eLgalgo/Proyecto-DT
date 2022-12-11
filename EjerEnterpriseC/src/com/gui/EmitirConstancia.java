@@ -461,7 +461,7 @@ public class EmitirConstancia extends JFrame implements ActionListener {
 			
 						if(sol.getEstado() == EstadoSolicitud.INGRESADO) {
 							sol.setAnalist(usuario);
-							solicitudBean.cambiarEstado(sol, EstadoSolicitud.INGRESADO);
+							solicitudBean.cambiarEstado(sol, EstadoSolicitud.EN_PROCESO);
 							
 							ACCIONANALISTACONSTANCIA acc = new ACCIONANALISTACONSTANCIA();
 							acc.setAnalista(usuario);

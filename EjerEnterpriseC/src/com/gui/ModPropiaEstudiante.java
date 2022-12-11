@@ -311,10 +311,13 @@ public class ModPropiaEstudiante {
 		
 		JComboBox comboBoxAnioIng = new JComboBox();
 		comboBoxAnioIng.setBounds(292, 176, 132, 22);
+		Integer ind = 0;
 		for (int i = 2012; i <= LocalDate.now().getYear(); i += 1) {
 			comboBoxAnioIng.addItem(i);
+			if (Integer.parseInt(estudiante.getGeneracion()) == i)
+				ind = i;
 		}
-		comboBoxAnioIng.setSelectedItem(estudiante.getGeneracion());
+		comboBoxAnioIng.setSelectedItem(ind);
 		frmModificacionDeUsuario.getContentPane().add(comboBoxAnioIng);
 
 		// Logica
