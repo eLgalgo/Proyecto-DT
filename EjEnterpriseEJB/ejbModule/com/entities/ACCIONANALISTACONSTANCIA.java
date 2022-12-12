@@ -11,12 +11,11 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@Table(name="ACCION_ANALISTA_CONSTANCIA")
 public class ACCIONANALISTACONSTANCIA implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
-	
+	//Atributos
 	@Id
 	@SequenceGenerator(name = "SEQ_ID_ACCION", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_ACCION")
@@ -36,11 +35,13 @@ public class ACCIONANALISTACONSTANCIA implements Serializable {
 	@NotNull
 	private SOLICITUD solicitud;
 	
+	//Constructor
+	
 	public ACCIONANALISTACONSTANCIA() {
 		super();
 	}
 
-
+	//Setters & Getters
 	public LocalDate getFecha() {
 		return fecha;
 	}

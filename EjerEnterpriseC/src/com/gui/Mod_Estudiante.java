@@ -327,11 +327,16 @@ public class Mod_Estudiante {
 
 		JComboBox comboBoxAnioIng = new JComboBox();
 		comboBoxAnioIng.setBounds(292, 212, 132, 22);
+		Integer ind = 0;
 		for (int i = 2012; i <= LocalDate.now().getYear(); i += 1) {
 			comboBoxAnioIng.addItem(i);
+			if (Integer.parseInt(usuario.getGeneracion()) == i)
+				ind = i;
 		}
+		comboBoxAnioIng.setSelectedItem(ind);
 		frmModificacionDeUsuario.getContentPane().add(comboBoxAnioIng);
-		comboBoxAnioIng.setSelectedItem(usuario.getGeneracion());
+		frmModificacionDeUsuario.getContentPane().add(comboBoxAnioIng);
+		
 
 		tfMailInsti = new JTextField();
 		tfMailInsti.setEditable(false);

@@ -13,6 +13,7 @@ public class ITR implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	//Atributos
 	@Id
 	@SequenceGenerator(name = "SEQ_ID_ITR", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_ITR")
@@ -22,7 +23,7 @@ public class ITR implements Serializable {
 	@Column(nullable=false)
 	private boolean estado;
 	
-	
+	//Setters & Getters
 	
 	public String getNombre() {
 		return nombre;
@@ -63,6 +64,7 @@ public class ITR implements Serializable {
 		return nombre;
 	}
 
+	//Constructor
 	public ITR() {
 		super();
 	}

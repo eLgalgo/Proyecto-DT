@@ -14,13 +14,16 @@ import javax.persistence.*;
 public class ANALISTA extends USUARIO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//Atributos
 	@Column(nullable = false)
 	private boolean dios = false;
 	
+	//Constructor
 	public ANALISTA() {
 		super();
 	}
-
+	
+	//Setters & Getters
 	public boolean getDios() {
 		return dios;
 	}
