@@ -128,8 +128,8 @@ public class Ppal_Analista extends JFrame implements ActionListener {
         lblNewLabel.setBounds(118, 135, 72, 15);
         lblNewLabel.setFont(new Font("SimSun", Font.PLAIN, 12));
         
-        JLabel lblBajaUsuario = new JLabel("Baja Usuario");
-        lblBajaUsuario.setBounds(287, 135, 72, 15);
+        JLabel lblBajaUsuario = new JLabel("Gestion de Estado");
+        lblBajaUsuario.setBounds(273, 135, 102, 15);
         lblBajaUsuario.setFont(new Font("SimSun", Font.PLAIN, 12));
         
         JLabel lblModificar = new JLabel("Analitica de");

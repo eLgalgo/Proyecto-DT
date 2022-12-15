@@ -115,27 +115,78 @@ public class Mantenimiento_ITRS {
 		comboBoxFiltroItr.addItemListener(changeClick);
 
 		JButton btnGrabar = new JButton("Guardar Modif.");
+		btnGrabar.setEnabled(false);
 		btnGrabar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<ITR> itr = null;
+				
 				if (tfNombreItr.getText().isBlank()) {
 					JOptionPane.showMessageDialog(null, "No se puede agregar un ITR sin nombre");
 				} else {
 					try {
-						itr = itrBean.findItr(comboBoxItrs.getSelectedItem().toString());
-					} catch (ServiciosException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
+						itr = itrBean.findItr(tfNombreItr.getText());
+						if(itr.isEmpty()) {
+							try {
+								itr = itrBean.findItr(comboBoxItrs.getSelectedItem().toString());
+							} catch (ServiciosException e2) {
+								e2.printStackTrace();
+							}
+							if(!itr.isEmpty()) {
+								try {
+									
+									itrBean.editItr(itr.get(0), tfNombreItr.getText());
+									btnGrabar.setEnabled(false);
+									if (comboBoxFiltroItr.getSelectedItem().equals("ACTIVOS")) {
+										List<ITR> itrs = itrBean.findAll(true);
+										String[] itrNombres = new String[itrs.size()];
 
-					try {
+										// Converting List to Array
+										for (int i = 0; i < itrs.size(); i++) {
+											itrNombres[i] = itrs.get(i).getNombre();
+										}
+										comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+									} else if (comboBoxFiltroItr.getSelectedItem().equals("ELIMINADOS")) {
+										List<ITR> itrs = itrBean.findAll(false);
+										String[] itrNombres = new String[itrs.size()];
 
-						itrBean.editItr(itr.get(0), tfNombreItr.getText());
-						JOptionPane.showMessageDialog(null, "Actualizado con exito");
-					} catch (ServiciosException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+										// Converting List to Array
+										for (int i = 0; i < itrs.size(); i++) {
+											itrNombres[i] = itrs.get(i).getNombre();
+										}
+										comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+									} else if (comboBoxFiltroItr.getSelectedItem().equals("SIN FILTRO")) {
+										List<ITR> itrs;
+										try {
+											itrs = itrBean.listAllItrs();
+											String[] itrNombres = new String[itrs.size()];
+
+											// Converting List to Array
+											for (int i = 0; i < itrs.size(); i++) {
+												itrNombres[i] = itrs.get(i).getNombre();
+											}
+											comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+										} catch (ServiciosException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+
+									}
+									JOptionPane.showMessageDialog(null, "Actualizado con exito");
+								} catch (ServiciosException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Ya existe el nombre especificado");
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Ya existe el nombre especificado");
+						}
+					} catch (ServiciosException e3) {
+						e3.printStackTrace();
 					}
+					
+					
 				}
 			}
 		});
@@ -176,6 +227,41 @@ public class Mantenimiento_ITRS {
 				} else {
 					try {
 						itrBean.logicDelete(comboBoxItrs.getSelectedItem().toString());
+						if (comboBoxFiltroItr.getSelectedItem().equals("ACTIVOS")) {
+							List<ITR> itrs = itrBean.findAll(true);
+							String[] itrNombres = new String[itrs.size()];
+
+							// Converting List to Array
+							for (int i = 0; i < itrs.size(); i++) {
+								itrNombres[i] = itrs.get(i).getNombre();
+							}
+							comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+						} else if (comboBoxFiltroItr.getSelectedItem().equals("ELIMINADOS")) {
+							List<ITR> itrs = itrBean.findAll(false);
+							String[] itrNombres = new String[itrs.size()];
+
+							// Converting List to Array
+							for (int i = 0; i < itrs.size(); i++) {
+								itrNombres[i] = itrs.get(i).getNombre();
+							}
+							comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+						} else if (comboBoxFiltroItr.getSelectedItem().equals("SIN FILTRO")) {
+							List<ITR> itrs;
+							try {
+								itrs = itrBean.listAllItrs();
+								String[] itrNombres = new String[itrs.size()];
+
+								// Converting List to Array
+								for (int i = 0; i < itrs.size(); i++) {
+									itrNombres[i] = itrs.get(i).getNombre();
+								}
+								comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+							} catch (ServiciosException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+						}
 						JOptionPane.showMessageDialog(null, "ITR Borrado!");
 					} catch (ServiciosException e1) {
 						JOptionPane.showMessageDialog(null, "Error al borrar ITR");
@@ -203,8 +289,10 @@ public class Mantenimiento_ITRS {
 				} else {
 					try {
 						ITR itr = itrBean.findItr(comboBoxItrs.getSelectedItem().toString()).get(0);
-						if (itr != null)
+						if (itr != null) {
 							tfNombreItr.setText(itr.getNombre());
+							btnGrabar.setEnabled(true);
+						}
 						else {
 							JOptionPane.showMessageDialog(null, "No hay ITR seleccionado");
 						}
@@ -239,6 +327,41 @@ public class Mantenimiento_ITRS {
 						if (list.isEmpty()) {
 							try {
 								itrBean.addItr(itr2);
+								if (comboBoxFiltroItr.getSelectedItem().equals("ACTIVOS")) {
+									List<ITR> itrs = itrBean.findAll(true);
+									String[] itrNombres = new String[itrs.size()];
+
+									// Converting List to Array
+									for (int i = 0; i < itrs.size(); i++) {
+										itrNombres[i] = itrs.get(i).getNombre();
+									}
+									comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+								} else if (comboBoxFiltroItr.getSelectedItem().equals("ELIMINADOS")) {
+									List<ITR> itrs = itrBean.findAll(false);
+									String[] itrNombres = new String[itrs.size()];
+
+									// Converting List to Array
+									for (int i = 0; i < itrs.size(); i++) {
+										itrNombres[i] = itrs.get(i).getNombre();
+									}
+									comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+								} else if (comboBoxFiltroItr.getSelectedItem().equals("SIN FILTRO")) {
+									List<ITR> itrs;
+									try {
+										itrs = itrBean.listAllItrs();
+										String[] itrNombres = new String[itrs.size()];
+
+										// Converting List to Array
+										for (int i = 0; i < itrs.size(); i++) {
+											itrNombres[i] = itrs.get(i).getNombre();
+										}
+										comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+									} catch (ServiciosException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+
+								}
 								JOptionPane.showMessageDialog(null, "Agregado con exito");
 							} catch (ServiciosException e1) {
 								// TODO Auto-generated catch block
@@ -276,8 +399,42 @@ public class Mantenimiento_ITRS {
 					try {
 						ITR itr = itrBean.findItr(comboBoxItrs.getSelectedItem().toString()).get(0);
 						itrBean.activeItr(itr, true);
-						JOptionPane.showMessageDialog(null, "Reactivado!");
+						if (comboBoxFiltroItr.getSelectedItem().equals("ACTIVOS")) {
+							List<ITR> itrs = itrBean.findAll(true);
+							String[] itrNombres = new String[itrs.size()];
 
+							// Converting List to Array
+							for (int i = 0; i < itrs.size(); i++) {
+								itrNombres[i] = itrs.get(i).getNombre();
+							}
+							comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+						} else if (comboBoxFiltroItr.getSelectedItem().equals("ELIMINADOS")) {
+							List<ITR> itrs = itrBean.findAll(false);
+							String[] itrNombres = new String[itrs.size()];
+
+							// Converting List to Array
+							for (int i = 0; i < itrs.size(); i++) {
+								itrNombres[i] = itrs.get(i).getNombre();
+							}
+							comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+						} else if (comboBoxFiltroItr.getSelectedItem().equals("SIN FILTRO")) {
+							List<ITR> itrs;
+							try {
+								itrs = itrBean.listAllItrs();
+								String[] itrNombres = new String[itrs.size()];
+
+								// Converting List to Array
+								for (int i = 0; i < itrs.size(); i++) {
+									itrNombres[i] = itrs.get(i).getNombre();
+								}
+								comboBoxItrs.setModel(new DefaultComboBoxModel(itrNombres));
+							} catch (ServiciosException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+						}
+						JOptionPane.showMessageDialog(null, "Reactivado!");
 					} catch (ServiciosException e1) {
 						JOptionPane.showMessageDialog(null, "No se pudo reactivar ITR");
 						e1.printStackTrace();
