@@ -351,7 +351,7 @@ public class ListarUsuarios {
 				datosFila[4] = p2.getDocumento();
 				datosFila[5] = p2.getTelefono();
 				datosFila[6] = p2.getMail();
-				datosFila[7] = "Estudiante";
+				datosFila[7] = "ESTUDIANTE";
 				datosFila[8] = p2.getGeneracion();
 				datosFila[9] = p2.getEstado().name();
 				modelo.addRow(datosFila);
@@ -396,7 +396,7 @@ public class ListarUsuarios {
 				datosFila[4] = p2.getDocumento();
 				datosFila[5] = p2.getTelefono();
 				datosFila[6] = p2.getMail();
-				datosFila[7] = "Analista";
+				datosFila[7] = "ANALISTA";
 				datosFila[8] = p2.getEstado().name();
 				modelo.addRow(datosFila);
 			}
@@ -441,7 +441,7 @@ public class ListarUsuarios {
 				datosFila[4] = p2.getDocumento();
 				datosFila[5] = p2.getTelefono();
 				datosFila[6] = p2.getMail();
-				datosFila[7] = "Tutor";
+				datosFila[7] = "TUTOR";
 				datosFila[8] = p2.getArea();
 				datosFila[9] = p2.getTipo().name();
 				datosFila[10] = p2.getEstado().name();
@@ -537,7 +537,7 @@ public class ListarUsuarios {
 					datosFila[4] = p2.getDocumento();
 					datosFila[5] = p2.getTelefono();
 					datosFila[6] = p2.getMail();
-					datosFila[7] = "Estudiante";
+					datosFila[7] = "ESTUDIANTE";
 					datosFila[8] = p2.getGeneracion();
 					datosFila[9] = p2.getEstado().name();
 					modelo.addRow(datosFila);
